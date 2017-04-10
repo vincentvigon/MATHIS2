@@ -1,0 +1,352 @@
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
+    font-size: small;
+    /*overflow: hidden;*/
+
+}
+
+
+select{
+    font-size: inherit;
+}
+
+iframe{
+    border: none;
+}
+
+.mainMenuLine{
+    height: 3em;
+    line-height: 3em;
+    width: 100%;
+    border-bottom: indianred dashed 1px;
+}
+
+
+.mainMenuLine:hover{
+    cursor: pointer;
+}
+
+
+#mainLeftCol {
+    /*display: inline-block;*/
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 0;
+    overflow-y: visible;
+
+    /*border-right: solid 1px  black;*/
+}
+
+
+#mainRightCol {
+    /*display: inline-block;*/
+    /*fixed because we want to see the canvas when we scroll in the pieces of code*/
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 50%;
+    background-color: #d3d3d3; /**clear color=color of the canvas*/
+}
+
+
+
+#enlargeLeft, #enlargeRight{
+    position: fixed;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 2em;
+    bottom: 0;
+    background-color: #795da3;
+    border-radius: 50%;
+    background-position: center;
+
+}
+
+#enlargeRight{
+    left: 50%;
+}
+#enlargeLeft{
+    right:50%;
+}
+
+
+
+
+#header{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left: 0;
+    line-height: 5em;
+    height: 5em;
+    min-width: 100%;
+    background-color: #0086b3;
+    overflow-x: auto;
+}
+
+#demoChoice{
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5
+}
+
+
+#pageContent{
+    display: inline-block;
+    position: absolute;
+    top:5em;
+    left: 0;
+    width: 100%;
+}
+#logoMathis{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 5em;
+    background-image: url("../../assets/img/mathisLogo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+/*très bizarrement décalé à droite par rapport aux 5em ??? */
+#pageTitle{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left: 5em;
+    height: 100%;
+    /*line-height: 5em;*/
+    /*width: 100%;*/
+    font-size: x-large;
+}
+
+.clickable:hover{
+    cursor: pointer;
+}
+
+.aWholeDiv{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+/**les deux div suivante se superposent. La première doit garder une height petite, sinon elle cache la seconde*/
+#placeForChoice{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    background-color: #8b7da3;
+    z-index: 10;
+}
+
+
+
+#renderCanvas{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+#placeForMathis{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+#divForDemoSelects{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    background-color: #795da3;
+}
+.spanForDemoSelects{
+    margin-right: 1em;
+}
+
+
+pre{
+    margin: 0;
+    /*white-space: pre-line;*/
+    overflow-x:auto ;
+}
+
+
+
+.docuPink{
+    background-color: #f1cbd2;
+}
+
+.ChoicesPartVariante{
+    background-color: #f1cbd2;
+}
+.ChoicesPart{
+    margin-top: 2em;
+    background-color: #f1cbd2;
+}
+
+
+.commentBetweenParts{
+    margin-top: 2em;
+    background-color: #b8e6f5;
+}
+
+
+.ChoicesPartHead{
+    min-height: 1.5em;
+    line-height: 1.5em;
+    background-color: #f1cbd2;
+}
+.ChoicesPartContent{
+    margin-left: 0.7em;
+    background-color: whitesmoke;
+}
+.playButton{
+    display: inline-block;
+    width: 2em;
+    height: 100%;
+    background-color: #795da3;
+    opacity: 0.5;
+}
+.playButton:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.activePlayButton{
+    opacity: 1;
+}
+
+
+
+
+/*.obpres{*/
+    /*background-color: #b8e6f5;*/
+/*}*/
+
+/*.copres{*/
+    /*background-color: #f1cbd2;*/
+    /*padding-left: 10px;*/
+/*}*/
+
+
+.textAndSelect{
+    height: 2em;
+    line-height: 2em;
+    width: 100%;
+    border-bottom: dashed indianred 1px;
+
+}
+
+
+.selectableAttribute{
+    display: inline-block;
+    /*background-color: #795da3;*/
+}
+
+
+
+
+/*===============SQUIZ-BOX====================*/
+
+.squizable{
+    padding-left: 20px;
+}
+.ocGrey{
+    color:#666
+}
+.squizButton {
+
+    display: inline-block;
+    vertical-align: top;
+    border-top : 2px solid #666;
+    border-left : 2px solid #666;
+    margin-right: 10px;
+}
+
+.inline{
+    display: inline-block;
+    vertical-align: top;
+}
+.clickable:hover{
+    cursor: pointer;
+}
+
+
+.disabled:hover{
+    opacity: 0.4;
+}
+
+
+/*================TEST BOX==========================*/
+
+.lineAttribute{
+    height: 1.5em;
+    line-height: 1.5em;
+    display:inline-block;
+    width: 100%;
+    border-top: solid black 1px;
+    /*background-color: #0086b3;*/
+}
+
+.firstColumn{
+    display:inline-block;
+    width: 60%;
+    overflow: scroll;
+    /*background-color: red;*/
+
+    height: 100%;
+
+
+}
+
+.otherColumn{
+    display:inline-block;
+    width: 19.5%;
+    /*padding-left: 1em;*/
+    /*padding-right: 1em;*/
+
+    border-left: solid black 1px;
+    text-align: center;
+
+    overflow: scroll;
+
+    /*background-color: blue;*/
+
+    height: 100%;
+
+
+}
+
+.alreadyLoggedBox{
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: #8b7da3;
+    z-index: 5000;
+}
+
+
+

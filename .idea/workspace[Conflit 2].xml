@@ -1,0 +1,2366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4f12a91b-1c67-4527-96af-aa42e1c45e34" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/FontAwesome.otf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/FontAwesome.otf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/fontawesome-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/fontawesome-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/fontawesome-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/fontawesome-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/texture/GtIUsWW.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/texture/Rkh1uFK.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/texture/escher.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/siteAgreg/agregAssets/public2009-A3.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/siteAgreg/agregAssets/public2014-B1.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CSS/agregMathisStripe.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/creation2D.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/forM2.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/htmlPieces.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/lineModule.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/linkModule.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/mameshComputation.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/metropolis.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/prePoubel.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/reseau.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/riemann.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/spacialTransformations.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/symmetries.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TS/tab.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/css/font-awesome.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/css/font-awesome.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/animated.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/bordered-pulled.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/core.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/fixed-width.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/font-awesome.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/icons.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/larger.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/list.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/mixins.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/path.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/rotated-flipped.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/stacked.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/less/variables.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_animated.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_bordered-pulled.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_core.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_fixed-width.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_icons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_larger.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_list.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_mixins.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_path.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_rotated-flipped.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_stacked.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.3.0/scss/font-awesome.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/HELP-US-OUT.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/css/font-awesome.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/css/font-awesome.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/fonts/fontawesome-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/animated.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/bordered-pulled.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/core.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/fixed-width.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/font-awesome.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/icons.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/larger.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/list.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/mixins.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/path.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/rotated-flipped.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/screen-reader.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/stacked.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/less/variables.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_animated.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_bordered-pulled.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_core.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_fixed-width.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_icons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_larger.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_list.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_mixins.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_path.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_rotated-flipped.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_screen-reader.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_stacked.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/font-awesome-4.6.1/scss/font-awesome.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mathisGame/mathisGameOLD.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testCreation.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testSymmetries.ts" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CSS/agreg.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TS/flat.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TS/linker.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TS/showCase.ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TS/surfaceCreator.ts" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/justBabylonTest/justBabylon.ts" afterPath="$PROJECT_DIR$/poubel/justBabylon.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/testFlat.ts" afterPath="$PROJECT_DIR$/poubel/testFlat.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/testGraph.ts" afterPath="$PROJECT_DIR$/tests/testRiemann.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/vigon.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/vigon.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/typescript-compiler.xml" afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CSS/mathisStyle.CSS" afterPath="$PROJECT_DIR$/CSS/mathisStyle.CSS" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/MATHIS.js" afterPath="$PROJECT_DIR$/JS/MATHIS.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/MATHIS.js.map" afterPath="$PROJECT_DIR$/JS/MATHIS.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/babylon.2.3.js" afterPath="$PROJECT_DIR$/JS/babylon.2.3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/babylon.2.3.max.js" afterPath="$PROJECT_DIR$/JS/babylon.2.3.max.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/babylon.2.3.d.ts" afterPath="$PROJECT_DIR$/TS/babylon.2.3.d.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/basic.ts" afterPath="$PROJECT_DIR$/TS/basic.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/creation3D.ts" afterPath="$PROJECT_DIR$/TS/creation3D.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/gameo.ts" afterPath="$PROJECT_DIR$/TS/gameo.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/geometry.ts" afterPath="$PROJECT_DIR$/TS/geometry.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/graph.ts" afterPath="$PROJECT_DIR$/TS/graph.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/informathis.ts" afterPath="$PROJECT_DIR$/TS/informathis.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/macamera.ts" afterPath="$PROJECT_DIR$/TS/macamera.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/mameshModification.ts" afterPath="$PROJECT_DIR$/TS/mameshModification.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/periodicWorld.ts" afterPath="$PROJECT_DIR$/TS/periodicWorld.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/proba.ts" afterPath="$PROJECT_DIR$/TS/proba.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/visu3d.ts" afterPath="$PROJECT_DIR$/TS/visu3d.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TS/zzMain.ts" afterPath="$PROJECT_DIR$/TS/zzMain.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/justBabylonTest/justBabylon.html" afterPath="$PROJECT_DIR$/justBabylonTest/justBabylon.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/justBabylonTest/justBabylon.js" afterPath="$PROJECT_DIR$/justBabylonTest/justBabylon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mathisGame/mathisGame.html" afterPath="$PROJECT_DIR$/mathisGame/mathisGame.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mathisGame/mathisGame.ts" afterPath="$PROJECT_DIR$/mathisGame/mathisGame.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/poubel/babylon.js" afterPath="$PROJECT_DIR$/poubel/babylon.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/poubel/morpher.ts" afterPath="$PROJECT_DIR$/poubel/morpher.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/poubel/surfaceCreatorTest.ts" afterPath="$PROJECT_DIR$/poubel/surfaceCreatorTest.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteAgreg/siteAgreg.html" afterPath="$PROJECT_DIR$/siteAgreg/siteAgreg.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteAgreg/siteAgreg.ts" afterPath="$PROJECT_DIR$/siteAgreg/siteAgreg.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testWithBabylon/myWebPageScenes.ts" afterPath="$PROJECT_DIR$/testWithBabylon/myWebPageScenes.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testWithBabylon/testBabylon.html" afterPath="$PROJECT_DIR$/testWithBabylon/testBabylon.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testWithBabylon/testBabylon.ts" afterPath="$PROJECT_DIR$/testWithBabylon/testBabylon.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testWithOctavio/testOctavio.ts" afterPath="$PROJECT_DIR$/testWithOctavio/testOctavio.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/ObjectExtentionsForTest.ts" afterPath="$PROJECT_DIR$/tests/ObjectExtentionsForTest.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test.html" afterPath="$PROJECT_DIR$/tests/test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test.ts" afterPath="$PROJECT_DIR$/tests/test.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testCreation3D.ts" afterPath="$PROJECT_DIR$/tests/testCreation3D.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testGeometry.ts" afterPath="$PROJECT_DIR$/tests/testGeometry.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testInformatis.ts" afterPath="$PROJECT_DIR$/tests/testInformatis.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testLinker.ts" afterPath="$PROJECT_DIR$/tests/testLinker.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testMameshModification.ts" afterPath="$PROJECT_DIR$/tests/testMameshModification.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tsconfig.json" afterPath="$PROJECT_DIR$/tsconfig.json" />
+    </list>
+    <ignored path="MATHIS.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="MATHIS" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="testCreation.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/testCreation.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc;n#mathis#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lineModule.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TS/lineModule.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="457" column="0" selection-start-line="457" selection-start-column="0" selection-end-line="457" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc;n#mathis#0" expanded="false" />
+                <element signature="n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#578#701#0" expanded="false" />
+                <element signature="e#723#793#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#1360#1490#0" expanded="false" />
+                <element signature="e#1538#2032#0" expanded="false" />
+                <element signature="e#1625#1769#0" expanded="false" />
+                <element signature="e#1790#1829#0" expanded="false" />
+                <element signature="n#!!block;n#selectLineWithCartesianXYParam#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#2307#2465#0" expanded="false" />
+                <element signature="e#2357#2447#0" expanded="false" />
+                <element signature="e#2535#2692#0" expanded="false" />
+                <element signature="e#2585#2674#0" expanded="false" />
+                <element signature="n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#3346#3604#0" expanded="false" />
+                <element signature="e#3385#3586#0" expanded="false" />
+                <element signature="e#3647#4707#0" expanded="false" />
+                <element signature="e#3683#4686#0" expanded="false" />
+                <element signature="e#3835#4066#0" expanded="false" />
+                <element signature="e#3918#4040#0" expanded="false" />
+                <element signature="e#4091#4116#0" expanded="false" />
+                <element signature="e#4210#4664#0" expanded="false" />
+                <element signature="e#4327#4449#0" expanded="false" />
+                <element signature="n#!!block;n#cutOneLine#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#5030#5621#0" expanded="false" />
+                <element signature="e#5105#5509#0" expanded="false" />
+                <element signature="e#5226#5487#0" expanded="false" />
+                <element signature="e#5534#5602#0" expanded="false" />
+                <element signature="e#5721#5808#0" expanded="false" />
+                <element signature="e#5828#5868#0" expanded="false" />
+                <element signature="n#!!block;n#makeLineCatalogue2#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#addOneSegment#0;n#!!block;n#makeLineCatalogue2#0;n#lineModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#7430#7446#0" expanded="false" />
+                <element signature="e#7484#7637#0" expanded="false" />
+                <element signature="e#7783#7866#0" expanded="false" />
+                <element signature="e#7971#8057#0" expanded="false" />
+                <element signature="e#8079#9704#0" expanded="false" />
+                <element signature="e#8322#9686#0" expanded="false" />
+                <element signature="e#8437#8701#0" expanded="false" />
+                <element signature="e#8731#9661#0" expanded="false" />
+                <element signature="e#8775#9303#0" expanded="false" />
+                <element signature="e#9332#9384#0" expanded="false" />
+                <element signature="e#9417#9634#0" expanded="false" />
+                <element signature="e#9723#9752#0" expanded="false" />
+                <element signature="e#10225#10309#0" expanded="false" />
+                <element signature="e#12242#12289#0" expanded="false" />
+                <element signature="e#12334#13282#0" expanded="false" />
+                <element signature="e#12385#13265#0" expanded="false" />
+                <element signature="e#12434#13247#0" expanded="false" />
+                <element signature="e#12548#12914#0" expanded="false" />
+                <element signature="e#12940#13008#0" expanded="false" />
+                <element signature="e#13299#13372#0" expanded="false" />
+                <element signature="e#13408#13796#0" expanded="false" />
+                <element signature="e#13563#13733#0" expanded="false" />
+                <element signature="e#13812#13845#0" expanded="false" />
+                <element signature="e#13890#14528#0" expanded="false" />
+                <element signature="e#13941#14511#0" expanded="false" />
+                <element signature="e#13964#14123#0" expanded="false" />
+                <element signature="e#14210#14491#0" expanded="false" />
+                <element signature="e#16854#18223#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forM2.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TS/forM2.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding>
+                <marker date="1474637303000" expanded="true" signature="273:432" ph="{...}" />
+                <marker date="1474637303000" expanded="true" signature="482:739" ph="{...}" />
+                <marker date="1474637303000" expanded="true" signature="615:730" ph="{...}" />
+                <marker date="1474637303000" expanded="true" signature="752:1155" ph="{...}" />
+                <marker date="1474637303000" expanded="true" signature="1032:1143" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="creation2D.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TS/creation2D.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4086">
+              <caret line="335" column="16" selection-start-line="335" selection-start-column="16" selection-end-line="335" selection-end-column="16" />
+              <folding>
+                <element signature="n#!!doc;n#mathis#0" expanded="false" />
+                <element signature="e#333#335#0" expanded="false" />
+                <element signature="e#14113#14180#0" expanded="false" />
+                <element signature="e#14350#14374#0" expanded="false" />
+                <marker date="1471527048000" expanded="false" signature="3396:3447" ph="/**...*/" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsconfig.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mameshModification.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TS/mameshModification.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1098">
+              <caret line="1932" column="12" selection-start-line="1932" selection-start-column="12" selection-end-line="1932" selection-end-column="12" />
+              <folding>
+                <element signature="n#!!doc;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#completSegment#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#334#370#0" expanded="false" />
+                <element signature="e#411#1141#0" expanded="false" />
+                <element signature="e#889#1046#0" expanded="false" />
+                <element signature="e#1154#1199#0" expanded="false" />
+                <element signature="n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#1448#1523#0" expanded="false" />
+                <element signature="e#1575#1708#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#1891#2055#0" expanded="false" />
+                <element signature="e#2093#2160#0" expanded="false" />
+                <element signature="n#!!doc;n#go#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#2521#2668#0" expanded="false" />
+                <element signature="e#2690#2845#0" expanded="false" />
+                <element signature="e#3168#3250#0" expanded="false" />
+                <element signature="e#3324#5083#0" expanded="false" />
+                <element signature="e#3902#4195#0" expanded="false" />
+                <element signature="e#4221#4502#0" expanded="false" />
+                <element signature="e#4661#4714#0" expanded="false" />
+                <element signature="e#5122#6674#0" expanded="false" />
+                <element signature="e#5173#6656#0" expanded="false" />
+                <element signature="e#5508#5943#0" expanded="false" />
+                <element signature="e#5973#6147#0" expanded="false" />
+                <element signature="e#6176#6448#0" expanded="false" />
+                <element signature="e#6483#6634#0" expanded="false" />
+                <element signature="e#6871#6954#0" expanded="false" />
+                <element signature="n#!!block#1;n#createAndAddSegmentsFromTriangles#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#8176#8542#0" expanded="false" />
+                <element signature="n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#8889#8964#0" expanded="false" />
+                <element signature="e#9016#9149#0" expanded="false" />
+                <element signature="e#9217#9386#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#9456#9583#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#9898#10037#0" expanded="false" />
+                <element signature="e#10059#10207#0" expanded="false" />
+                <element signature="e#10313#10395#0" expanded="false" />
+                <element signature="e#10466#13512#0" expanded="false" />
+                <element signature="e#11650#12998#0" expanded="false" />
+                <element signature="e#12284#12495#0" expanded="false" />
+                <element signature="e#13090#13455#0" expanded="false" />
+                <element signature="e#13705#13786#0" expanded="false" />
+                <element signature="n#!!block#1;n#createAndAddSegmentsFromSquare#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#15062#15536#0" expanded="false" />
+                <element signature="n#SquareDichotomer#1;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#DichoStyle#0;n#SquareDichotomer#1;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!doc;n#checkArgs#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#16600#16750#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#16936#17062#0" expanded="false" />
+                <element signature="e#17084#17209#0" expanded="false" />
+                <element signature="n#!!doc;n#goChanging#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#goChanging#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#17702#17816#0" expanded="false" />
+                <element signature="e#17833#17901#0" expanded="false" />
+                <element signature="e#18299#18351#0" expanded="false" />
+                <element signature="n#!!block;n#buildMergingMap#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#19017#19091#0" expanded="false" />
+                <element signature="e#19228#19543#0" expanded="false" />
+                <element signature="e#19340#19420#0" expanded="false" />
+                <element signature="e#19594#19743#0" expanded="false" />
+                <element signature="n#!!block;n#mergeOnlyVertices#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#20102#20133#0" expanded="false" />
+                <element signature="e#20187#20279#0" expanded="false" />
+                <element signature="e#20308#20310#0" expanded="false" />
+                <element signature="n#!!block;n#mergeVerticesAndLinks#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#27148#27261#0" expanded="false" />
+                <element signature="e#27337#27366#0" expanded="false" />
+                <element signature="e#27467#27524#0" expanded="false" />
+                <element signature="e#27579#28210#0" expanded="false" />
+                <element signature="e#27678#28077#0" expanded="false" />
+                <element signature="e#27704#27762#0" expanded="false" />
+                <element signature="e#27833#28055#0" expanded="false" />
+                <element signature="e#27863#27930#0" expanded="false" />
+                <element signature="e#28229#28257#0" expanded="false" />
+                <element signature="e#28358#28462#0" expanded="false" />
+                <element signature="e#28539#28580#0" expanded="false" />
+                <element signature="e#28693#28756#0" expanded="false" />
+                <element signature="e#28824#30056#0" expanded="false" />
+                <element signature="e#28931#29807#0" expanded="false" />
+                <element signature="e#29003#29369#0" expanded="false" />
+                <element signature="e#29153#29343#0" expanded="false" />
+                <element signature="e#29394#29425#0" expanded="false" />
+                <element signature="e#29864#30037#0" expanded="false" />
+                <element signature="e#29925#30014#0" expanded="false" />
+                <element signature="e#30076#30109#0" expanded="false" />
+                <element signature="e#30153#30293#0" expanded="false" />
+                <element signature="e#30175#30248#0" expanded="false" />
+                <element signature="n#!!block;n#mergeCutSegment#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#30413#30585#0" expanded="false" />
+                <element signature="e#30657#32036#0" expanded="false" />
+                <element signature="e#30912#31040#0" expanded="false" />
+                <element signature="e#31161#31304#0" expanded="false" />
+                <element signature="e#31373#31516#0" expanded="false" />
+                <element signature="e#31590#31743#0" expanded="false" />
+                <element signature="e#31788#32016#0" expanded="false" />
+                <element signature="e#32096#32641#0" expanded="false" />
+                <element signature="e#32160#32620#0" expanded="false" />
+                <element signature="e#32282#32510#0" expanded="false" />
+                <element signature="n#!!block;n#letsMergeTrianglesAndSquares#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#32730#32778#0" expanded="false" />
+                <element signature="e#32826#33123#0" expanded="false" />
+                <element signature="e#33142#33190#0" expanded="false" />
+                <element signature="e#33278#33505#0" expanded="false" />
+                <element signature="e#33651#34047#0" expanded="false" />
+                <element signature="e#33955#34029#0" expanded="false" />
+                <element signature="e#34212#34234#0" expanded="false" />
+                <element signature="e#34397#34465#0" expanded="false" />
+                <element signature="e#34551#34774#0" expanded="false" />
+                <element signature="e#34916#35540#0" expanded="false" />
+                <element signature="e#35200#35272#0" expanded="false" />
+                <element signature="e#35329#35522#0" expanded="false" />
+                <element signature="e#35699#35721#0" expanded="false" />
+                <element signature="e#35973#40067#0" expanded="false" />
+                <element signature="e#35995#36054#0" expanded="false" />
+                <element signature="e#36210#37229#0" expanded="false" />
+                <element signature="e#37372#37774#0" expanded="false" />
+                <element signature="e#37665#37752#0" expanded="false" />
+                <element signature="e#37937#38075#0" expanded="false" />
+                <element signature="e#38225#38626#0" expanded="false" />
+                <element signature="e#38820#39714#0" expanded="false" />
+                <element signature="e#38874#39692#0" expanded="false" />
+                <element signature="e#39356#39666#0" expanded="false" />
+                <element signature="e#39761#40049#0" expanded="false" />
+                <element signature="n#!!block;n#changeOneSquare#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#40373#40559#0" expanded="false" />
+                <element signature="e#40433#40541#0" expanded="false" />
+                <element signature="n#!!doc;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#goChanging#0;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#41678#42063#0" expanded="false" />
+                <element signature="e#41813#41861#0" expanded="false" />
+                <element signature="e#42118#42228#0" expanded="false" />
+                <element signature="e#42660#42683#0" expanded="false" />
+                <element signature="e#42745#42796#0" expanded="false" />
+                <element signature="e#43010#43212#0" expanded="false" />
+                <element signature="e#43065#43194#0" expanded="false" />
+                <element signature="n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#43674#44039#0" expanded="false" />
+                <element signature="e#44097#45265#0" expanded="false" />
+                <element signature="e#44213#44317#0" expanded="false" />
+                <element signature="e#44382#45245#0" expanded="false" />
+                <element signature="e#44541#44857#0" expanded="false" />
+                <element signature="e#44654#44830#0" expanded="false" />
+                <element signature="e#44883#44917#0" expanded="false" />
+                <element signature="e#45329#45418#0" expanded="false" />
+                <element signature="e#45479#45566#0" expanded="false" />
+                <element signature="e#45605#46699#0" expanded="false" />
+                <element signature="e#45660#46681#0" expanded="false" />
+                <element signature="e#45918#46237#0" expanded="false" />
+                <element signature="e#46027#46128#0" expanded="false" />
+                <element signature="e#46315#46633#0" expanded="false" />
+                <element signature="e#46424#46525#0" expanded="false" />
+                <element signature="e#46808#47587#0" expanded="false" />
+                <element signature="e#46878#47569#0" expanded="false" />
+                <element signature="n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#47999#48007#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#48481#48846#0" expanded="false" />
+                <element signature="e#48538#48607#0" expanded="false" />
+                <element signature="e#49015#49915#0" expanded="false" />
+                <element signature="e#49999#50751#0" expanded="false" />
+                <element signature="e#50811#51256#0" expanded="false" />
+                <element signature="e#50852#51238#0" expanded="false" />
+                <element signature="e#50900#51043#0" expanded="false" />
+                <element signature="e#51073#51216#0" expanded="false" />
+                <element signature="e#51304#53551#0" expanded="false" />
+                <element signature="e#51370#51798#0" expanded="false" />
+                <element signature="e#51437#51684#0" expanded="false" />
+                <element signature="e#51824#53533#0" expanded="false" />
+                <element signature="e#52043#53272#0" expanded="false" />
+                <element signature="e#52228#52459#0" expanded="false" />
+                <element signature="e#52299#52429#0" expanded="false" />
+                <element signature="e#52504#52856#0" expanded="false" />
+                <element signature="e#52575#52826#0" expanded="false" />
+                <element signature="e#52650#52792#0" expanded="false" />
+                <element signature="e#52902#53246#0" expanded="false" />
+                <element signature="e#53570#53600#0" expanded="false" />
+                <element signature="e#53764#54211#0" expanded="false" />
+                <element signature="e#53831#54193#0" expanded="false" />
+                <element signature="n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#54767#54949#0" expanded="false" />
+                <element signature="e#54827#54931#0" expanded="false" />
+                <element signature="e#54970#55152#0" expanded="false" />
+                <element signature="e#55030#55134#0" expanded="false" />
+                <element signature="e#55495#55586#0" expanded="false" />
+                <element signature="e#55679#55815#0" expanded="false" />
+                <element signature="e#55735#55797#0" expanded="false" />
+                <element signature="e#55884#55961#0" expanded="false" />
+                <element signature="e#56209#56353#0" expanded="false" />
+                <element signature="n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#58432#59439#0" expanded="false" />
+                <element signature="e#58593#58863#0" expanded="false" />
+                <element signature="e#58725#58841#0" expanded="false" />
+                <element signature="e#59317#59420#0" expanded="false" />
+                <element signature="n#!!block;n#getBestPermutationOfReceiver#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#59689#60115#0" expanded="false" />
+                <element signature="e#60001#60097#0" expanded="false" />
+                <element signature="n#!!block;n#squareToBaryCenter#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#60432#60720#0" expanded="false" />
+                <element signature="n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#60948#61002#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#61256#61340#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#61723#62637#0" expanded="false" />
+                <element signature="e#61927#62228#0" expanded="false" />
+                <element signature="e#62080#62206#0" expanded="false" />
+                <element signature="e#62338#62524#0" expanded="false" />
+                <element signature="e#62426#62502#0" expanded="false" />
+                <element signature="n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#62917#63090#0" expanded="false" />
+                <element signature="e#63142#63191#0" expanded="false" />
+                <element signature="e#63274#63331#0" expanded="false" />
+                <element signature="e#63379#63433#0" expanded="false" />
+                <element signature="e#63493#63634#0" expanded="false" />
+                <element signature="e#63647#63685#0" expanded="false" />
+                <element signature="e#63802#63936#0" expanded="false" />
+                <element signature="e#64088#64164#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#64455#64649#0" expanded="false" />
+                <element signature="n#!!block;n#goChanging#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#64949#65025#0" expanded="false" />
+                <element signature="e#65075#65233#0" expanded="false" />
+                <element signature="e#65125#65215#0" expanded="false" />
+                <element signature="e#65484#65549#0" expanded="false" />
+                <element signature="e#66018#67210#0" expanded="false" />
+                <element signature="e#66468#66840#0" expanded="false" />
+                <element signature="e#66524#66818#0" expanded="false" />
+                <element signature="e#66645#66792#0" expanded="false" />
+                <element signature="e#66904#67081#0" expanded="false" />
+                <element signature="e#67390#68910#0" expanded="false" />
+                <element signature="e#67879#68085#0" expanded="false" />
+                <element signature="e#67974#68059#0" expanded="false" />
+                <element signature="e#68184#68210#0" expanded="false" />
+                <element signature="e#68676#68708#0" expanded="false" />
+                <element signature="e#69024#69143#0" expanded="false" />
+                <element signature="e#69163#69205#0" expanded="false" />
+                <element signature="e#69391#69622#0" expanded="false" />
+                <element signature="e#69714#69716#0" expanded="false" />
+                <element signature="e#72807#72809#0" expanded="false" />
+                <element signature="e#75177#75206#0" expanded="false" />
+                <element signature="n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#76842#77137#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#77417#77499#0" expanded="false" />
+                <element signature="e#77521#77594#0" expanded="false" />
+                <element signature="n#!!block;n#goChanging#0;n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+                <element signature="e#77931#78509#0" expanded="false" />
+                <element signature="e#78027#78491#0" expanded="false" />
+                <element signature="e#78119#78469#0" expanded="false" />
+                <marker date="1471527343000" expanded="false" signature="20778:20836" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="21024:21091" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="21437:21465" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="21667:21730" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="23156:23220" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="24146:24193" ph="/**...*/" />
+                <marker date="1471527343000" expanded="false" signature="25658:25723" ph="/**...*/" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linkModule.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TS/linkModule.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="882">
+              <caret line="435" column="12" selection-start-line="435" selection-start-column="12" selection-end-line="435" selection-end-column="12" />
+              <folding>
+                <element signature="n#!!doc;n#mathis#0" expanded="false" />
+                <element signature="n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#goChanging#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#1147#1389#0" expanded="false" />
+                <element signature="e#1445#4090#0" expanded="false" />
+                <element signature="e#1595#1860#0" expanded="false" />
+                <element signature="e#1979#2075#0" expanded="false" />
+                <element signature="e#2179#2291#0" expanded="false" />
+                <element signature="e#2402#2682#0" expanded="false" />
+                <element signature="e#2469#2659#0" expanded="false" />
+                <element signature="e#2840#2968#0" expanded="false" />
+                <element signature="e#3034#3066#0" expanded="false" />
+                <element signature="n#!!block;n#letsSuppressLinks#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#4299#7208#0" expanded="false" />
+                <element signature="e#4453#7190#0" expanded="false" />
+                <element signature="e#4586#7164#0" expanded="false" />
+                <element signature="e#5081#7138#0" expanded="false" />
+                <element signature="e#5115#5172#0" expanded="false" />
+                <element signature="e#5531#5725#0" expanded="false" />
+                <element signature="e#5762#6609#0" expanded="false" />
+                <element signature="e#5868#5930#0" expanded="false" />
+                <element signature="e#5994#6253#0" expanded="false" />
+                <element signature="e#6290#6328#0" expanded="false" />
+                <element signature="e#6369#6575#0" expanded="false" />
+                <element signature="e#6730#6777#0" expanded="false" />
+                <element signature="n#!!block;n#associateOppositeLinks#0;n#OppositeLinkAssocierByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#11377#11481#0" expanded="false" />
+                <element signature="e#12331#12375#0" expanded="false" />
+                <element signature="e#18177#18393#0" expanded="false" />
+                <element signature="e#18224#18373#0" expanded="false" />
+                <element signature="e#18277#18350#0" expanded="false" />
+                <element signature="e#18565#18595#0" expanded="false" />
+                <element signature="e#20344#20753#0" expanded="false" />
+                <element signature="e#20973#21033#0" expanded="false" />
+                <element signature="e#21177#21250#0" expanded="false" />
+                <element signature="n#!!block;n#go#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkArgs#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#createPolygonesFromSmallestTrianglesAnSquares#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#22219#22501#0" expanded="false" />
+                <element signature="e#22275#22480#0" expanded="false" />
+                <element signature="e#22583#22919#0" expanded="false" />
+                <element signature="e#22639#22898#0" expanded="false" />
+                <element signature="e#22973#23336#0" expanded="false" />
+                <element signature="e#23075#23318#0" expanded="false" />
+                <element signature="e#23387#23491#0" expanded="false" />
+                <element signature="e#23550#23730#0" expanded="false" />
+                <element signature="e#23607#23711#0" expanded="false" />
+                <element signature="e#23878#24285#0" expanded="false" />
+                <element signature="e#23932#24266#0" expanded="false" />
+                <element signature="e#24016#24244#0" expanded="false" />
+                <element signature="e#24304#24340#0" expanded="false" />
+                <element signature="n#!!block;n#detectBorder#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#24569#26801#0" expanded="false" />
+                <element signature="e#24897#25829#0" expanded="false" />
+                <element signature="e#25228#25361#0" expanded="false" />
+                <element signature="e#25509#25642#0" expanded="false" />
+                <element signature="e#25668#25744#0" expanded="false" />
+                <element signature="e#25939#26617#0" expanded="false" />
+                <element signature="e#26009#26441#0" expanded="false" />
+                <element signature="e#26123#26338#0" expanded="false" />
+                <element signature="n#!!block;n#createLinksTurningAround#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#26921#27486#0" expanded="false" />
+                <element signature="e#27080#27468#0" expanded="false" />
+                <element signature="e#27170#27280#0" expanded="false" />
+                <element signature="e#27504#27559#0" expanded="false" />
+                <element signature="e#27612#28268#0" expanded="false" />
+                <element signature="e#27701#28249#0" expanded="false" />
+                <element signature="e#27742#27914#0" expanded="false" />
+                <element signature="e#27943#28225#0" expanded="false" />
+                <element signature="e#27999#28199#0" expanded="false" />
+                <element signature="e#28337#29675#0" expanded="false" />
+                <element signature="e#28360#28420#0" expanded="false" />
+                <element signature="e#28876#29225#0" expanded="false" />
+                <element signature="e#28902#28928#0" expanded="false" />
+                <element signature="e#29250#29656#0" expanded="false" />
+                <element signature="n#!!block;n#makeLinksFinaly#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#29804#32502#0" expanded="false" />
+                <element signature="e#29912#32483#0" expanded="false" />
+                <element signature="e#30047#30294#0" expanded="false" />
+                <element signature="e#30324#32460#0" expanded="false" />
+                <element signature="e#30376#30778#0" expanded="false" />
+                <element signature="e#30444#30748#0" expanded="false" />
+                <element signature="e#30854#32433#0" expanded="false" />
+                <element signature="e#31051#31140#0" expanded="false" />
+                <element signature="e#31368#31408#0" expanded="false" />
+                <element signature="e#31515#31548#0" expanded="false" />
+                <element signature="e#31766#31825#0" expanded="false" />
+                <element signature="e#32537#32584#0" expanded="false" />
+                <element signature="n#!!block;n#findAPolygoneWithOrientedEdge#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#33265#33575#0" expanded="false" />
+                <element signature="e#33367#33557#0" expanded="false" />
+                <element signature="n#!!block;n#findAPolygoneWithThisEdge#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#33767#34182#0" expanded="false" />
+                <element signature="e#33869#34163#0" expanded="false" />
+                <element signature="e#34786#35044#0" expanded="false" />
+                <element signature="e#35140#35281#0" expanded="false" />
+                <element signature="e#35503#35800#0" expanded="false" />
+                <element signature="e#35823#35825#0" expanded="false" />
+                <element signature="e#36433#36517#0" expanded="false" />
+                <element signature="e#36547#36629#0" expanded="false" />
+                <element signature="n#!!doc;n#subdivideSegment#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#subdivideSegment#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#37190#37836#0" expanded="false" />
+                <element signature="e#37867#37894#0" expanded="false" />
+                <element signature="n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#constructor#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#39072#39115#0" expanded="false" />
+                <element signature="e#39298#39329#0" expanded="false" />
+                <element signature="n#!!block;n#hasAngle#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#39749#39839#0" expanded="false" />
+                <element signature="e#39900#39954#0" expanded="false" />
+                <element signature="n#!!block;n#theOutgoingAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#40551#40697#0" expanded="false" />
+                <element signature="e#40599#40679#0" expanded="false" />
+                <element signature="n#!!block;n#theIngoingAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#40931#41084#0" expanded="false" />
+                <element signature="e#40979#41066#0" expanded="false" />
+                <element signature="n#!!block;n#theTwoAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#41322#41504#0" expanded="false" />
+                <element signature="e#41370#41486#0" expanded="false" />
+                <element signature="n#!!block;n#toString#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!doc;n#checkTheRegularityOfAGraph#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="n#!!block;n#checkTheRegularityOfAGraph#0;n#linkModule#0;n#mathis#0" expanded="false" />
+                <element signature="e#41938#43250#0" expanded="false" />
+                <element signature="e#42036#43235#0" expanded="false" />
+                <element signature="e#42499#43215#0" expanded="false" />
+                <element signature="e#42580#43118#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="vigon" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TS/geometry.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/JS/MATHIS.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TS/myBabylon.2.2.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/justBabylonTest/justBabylon.js" />
+        <option value="$PROJECT_DIR$/TS/metropolis.ts" />
+        <option value="$PROJECT_DIR$/TS/htmlPieces/severalCanvas.ts" />
+        <option value="$PROJECT_DIR$/siteAgreg/siteAgreg.html" />
+        <option value="$PROJECT_DIR$/tests/test.html" />
+        <option value="$PROJECT_DIR$/CSS/agregMathisStripe.css" />
+        <option value="$PROJECT_DIR$/TS/htmlPieces.ts" />
+        <option value="$PROJECT_DIR$/testWithBabylon/testBabylon[Conflit].ts" />
+        <option value="$PROJECT_DIR$/testWithBabylon/testBabylon.html" />
+        <option value="$PROJECT_DIR$/TS/creation3D.ts" />
+        <option value="$PROJECT_DIR$/CSS/mathisStyle.css" />
+        <option value="$PROJECT_DIR$/mathisGame/mathisGame.html" />
+        <option value="$PROJECT_DIR$/TS/macamera.ts" />
+        <option value="$PROJECT_DIR$/tests/ObjectExtentionsForTest.ts" />
+        <option value="$PROJECT_DIR$/JS/MATHIS.js" />
+        <option value="$PROJECT_DIR$/TS/creationFlat.ts" />
+        <option value="$PROJECT_DIR$/TS/periodicWorld.ts" />
+        <option value="$PROJECT_DIR$/TS/verticesMover.ts" />
+        <option value="$PROJECT_DIR$/siteAgreg/siteAgreg.ts" />
+        <option value="$PROJECT_DIR$/TS/riemann.ts" />
+        <option value="$PROJECT_DIR$/testWithBabylon/testBabylon.ts" />
+        <option value="$PROJECT_DIR$/tests/lineModule.ts" />
+        <option value="$PROJECT_DIR$/TS/mameshComputation.ts" />
+        <option value="$PROJECT_DIR$/TS/graph.ts" />
+        <option value="$PROJECT_DIR$/mathisGame/mathisGame.ts" />
+        <option value="$PROJECT_DIR$/TS/spacialTransformations.ts" />
+        <option value="$PROJECT_DIR$/TS/symmetries.ts" />
+        <option value="$PROJECT_DIR$/TS/proba.ts" />
+        <option value="$PROJECT_DIR$/TS/linker.ts" />
+        <option value="$PROJECT_DIR$/TS/reseau.ts" />
+        <option value="$PROJECT_DIR$/TS/tab.ts" />
+        <option value="$PROJECT_DIR$/TS/zzMain.ts" />
+        <option value="$PROJECT_DIR$/TS/basic.ts" />
+        <option value="$PROJECT_DIR$/TS/geometry.ts" />
+        <option value="$PROJECT_DIR$/TS/visu3d.ts" />
+        <option value="$PROJECT_DIR$/tests/testGeometry.ts" />
+        <option value="$PROJECT_DIR$/tests/testInformatis.ts" />
+        <option value="$PROJECT_DIR$/tests/testLinker.ts" />
+        <option value="$PROJECT_DIR$/tests/testRiemann.ts" />
+        <option value="$PROJECT_DIR$/tests/testSymmetries.ts" />
+        <option value="$PROJECT_DIR$/tests/testCreation3D.ts" />
+        <option value="$PROJECT_DIR$/tests/testMameshModification.ts" />
+        <option value="$PROJECT_DIR$/tests/test.ts" />
+        <option value="$PROJECT_DIR$/TS/informathis.ts" />
+        <option value="$PROJECT_DIR$/TS/linkModule.ts" />
+        <option value="$PROJECT_DIR$/TS/creation2D.ts" />
+        <option value="$PROJECT_DIR$/tests/testCreation.ts" />
+        <option value="$PROJECT_DIR$/TS/mameshModification.ts" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
+        <option value="$PROJECT_DIR$/TS/forM2.ts" />
+        <option value="$PROJECT_DIR$/TS/lineModule.ts" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NamedScopeManager">
+    <order>
+      <scope name="typescriptFiles" />
+    </order>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="873" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Bitwise operation issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsCoffeeScript</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>MagicNumberJS</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MATHIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MATHIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MATHIS0.0.4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MATHIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MATHIS0.0.4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="settings.nodejs" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TS" />
+      <recent name="$PROJECT_DIR$/poubel" />
+      <recent name="$PROJECT_DIR$/siteAgreg" />
+      <recent name="$PROJECT_DIR$/justBabylonTest" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/siteAgreg/agregAssets" />
+      <recent name="$PROJECT_DIR$/agregAssets" />
+      <recent name="$PROJECT_DIR$/JS" />
+      <recent name="$PROJECT_DIR$/assets/texture" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>/usr/local/bin/node</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="1" Folder0="$USER_HOME$/visible/dicoSelected" Dictionaries="0" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4f12a91b-1c67-4527-96af-aa42e1c45e34" name="Default" comment="" />
+      <created>1449565508311</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1449565508311</updated>
+      <workItem from="1458551520151" duration="5638000" />
+      <workItem from="1458558659437" duration="14315000" />
+      <workItem from="1458590533310" duration="5267000" />
+      <workItem from="1458597200440" duration="8124000" />
+      <workItem from="1458721526151" duration="22365000" />
+      <workItem from="1458815897833" duration="13221000" />
+      <workItem from="1458943799486" duration="38506000" />
+      <workItem from="1459258104397" duration="25051000" />
+      <workItem from="1459423014683" duration="69542000" />
+      <workItem from="1459927413951" duration="9143000" />
+      <workItem from="1459936959235" duration="22621000" />
+      <workItem from="1460104639581" duration="19072000" />
+      <workItem from="1460129376976" duration="7991000" />
+      <workItem from="1460552395060" duration="18620000" />
+      <workItem from="1461101941744" duration="21535000" />
+      <workItem from="1461221825675" duration="37721000" />
+      <workItem from="1461572109959" duration="98000" />
+      <workItem from="1461572459167" duration="16146000" />
+      <workItem from="1461918830331" duration="4835000" />
+      <workItem from="1461963456073" duration="2126000" />
+      <workItem from="1462129897148" duration="8101000" />
+      <workItem from="1462174710775" duration="20329000" />
+      <workItem from="1462213463859" duration="8406000" />
+      <workItem from="1462258461407" duration="2944000" />
+      <workItem from="1462262654927" duration="22112000" />
+      <workItem from="1462346739393" duration="4159000" />
+      <workItem from="1462366190048" duration="15749000" />
+      <workItem from="1462476851816" duration="14402000" />
+      <workItem from="1462798601173" duration="7371000" />
+      <workItem from="1462819184528" duration="11235000" />
+      <workItem from="1462953889304" duration="20323000" />
+      <workItem from="1463089288276" duration="9990000" />
+      <workItem from="1463144572630" duration="5001000" />
+      <workItem from="1463509504076" duration="112000" />
+      <workItem from="1463728248727" duration="27000" />
+      <workItem from="1463989525564" duration="27868000" />
+      <workItem from="1464088631202" duration="18207000" />
+      <workItem from="1464162035914" duration="358000" />
+      <workItem from="1464170938973" duration="598000" />
+      <workItem from="1464337550843" duration="348000" />
+      <workItem from="1464357811339" duration="27000" />
+      <workItem from="1464357846273" duration="405000" />
+      <workItem from="1464548697801" duration="7931000" />
+      <workItem from="1464601432477" duration="19400000" />
+      <workItem from="1464640426757" duration="100000" />
+      <workItem from="1464640555569" duration="14244000" />
+      <workItem from="1451606556335" duration="42000" />
+      <workItem from="1464701014144" duration="25154000" />
+      <workItem from="1464798587793" duration="26143000" />
+      <workItem from="1465199062196" duration="22501000" />
+      <workItem from="1465252264543" duration="20999000" />
+      <workItem from="1465330694608" duration="14137000" />
+      <workItem from="1465415402984" duration="1341000" />
+      <workItem from="1465460017720" duration="3146000" />
+      <workItem from="1465477579758" duration="16619000" />
+      <workItem from="1465890039780" duration="4316000" />
+      <workItem from="1466199023609" duration="295000" />
+      <workItem from="1466455351917" duration="513000" />
+      <workItem from="1467147434894" duration="30000" />
+      <workItem from="1467324289336" duration="16728000" />
+      <workItem from="1467840446520" duration="7782000" />
+      <workItem from="1467896287690" duration="510000" />
+      <workItem from="1468045808226" duration="1662000" />
+      <workItem from="1468100896891" duration="57672000" />
+      <workItem from="1468785354409" duration="17411000" />
+      <workItem from="1469085892942" duration="62000" />
+      <workItem from="1470744264448" duration="15681000" />
+      <workItem from="1470820937473" duration="32596000" />
+      <workItem from="1471038014976" duration="18981000" />
+      <workItem from="1471158289227" duration="11702000" />
+      <workItem from="1471207019806" duration="11672000" />
+      <workItem from="1471330108380" duration="16869000" />
+      <workItem from="1471417696157" duration="1072000" />
+      <workItem from="1471434861586" duration="12239000" />
+      <workItem from="1471536063630" duration="517000" />
+      <workItem from="1474632272450" duration="909000" />
+      <workItem from="1475186532799" duration="264000" />
+    </task>
+    <task id="LOCAL-00001" summary="all remaining initial commit">
+      <created>1454962670265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1454962670265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="my second commit">
+      <created>1456145301950</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1456145301950</updated>
+    </task>
+    <task id="LOCAL-00003" summary="my third commit">
+      <created>1458330037552</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1458330037552</updated>
+    </task>
+    <task id="LOCAL-00004" summary="my 4 commit">
+      <created>1458592719421</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1458592719421</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="961249000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1920" height="873" extended-state="1" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12796208" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19072847" sideWeight="0.49605057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12804878" sideWeight="0.50394946" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32825205" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16701902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23069106" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16065192" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19651741" sideWeight="0.49605057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12804878" sideWeight="0.50394946" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32825205" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23069106" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18957011" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16701902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="all remaining initial commit" />
+    <MESSAGE value="my second commit" />
+    <MESSAGE value="my third commit" />
+    <MESSAGE value="my 4 commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="my 4 commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="12" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/testWithBabylon/myWebPageScenes.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mathisGame/mathisGameOLD.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2154">
+          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/macamera.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17010">
+          <caret line="945" column="0" selection-start-line="945" selection-start-column="0" selection-end-line="945" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/babylon.2.3.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51084">
+          <caret line="2838" column="8" selection-start-line="2838" selection-start-column="8" selection-end-line="2838" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/ObjectExtentionsForTest.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1836">
+          <caret line="102" column="11" selection-start-line="102" selection-start-column="11" selection-end-line="102" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/creationFlat.ts" />
+    <entry file="file://$PROJECT_DIR$/TS/randomFig.ts" />
+    <entry file="file://$PROJECT_DIR$/TS/showCase.ts" />
+    <entry file="file://$PROJECT_DIR$/TS/surfaceCreator.ts" />
+    <entry file="file://$PROJECT_DIR$/TS/prePoubel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/creation3D.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="384" column="0" selection-start-line="384" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/verticesMover.ts" />
+    <entry file="file://$PROJECT_DIR$/TS/periodicWorld.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="243" column="0" selection-start-line="243" selection-start-column="0" selection-end-line="243" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siteAgreg/siteAgreg.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="229" column="65" selection-start-line="229" selection-start-column="65" selection-end-line="229" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/justBabylonTest/justBabylon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/MATHIS.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="920" column="10" selection-start-line="920" selection-start-column="10" selection-end-line="920" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testWithBabylon/testBabylon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mathisGame/mathisGame.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testWithBabylon/testBabylon.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="90" column="58" selection-start-line="90" selection-start-column="58" selection-end-line="90" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/gameo.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/graph.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="497" column="0" selection-start-line="497" selection-start-column="0" selection-end-line="497" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mathisGame/mathisGame.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="1269" column="46" selection-start-line="1269" selection-start-column="46" selection-end-line="1269" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/mameshComputation.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/riemann.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="710" column="0" selection-start-line="710" selection-start-column="0" selection-end-line="710" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/spacialTransformations.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4374">
+          <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/symmetries.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/metropolis.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/proba.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/reseau.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2502">
+          <caret line="496" column="0" selection-start-line="496" selection-start-column="0" selection-end-line="496" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/tab.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/zzMain.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/basic.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="1053" column="39" selection-start-line="1053" selection-start-column="39" selection-end-line="1053" selection-end-column="39" />
+          <folding>
+            <element signature="e#24#49#0" expanded="false" />
+            <element signature="e#170#235#0" expanded="false" />
+            <element signature="n#UV#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#UV#0;n#mathis#0" expanded="false" />
+            <element signature="n#M22#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#determinant#0;n#M22#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#inverse#0;n#M22#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#multiplyUV#0;n#M22#0;n#mathis#0" expanded="false" />
+            <element signature="n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="e#1078#1095#0" expanded="false" />
+            <element signature="e#1371#1541#0" expanded="false" />
+            <element signature="e#1593#1646#0" expanded="false" />
+            <element signature="e#1656#1771#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newZero#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newFrom#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newOnes#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newRandom#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#temp0#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#temp1#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="e#2823#2850#0" expanded="false" />
+            <element signature="e#3345#3362#0" expanded="false" />
+            <element signature="n#!!block;n#add#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#resizes#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#substract#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#scale#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#copyFrom#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#copyFromFloats#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#changeBy#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#normalize#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="e#4518#4536#0" expanded="false" />
+            <element signature="n#!!block;n#almostEqual#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#toString#0;n#XYZ#0;n#mathis#0" expanded="false" />
+            <element signature="n#XYZW#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#XYZW#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#multiply#0;n#XYZW#0;n#mathis#0" expanded="false" />
+            <element signature="e#5477#5525#0" expanded="false" />
+            <element signature="n#Positioning#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#copyFrom#0;n#Positioning#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#changeFrontDir#0;n#Positioning#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#changeUpVector#0;n#Positioning#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#quaternion#0;n#Positioning#0;n#mathis#0" expanded="false" />
+            <element signature="e#8078#8205#0" expanded="false" />
+            <element signature="e#8247#8374#0" expanded="false" />
+            <element signature="e#8428#8590#0" expanded="false" />
+            <element signature="e#8643#8804#0" expanded="false" />
+            <element signature="e#9092#9094#0" expanded="false" />
+            <element signature="n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="e#10392#10407#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newIdentity#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newFrom#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newRandomMat#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#newZero#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#equal#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#almostEqual#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#leftMultiply#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#rightMultiply#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#inverse#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#copyFrom#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#transpose#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#toString#0;n#MM#0;n#mathis#0" expanded="false" />
+            <element signature="n#Link#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Link#0;n#mathis#0" expanded="false" />
+            <element signature="e#12722#12767#0" expanded="false" />
+            <element signature="n#!!block;n#hasMark#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getOpposites#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#hasBifurcations#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#13718#13814#0" expanded="false" />
+            <element signature="n#!!block;n#hasVoisin#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#13941#14005#0" expanded="false" />
+            <element signature="n#!!block;n#findLink#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#14191#14253#0" expanded="false" />
+            <element signature="n#!!block;n#setVoisinCouple#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#14462#14554#0" expanded="false" />
+            <element signature="e#14583#14675#0" expanded="false" />
+            <element signature="n#!!block;n#setVoisinSingle#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#separateTwoVoisins#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#changeFleArrival#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#16490#16533#0" expanded="false" />
+            <element signature="n#!!block;n#toString#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#toStringComplete#0;n#Vertex#0;n#mathis#0" expanded="false" />
+            <element signature="e#16990#17282#0" expanded="false" />
+            <element signature="e#17059#17197#0" expanded="false" />
+            <element signature="e#17857#17886#0" expanded="false" />
+            <element signature="e#18018#18058#0" expanded="false" />
+            <element signature="e#18144#18205#0" expanded="false" />
+            <element signature="e#18453#18608#0" expanded="false" />
+            <element signature="n#!!block;n#linesWasMade#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#addATriangle#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#addASquare#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#19049#19078#0" expanded="false" />
+            <element signature="n#!!block;n#newVertex#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#19554#19673#0" expanded="false" />
+            <element signature="n#!!block;n#findVertexFromParam#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#19969#20051#0" expanded="false" />
+            <element signature="n#!!block;n#addVertex#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#20595#20659#0" expanded="false" />
+            <element signature="n#!!block;n#hasVertex#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#21127#21209#0" expanded="false" />
+            <element signature="e#21273#21331#0" expanded="false" />
+            <element signature="n#!!block;n#getStraightLines#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#21628#21692#0" expanded="false" />
+            <element signature="n#!!block;n#getLoopLines#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#21821#21884#0" expanded="false" />
+            <element signature="n#!!block;n#getStraightLinesAsVertices#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#22031#22104#0" expanded="false" />
+            <element signature="n#!!block;n#getLoopLinesAsVertices#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#22247#22319#0" expanded="false" />
+            <element signature="n#!!block;n#toString#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#22503#22713#0" expanded="false" />
+            <element signature="e#22597#22697#0" expanded="false" />
+            <element signature="e#22837#22913#0" expanded="false" />
+            <element signature="e#23000#23209#0" expanded="false" />
+            <element signature="e#23297#23555#0" expanded="false" />
+            <element signature="e#23593#24279#0" expanded="false" />
+            <element signature="e#23721#23943#0" expanded="false" />
+            <element signature="e#23805#23894#0" expanded="false" />
+            <element signature="e#24043#24265#0" expanded="false" />
+            <element signature="e#24127#24216#0" expanded="false" />
+            <element signature="e#24363#24580#0" expanded="false" />
+            <element signature="e#24595#24620#0" expanded="false" />
+            <element signature="n#!!block;n#fillLineCatalogue#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!doc;n#isolateMameshVerticesFromExteriorVertices#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#isolateMameshVerticesFromExteriorVertices#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#25539#25726#0" expanded="false" />
+            <element signature="e#25587#25712#0" expanded="false" />
+            <element signature="e#25778#25980#0" expanded="false" />
+            <element signature="e#25860#25904#0" expanded="false" />
+            <element signature="n#!!block;n#getOrCreateSegment#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#26210#26353#0" expanded="false" />
+            <element signature="n#!!block;n#maxLinkLength#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#26556#26746#0" expanded="false" />
+            <element signature="e#26597#26731#0" expanded="false" />
+            <element signature="e#26912#26949#0" expanded="false" />
+            <element signature="n#!!block;n#clearOppositeInLinks#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#27570#27687#0" expanded="false" />
+            <element signature="e#27615#27672#0" expanded="false" />
+            <element signature="e#27701#27722#0" expanded="false" />
+            <element signature="e#27959#28167#0" expanded="false" />
+            <element signature="e#28053#28153#0" expanded="false" />
+            <element signature="e#28367#28896#0" expanded="false" />
+            <element signature="e#28447#28768#0" expanded="false" />
+            <element signature="e#28585#28681#0" expanded="false" />
+            <element signature="e#29150#29246#0" expanded="false" />
+            <element signature="e#29446#29563#0" expanded="false" />
+            <element signature="n#!!block;n#allSquareAndTrianglesAsSortedString#0;n#Mamesh#0;n#mathis#0" expanded="false" />
+            <element signature="e#29980#30185#0" expanded="false" />
+            <element signature="e#30073#30171#0" expanded="false" />
+            <element signature="e#30803#30976#0" expanded="false" />
+            <element signature="e#31128#31215#0" expanded="false" />
+            <element signature="e#31403#31512#0" expanded="false" />
+            <element signature="e#31730#31732#0" expanded="false" />
+            <element signature="n#Mamesh3dStratified#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allMamesh#0;n#Mamesh3dStratified#0;n#mathis#0" expanded="false" />
+            <element signature="e#36635#36664#0" expanded="false" />
+            <element signature="e#36717#36732#0" expanded="false" />
+            <element signature="n#!!block;n#fillLineCatalogueOfStrates#0;n#Mamesh3dStratified#0;n#mathis#0" expanded="false" />
+            <element signature="e#36995#37310#0" expanded="false" />
+            <element signature="e#37013#37099#0" expanded="false" />
+            <element signature="e#37324#37362#0" expanded="false" />
+            <element signature="e#37865#37927#0" expanded="false" />
+            <element signature="n#!!block;n#toMamesh#0;n#Mamesh3dStratified#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#concatOneDirection#0;n#!!block;n#toMamesh#0;n#Mamesh3dStratified#0;n#mathis#0" expanded="false" />
+            <element signature="e#38710#38744#0" expanded="false" />
+            <element signature="e#38967#39081#0" expanded="false" />
+            <element signature="e#39097#39135#0" expanded="false" />
+            <element signature="e#39606#39608#0" expanded="false" />
+            <element signature="n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#hashForDirected#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="e#41671#41760#0" expanded="false" />
+            <element signature="e#41778#42030#0" expanded="false" />
+            <element signature="n#!!block;n#inverted#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#positionList#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#hashString#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#positionnalHashForDirected#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="e#42869#42968#0" expanded="false" />
+            <element signature="e#42986#43265#0" expanded="false" />
+            <element signature="n#!!block;n#positionnalHash#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="e#43639#43641#0" expanded="false" />
+            <element signature="n#!!block;n#hashStringUpToSymmetries#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="e#45584#45936#0" expanded="false" />
+            <element signature="e#45668#45815#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allSegments#0;n#Line#0;n#mathis#0" expanded="false" />
+            <element signature="e#46311#46424#0" expanded="false" />
+            <element signature="n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#segmentId#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#equals#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getOther#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getFirst#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getSecond#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#has#0;n#Segment#0;n#mathis#0" expanded="false" />
+            <element signature="e#47547#47597#0" expanded="false" />
+            <marker date="1471527048000" expanded="false" signature="37632:37718" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/geometry.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="1120" column="16" selection-start-line="1120" selection-start-column="16" selection-end-line="1120" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/visu3d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="587" column="36" selection-start-line="587" selection-start-column="36" selection-end-line="587" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testLinker.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="233" column="30" selection-start-line="233" selection-start-column="30" selection-end-line="233" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testGeometry.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testInformatis.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testSymmetries.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testCreation3D.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testMameshModification.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testRiemann.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="142" column="51" selection-start-line="142" selection-start-column="51" selection-end-line="142" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/informathis.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allIntegerValueOfEnume#0;n#mathis#0" expanded="false" />
+            <element signature="e#190#341#0" expanded="false" />
+            <element signature="e#236#331#0" expanded="false" />
+            <element signature="n#!!block;n#allStringValueOfEnume#0;n#mathis#0" expanded="false" />
+            <element signature="e#493#639#0" expanded="false" />
+            <element signature="e#583#629#0" expanded="false" />
+            <element signature="n#!!doc;n#Logger#0;n#mathis#0" expanded="false" />
+            <element signature="n#Logger#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#c#0;n#Logger#0;n#mathis#0" expanded="false" />
+            <element signature="e#1147#1905#0" expanded="false" />
+            <element signature="e#1221#1302#0" expanded="false" />
+            <element signature="e#1362#1588#0" expanded="false" />
+            <element signature="e#1414#1569#0" expanded="false" />
+            <element signature="e#1648#1891#0" expanded="false" />
+            <element signature="e#1697#1873#0" expanded="false" />
+            <element signature="n#Logger#1;n#mathis#0" expanded="false" />
+            <element signature="n#Severity#0;n#Logger#1;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#roundWithGivenPrecision#0;n#mathis#0" expanded="false" />
+            <element signature="e#2233#2354#0" expanded="false" />
+            <element signature="n#!!block;n#HSVtoRGB#0;n#mathis#0" expanded="false" />
+            <element signature="e#2489#2537#0" expanded="false" />
+            <element signature="e#2742#3056#0" expanded="false" />
+            <element signature="e#3118#3281#0" expanded="false" />
+            <element signature="n#!!block#1;n#hexToRgb#0;n#mathis#0" expanded="false" />
+            <element signature="e#3553#3719#0" expanded="false" />
+            <element signature="n#!!block;n#componentToHex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#rgbToHex#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#applyMixins#0;n#mathis#0" expanded="false" />
+            <element signature="e#4095#4339#0" expanded="false" />
+            <element signature="e#4172#4327#0" expanded="false" />
+            <element signature="e#4218#4313#0" expanded="false" />
+            <element signature="n#!!doc;n#setCursorByID#0;n#mathis#0" expanded="false" />
+            <element signature="e#4925#4995#0" expanded="false" />
+            <element signature="n#!!block;n#modulo#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!doc;n#shuffle#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#shuffle#0;n#mathis#0" expanded="false" />
+            <element signature="e#6466#6791#0" expanded="false" />
+            <element signature="n#!!block;n#HasHashString#0;n#mathis#0" expanded="false" />
+            <element signature="n#Entry#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Entry#0;n#mathis#0" expanded="false" />
+            <element signature="n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#putValue#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#7455#7569#0" expanded="false" />
+            <element signature="n#!!block;n#removeKey#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getValue#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#7925#8039#0" expanded="false" />
+            <element signature="n#!!block;n#allValues#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allKeys#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allEntries#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#size#0;n#HashMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#9012#9033#0" expanded="false" />
+            <element signature="n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#putValue#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#9476#9590#0" expanded="false" />
+            <element signature="n#!!block;n#removeKey#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#getValue#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#9818#9932#0" expanded="false" />
+            <element signature="n#!!block;n#allValues#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#allKeys#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#size#0;n#StringMap#0;n#mathis#0" expanded="false" />
+            <element signature="e#10440#10461#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/testCreation.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/lineModule.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="457" column="0" selection-start-line="457" selection-start-column="0" selection-end-line="457" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+            <element signature="n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#578#701#0" expanded="false" />
+            <element signature="e#723#793#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#1360#1490#0" expanded="false" />
+            <element signature="e#1538#2032#0" expanded="false" />
+            <element signature="e#1625#1769#0" expanded="false" />
+            <element signature="e#1790#1829#0" expanded="false" />
+            <element signature="n#!!block;n#selectLineWithCartesianXYParam#0;n#LineComputer#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#2307#2465#0" expanded="false" />
+            <element signature="e#2357#2447#0" expanded="false" />
+            <element signature="e#2535#2692#0" expanded="false" />
+            <element signature="e#2585#2674#0" expanded="false" />
+            <element signature="n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#3346#3604#0" expanded="false" />
+            <element signature="e#3385#3586#0" expanded="false" />
+            <element signature="e#3647#4707#0" expanded="false" />
+            <element signature="e#3683#4686#0" expanded="false" />
+            <element signature="e#3835#4066#0" expanded="false" />
+            <element signature="e#3918#4040#0" expanded="false" />
+            <element signature="e#4091#4116#0" expanded="false" />
+            <element signature="e#4210#4664#0" expanded="false" />
+            <element signature="e#4327#4449#0" expanded="false" />
+            <element signature="n#!!block;n#cutOneLine#0;n#LinesCuter#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#5030#5621#0" expanded="false" />
+            <element signature="e#5105#5509#0" expanded="false" />
+            <element signature="e#5226#5487#0" expanded="false" />
+            <element signature="e#5534#5602#0" expanded="false" />
+            <element signature="e#5721#5808#0" expanded="false" />
+            <element signature="e#5828#5868#0" expanded="false" />
+            <element signature="n#!!block;n#makeLineCatalogue2#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#addOneSegment#0;n#!!block;n#makeLineCatalogue2#0;n#lineModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#7430#7446#0" expanded="false" />
+            <element signature="e#7484#7637#0" expanded="false" />
+            <element signature="e#7783#7866#0" expanded="false" />
+            <element signature="e#7971#8057#0" expanded="false" />
+            <element signature="e#8079#9704#0" expanded="false" />
+            <element signature="e#8322#9686#0" expanded="false" />
+            <element signature="e#8437#8701#0" expanded="false" />
+            <element signature="e#8731#9661#0" expanded="false" />
+            <element signature="e#8775#9303#0" expanded="false" />
+            <element signature="e#9332#9384#0" expanded="false" />
+            <element signature="e#9417#9634#0" expanded="false" />
+            <element signature="e#9723#9752#0" expanded="false" />
+            <element signature="e#10225#10309#0" expanded="false" />
+            <element signature="e#12242#12289#0" expanded="false" />
+            <element signature="e#12334#13282#0" expanded="false" />
+            <element signature="e#12385#13265#0" expanded="false" />
+            <element signature="e#12434#13247#0" expanded="false" />
+            <element signature="e#12548#12914#0" expanded="false" />
+            <element signature="e#12940#13008#0" expanded="false" />
+            <element signature="e#13299#13372#0" expanded="false" />
+            <element signature="e#13408#13796#0" expanded="false" />
+            <element signature="e#13563#13733#0" expanded="false" />
+            <element signature="e#13812#13845#0" expanded="false" />
+            <element signature="e#13890#14528#0" expanded="false" />
+            <element signature="e#13941#14511#0" expanded="false" />
+            <element signature="e#13964#14123#0" expanded="false" />
+            <element signature="e#14210#14491#0" expanded="false" />
+            <element signature="e#16854#18223#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/forM2.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <marker date="1474637303000" expanded="true" signature="273:432" ph="{...}" />
+            <marker date="1474637303000" expanded="true" signature="482:739" ph="{...}" />
+            <marker date="1474637303000" expanded="true" signature="615:730" ph="{...}" />
+            <marker date="1474637303000" expanded="true" signature="752:1155" ph="{...}" />
+            <marker date="1474637303000" expanded="true" signature="1032:1143" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/creation2D.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4086">
+          <caret line="335" column="16" selection-start-line="335" selection-start-column="16" selection-end-line="335" selection-end-column="16" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+            <element signature="e#333#335#0" expanded="false" />
+            <element signature="e#14113#14180#0" expanded="false" />
+            <element signature="e#14350#14374#0" expanded="false" />
+            <marker date="1471527048000" expanded="false" signature="3396:3447" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/mameshModification.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1098">
+          <caret line="1932" column="12" selection-start-line="1932" selection-start-column="12" selection-end-line="1932" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#completSegment#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#334#370#0" expanded="false" />
+            <element signature="e#411#1141#0" expanded="false" />
+            <element signature="e#889#1046#0" expanded="false" />
+            <element signature="e#1154#1199#0" expanded="false" />
+            <element signature="n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#1448#1523#0" expanded="false" />
+            <element signature="e#1575#1708#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#1891#2055#0" expanded="false" />
+            <element signature="e#2093#2160#0" expanded="false" />
+            <element signature="n#!!doc;n#go#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#2521#2668#0" expanded="false" />
+            <element signature="e#2690#2845#0" expanded="false" />
+            <element signature="e#3168#3250#0" expanded="false" />
+            <element signature="e#3324#5083#0" expanded="false" />
+            <element signature="e#3902#4195#0" expanded="false" />
+            <element signature="e#4221#4502#0" expanded="false" />
+            <element signature="e#4661#4714#0" expanded="false" />
+            <element signature="e#5122#6674#0" expanded="false" />
+            <element signature="e#5173#6656#0" expanded="false" />
+            <element signature="e#5508#5943#0" expanded="false" />
+            <element signature="e#5973#6147#0" expanded="false" />
+            <element signature="e#6176#6448#0" expanded="false" />
+            <element signature="e#6483#6634#0" expanded="false" />
+            <element signature="e#6871#6954#0" expanded="false" />
+            <element signature="n#!!block#1;n#createAndAddSegmentsFromTriangles#0;n#TriangleDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#8176#8542#0" expanded="false" />
+            <element signature="n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#8889#8964#0" expanded="false" />
+            <element signature="e#9016#9149#0" expanded="false" />
+            <element signature="e#9217#9386#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#9456#9583#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#9898#10037#0" expanded="false" />
+            <element signature="e#10059#10207#0" expanded="false" />
+            <element signature="e#10313#10395#0" expanded="false" />
+            <element signature="e#10466#13512#0" expanded="false" />
+            <element signature="e#11650#12998#0" expanded="false" />
+            <element signature="e#12284#12495#0" expanded="false" />
+            <element signature="e#13090#13455#0" expanded="false" />
+            <element signature="e#13705#13786#0" expanded="false" />
+            <element signature="n#!!block#1;n#createAndAddSegmentsFromSquare#0;n#SquareDichotomer#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#15062#15536#0" expanded="false" />
+            <element signature="n#SquareDichotomer#1;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#DichoStyle#0;n#SquareDichotomer#1;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!doc;n#checkArgs#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#16600#16750#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#16936#17062#0" expanded="false" />
+            <element signature="e#17084#17209#0" expanded="false" />
+            <element signature="n#!!doc;n#goChanging#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#goChanging#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#17702#17816#0" expanded="false" />
+            <element signature="e#17833#17901#0" expanded="false" />
+            <element signature="e#18299#18351#0" expanded="false" />
+            <element signature="n#!!block;n#buildMergingMap#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#19017#19091#0" expanded="false" />
+            <element signature="e#19228#19543#0" expanded="false" />
+            <element signature="e#19340#19420#0" expanded="false" />
+            <element signature="e#19594#19743#0" expanded="false" />
+            <element signature="n#!!block;n#mergeOnlyVertices#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#20102#20133#0" expanded="false" />
+            <element signature="e#20187#20279#0" expanded="false" />
+            <element signature="e#20308#20310#0" expanded="false" />
+            <element signature="n#!!block;n#mergeVerticesAndLinks#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#27148#27261#0" expanded="false" />
+            <element signature="e#27337#27366#0" expanded="false" />
+            <element signature="e#27467#27524#0" expanded="false" />
+            <element signature="e#27579#28210#0" expanded="false" />
+            <element signature="e#27678#28077#0" expanded="false" />
+            <element signature="e#27704#27762#0" expanded="false" />
+            <element signature="e#27833#28055#0" expanded="false" />
+            <element signature="e#27863#27930#0" expanded="false" />
+            <element signature="e#28229#28257#0" expanded="false" />
+            <element signature="e#28358#28462#0" expanded="false" />
+            <element signature="e#28539#28580#0" expanded="false" />
+            <element signature="e#28693#28756#0" expanded="false" />
+            <element signature="e#28824#30056#0" expanded="false" />
+            <element signature="e#28931#29807#0" expanded="false" />
+            <element signature="e#29003#29369#0" expanded="false" />
+            <element signature="e#29153#29343#0" expanded="false" />
+            <element signature="e#29394#29425#0" expanded="false" />
+            <element signature="e#29864#30037#0" expanded="false" />
+            <element signature="e#29925#30014#0" expanded="false" />
+            <element signature="e#30076#30109#0" expanded="false" />
+            <element signature="e#30153#30293#0" expanded="false" />
+            <element signature="e#30175#30248#0" expanded="false" />
+            <element signature="n#!!block;n#mergeCutSegment#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#30413#30585#0" expanded="false" />
+            <element signature="e#30657#32036#0" expanded="false" />
+            <element signature="e#30912#31040#0" expanded="false" />
+            <element signature="e#31161#31304#0" expanded="false" />
+            <element signature="e#31373#31516#0" expanded="false" />
+            <element signature="e#31590#31743#0" expanded="false" />
+            <element signature="e#31788#32016#0" expanded="false" />
+            <element signature="e#32096#32641#0" expanded="false" />
+            <element signature="e#32160#32620#0" expanded="false" />
+            <element signature="e#32282#32510#0" expanded="false" />
+            <element signature="n#!!block;n#letsMergeTrianglesAndSquares#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#32730#32778#0" expanded="false" />
+            <element signature="e#32826#33123#0" expanded="false" />
+            <element signature="e#33142#33190#0" expanded="false" />
+            <element signature="e#33278#33505#0" expanded="false" />
+            <element signature="e#33651#34047#0" expanded="false" />
+            <element signature="e#33955#34029#0" expanded="false" />
+            <element signature="e#34212#34234#0" expanded="false" />
+            <element signature="e#34397#34465#0" expanded="false" />
+            <element signature="e#34551#34774#0" expanded="false" />
+            <element signature="e#34916#35540#0" expanded="false" />
+            <element signature="e#35200#35272#0" expanded="false" />
+            <element signature="e#35329#35522#0" expanded="false" />
+            <element signature="e#35699#35721#0" expanded="false" />
+            <element signature="e#35973#40067#0" expanded="false" />
+            <element signature="e#35995#36054#0" expanded="false" />
+            <element signature="e#36210#37229#0" expanded="false" />
+            <element signature="e#37372#37774#0" expanded="false" />
+            <element signature="e#37665#37752#0" expanded="false" />
+            <element signature="e#37937#38075#0" expanded="false" />
+            <element signature="e#38225#38626#0" expanded="false" />
+            <element signature="e#38820#39714#0" expanded="false" />
+            <element signature="e#38874#39692#0" expanded="false" />
+            <element signature="e#39356#39666#0" expanded="false" />
+            <element signature="e#39761#40049#0" expanded="false" />
+            <element signature="n#!!block;n#changeOneSquare#0;n#Merger#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#40373#40559#0" expanded="false" />
+            <element signature="e#40433#40541#0" expanded="false" />
+            <element signature="n#!!doc;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#goChanging#0;n#Sticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#41678#42063#0" expanded="false" />
+            <element signature="e#41813#41861#0" expanded="false" />
+            <element signature="e#42118#42228#0" expanded="false" />
+            <element signature="e#42660#42683#0" expanded="false" />
+            <element signature="e#42745#42796#0" expanded="false" />
+            <element signature="e#43010#43212#0" expanded="false" />
+            <element signature="e#43065#43194#0" expanded="false" />
+            <element signature="n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#MameshDeepCopier#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#43674#44039#0" expanded="false" />
+            <element signature="e#44097#45265#0" expanded="false" />
+            <element signature="e#44213#44317#0" expanded="false" />
+            <element signature="e#44382#45245#0" expanded="false" />
+            <element signature="e#44541#44857#0" expanded="false" />
+            <element signature="e#44654#44830#0" expanded="false" />
+            <element signature="e#44883#44917#0" expanded="false" />
+            <element signature="e#45329#45418#0" expanded="false" />
+            <element signature="e#45479#45566#0" expanded="false" />
+            <element signature="e#45605#46699#0" expanded="false" />
+            <element signature="e#45660#46681#0" expanded="false" />
+            <element signature="e#45918#46237#0" expanded="false" />
+            <element signature="e#46027#46128#0" expanded="false" />
+            <element signature="e#46315#46633#0" expanded="false" />
+            <element signature="e#46424#46525#0" expanded="false" />
+            <element signature="e#46808#47587#0" expanded="false" />
+            <element signature="e#46878#47569#0" expanded="false" />
+            <element signature="n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#47999#48007#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#SubMameshExtractor#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#48481#48846#0" expanded="false" />
+            <element signature="e#48538#48607#0" expanded="false" />
+            <element signature="e#49015#49915#0" expanded="false" />
+            <element signature="e#49999#50751#0" expanded="false" />
+            <element signature="e#50811#51256#0" expanded="false" />
+            <element signature="e#50852#51238#0" expanded="false" />
+            <element signature="e#50900#51043#0" expanded="false" />
+            <element signature="e#51073#51216#0" expanded="false" />
+            <element signature="e#51304#53551#0" expanded="false" />
+            <element signature="e#51370#51798#0" expanded="false" />
+            <element signature="e#51437#51684#0" expanded="false" />
+            <element signature="e#51824#53533#0" expanded="false" />
+            <element signature="e#52043#53272#0" expanded="false" />
+            <element signature="e#52228#52459#0" expanded="false" />
+            <element signature="e#52299#52429#0" expanded="false" />
+            <element signature="e#52504#52856#0" expanded="false" />
+            <element signature="e#52575#52826#0" expanded="false" />
+            <element signature="e#52650#52792#0" expanded="false" />
+            <element signature="e#52902#53246#0" expanded="false" />
+            <element signature="e#53570#53600#0" expanded="false" />
+            <element signature="e#53764#54211#0" expanded="false" />
+            <element signature="e#53831#54193#0" expanded="false" />
+            <element signature="n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#ExtractCentralPart#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#54767#54949#0" expanded="false" />
+            <element signature="e#54827#54931#0" expanded="false" />
+            <element signature="e#54970#55152#0" expanded="false" />
+            <element signature="e#55030#55134#0" expanded="false" />
+            <element signature="e#55495#55586#0" expanded="false" />
+            <element signature="e#55679#55815#0" expanded="false" />
+            <element signature="e#55735#55797#0" expanded="false" />
+            <element signature="e#55884#55961#0" expanded="false" />
+            <element signature="e#56209#56353#0" expanded="false" />
+            <element signature="n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#58432#59439#0" expanded="false" />
+            <element signature="e#58593#58863#0" expanded="false" />
+            <element signature="e#58725#58841#0" expanded="false" />
+            <element signature="e#59317#59420#0" expanded="false" />
+            <element signature="n#!!block;n#getBestPermutationOfReceiver#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#59689#60115#0" expanded="false" />
+            <element signature="e#60001#60097#0" expanded="false" />
+            <element signature="n#!!block;n#squareToBaryCenter#0;n#FindMergingMapFromSquare#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#60432#60720#0" expanded="false" />
+            <element signature="n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#60948#61002#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#61256#61340#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#FindMergingMapFromVertices#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#61723#62637#0" expanded="false" />
+            <element signature="e#61927#62228#0" expanded="false" />
+            <element signature="e#62080#62206#0" expanded="false" />
+            <element signature="e#62338#62524#0" expanded="false" />
+            <element signature="e#62426#62502#0" expanded="false" />
+            <element signature="n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#62917#63090#0" expanded="false" />
+            <element signature="e#63142#63191#0" expanded="false" />
+            <element signature="e#63274#63331#0" expanded="false" />
+            <element signature="e#63379#63433#0" expanded="false" />
+            <element signature="e#63493#63634#0" expanded="false" />
+            <element signature="e#63647#63685#0" expanded="false" />
+            <element signature="e#63802#63936#0" expanded="false" />
+            <element signature="e#64088#64164#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#64455#64649#0" expanded="false" />
+            <element signature="n#!!block;n#goChanging#0;n#ConcurrentMameshesGraterAndSticker#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#64949#65025#0" expanded="false" />
+            <element signature="e#65075#65233#0" expanded="false" />
+            <element signature="e#65125#65215#0" expanded="false" />
+            <element signature="e#65484#65549#0" expanded="false" />
+            <element signature="e#66018#67210#0" expanded="false" />
+            <element signature="e#66468#66840#0" expanded="false" />
+            <element signature="e#66524#66818#0" expanded="false" />
+            <element signature="e#66645#66792#0" expanded="false" />
+            <element signature="e#66904#67081#0" expanded="false" />
+            <element signature="e#67390#68910#0" expanded="false" />
+            <element signature="e#67879#68085#0" expanded="false" />
+            <element signature="e#67974#68059#0" expanded="false" />
+            <element signature="e#68184#68210#0" expanded="false" />
+            <element signature="e#68676#68708#0" expanded="false" />
+            <element signature="e#69024#69143#0" expanded="false" />
+            <element signature="e#69163#69205#0" expanded="false" />
+            <element signature="e#69391#69622#0" expanded="false" />
+            <element signature="e#69714#69716#0" expanded="false" />
+            <element signature="e#72807#72809#0" expanded="false" />
+            <element signature="e#75177#75206#0" expanded="false" />
+            <element signature="n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#76842#77137#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#77417#77499#0" expanded="false" />
+            <element signature="e#77521#77594#0" expanded="false" />
+            <element signature="n#!!block;n#goChanging#0;n#PercolationOnLinks#0;n#mameshModification#0;n#mathis#0" expanded="false" />
+            <element signature="e#77931#78509#0" expanded="false" />
+            <element signature="e#78027#78491#0" expanded="false" />
+            <element signature="e#78119#78469#0" expanded="false" />
+            <marker date="1471527343000" expanded="false" signature="20778:20836" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="21024:21091" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="21437:21465" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="21667:21730" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="23156:23220" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="24146:24193" ph="/**...*/" />
+            <marker date="1471527343000" expanded="false" signature="25658:25723" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TS/linkModule.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="435" column="12" selection-start-line="435" selection-start-column="12" selection-end-line="435" selection-end-column="12" />
+          <folding>
+            <element signature="n#!!doc;n#mathis#0" expanded="false" />
+            <element signature="n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#goChanging#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#1147#1389#0" expanded="false" />
+            <element signature="e#1445#4090#0" expanded="false" />
+            <element signature="e#1595#1860#0" expanded="false" />
+            <element signature="e#1979#2075#0" expanded="false" />
+            <element signature="e#2179#2291#0" expanded="false" />
+            <element signature="e#2402#2682#0" expanded="false" />
+            <element signature="e#2469#2659#0" expanded="false" />
+            <element signature="e#2840#2968#0" expanded="false" />
+            <element signature="e#3034#3066#0" expanded="false" />
+            <element signature="n#!!block;n#letsSuppressLinks#0;n#LinksSorterAndCleanerByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#4299#7208#0" expanded="false" />
+            <element signature="e#4453#7190#0" expanded="false" />
+            <element signature="e#4586#7164#0" expanded="false" />
+            <element signature="e#5081#7138#0" expanded="false" />
+            <element signature="e#5115#5172#0" expanded="false" />
+            <element signature="e#5531#5725#0" expanded="false" />
+            <element signature="e#5762#6609#0" expanded="false" />
+            <element signature="e#5868#5930#0" expanded="false" />
+            <element signature="e#5994#6253#0" expanded="false" />
+            <element signature="e#6290#6328#0" expanded="false" />
+            <element signature="e#6369#6575#0" expanded="false" />
+            <element signature="e#6730#6777#0" expanded="false" />
+            <element signature="n#!!block;n#associateOppositeLinks#0;n#OppositeLinkAssocierByAngles#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#11377#11481#0" expanded="false" />
+            <element signature="e#12331#12375#0" expanded="false" />
+            <element signature="e#18177#18393#0" expanded="false" />
+            <element signature="e#18224#18373#0" expanded="false" />
+            <element signature="e#18277#18350#0" expanded="false" />
+            <element signature="e#18565#18595#0" expanded="false" />
+            <element signature="e#20344#20753#0" expanded="false" />
+            <element signature="e#20973#21033#0" expanded="false" />
+            <element signature="e#21177#21250#0" expanded="false" />
+            <element signature="n#!!block;n#go#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkArgs#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#createPolygonesFromSmallestTrianglesAnSquares#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#22219#22501#0" expanded="false" />
+            <element signature="e#22275#22480#0" expanded="false" />
+            <element signature="e#22583#22919#0" expanded="false" />
+            <element signature="e#22639#22898#0" expanded="false" />
+            <element signature="e#22973#23336#0" expanded="false" />
+            <element signature="e#23075#23318#0" expanded="false" />
+            <element signature="e#23387#23491#0" expanded="false" />
+            <element signature="e#23550#23730#0" expanded="false" />
+            <element signature="e#23607#23711#0" expanded="false" />
+            <element signature="e#23878#24285#0" expanded="false" />
+            <element signature="e#23932#24266#0" expanded="false" />
+            <element signature="e#24016#24244#0" expanded="false" />
+            <element signature="e#24304#24340#0" expanded="false" />
+            <element signature="n#!!block;n#detectBorder#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#24569#26801#0" expanded="false" />
+            <element signature="e#24897#25829#0" expanded="false" />
+            <element signature="e#25228#25361#0" expanded="false" />
+            <element signature="e#25509#25642#0" expanded="false" />
+            <element signature="e#25668#25744#0" expanded="false" />
+            <element signature="e#25939#26617#0" expanded="false" />
+            <element signature="e#26009#26441#0" expanded="false" />
+            <element signature="e#26123#26338#0" expanded="false" />
+            <element signature="n#!!block;n#createLinksTurningAround#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#26921#27486#0" expanded="false" />
+            <element signature="e#27080#27468#0" expanded="false" />
+            <element signature="e#27170#27280#0" expanded="false" />
+            <element signature="e#27504#27559#0" expanded="false" />
+            <element signature="e#27612#28268#0" expanded="false" />
+            <element signature="e#27701#28249#0" expanded="false" />
+            <element signature="e#27742#27914#0" expanded="false" />
+            <element signature="e#27943#28225#0" expanded="false" />
+            <element signature="e#27999#28199#0" expanded="false" />
+            <element signature="e#28337#29675#0" expanded="false" />
+            <element signature="e#28360#28420#0" expanded="false" />
+            <element signature="e#28876#29225#0" expanded="false" />
+            <element signature="e#28902#28928#0" expanded="false" />
+            <element signature="e#29250#29656#0" expanded="false" />
+            <element signature="n#!!block;n#makeLinksFinaly#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#29804#32502#0" expanded="false" />
+            <element signature="e#29912#32483#0" expanded="false" />
+            <element signature="e#30047#30294#0" expanded="false" />
+            <element signature="e#30324#32460#0" expanded="false" />
+            <element signature="e#30376#30778#0" expanded="false" />
+            <element signature="e#30444#30748#0" expanded="false" />
+            <element signature="e#30854#32433#0" expanded="false" />
+            <element signature="e#31051#31140#0" expanded="false" />
+            <element signature="e#31368#31408#0" expanded="false" />
+            <element signature="e#31515#31548#0" expanded="false" />
+            <element signature="e#31766#31825#0" expanded="false" />
+            <element signature="e#32537#32584#0" expanded="false" />
+            <element signature="n#!!block;n#findAPolygoneWithOrientedEdge#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#33265#33575#0" expanded="false" />
+            <element signature="e#33367#33557#0" expanded="false" />
+            <element signature="n#!!block;n#findAPolygoneWithThisEdge#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#33767#34182#0" expanded="false" />
+            <element signature="e#33869#34163#0" expanded="false" />
+            <element signature="e#34786#35044#0" expanded="false" />
+            <element signature="e#35140#35281#0" expanded="false" />
+            <element signature="e#35503#35800#0" expanded="false" />
+            <element signature="e#35823#35825#0" expanded="false" />
+            <element signature="e#36433#36517#0" expanded="false" />
+            <element signature="e#36547#36629#0" expanded="false" />
+            <element signature="n#!!doc;n#subdivideSegment#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#subdivideSegment#0;n#LinkCreaterSorterAndBorderDetecterByPolygons#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#37190#37836#0" expanded="false" />
+            <element signature="e#37867#37894#0" expanded="false" />
+            <element signature="n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#constructor#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#39072#39115#0" expanded="false" />
+            <element signature="e#39298#39329#0" expanded="false" />
+            <element signature="n#!!block;n#hasAngle#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#39749#39839#0" expanded="false" />
+            <element signature="e#39900#39954#0" expanded="false" />
+            <element signature="n#!!block;n#theOutgoingAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#40551#40697#0" expanded="false" />
+            <element signature="e#40599#40679#0" expanded="false" />
+            <element signature="n#!!block;n#theIngoingAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#40931#41084#0" expanded="false" />
+            <element signature="e#40979#41066#0" expanded="false" />
+            <element signature="n#!!block;n#theTwoAnglesAdjacentFrom#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#41322#41504#0" expanded="false" />
+            <element signature="e#41370#41486#0" expanded="false" />
+            <element signature="n#!!block;n#toString#0;n#Polygone#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!doc;n#checkTheRegularityOfAGraph#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="n#!!block;n#checkTheRegularityOfAGraph#0;n#linkModule#0;n#mathis#0" expanded="false" />
+            <element signature="e#41938#43250#0" expanded="false" />
+            <element signature="e#42036#43235#0" expanded="false" />
+            <element signature="e#42499#43215#0" expanded="false" />
+            <element signature="e#42580#43118#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <last-edited>typescriptFiles</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+          <order>
+            <scope name="typescriptFiles" />
+          </order>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
