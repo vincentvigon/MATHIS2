@@ -1,7 +1,9 @@
 
 var autre=55555555;
 
-var aze=456;
+var aze=null;
+
+
 var qsd=123
 
 function toto(){
