@@ -7,6 +7,11 @@ function toto(){
 return 3;
 }
 
+function bou(){
+return 5;
+}
+
+
 
 
 
