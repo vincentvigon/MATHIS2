@@ -1,7 +1,7 @@
 
 var a="Tout neuv"
 
-var aze=456;
+var aze=4566666666;
 var qsd=123
 
 function toto(){
