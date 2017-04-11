@@ -598,6 +598,58 @@ module mathis {
         }
 
 
+        export class HexahedronSubdivider {
+            mamesh : Mamesh;
+            subdivider : number = 3;
+            hexahedronsToCut : Vertex[] | null = null;
+            suppressVolumes : [number,number,number][] | null = null;
+
+            private createdPointsPerSegment : {[id:string]:Vertex[]} = {};
+            private newSquares : Vertex[] = [];
+            private points : Vertex[][][] = [];
+
+            constructor(mamesh : Mamesh) {
+                this.mamesh = mamesh;
+            }
+
+            checkArgs() {
+                if((this.hexahedronsToCut == null && this.mamesh.hexahedrons.length == 0) ||
+                   (this.hexahedronsToCut != null && this.hexahedronsToCut.length == 0))
+                    logger.c("HexahedronSubdivider : No input");
+
+            }
+
+            go() : void {
+                this.checkArgs();
+                if(this.hexahedronsToCut == null)
+                    this.hexahedronsToCut = this.mamesh.hexahedrons;
+
+                // TODO : Supprimer les sommets non utilisés par l'utilisation de this.suppressFaces
+                //   (actuellement si le bord n'a plus besoin d'un sommet, il est gardé dans l'original
+                // TODO : + Triangles
+                this.subdivideHexahedrons();
+            }
+
+            private subdivideHexahedronInVertices(h : number) {
+                let n = this.subdivider;
+                for(let i = 1;i < n;i++) {
+                    for(let j = 1;j < n;j++) {
+                        for(let k = 1;k < n;k++) {
+                            let pos = new XYZ(0,0,0);
+                            /*geo.baryCenter([this.hexahedronsToCut[h+1].position,b,c,d],
+                                [1,-j/n,(i+j)/n,-i/n], pos);
+                            this.points[i][j][k] = this.mamesh.newVertex(pos);*/
+                        }
+                    }
+                }
+            }
+
+            private subdivideHexahedrons() {
+
+            }
+        }
+
+
         
         export class MameshDeepCopier {
 
