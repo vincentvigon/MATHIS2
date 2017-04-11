@@ -445,7 +445,8 @@ module mathis {
             private  createPickingRayWithFrozenCamera(x:number, y:number, world:MM, frozenViewMatrix:MM, frozonProjectionMatrix:MM, result:{origin:XYZ;direction:XYZ}):void {
                 var engine = this.getEngine();
                 var cameraViewport = this.viewport;
-                var viewport = cameraViewport.toGlobal(engine);
+                // var viewport = cameraViewport.toGlobal(engine);
+                var viewport = cameraViewport.toGlobal(engine.getRenderWidth(),engine.getRenderHeight())
 
                 // Moving coordinates to local viewport world
                 x = x / engine.getHardwareScalingLevel() - viewport.x;
@@ -590,8 +591,8 @@ module mathis {
                 //return this.isSynchronized()
 
             }
-            
-            
+
+
             private _target = XYZ.newZero()
             private viewMM = new MM()
             /**Est appelée par Camera.getViewMatrix uniquement lorsque _isSynchronizedViewMatrix renvoit faux
@@ -623,7 +624,7 @@ module mathis {
 
 
             /**lancé à chaque frame */
-            _update():void {
+            update():void {
                 this.checkForKeyPushed()
                 /**cela fait le lissage*/
                 if (!this.trueCamPos.almostEqual(this.whishedCamPos))  {

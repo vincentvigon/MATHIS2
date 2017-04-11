@@ -627,6 +627,18 @@ module mathis {
         /**surface element between vertices*/
         smallestTriangles :Vertex[]=[]
         smallestSquares:Vertex[]=[]
+        /** Hexahedron configuration
+         *   4   7
+         *  /|   |
+         * 3-+-2 |
+         *   | | |
+         *   5-+-6
+         *     |
+         * 0---1
+         *
+         * Coplanar faces ; order (for vectorial product) important.
+         * */
+        hexahedrons : Vertex[] = [];
         
 
         /**to each vertex can be associate a positioning
@@ -679,9 +691,18 @@ module mathis {
             this.smallestSquares.push(a,b,c,d);
             return this
         }
-        
-        
-        
+
+        addHexahedron(pos : Vertex[]) : Mamesh {
+            this.hexahedrons.concat(pos);
+            return this;
+        }
+
+        getVertex(pos : XYZ) {
+            let v = this.findVertexFromParam(pos);
+            if(v == null)
+                v = this.newVertex(pos);
+            return v;
+        }
 
         newVertex(position:XYZ,dichoLevel=0,param?:XYZ):Vertex{
             let vertex=new Vertex()
