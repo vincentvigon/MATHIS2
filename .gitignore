@@ -1,0 +1,9 @@
+#idea-files are personal
+.idea/*
+#generated files would create a lot of conflict
+JS/MATHIS*
+#uncomment this line to keep your own config
+tsconfig.json
+
+
+
