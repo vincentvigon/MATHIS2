@@ -1,4 +1,8 @@
 
 
-var a="Une phrase ajoutée dans la branche 'myFeature' "
+
+
+var a="là c'est une phrase d'une autre branche"
+
+
 
