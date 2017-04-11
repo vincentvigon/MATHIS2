@@ -2,8 +2,11 @@
 .idea/*
 #generated files would create a lot of conflict
 JS/MATHIS*
-#uncomment this line to keep your own config
-tsconfig.json
+
+# comment/uncomment to keep/synchronize your typescript config
+#tsconfig.json
 
 
+#mac directory utility  (one .DS_Store per directory. All will be ignored)
+.DS_Store
 
