@@ -1,5 +1,5 @@
 
-var autre=5;
+var autre=null;
 
 var aze=456;
 
