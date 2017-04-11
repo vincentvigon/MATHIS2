@@ -11,9 +11,6 @@ function bou(){
   return 5;
 }
 
-function bou(){
-return 5;
-}
 
 
 
