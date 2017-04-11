@@ -8,7 +8,7 @@ function toto(){
 }
 
 function bou(){
-  return 5;
+  return 7;
 }
 
 
