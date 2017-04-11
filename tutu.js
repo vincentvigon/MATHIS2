@@ -1,5 +1,5 @@
 
-var autre=5;
+var a="Tout neuv"
 
 var aze=456;
 
