@@ -630,7 +630,7 @@ module mathis {
                         this.points[i][j] = [];
                 }
 
-                // TODO : Supprimer les sommets non utilisés par l'utilisation de this.suppressFaces
+                // TODO : Supprimer les sommets / faces non utilisés par l'utilisation de this.suppressVolumes
                 //   (actuellement si le bord n'a plus besoin d'un sommet, il est gardé dans l'original
                 // TODO : + Triangles
                 this.subdivideHexahedrons();
@@ -638,22 +638,55 @@ module mathis {
 
             private subdivideHexahedronInVertices(h : number) {
                 let n = this.subdivider;
+                const coordsList = [[0,0,0],[n,0,0],[n,0,n],[0,0,n],[0,n,n],[0,n,0],[n,n,0],[n,n,n]];
 
-                this.points[0][0][0] = this.hexahedronsToCut[h  ];
-                this.points[n][0][0] = this.hexahedronsToCut[h+1];
-                this.points[n][0][n] = this.hexahedronsToCut[h+2];
-                this.points[0][0][n] = this.hexahedronsToCut[h+3];
-                this.points[0][n][n] = this.hexahedronsToCut[h+4];
-                this.points[0][n][0] = this.hexahedronsToCut[h+5];
-                this.points[n][n][0] = this.hexahedronsToCut[h+6];
-                this.points[n][n][n] = this.hexahedronsToCut[h+6];
+                coordsList.forEach(([i,j,k],l) => { this.points[i][j][k] = this.hexahedronsToCut[h+l]; });
 
-                /// TODO : Surfaces
-                /// TODO : Segments
+                const segmentList = [[0,1],[1,2],[2,3],[3,0],
+                                     [0,5],[1,6],[2,7],[3,4],
+                                     [4,5],[5,6],[6,7],[7,4]];
+                for(let [na,nb] of segmentList) {
+                    let el = Hash.segment(this.hexahedronsToCut[h+na],this.hexahedronsToCut[h+nb]);
+                    if(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber)
+                        [na,nb] = [nb,na];
+
+                    let [i1,j1,k1] = coordsList[na];
+                    let [i2,j2,k2] = coordsList[nb];
+                    for(let l = 1;l < n;l++)
+                        this.points[i1 + (i2 - i1) / n * l][j1 + (j2 - j1) / n * l][k1 + (k2 - k1) / n * l] = this.createdPointsPerSegment[el][l];
+                }
+
+                const surfacesList = [[0,1,2,3],[4,7,6,5],
+                                      [0,3,4,5],[1,6,7,2],
+                                      [2,7,4,3],[0,5,6,1]];
+                for(let [na,nb,nc,nd] of surfacesList) {
+                    let el = Hash.quad(this.hexahedronsToCut[h+na],this.hexahedronsToCut[h+nb],this.hexahedronsToCut[h+nc],this.hexahedronsToCut[h+nd]);
+                    while(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber ||
+                          this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nc].hashNumber ||
+                          this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nd].hashNumber)
+                        [na,nb,nc,nd] = [nb,nc,nd,na];
+                    if(this.hexahedronsToCut[h+nb].hashNumber > this.hexahedronsToCut[h+nd].hashNumber)
+                        [nb,nd] = [nd,nb];
+
+                    let [i1,j1,k1] = coordsList[na];
+                    let [i2,j2,k2] = coordsList[nb];
+                    let [i3,j3,k3] = coordsList[nc];
+                    // let [i4,j4,k4] = coordsList[nd];
+                    for(let l = 1;l < n;l++)
+                        for(let m = 1;m < n;m++)
+                            this.points[i1 + (i2 - i1) / n * l + (i3 - i2) / n * m]
+                                       [j1 + (j2 - j1) / n * l + (j3 - j2) / n * m]
+                                       [k1 + (k2 - k1) / n * l + (k3 - k2) / n * m] = this.createdPointsPerSegment[el][l][m];
+                }
 
                 for(let i = 1;i < n;i++) {
                     for(let j = 1;j < n;j++) {
                         for(let k = 1;k < n;k++) {
+                            if(this.suppressVolumes.some(function (value) { // WARNING : Arguments missing
+                                    return value[0] == i && value[1] == j && value[2] == k;
+                                }))
+                                continue;
+
                             let pos = new XYZ(0,0,0);
                             let x = i/n;
                             let y = j/n;
@@ -688,9 +721,9 @@ module mathis {
             }
 
             private makeSurfacesVertices() : void {
-                let list = [[0,1,2,3],[4,7,6,5],
-                            [0,3,4,5],[1,6,7,2],
-                            [2,7,4,3],[0,5,6,1]];
+                const list = [[0,1,2,3],[4,7,6,5],
+                              [0,3,4,5],[1,6,7,2],
+                              [2,7,4,3],[0,5,6,1]];
                 for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
                     for(let [i,j,k,l] of list) {
                         if(this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l])] == null)
@@ -701,9 +734,9 @@ module mathis {
             }
 
             private makeSegmentsVertices() : void {
-                let list = [[0,1],[1,2],[2,3],[3,0],
-                            [0,5],[1,6],[2,7],[3,4],
-                            [4,5],[5,6],[6,7],[7,4]];
+                const list = [[0,1],[1,2],[2,3],[3,0],
+                              [0,5],[1,6],[2,7],[3,4],
+                              [4,5],[5,6],[6,7],[7,4]];
                 for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
                     for(let [i,j] of list) {
                         if(this.createdPointsPerSegment[Hash.segment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j])] == null)
