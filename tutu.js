@@ -1,2 +1,3 @@
 
-var autre=null;
+var autre=55555555;
+
