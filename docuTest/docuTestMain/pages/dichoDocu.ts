@@ -44,6 +44,8 @@ module mathis {
 
             nbInitialDicho=1
             $$$nbInitialDicho=[0,1,2,3,4]
+            _nbTriangles:number
+            _nbSquares:number
 
 
             constructor(private mathisFrame:MathisFrame) {
@@ -127,6 +129,12 @@ module mathis {
                 new visu3d.SurfaceViewer(mamesh,this.mathisFrame.scene).go()
                 //$$$eh
 
+
+                //$$$bt
+                this._nbSquares=mamesh.smallestSquares.length/4
+                this._nbTriangles=mamesh.smallestTriangles.length/3
+
+                //$$$et
 
 
             }

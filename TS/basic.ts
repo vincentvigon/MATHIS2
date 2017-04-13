@@ -343,8 +343,7 @@ module mathis {
         // }
 
     }
-    
-    
+
 
     export class  MM extends BABYLON.Matrix{
         //private mm:MM
