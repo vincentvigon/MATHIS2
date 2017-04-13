@@ -605,7 +605,7 @@ module mathis {
             suppressVolumes? : [number,number,number][] = null;
 
             private createdPointsPerSegment : {[id:string]:Vertex[]} = {};
-            private createdPointsPerSurface : {[id:string]:Vertex[]} = {};
+            private createdPointsPerSurface : {[id:string]:Vertex[][]} = {};
             private newHexaherons : Vertex[] = [];
             private points : Vertex[][][] = [];
 
@@ -687,12 +687,69 @@ module mathis {
                 }
             }
 
-            private makeSurfacesVertices() {
-                // TODO : impl
+            private makeSurfacesVertices() : void {
+                let list = [[0,1,2,3],[4,7,6,5],
+                            [0,3,4,5],[1,6,7,2],
+                            [2,7,4,3],[0,5,6,1]];
+                for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
+                    for(let [i,j,k,l] of list) {
+                        if(this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l])] == null)
+                            this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l])] =
+                                this.subdivideSurface(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l]);
+                    }
+                }
             }
 
-            private makeSegmentsVertices() {
-                // TODO : impl
+            private makeSegmentsVertices() : void {
+                let list = [[0,1],[1,2],[2,3],[3,0],
+                            [0,5],[1,6],[2,7],[3,4],
+                            [4,5],[5,6],[6,7],[7,4]];
+                for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
+                    for(let [i,j] of list) {
+                        if(this.createdPointsPerSegment[Hash.segment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j])] == null)
+                            this.createdPointsPerSegment[Hash.segment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j])] =
+                                this.subdivideSegment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j]);
+                    }
+                }
+            }
+
+            private subdivideSegment(a : Vertex,b : Vertex) : Vertex[] {
+                [a,b] = Hash.segmentOrd(a,b);
+
+                let vertices : Vertex[] = [];
+                let n = this.subdivider;
+
+                for(let i = 1;i < n;i++) {
+                    let pos = new XYZ(0,0,0);
+                    let x = i/n;
+                    geo.baryCenter([a.position,b.position],
+                                   [1-x,x], pos);
+                    let nvertex = this.mamesh.newVertex(pos);
+                    vertices.push(nvertex);
+                }
+
+                return vertices;
+            }
+
+            private subdivideSurface(a : Vertex,b : Vertex,c : Vertex,d : Vertex) : Vertex[][] {
+                [a,b,c,d] = Hash.quadOrd(a,b,c,d);
+
+                let vertices : Vertex[][] = [];
+                let n = this.subdivider;
+
+                for(let i = 1;i < n;i++) {
+                    vertices.push([]);
+                    for(let j = 1;j < n;j++) {
+                        let pos = new XYZ(0,0,0);
+                        let [x,y] = [i/n,j/n];
+                        geo.baryCenter([a.position,b.position,c.position,d.position],
+                                        [x*y,(1-x)*y,(1-x)*(1-y),x*(1-y)], pos);
+                        let nvertex = this.mamesh.newVertex(pos);
+                        vertices[i].push(nvertex);
+                    }
+                }
+
+                return vertices;
             }
 
             private subdivideHexahedrons() {
@@ -705,6 +762,7 @@ module mathis {
                     this.makeNewHexahedronsFromPoints();
                 }
             }
+
         }
 
 
