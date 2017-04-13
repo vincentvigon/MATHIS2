@@ -208,8 +208,6 @@ module mathis {
     }
 
 
-
-
     export class Positioning{
         position:XYZ = new XYZ(0,0,0)
         frontDir:XYZ = new XYZ(1, 0, 0)
