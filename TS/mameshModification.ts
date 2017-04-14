@@ -799,6 +799,44 @@ module mathis {
         }
 
 
+        export class SurfacesFromHexahedrons {
+            mamesh : Mamesh;
+            hexahedronsToDraw? : Vertex[] = null;
+            private newSurfaces : Vertex[] = [];
+
+            constructor(mamesh : Mamesh) {
+                this.mamesh = mamesh;
+            }
+
+            checkArgs() {
+                if(this.hexahedronsToDraw == null && (this.mamesh.hexahedrons == null || this.mamesh.hexahedrons.length == 0) || this.hexahedronsToDraw.length == 0)
+                    logger.c("SurfacesFromHexahedrons : No input");
+            }
+
+            go() : void {
+                this.checkArgs();
+                if(this.hexahedronsToDraw == null)
+                    this.hexahedronsToDraw = this.mamesh.hexahedrons;
+
+                const surfacesList = [[0,1,2,3],[4,7,6,5],
+                                      [0,3,4,5],[1,6,7,2],
+                                      [2,7,4,3],[0,5,6,1]];
+
+                for(let h = 0;h < this.hexahedronsToDraw.length;h += 8) {
+                    for(let [i,j,k,l] of surfacesList) {
+                        this.newSurfaces.push(this.hexahedronsToDraw[h+i]);
+                        this.newSurfaces.push(this.hexahedronsToDraw[h+j]);
+                        this.newSurfaces.push(this.hexahedronsToDraw[h+k]);
+                        this.newSurfaces.push(this.hexahedronsToDraw[h+l]);
+                    }
+                }
+
+                this.mamesh.smallestSquares.concat(this.newSurfaces);
+            }
+
+        }
+
+
         
         export class MameshDeepCopier {
 
