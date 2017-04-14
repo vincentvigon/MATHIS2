@@ -806,6 +806,7 @@ module mathis {
             mamesh : Mamesh;
             hexahedronsToDraw? : Vertex[] = null;
             private newSurfaces : Vertex[] = [];
+            private surfacesSet : {[id : string] : Vertex[]} = {};
 
             constructor(mamesh : Mamesh) {
                 this.mamesh = mamesh;
@@ -828,12 +829,20 @@ module mathis {
 
                 for(let h = 0;h < this.hexahedronsToDraw.length;h += 8) {
                     for(let [i,j,k,l] of surfacesList) {
-                        this.newSurfaces.push(this.hexahedronsToDraw[h+i]);
-                        this.newSurfaces.push(this.hexahedronsToDraw[h+j]);
-                        this.newSurfaces.push(this.hexahedronsToDraw[h+k]);
-                        this.newSurfaces.push(this.hexahedronsToDraw[h+l]);
+                        let hash = Hash.quad(this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
+                                             this.hexahedronsToDraw[h+k],this.hexahedronsToDraw[h+l]);
+                        if(this.surfacesSet[hash] == null)
+                            this.surfacesSet[hash] = [this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
+                                                      this.hexahedronsToDraw[h+k],this.hexahedronsToDraw[h+l]];
+                        else
+                            this.surfacesSet[hash] = undefined;
                     }
                 }
+
+
+                for(let el in this.surfacesSet)
+                    if(this.surfacesSet[el] !== undefined)
+                    this.newSurfaces = this.newSurfaces.concat(this.surfacesSet[el]);
 
                 this.mamesh.smallestSquares = this.mamesh.smallestSquares.concat(this.newSurfaces);
             }
