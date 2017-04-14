@@ -606,7 +606,7 @@ module mathis {
 
             private createdPointsPerSegment : {[id:string]:Vertex[]} = {};
             private createdPointsPerSurface : {[id:string]:Vertex[][]} = {};
-            private newHexaherons : Vertex[] = [];
+            newHexahedrons : Vertex[] = [];
             private points : Vertex[][][] = [];
 
             constructor(mamesh : Mamesh) {
@@ -624,9 +624,9 @@ module mathis {
                 this.checkArgs();
                 if(this.hexahedronsToCut == null)
                     this.hexahedronsToCut = this.mamesh.hexahedrons;
-                for(let i = 0;i < this.subdivider;i++) {
+                for(let i = 0;i <= this.subdivider;i++) {
                     this.points[i] = [];
-                    for(let j = 0;j < this.subdivider;j++)
+                    for(let j = 0;j <= this.subdivider;j++)
                         this.points[i][j] = [];
                 }
 
@@ -676,17 +676,12 @@ module mathis {
                         for(let m = 1;m < n;m++)
                             this.points[i1 + (i2 - i1) / n * l + (i3 - i2) / n * m]
                                        [j1 + (j2 - j1) / n * l + (j3 - j2) / n * m]
-                                       [k1 + (k2 - k1) / n * l + (k3 - k2) / n * m] = this.createdPointsPerSegment[el][l][m];
+                                       [k1 + (k2 - k1) / n * l + (k3 - k2) / n * m] = this.createdPointsPerSurface[el][l][m];
                 }
 
                 for(let i = 1;i < n;i++) {
                     for(let j = 1;j < n;j++) {
                         for(let k = 1;k < n;k++) {
-                            if(this.suppressVolumes.some(function (value) { // WARNING : Arguments missing
-                                    return value[0] == i && value[1] == j && value[2] == k;
-                                }))
-                                continue;
-
                             let pos = new XYZ(0,0,0);
                             let x = i/n;
                             let y = j/n;
@@ -707,14 +702,24 @@ module mathis {
             }
 
             private makeNewHexahedronsFromPoints() {
+                if(this.suppressVolumes == null)
+                    this.suppressVolumes = [];
+
                 let n = this.subdivider;
                 for(let i = 0;i < n;i++) {
                     for(let j = 0;j < n;j++) {
                         for(let k = 0;k < n;k++) {
-                            this.newHexaherons.concat([this.points[i  ][j  ][k  ],this.points[i+1][j  ][k  ],
+                            if(this.suppressVolumes.some(function (value) { // WARNING : Arguments missing
+                                    return value[0] == i && value[1] == j && value[2] == k;
+                                }))
+                                continue;
+
+                            this.newHexahedrons = this.newHexahedrons.concat(
+                                                      [this.points[i  ][j  ][k  ],this.points[i+1][j  ][k  ],
                                                        this.points[i+1][j  ][k+1],this.points[i  ][j  ][k+1],
                                                        this.points[i  ][j+1][k+1],this.points[i  ][j+1][k  ],
-                                                       this.points[i+1][j+1][k  ],this.points[i+1][j+1][k+1]]);
+                                                       this.points[i+1][j+1][k  ],this.points[i+1][j+1][k+1]]
+                                                );
                         }
                     }
                 }
@@ -724,11 +729,11 @@ module mathis {
                 const list = [[0,1,2,3],[4,7,6,5],
                               [0,3,4,5],[1,6,7,2],
                               [2,7,4,3],[0,5,6,1]];
-                for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
+                for(let h = 0;h < this.hexahedronsToCut.length;h += 8) {
                     for(let [i,j,k,l] of list) {
-                        if(this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l])] == null)
-                            this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l])] =
-                                this.subdivideSurface(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j],this.hexahedronsToCut[k+k],this.hexahedronsToCut[k+l]);
+                        if(this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l])] == null)
+                            this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l])] =
+                                this.subdivideSurface(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l]);
                     }
                 }
             }
@@ -757,8 +762,7 @@ module mathis {
                     let x = i/n;
                     geo.baryCenter([a.position,b.position],
                                    [1-x,x], pos);
-                    let nvertex = this.mamesh.newVertex(pos);
-                    vertices.push(nvertex);
+                    vertices[i] = this.mamesh.newVertex(pos);
                 }
 
                 return vertices;
@@ -771,14 +775,13 @@ module mathis {
                 let n = this.subdivider;
 
                 for(let i = 1;i < n;i++) {
-                    vertices.push([]);
+                    vertices[i] = [];
                     for(let j = 1;j < n;j++) {
                         let pos = new XYZ(0,0,0);
-                        let [x,y] = [i/n,j/n];
+                        let [x,y] = [j/n,i/n];
                         geo.baryCenter([a.position,b.position,c.position,d.position],
-                                        [x*y,(1-x)*y,(1-x)*(1-y),x*(1-y)], pos);
-                        let nvertex = this.mamesh.newVertex(pos);
-                        vertices[i].push(nvertex);
+                                        [(1-x)*(1-y),x*(1-y),x*y,(1-x)*y], pos);
+                        vertices[i][j] = this.mamesh.newVertex(pos);
                     }
                 }
 
@@ -809,7 +812,8 @@ module mathis {
             }
 
             checkArgs() {
-                if(this.hexahedronsToDraw == null && (this.mamesh.hexahedrons == null || this.mamesh.hexahedrons.length == 0) || this.hexahedronsToDraw.length == 0)
+                if((this.hexahedronsToDraw == null && (this.mamesh.hexahedrons == null || this.mamesh.hexahedrons.length == 0))
+                    || (this.hexahedronsToDraw != null && this.hexahedronsToDraw.length == 0))
                     logger.c("SurfacesFromHexahedrons : No input");
             }
 
@@ -831,7 +835,7 @@ module mathis {
                     }
                 }
 
-                this.mamesh.smallestSquares.concat(this.newSurfaces);
+                this.mamesh.smallestSquares = this.mamesh.smallestSquares.concat(this.newSurfaces);
             }
 
         }
