@@ -823,9 +823,9 @@ module mathis {
                 if(this.hexahedronsToDraw == null)
                     this.hexahedronsToDraw = this.mamesh.hexahedrons;
 
-                const surfacesList = [[0,1,2,3],[4,7,6,5],
-                                      [0,3,4,5],[1,6,7,2],
-                                      [2,7,4,3],[0,5,6,1]];
+                const surfacesList = [[0,3,2,1],[4,5,6,7],
+                                      [0,5,4,3],[1,2,7,6],
+                                      [2,3,4,7],[0,1,6,5]];
 
                 for(let h = 0;h < this.hexahedronsToDraw.length;h += 8) {
                     for(let [i,j,k,l] of surfacesList) {
