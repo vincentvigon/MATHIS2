@@ -95,6 +95,17 @@ module mathis{
                 this.idToLine.putValue(onePage.pageIdAndTitle,line)
             }
 
+            addSeparator(text,onlyForTest=false):void{
+
+                if (onlyForTest&& !this.testMode) return
+
+                $('<div style="margin-top: 3em;border-top: solid 2px red; border-bottom: dashed 1px red"></div>')
+                    .text(text)
+                    .appendTo(this.$visual)
+            }
+
+
+
 
             goToPage(onePage:OnePage,history_doNotPushState:boolean,activateFirstPart:boolean):void{
                 $('#pageTitle').empty().text(onePage.pageIdAndTitle)
@@ -254,7 +265,6 @@ module mathis{
 
         export class Navigator{
 
-            //idToAction=new StringMap<()=>void>()
             idToParts=new StringMap<OnePart>()
 
 
@@ -262,8 +272,9 @@ module mathis{
             }
 
             pushState(obj){
-                cc("nouveau state pushed")
-                let name='#'+encodeURI(JSON.stringify(obj))
+                //let name='#'+encodeURI(JSON.stringify(obj))
+                let name='#'+JSON.stringify(obj)
+
                 history.pushState(name,name,name)
             }
 
@@ -280,44 +291,11 @@ module mathis{
             }
 
 
-            // registerPagesAndParts(){
-            //
-            //     for (let onePage of this.severalPages.idToPage.allValues()){
-            //
-            //         this.registerAndIndividualAction(onePage.pageIdAndTitle,()=>{this.severalPages.goToPage(onePage,true)})
-            //
-            //         let severalParts:SeveralParts=onePage.severalParts
-            //
-            //         if (onePage.severalParts!=null){
-            //             for (let onePart of severalParts.allParts){
-            //                 this.registerAndIndividualAction(onePart.name,()=>{
-            //                     this.severalPages.goToPage(onePage,true)
-            //                     severalParts.clickInOnePlayButton(onePart,true,true)
-            //                 })
-            //                 if(onePart.pieceOfCode!=null) this.idToPieceOfCode.putValue(onePart.name,onePart.pieceOfCode)
-            //             }
-            //         }
-            //     }
-            // }
-            //
-            // registerAndIndividualAction(id:string,action:()=>void){
-            //     id=encodeURI(id)
-            //     if (this.idToAction.getValue(id)!=null) throw "two similar ids"
-            //     this.idToAction.putValue(id,action)
-            // }
-            //
-            // makeAction(name:string):void{
-            //     let action=this.idToAction.getValue(name)
-            //     if (action==null) throw "no action associated with the keyword:"+name
-            //     action()
-            // }
-
-
-
             goTo(actionString:string){
+                /**on enlève le '#' et l'on parse la string*/
 
 
-                let action= JSON.parse(decodeURI(actionString).slice(1))
+                let action= JSON.parse(actionString.slice(1))
 
 
                 if (action.type==null) throw 'in navigator, action :'+actionString+', has no type'
