@@ -320,7 +320,6 @@ module mathis {
                 this.addControlButton()
 
 
-
                 /**couplage des deux caméras
                  * attention, cette évenement n'est pas lancé quand on force le positionnement par les méthodes grabberCaera.changeXXX */
                 //var setTimeDone=false
