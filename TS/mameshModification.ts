@@ -606,8 +606,8 @@ module mathis {
 
             private createdPointsPerSegment : {[id:string]:Vertex[]} = {};
             private createdPointsPerSurface : {[id:string]:Vertex[][]} = {};
-            newHexahedrons : Vertex[] = [];
-            private points : Vertex[][][] = [];
+            newHexahedrons : Vertex[] = null;
+            private points : Vertex[][][] = null;
 
             constructor(mamesh : Mamesh) {
                 this.mamesh = mamesh;
@@ -624,10 +624,12 @@ module mathis {
                 this.checkArgs();
                 if(this.hexahedronsToCut == null)
                     this.hexahedronsToCut = this.mamesh.hexahedrons;
+
+                this.points = new Array(this.subdivider + 1);
                 for(let i = 0;i <= this.subdivider;i++) {
-                    this.points[i] = [];
+                    this.points[i] = new Array(this.subdivider + 1);
                     for(let j = 0;j <= this.subdivider;j++)
-                        this.points[i][j] = [];
+                        this.points[i][j] = new Array(this.subdivider + 1);
                 }
 
                 // TODO : Supprimer les sommets / faces non utilisés par l'utilisation de this.suppressVolumes
@@ -714,12 +716,12 @@ module mathis {
                                 }))
                                 continue;
 
-                            this.newHexahedrons = this.newHexahedrons.concat(
+                            this.newHexahedrons.push.apply(this.newHexahedrons,
                                                       [this.points[i  ][j  ][k  ],this.points[i+1][j  ][k  ],
                                                        this.points[i+1][j  ][k+1],this.points[i  ][j  ][k+1],
                                                        this.points[i  ][j+1][k+1],this.points[i  ][j+1][k  ],
                                                        this.points[i+1][j+1][k  ],this.points[i+1][j+1][k+1]]
-                                                );
+                            );
                         }
                     }
                 }
@@ -780,7 +782,7 @@ module mathis {
                         let pos = new XYZ(0,0,0);
                         let [x,y] = [j/n,i/n];
                         geo.baryCenter([a.position,b.position,c.position,d.position],
-                                        [(1-x)*(1-y),x*(1-y),x*y,(1-x)*y], pos);
+                                       [(1-x)*(1-y),x*(1-y),x*y,(1-x)*y], pos);
                         vertices[i][j] = this.mamesh.newVertex(pos);
                     }
                 }
@@ -793,6 +795,7 @@ module mathis {
                 this.makeSurfacesVertices();
 
                 let s = this.hexahedronsToCut.length/8;
+                this.newHexahedrons = [];
                 for(let i = 0;i < s;i++) {
                     this.subdivideHexahedronInVertices(i*8);
                     this.makeNewHexahedronsFromPoints();
@@ -805,7 +808,7 @@ module mathis {
         export class SurfacesFromHexahedrons {
             mamesh : Mamesh;
             hexahedronsToDraw? : Vertex[] = null;
-            private newSurfaces : Vertex[] = [];
+            private newSurfaces : Vertex[] = null;
             private surfacesSet : {[id : string] : Vertex[]} = {};
 
             constructor(mamesh : Mamesh) {
@@ -827,6 +830,7 @@ module mathis {
                                       [0,5,4,3],[1,2,7,6],
                                       [2,3,4,7],[0,1,6,5]];
 
+                this.newSurfaces = [];
                 for(let h = 0;h < this.hexahedronsToDraw.length;h += 8) {
                     for(let [i,j,k,l] of surfacesList) {
                         let hash = Hash.quad(this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
@@ -835,22 +839,24 @@ module mathis {
                             this.surfacesSet[hash] = [this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
                                                       this.hexahedronsToDraw[h+k],this.hexahedronsToDraw[h+l]];
                         else
-                            this.surfacesSet[hash] = undefined;
+                            delete this.surfacesSet[hash];
                     }
                 }
 
 
                 for(let el in this.surfacesSet)
-                    if(this.surfacesSet[el] !== undefined)
-                    this.newSurfaces = this.newSurfaces.concat(this.surfacesSet[el]);
+                    this.newSurfaces.push.apply(this.newSurfaces,this.surfacesSet[el]);
 
-                this.mamesh.smallestSquares = this.mamesh.smallestSquares.concat(this.newSurfaces);
+
+                let len = this.newSurfaces.length;
+                for(let i = 0;i < len;i += 5000)
+                    this.mamesh.smallestSquares.push.apply(this.mamesh.smallestSquares,this.newSurfaces.slice(i,i+5000));
+
             }
 
         }
 
 
-        
         export class MameshDeepCopier {
 
             oldMamesh:Mamesh
