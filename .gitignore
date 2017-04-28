@@ -2,6 +2,8 @@
 .idea/
 #generated files would create a lot of conflict. Plea
 JS/MATHIS*
+#nodeJS
+node_modules/
 
 # comment/uncomment to keep/synchronize your typescript config
 #tsconfig.json

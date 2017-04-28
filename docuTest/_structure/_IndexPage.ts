@@ -104,7 +104,6 @@ module mathis{
 
                 this.navigator=new Navigator(this.severalPages,this)
 
-
             }
 
 
@@ -114,7 +113,9 @@ module mathis{
 
                 /**when user click on the back arrow of the browser*/
                 window.onpopstate = (event)=>{
-                    this.navigator.goTo(event.state)
+                    /**parfois, quand on manipule les adresses dans la barre du navigateur,
+                     * il fait un  "onpopstate" avec un event vide*/
+                    if (event.state!=null) this.navigator.goTo(event.state)
                 }
 
                 if (this.testMode) {
