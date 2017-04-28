@@ -10,6 +10,184 @@ module mathis{
 
 
 
+
+        export class LongEdge {
+
+
+            static hash(vertex0:Vertex,vertex1:Vertex):string{
+                if (vertex0.hashNumber<vertex1.hashNumber) return vertex0.hashNumber+','+vertex1.hashNumber
+                else return vertex1.hashNumber+','+vertex0.hashNumber
+            }
+
+            constructor(
+                private vertex0,
+                private vertex1,
+                private srg:SpacialRandomGraph){
+            }
+
+
+            meshes:BABYLON.Mesh[]
+
+            draw(){
+
+                let v0=new Vertex().setPosition(this.srg.iToX(this.i),0,0)
+
+                let v1=new Vertex().setPosition(
+                    (this.srg.iToX(this.i)+this.srg.iToX(this.j))/2,
+                    Math.abs(this.srg.iToX(this.i)-this.srg.iToX(this.j))/2,
+                    0
+                )
+
+                let v2=new Vertex().setPosition(this.srg.iToX(this.j),0,0)
+
+                let small=new Mamesh()
+                small.vertices.push(v0,v1,v2)
+                v1.setTwoOppositeLinks(v0,v2)
+                v0.setOneLink(v1)
+                v2.setOneLink(v1)
+
+                let lineViewer=new visu3d.LinesViewer(small,this.srg.mathisFrame.scene)
+
+                this.meshes=lineViewer.go()
+
+            }
+
+            unDraw(){
+
+                for (let mesh of this.meshes) mesh.dispose()
+
+            }
+
+
+
+        }
+
+        export class SpacialRandomGraph {
+
+            pi:(graph:Vertex[])=>number
+
+            mathisFrame:MathisFrame
+
+
+            size=10
+
+
+            nbActionsPerIteration = 1000
+
+
+            constructor(
+                public graph
+            ){}
+
+            go(){
+            }
+
+
+
+
+            private buildLinearBasicGraph(size:number):Mamesh{
+
+                let res=new Mamesh()
+
+                for (let i=0;i<size;i++){
+                    let vertex=new Vertex().setPosition(this.iToX(i),0,0)
+                    res.vertices.push(vertex)
+                }
+
+                for (let i=1;i<size-1;i++) {
+                    res.vertices[i].setTwoOppositeLinks(res.vertices[i-1],res.vertices[i+1])
+                }
+                res.vertices[0].setOneLink(res.vertices[1])
+                res.vertices[size-1].setOneLink(res.vertices[size-2])
+
+                return res
+
+            }
+
+            iToX(i:number){
+              return -1+2*i/(this.size-1)
+            }
+
+
+
+
+            private addALongEdgeVisual(vertex0,vertex1){
+                let longEdge=new LongEdge(vertex0,vertex1,this)
+                this.longEdges.putValue(LongEdge.hash(vertex0,vertex1),longEdge)
+                longEdge.draw()
+            }
+
+
+
+
+            longEdges=new StringMap<LongEdge>()
+            nbLinksAddedToSee=1
+            rand=new proba.Random()
+
+            batchOfChanges():HashMap<Vertex,number>{
+
+
+                let res=new HashMap<Vertex,number>(true)
+
+                for (let t = 0; t < this.nbActionsPerIteration; t++) {
+                    let toAddPerhaps:Vertex[][]=[]
+                    let toSuppressPerhaps:Vertex[][]=[]
+                    for (let n=0;n<this.nbLinksAddedToSee;n++){
+
+                        let vertex0=this.graph[this.rand.pseudoRandInt(this.size)]
+                        let vertex1:Vertex=this.graph[this.rand.pseudoRandInt(this.size)]
+                        while (vertex0.hasVoisin(vertex1)) vertex1=this.graph[this.rand.pseudoRandInt(this.size)]
+
+                        if (this.longEdges.getValue(LongEdge.hash(vertex0,vertex1))==null) {
+                            vertex0.setOneLink(vertex1)
+                            vertex1.setOneLink(vertex0)
+                            toAddPerhaps.push([vertex0, vertex1])
+                        }
+                        else{
+                            Vertex.separateTwoVoisins(vertex0,vertex1)
+                        }
+
+                    }
+
+                    let ratioEnergy=this.energyRatio()
+                    if (ratioEnergy>=1 || Math.random()<  ratioEnergy) {
+                        for (let pair of toAddPerhaps){
+                            this.addALongEdgeVisual(pair[0],pair[1])
+                        }
+                    }
+                    else {
+                        for (let pair of toAddPerhaps){
+                            Vertex.separateTwoVoisins(pair[0],pair[1])
+                        }
+                    }
+
+                }
+                return res
+            }
+
+
+
+
+            private  energyRatio():number{
+
+
+                //TODO
+
+
+
+                return 1
+            }
+
+
+
+
+
+        }
+
+
+
+
+
         export class IsingModel {
 
             pi:(graph:Vertex[])=>number
@@ -102,8 +280,6 @@ module mathis{
             private  energyRatio(ver:Vertex,possibleNewValue):number{
 
 
-                
-
                 let res=1
 
                 if (this.q!=1 && this.q!=Number.POSITIVE_INFINITY){
@@ -138,6 +314,13 @@ module mathis{
 
             
         }
+
+
+
+
+
+
+
         
         
     }
