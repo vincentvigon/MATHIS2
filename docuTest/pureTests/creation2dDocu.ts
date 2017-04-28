@@ -22,6 +22,8 @@ module mathis {
 
             constructor(private mathisFrame:MathisFrame) {
                 let several = new SeveralParts()
+                several.addPart(new SimpleTube(this.mathisFrame))
+
                 several.addPart(new PercoAndAssociate(this.mathisFrame))
                 this.severalParts=several
             }
@@ -36,7 +38,7 @@ module mathis {
         class PercoAndAssociate implements PieceOfCode {
 
             $$$name = "PercoAndAssociate"
-            $$$title = "percolate on a graph an remake links with possibility of branching"
+            $$$title = "octavio board"
 
 
             keywords='perco'
@@ -254,6 +256,54 @@ module mathis {
 
 
 
+
+
+        class SimpleTube implements PieceOfCode {
+
+            $$$name = "SimpleTube"
+            $$$title = "Babylon bug about tube"
+
+
+
+
+
+            constructor(private mathisFrame:MathisFrame) {
+                this.mathisFrame = mathisFrame
+
+            }
+
+            goForTheFirstTime() {
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+                this.go()
+            }
+
+            go() {
+
+                this.mathisFrame.clearScene(false, false)
+
+                //$$$begin
+
+
+                let creator=new reseau.Regular3D()
+                let mamesh:Mamesh=creator.go()
+
+
+                mamesh.fillLineCatalogue()
+
+                let lineViewer=new visu3d
+
+
+                //$$$end
+
+
+
+
+
+
+            }
+        }
 
 
     }

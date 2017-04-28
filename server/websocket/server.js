@@ -13,7 +13,7 @@
  *
  *
  *  Faite
- *       npm install http
+ *       npm install http # facultatif
  *       npm install websocket
  *
  *
