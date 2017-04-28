@@ -602,12 +602,13 @@ module mathis {
         export class HexahedronSubdivider {
             mamesh : Mamesh;
             subdivider : number = 3;
-            hexahedronsToCut : Vertex[] | null = null;
-            suppressVolumes : [number,number,number][] | null = null;
+            hexahedronsToCut? : Vertex[] = null;
+            suppressVolumes? : [number,number,number][] = null;
 
             private createdPointsPerSegment : {[id:string]:Vertex[]} = {};
-            private newSquares : Vertex[] = [];
-            private points : Vertex[][][] = [];
+            private createdPointsPerSurface : {[id:string]:Vertex[][]} = {};
+            newHexahedrons : Vertex[] = null;
+            private points : Vertex[][][] = null;
 
             constructor(mamesh : Mamesh) {
                 this.mamesh = mamesh;
@@ -625,7 +626,14 @@ module mathis {
                 if(this.hexahedronsToCut == null)
                     this.hexahedronsToCut = this.mamesh.hexahedrons;
 
-                // TODO : Supprimer les sommets non utilisés par l'utilisation de this.suppressFaces
+                this.points = new Array(this.subdivider + 1);
+                for(let i = 0;i <= this.subdivider;i++) {
+                    this.points[i] = new Array(this.subdivider + 1);
+                    for(let j = 0;j <= this.subdivider;j++)
+                        this.points[i][j] = new Array(this.subdivider + 1);
+                }
+
+                // TODO : Supprimer les sommets / faces non utilisés par l'utilisation de this.suppressVolumes
                 //   (actuellement si le bord n'a plus besoin d'un sommet, il est gardé dans l'original
                 // TODO : + Triangles
                 this.subdivideHexahedrons();
@@ -633,25 +641,223 @@ module mathis {
 
             private subdivideHexahedronInVertices(h : number) {
                 let n = this.subdivider;
+                const coordsList = [[0,0,0],[n,0,0],[n,0,n],[0,0,n],[0,n,n],[0,n,0],[n,n,0],[n,n,n]];
+
+                coordsList.forEach(([i,j,k],l) => { this.points[i][j][k] = this.hexahedronsToCut[h+l]; });
+
+                const segmentList = [[0,1],[1,2],[2,3],[3,0],
+                                     [0,5],[1,6],[2,7],[3,4],
+                                     [4,5],[5,6],[6,7],[7,4]];
+                for(let [na,nb] of segmentList) {
+                    let el = Hash.segment(this.hexahedronsToCut[h+na],this.hexahedronsToCut[h+nb]);
+                    if(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber)
+                        [na,nb] = [nb,na];
+
+                    let [i1,j1,k1] = coordsList[na];
+                    let [i2,j2,k2] = coordsList[nb];
+                    for(let l = 1;l < n;l++)
+                        this.points[i1 + (i2 - i1) / n * l][j1 + (j2 - j1) / n * l][k1 + (k2 - k1) / n * l] = this.createdPointsPerSegment[el][l];
+                }
+
+                const surfacesList = [[0,1,2,3],[4,7,6,5],
+                                      [0,3,4,5],[1,6,7,2],
+                                      [2,7,4,3],[0,5,6,1]];
+                for(let [na,nb,nc,nd] of surfacesList) {
+                    let el = Hash.quad(this.hexahedronsToCut[h+na],this.hexahedronsToCut[h+nb],this.hexahedronsToCut[h+nc],this.hexahedronsToCut[h+nd]);
+                    while(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber ||
+                          this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nc].hashNumber ||
+                          this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nd].hashNumber)
+                        [na,nb,nc,nd] = [nb,nc,nd,na];
+                    if(this.hexahedronsToCut[h+nb].hashNumber > this.hexahedronsToCut[h+nd].hashNumber)
+                        [nb,nd] = [nd,nb];
+
+                    let [i1,j1,k1] = coordsList[na];
+                    let [i2,j2,k2] = coordsList[nb];
+                    let [i3,j3,k3] = coordsList[nc];
+                    // let [i4,j4,k4] = coordsList[nd];
+                    for(let l = 1;l < n;l++)
+                        for(let m = 1;m < n;m++)
+                            this.points[i1 + (i2 - i1) / n * l + (i3 - i2) / n * m]
+                                       [j1 + (j2 - j1) / n * l + (j3 - j2) / n * m]
+                                       [k1 + (k2 - k1) / n * l + (k3 - k2) / n * m] = this.createdPointsPerSurface[el][l][m];
+                }
+
                 for(let i = 1;i < n;i++) {
                     for(let j = 1;j < n;j++) {
                         for(let k = 1;k < n;k++) {
                             let pos = new XYZ(0,0,0);
-                            /*geo.baryCenter([this.hexahedronsToCut[h+1].position,b,c,d],
-                                [1,-j/n,(i+j)/n,-i/n], pos);
-                            this.points[i][j][k] = this.mamesh.newVertex(pos);*/
+                            let x = i/n;
+                            let y = j/n;
+                            let z = k/n;
+                            geo.baryCenter([this.hexahedronsToCut[h  ].position,this.hexahedronsToCut[h+1].position,
+                                            this.hexahedronsToCut[h+2].position,this.hexahedronsToCut[h+3].position,
+                                            this.hexahedronsToCut[h+4].position,this.hexahedronsToCut[h+5].position,
+                                            this.hexahedronsToCut[h+6].position,this.hexahedronsToCut[h+7].position],
+                                           [(1-x)*(1-y)*(1-z),   x *(1-y)*(1-z),
+                                               x *(1-y)*   z ,(1-x)*(1-y)*   z ,
+                                            (1-x)*   y *   z ,(1-x)*   y *(1-z),
+                                               x *   y *(1-z),   x *   y *   z ],
+                                           pos);
+                            this.points[i][j][k] = this.mamesh.newVertex(pos);
                         }
                     }
                 }
             }
 
-            private subdivideHexahedrons() {
+            private makeNewHexahedronsFromPoints() {
+                if(this.suppressVolumes == null)
+                    this.suppressVolumes = [];
 
+                let n = this.subdivider;
+                for(let i = 0;i < n;i++) {
+                    for(let j = 0;j < n;j++) {
+                        for(let k = 0;k < n;k++) {
+                            if(this.suppressVolumes.some(function (value) { // WARNING : Arguments missing
+                                    return value[0] == i && value[1] == j && value[2] == k;
+                                }))
+                                continue;
+
+                            this.newHexahedrons.push.apply(this.newHexahedrons,
+                                                      [this.points[i  ][j  ][k  ],this.points[i+1][j  ][k  ],
+                                                       this.points[i+1][j  ][k+1],this.points[i  ][j  ][k+1],
+                                                       this.points[i  ][j+1][k+1],this.points[i  ][j+1][k  ],
+                                                       this.points[i+1][j+1][k  ],this.points[i+1][j+1][k+1]]
+                            );
+                        }
+                    }
+                }
             }
+
+            private makeSurfacesVertices() : void {
+                const list = [[0,1,2,3],[4,7,6,5],
+                              [0,3,4,5],[1,6,7,2],
+                              [2,7,4,3],[0,5,6,1]];
+                for(let h = 0;h < this.hexahedronsToCut.length;h += 8) {
+                    for(let [i,j,k,l] of list) {
+                        if(this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l])] == null)
+                            this.createdPointsPerSurface[Hash.quad(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l])] =
+                                this.subdivideSurface(this.hexahedronsToCut[h+i],this.hexahedronsToCut[h+j],this.hexahedronsToCut[h+k],this.hexahedronsToCut[h+l]);
+                    }
+                }
+            }
+
+            private makeSegmentsVertices() : void {
+                const list = [[0,1],[1,2],[2,3],[3,0],
+                              [0,5],[1,6],[2,7],[3,4],
+                              [4,5],[5,6],[6,7],[7,4]];
+                for(let k = 0;k < this.hexahedronsToCut.length;k += 8) {
+                    for(let [i,j] of list) {
+                        if(this.createdPointsPerSegment[Hash.segment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j])] == null)
+                            this.createdPointsPerSegment[Hash.segment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j])] =
+                                this.subdivideSegment(this.hexahedronsToCut[k+i],this.hexahedronsToCut[k+j]);
+                    }
+                }
+            }
+
+            private subdivideSegment(a : Vertex,b : Vertex) : Vertex[] {
+                [a,b] = Hash.segmentOrd(a,b);
+
+                let vertices : Vertex[] = [];
+                let n = this.subdivider;
+
+                for(let i = 1;i < n;i++) {
+                    let pos = new XYZ(0,0,0);
+                    let x = i/n;
+                    geo.baryCenter([a.position,b.position],
+                                   [1-x,x], pos);
+                    vertices[i] = this.mamesh.newVertex(pos);
+                }
+
+                return vertices;
+            }
+
+            private subdivideSurface(a : Vertex,b : Vertex,c : Vertex,d : Vertex) : Vertex[][] {
+                [a,b,c,d] = Hash.quadOrd(a,b,c,d);
+
+                let vertices : Vertex[][] = [];
+                let n = this.subdivider;
+
+                for(let i = 1;i < n;i++) {
+                    vertices[i] = [];
+                    for(let j = 1;j < n;j++) {
+                        let pos = new XYZ(0,0,0);
+                        let [x,y] = [j/n,i/n];
+                        geo.baryCenter([a.position,b.position,c.position,d.position],
+                                       [(1-x)*(1-y),x*(1-y),x*y,(1-x)*y], pos);
+                        vertices[i][j] = this.mamesh.newVertex(pos);
+                    }
+                }
+
+                return vertices;
+            }
+
+            private subdivideHexahedrons() {
+                this.makeSegmentsVertices();
+                this.makeSurfacesVertices();
+
+                let s = this.hexahedronsToCut.length/8;
+                this.newHexahedrons = [];
+                for(let i = 0;i < s;i++) {
+                    this.subdivideHexahedronInVertices(i*8);
+                    this.makeNewHexahedronsFromPoints();
+                }
+            }
+
         }
 
 
-        
+        export class SurfacesFromHexahedrons {
+            mamesh : Mamesh;
+            hexahedronsToDraw? : Vertex[] = null;
+            private newSurfaces : Vertex[] = null;
+            private surfacesSet : {[id : string] : Vertex[]} = {};
+
+            constructor(mamesh : Mamesh) {
+                this.mamesh = mamesh;
+            }
+
+            checkArgs() {
+                if((this.hexahedronsToDraw == null && (this.mamesh.hexahedrons == null || this.mamesh.hexahedrons.length == 0))
+                    || (this.hexahedronsToDraw != null && this.hexahedronsToDraw.length == 0))
+                    logger.c("SurfacesFromHexahedrons : No input");
+            }
+
+            go() : void {
+                this.checkArgs();
+                if(this.hexahedronsToDraw == null)
+                    this.hexahedronsToDraw = this.mamesh.hexahedrons;
+
+                const surfacesList = [[0,3,2,1],[4,5,6,7],
+                                      [0,5,4,3],[1,2,7,6],
+                                      [2,3,4,7],[0,1,6,5]];
+
+                this.newSurfaces = [];
+                for(let h = 0;h < this.hexahedronsToDraw.length;h += 8) {
+                    for(let [i,j,k,l] of surfacesList) {
+                        let hash = Hash.quad(this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
+                                             this.hexahedronsToDraw[h+k],this.hexahedronsToDraw[h+l]);
+                        if(this.surfacesSet[hash] == null)
+                            this.surfacesSet[hash] = [this.hexahedronsToDraw[h+i],this.hexahedronsToDraw[h+j],
+                                                      this.hexahedronsToDraw[h+k],this.hexahedronsToDraw[h+l]];
+                        else
+                            delete this.surfacesSet[hash];
+                    }
+                }
+
+
+                for(let el in this.surfacesSet)
+                    this.newSurfaces.push.apply(this.newSurfaces,this.surfacesSet[el]);
+
+
+                let len = this.newSurfaces.length;
+                for(let i = 0;i < len;i += 5000)
+                    this.mamesh.smallestSquares.push.apply(this.mamesh.smallestSquares,this.newSurfaces.slice(i,i+5000));
+
+            }
+
+        }
+
+
         export class MameshDeepCopier {
 
             oldMamesh:Mamesh

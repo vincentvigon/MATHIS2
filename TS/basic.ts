@@ -207,6 +207,31 @@ module mathis {
         
     }
 
+    export class Hash {
+        static segment(a : Vertex,b : Vertex) : string {
+            return Segment.segmentId(a.hashNumber,b.hashNumber);
+        }
+
+        static segmentOrd(a : Vertex,b : Vertex) {
+            if(a.hashNumber > b.hashNumber)
+                [a,b] = [b,a];
+            return [a,b];
+        }
+
+        static quad(a : Vertex,b : Vertex,c : Vertex,d : Vertex) : string {
+            [a,b,c,d] = Hash.quadOrd(a,b,c,d);
+            return a.hashNumber + "," + b.hashNumber + "," + c.hashNumber + "," + d.hashNumber;
+        }
+
+        static quadOrd(a : Vertex,b : Vertex,c : Vertex,d : Vertex) {
+            while(a.hashNumber > b.hashNumber || a.hashNumber > c.hashNumber || a.hashNumber > d.hashNumber)
+                [a,b,c,d] = [b,c,d,a];
+            if(b.hashNumber < d.hashNumber)
+                [b,d] = [d,b];
+            return [a,b,c,d];
+        }
+    }
+
 
     export class Positioning{
         position:XYZ = new XYZ(0,0,0)
@@ -318,7 +343,7 @@ module mathis {
         // }
 
     }
-    
+
 
     export class  MM extends BABYLON.Matrix{
         //private mm:MM
@@ -1226,7 +1251,7 @@ module mathis {
         public orth1:Vertex
         public orth2:Vertex
 
-        
+
         
         get hashString():string{return Segment.segmentId(this.a.hashNumber,this.b.hashNumber)}
         
