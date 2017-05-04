@@ -30,7 +30,7 @@ module mathis{
         class RandomSpacialGraph implements PieceOfCode{
 
             $$$name="RandomSpacialGraph"
-            $$$title=" Mourrat & Valessin model. \n Beta grand : on est très motivé pour réduire le diamètre. \n gamma grand : les grands ponts coûtent cher."
+            $$$title="On présente le modèle de Mourrat & Valessin. On voit le sampling de Gibbs en fonctionnement. "
 
             link=true
             $$$link=new Choices([true,false])
@@ -47,14 +47,14 @@ module mathis{
             $$$frameInterval=[1,10,60,120]
 
 
-            nbTryPerBatch=10
+            nbTryPerBatch=100
             $$$nbTryPerBatch=[1,10,100,200,500,1000]
 
 
             N_1d=20
             $$$N_1d=[10,20,100,400,1000,2000]
 
-            N_2d=5
+            N_2d=10
             $$$N_2d=[5,10,20,40]
 
             N_3d=5
@@ -98,6 +98,7 @@ module mathis{
                 let showInitialGraph=true
                 switch (this.graphType){
 
+
                     case '1d':{
                         N=this.N_1d
                         let creator=new reseau.Regular1D(N)
@@ -139,24 +140,31 @@ module mathis{
                 }
 
 
-                let sampling=new metropolis.SpacialRandomGraph(mamesh,this.mathisFrame,N)
-                sampling.b=this.b
-                sampling.gamma=this.gamma
-                sampling.nbTryPerBatch=this.nbTryPerBatch
-                sampling.showInitialGraph=showInitialGraph
-                sampling.go()
+                let sampler=new metropolis.SpacialRandomGraph(mamesh,this.mathisFrame,N)
+                /** 'b' grand => on est très motivé pour réduire le diamètre. Théoriquement*/
+                sampler.b=this.b
+                /** 'gamma' grand => les grands ponts coûtent cher. On voit essentiellement des petits ponts */
+                sampler.gamma=this.gamma
+                sampler.nbTryPerBatch=this.nbTryPerBatch
+                sampler.showInitialGraph=showInitialGraph
+                sampler.go()
+
+                /**remarque : dès que  alpha(b,gamma)=0, le diamètre asymptotique (N=infty) vaut 1.
+                 * Mais les simus ne donnent jamais un tel diamètre.
+                 * Les simus donnent un diamètre  toujours plus grand que le diamètre asymptotique
+                 *  */
 
 
 
                 let action=new PeriodicActionBeforeRender(function(){
-                    let accepted=sampling.batchOfChanges()
+                    let accepted=sampler.batchOfChanges()
                     mathisFrame.messageDiv.empty()
                     mathisFrame.messageDiv.append("nb suppressions:"+accepted.suppression)
                     mathisFrame.messageDiv.append("nb additions:"+accepted.addition)
                     mathisFrame.messageDiv.append("nb modification:"+accepted.modification)
                     mathisFrame.messageDiv.append("diameter:"+accepted.diameter)
-                    mathisFrame.messageDiv.append("N^alpha:"+sampling.Nalpha.toFixed(1))
-                    mathisFrame.messageDiv.append("alpha:"+sampling.alpha.toFixed(1))
+                    mathisFrame.messageDiv.append("N^alpha:"+sampler.Nalpha.toFixed(1))
+                    mathisFrame.messageDiv.append("alpha:"+sampler.alpha.toFixed(1))
 
                 })
                 action.frameInterval=this.frameInterval
