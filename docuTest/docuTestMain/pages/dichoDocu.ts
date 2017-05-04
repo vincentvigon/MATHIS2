@@ -119,7 +119,7 @@ module mathis {
                 for (let level=0;level<nbLevel;level++){
                     let viewer=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
                     viewer.color=new Color(colorList[level])//new Color(new HSV_01((level+1)/nbLevel,1,1))
-                    viewer.selectedVertices=verticesByDichoLevel[level]
+                    viewer.vertices=verticesByDichoLevel[level]
                     viewer.go()
                 }
 
@@ -202,7 +202,7 @@ module mathis {
                 for (let level=0;level<nbLevel;level++){
                     let viewer=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
                     viewer.color=new Color(colorList[level])
-                    viewer.selectedVertices=verticesByDichoLevel[level]
+                    viewer.vertices=verticesByDichoLevel[level]
                     viewer.go()
                 }
 

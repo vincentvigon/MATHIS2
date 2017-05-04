@@ -185,7 +185,7 @@ module mathis{
                 else if (methodChoice==3){
                     /**please, try this method on the Dodecahedron*/
                     segmentOrientationFunction=function(v0:Vertex,v1:Vertex){
-                        if (v0.hasMark(Vertex.Markers.pintagoneCenter)|| v1.hasMark(Vertex.Markers.pintagoneCenter) ) return 0
+                        if (v0.hasMark(Vertex.Markers.polygonCenter)|| v1.hasMark(Vertex.Markers.polygonCenter) ) return 0
                         return v0.position.z-v1.position.z
                     }
                 }

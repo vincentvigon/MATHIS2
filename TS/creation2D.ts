@@ -10,113 +10,6 @@ module mathis{
         export enum PartShape{triangulatedTriangle,triangulatedRect,square,polygon3,polygon4,polygon5,polygon6,polygon7,polygon8,polygon9,polygon10,polygon11,polygon12}
 
 
-        //
-        // export class Patchwork{
-        //
-        //
-        //
-        //     private individualINumber:number
-        //     private individualJNumber:number
-        //
-        //     nbPatchesI=2
-        //     nbPatchesJ=2
-        //     patchesInQuinconce=false
-        //     /**if stays null, it take the value of previous field*/
-        //     oneMorePatchAtOddRaw:boolean=null
-        //
-        //
-        //     individualDilatation=new XYZ(2,2,0)
-        //     origine=new XYZ(0,0,0)
-        //     end=new XYZ(1,1,0)
-        //
-        //     shapes=[PartShape.square,PartShape.squareTurned]
-        //
-        //     constructor(nbIOfEach:number,nbJOfEach:number){
-        //         this.individualINumber=nbIOfEach
-        //         this.individualJNumber=nbJOfEach
-        //     }
-        //
-        //
-        //     goChanging():Mamesh{
-        //
-        //         if (this.oneMorePatchAtOddRaw==null) this.oneMorePatchAtOddRaw=this.patchesInQuinconce
-        //
-        //         let subMa:Mamesh[]=[]
-        //
-        //         for (let j=0; j<this.nbPatchesJ; j++){
-        //             let oneMore=0
-        //             if (this.patchesInQuinconce&&j%2==1) oneMore=1
-        //             for (let i=0; i<this.nbPatchesI+oneMore; i++){
-        //
-        //                 /**other function are possible*/
-        //                 let mailleIndex=(i+j)%this.shapes.length
-        //
-        //                 let dec=0
-        //                 if (this.patchesInQuinconce&& j%2==1)dec=-0.5
-        //
-        //                 let gene=new reseau.BasisForRegularReseau()
-        //                 gene.origin=new XYZ(i+dec,j,0)
-        //                 gene.end=new XYZ(i+1+dec,j+1,0)
-        //                 gene.nbI=this.individualINumber
-        //                 gene.nbJ=this.individualJNumber
-        //                 if (this.shapes[mailleIndex]==PartShape.triangulatedRect||this.shapes[mailleIndex]==PartShape.triangulatedRectInverted) gene.strateHaveSquareMailleVersusTriangleMaille=false
-        //                 gene.goChanging()
-        //
-        //                 let regular=new reseau.Regular(gene)
-        //                 let IN_mamesh=regular.goChanging()
-        //                 subMa.push(IN_mamesh)
-        //
-        //                 let angle=0
-        //                 if (this.shapes[mailleIndex]==PartShape.squareTurned)angle=Math.PI/4
-        //                 else if (this.shapes[mailleIndex]==PartShape.triangulatedRectInverted) angle=Math.PI/2
-        //                 let simi=new reseau.Similitude(IN_mamesh.vertices,angle,new XYZ(0,0,0),this.individualDilatation)
-        //                 simi.goChanging()
-        //
-        //
-        //
-        //
-        //
-        //             }
-        //         }
-        //
-        //         let gratAndStick=new mameshModification.ConcurrentMameshesGraterAndSticker(subMa)
-        //         //gratAndStick.proximityCoefToStick=2.5
-        //         let res=gratAndStick.goChanging()
-        //
-        //
-        //
-        //         /**a very small angle to avoid the bug of BABYLON*/
-        //         new reseau.Similitude(res.vertices,0.01).goChanging()
-        //
-        //         let actualEnd=XYZ.newFrom(res.vertices[0].position)
-        //         let actualOrigin=XYZ.newFrom(res.vertices[0].position)
-        //         for (let vert of res.vertices){
-        //             if (vert.position.x>actualEnd.x) actualEnd.x=vert.position.x
-        //             if (vert.position.y>actualEnd.y) actualEnd.y=vert.position.y
-        //             if (vert.position.x<actualOrigin.x) actualOrigin.x=vert.position.x
-        //             if (vert.position.y<actualOrigin.y) actualOrigin.y=vert.position.y
-        //         }
-        //
-        //         let actualAmplitude=XYZ.newFrom(actualEnd).substract(actualOrigin)
-        //         let ampli=XYZ.newFrom(this.end).substract(this.origine)
-        //         let factor=new XYZ(ampli.x/actualAmplitude.x,ampli.y/actualAmplitude.y,0)
-        //
-        //         for (let vert of res.vertices){
-        //             vert.position.substract(actualOrigin).resizes(factor).add(this.origine)
-        //         }
-        //
-        //
-        //
-        //
-        //
-        //         return res
-        //
-        //
-        //     }
-        //
-        //
-        //
-        // }
 
 
         export class Concentric{
@@ -125,7 +18,6 @@ module mathis{
             SUB_gratAndStick = new grateAndGlue.ConcurrentMameshesGraterAndSticker()
             SUB_oppositeLinkAssocierByAngles=new linkModule.OppositeLinkAssocierByAngles(null)
             SUB_mameshCleaner=new mameshModification.MameshCleaner(null)
-
 
 
             origine=new XYZ(0,0,0)
@@ -164,18 +56,16 @@ module mathis{
             integerEndToRound:number[]
             exponentOfRoundingFunction:number[]=[1]
             percolationProba:number[]=[0]
-            
-            
-            
 
 
+            forceToGrate=[0.1]
+            
+            
 
             private nbI
             private nbJ
 
 
-            // /**the number of I and J of each component at the end*/
-            // OUTComputedSize:number[][]=[]
 
 
 
@@ -313,6 +203,7 @@ module mathis{
                     
                     this.SUB_gratAndStick.IN_mameshes=subMa
                     this.SUB_gratAndStick.toleranceToBeOneOfTheClosest = this.toleranceToBeOneOfTheClosest
+                    this.SUB_gratAndStick.SUB_grater.proportionOfSeeds=this.forceToGrate
                     res = this.SUB_gratAndStick.goChanging()
                 }
                 else {
@@ -348,7 +239,6 @@ module mathis{
 
 
         }
-
 
 
 

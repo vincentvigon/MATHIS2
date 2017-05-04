@@ -204,6 +204,8 @@ module mathis{
 
             showMainIndex(fromNavigator:boolean){
 
+                this.mathisFrame.cleanAllPeriodicActions()
+
                 if (!fromNavigator) {
                     this.navigator.pushState({type:'index'})
                 }

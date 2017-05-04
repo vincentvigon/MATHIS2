@@ -728,6 +728,46 @@ module mathis{
             
         }
 
+        export class Regular1D{
+
+            origin=new XYZ(0,0,0)
+            end=new XYZ(1,0,0)
+
+            constructor(
+                public size=5
+            ){}
+
+
+            go():Mamesh{
+                let res=new Mamesh()
+
+                for (let i=0;i<this.size;i++){
+                    let vertex=new Vertex()
+                    vertex.position=this.iToXYX(i)
+                    res.vertices.push(vertex)
+                }
+
+                for (let i=1;i<this.size-1;i++) {
+                    res.vertices[i].setTwoOppositeLinks(res.vertices[i-1],res.vertices[i+1])
+                }
+                res.vertices[0].setOneLink(res.vertices[1])
+                res.vertices[this.size-1].setOneLink(res.vertices[this.size-2])
+                return res
+            }
+
+
+            private iToXYX(i:number):XYZ{
+                let delta= i/(this.size-1)
+                return XYZ.newFrom(this.end).substract(this.origin).scale(delta).add(this.origin)
+
+            }
+
+
+
+
+
+        }
+
 
 
         export class Regular3D{

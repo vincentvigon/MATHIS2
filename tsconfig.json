@@ -4,7 +4,7 @@
     "removeComments": false,
     "sourceMap": true,
     "out": "JS/MATHIS3.js",
-    "declaration":true,
+    "declaration":false,
     "diagnostics":false,
     "watch":true
   },

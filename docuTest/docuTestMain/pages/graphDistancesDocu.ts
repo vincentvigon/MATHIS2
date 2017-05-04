@@ -140,7 +140,7 @@ module mathis {
 
                 for (let i=0;i<geodesics.length;i++){
                     let verticesViewer = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                    verticesViewer.selectedVertices = geodesics[i]
+                    verticesViewer.vertices = geodesics[i]
                     verticesViewer.color = new Color(new HSV_01(i/geodesics.length*0.7,1,1))
                     verticesViewer.go()
 
@@ -256,7 +256,7 @@ module mathis {
 
                 for (let i=0;i<geodesics.length;i++){
                     let verticesViewer = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                    verticesViewer.selectedVertices = geodesics[i]
+                    verticesViewer.vertices = geodesics[i]
                     verticesViewer.color = new Color(new HSV_01(i/geodesics.length*0.7,1,1))
                     verticesViewer.go()
                 }
@@ -379,7 +379,7 @@ module mathis {
 
                 //$$$bh visualization
                 let verticesViewer0 = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                verticesViewer0.selectedVertices = someExtremeVertices
+                verticesViewer0.vertices = someExtremeVertices
                 verticesViewer0.color = new Color(Color.names.indianred)
                 verticesViewer0.go()
 
@@ -492,7 +492,7 @@ module mathis {
                 //$$$bh visualization
                 for (let i=0;i<strates.length;i++){
                     let verticesViewer0 = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                    verticesViewer0.selectedVertices = strates[i]
+                    verticesViewer0.vertices = strates[i]
                     verticesViewer0.color = new Color(i)
                     verticesViewer0.go()
                 }
@@ -672,7 +672,7 @@ module mathis {
                 //$$$bh visualization
                 for (let i=0;i<strates.length;i++){
                     let verticesViewer0 = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                    verticesViewer0.selectedVertices = strates[i]
+                    verticesViewer0.vertices = strates[i]
                     verticesViewer0.color = new Color(i)
                     verticesViewer0.go()
                 }
@@ -761,7 +761,7 @@ module mathis {
 
                 //$$$bh visualization
                 let verticesViewer = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                verticesViewer.selectedVertices = centralComponent
+                verticesViewer.vertices = centralComponent
                 verticesViewer.radiusProp=0.5
                 verticesViewer.go()
                 //$$$eh

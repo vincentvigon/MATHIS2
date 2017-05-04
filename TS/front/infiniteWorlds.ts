@@ -35,7 +35,7 @@ module mathis{
             /**when creating the world, to see it from outside, put the  next fields to false */
             recenterCamera=true
             notDrawMeshesAtFarCorners=true
-            //addFog=true
+
             
 
             population:BABYLON.AbstractMesh[]=[]
@@ -47,8 +47,7 @@ module mathis{
             /**if null, no links*/
             nbSidesOfLinks=4
             
-            pathFromHtmlToAssets='../../assets/'
-            
+
             
             buildLightCameraSkyboxAndFog=true
 
@@ -67,7 +66,7 @@ module mathis{
                 if(this.buildLightCameraSkyboxAndFog) this.cameraLight()
                 this.creationOfReseau()
 
-                var wallDiffuseTexture  = new BABYLON.Texture(this.pathFromHtmlToAssets+'texture/escher.jpg', this.mathisFrame.scene);
+                var wallDiffuseTexture  = new BABYLON.Texture('assets/texture/escher.jpg', this.mathisFrame.scene);
                 this.vertexVisualization(this.mamesh,wallDiffuseTexture)
                 this.linksVisualization(this.mamesh,wallDiffuseTexture)
 
@@ -318,13 +317,13 @@ module mathis{
                 //skybox.checkCollisions=true
                 skybox.visibility=1
 
-                /**je ne comprend pas pourquoi le brouillar ne parche pas quand on ne met pas de sky box...*/
+                /**je ne comprend pas pourquoi le brouillar ne marche pas quand on ne met pas de sky box...*/
                 var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", this.mathisFrame.scene);
                 skyboxMaterial.backFaceCulling = false;
                 skybox.material = skyboxMaterial;
                 skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
                 skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-                skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(this.pathFromHtmlToAssets+"skybox/skybox", this.mathisFrame.scene,['_px.jpg', '_py.jpg', '_pz.jpg', '_nx.jpg', '_ny.jpg', '_nz.jpg']);
+                skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/skybox/skybox", this.mathisFrame.scene,['_px.jpg', '_py.jpg', '_pz.jpg', '_nx.jpg', '_ny.jpg', '_nz.jpg']);
                 skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 
                 //this.mathisFrame.scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;

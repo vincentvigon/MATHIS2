@@ -244,8 +244,6 @@ module mathis{
 
             if(clearLights) this.scene.lights=[]
 
-
-            //else this.scene.meshes=[]
         }
 
 
@@ -276,9 +274,9 @@ module mathis{
         }
 
 
-        
         private actionsBeforeRender:Array<PeriodicActionBeforeRender>=[]
         private sortAction=(action1:PeriodicActionBeforeRender,action2:PeriodicActionBeforeRender)=>action1.passageOrderIndex-action2.passageOrderIndex
+
         pushPeriodicAction(action:PeriodicActionBeforeRender):void{
             this.actionsBeforeRender.push(action)
             this.actionsBeforeRender.sort(this.sortAction)
@@ -287,7 +285,9 @@ module mathis{
             let index=this.actionsBeforeRender.indexOf(action)
             if (index==-1) throw 'this action is not registered'
             this.actionsBeforeRender.splice(index,1)
-
+        }
+        cleanAllPeriodicActions():void{
+            this.actionsBeforeRender=[]
         }
 
         

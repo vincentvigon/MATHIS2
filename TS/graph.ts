@@ -201,6 +201,10 @@ module mathis{
             }
 
             go():number{
+
+
+
+
                 let extremeGroup=[this.vertices[0]]
                 let d=0
                 let extremeVertices:Vertex[]=[]
@@ -218,7 +222,7 @@ module mathis{
 
 
                 
-                this.OUT_twoExtremeVertices.push(extremeVertices[this.OUT_nbIteration-1],extremeVertices[this.OUT_nbIteration-2])
+                this.OUT_twoExtremeVertices=[extremeVertices[this.OUT_nbIteration-1],extremeVertices[this.OUT_nbIteration-2]]
 
                 return d-1
 

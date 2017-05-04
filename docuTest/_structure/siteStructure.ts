@@ -220,6 +220,8 @@ module mathis{
 
             
             clickInOnePlayButton(clickPart:OnePart,fromNavigator:boolean,rulesSelects:boolean):void{
+
+                indexPage.mathisFrame.cleanAllPeriodicActions()
                 
                 for (let onePart of this.allParts){
                     if (onePart.pieceOfCode!=null){
@@ -243,7 +245,7 @@ module mathis{
                 clickPart.pieceOfCode.goForTheFirstTime()
 
                 if (!fromNavigator) {
-                    cc('IN click ')
+
                     indexPage.navigator.pushState({type:'part',name:clickPart.name,configuration:pieceOfCodeToConfiguration(clickPart.pieceOfCode)})
                 }
                 else{
@@ -292,6 +294,9 @@ module mathis{
 
 
             goTo(actionString:string){
+
+                indexPage.mathisFrame.cleanAllPeriodicActions()
+
                 /**on enlève le '#' et l'on parse la string*/
 
 

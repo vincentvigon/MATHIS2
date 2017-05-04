@@ -1,12 +1,3 @@
-/**
- * Created by vigon on 15/02/2017.
- */
-
-/**
- * Created by vigon on 05/12/2016.
- */
-
-
 
 
 module mathis {
@@ -22,6 +13,8 @@ module mathis {
 
             constructor(private mathisFrame:MathisFrame) {
                 let several = new SeveralParts()
+                several.addPart(new OctavioConcentricBoard(this.mathisFrame))
+
                 several.addPart(new SimpleTube(this.mathisFrame))
 
                 several.addPart(new PercoAndAssociate(this.mathisFrame))
@@ -31,6 +24,74 @@ module mathis {
             go() {
                 return this.severalParts.go()
             }
+
+        }
+
+
+
+        class OctavioConcentricBoard implements PieceOfCode {
+
+            $$$name = "OctavioConcentricBoard"
+            $$$title = "OctavioConcentricBoard"
+
+
+            _linesAsSortedString=""
+
+            constructor(private mathisFrame:MathisFrame) {
+                this.mathisFrame = mathisFrame
+            }
+
+            goForTheFirstTime() {
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+                this.go()
+            }
+
+            go() {
+
+                this.mathisFrame.clearScene(false, false)
+
+                //$$$begin
+                let mamesh: Mamesh
+
+                let crea = new creation2D.Concentric(12, 12)
+                crea.nbPatches = 2
+                crea.shapes = [mathis.creation2D.PartShape.square, mathis.creation2D.PartShape.polygon6]
+                // crea.propBeginToRound = [0]
+                // crea.propEndToRound = [0, 0.5]
+                crea.individualTranslation = [new XYZ(-0.3, 0, 0), new XYZ(0.3, 0, 0)]
+                crea.forceToGrate=[0.5,0.1]
+                mamesh = crea.go()
+
+
+
+                //$$$end
+
+
+                //$$$bh visualization
+
+                spacialTransformations.adjustInASquare(mamesh,new XYZ(-0.7,-0.7,0),new XYZ(0.7,0.7,0))
+
+
+                mamesh.fillLineCatalogue()
+                this._linesAsSortedString=mamesh.allLinesAsASortedString()
+
+                let lineIndexer=new lineModule.CreateAColorIndexRespectingBifurcationsAndSymmetries(mamesh)
+                lineIndexer.packSymmetricLines=false
+                let index=lineIndexer.go()
+
+                let liner=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
+                liner.interpolationOption=new geometry.InterpolationOption()
+                liner.lineToLevel=index
+                liner.interpolationOption.interpolationStyle=geometry.InterpolationStyle.octavioStyle
+                liner.go()
+                //$$$eh
+
+
+
+            }
+
 
         }
 
@@ -256,14 +317,10 @@ module mathis {
 
 
 
-
-
         class SimpleTube implements PieceOfCode {
 
             $$$name = "SimpleTube"
-            $$$title = "Babylon bug about tube"
-
-
+            $$$title = "Babylon tube function had a bug : exactly vertical lines was not draw. but it was fixed"
 
 
 
@@ -287,12 +344,23 @@ module mathis {
 
 
                 let creator=new reseau.Regular3D()
+                creator.origine=new XYZ(-0.7,-0.7,-0.7)
+                creator.nbI=5
+                creator.nbJ=7
                 let mamesh:Mamesh=creator.go()
+
+                let crea2=new reseau.Regular()
+                let mamesh2=crea2.go()
 
 
                 mamesh.fillLineCatalogue()
+                mamesh.fillLineCatalogue()
 
-                let lineViewer=new visu3d
+                let lineViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
+                lineViewer.go()
+
+                let lineViewer2=new visu3d.LinesViewer(mamesh2,this.mathisFrame.scene)
+                lineViewer2.go()
 
 
                 //$$$end

@@ -15,11 +15,11 @@ module mathis{
 
         export class VerticesViewer{
 
-            mamesh:Mamesh
+            //mamesh:Mamesh
             scene:BABYLON.Scene
-            selectedVertices:Vertex[]/**if null, will be set at IN_mamesh.vertices*/
+            vertices:Vertex[]
 
-        nbSegments=32
+            nbSegments=32
 
             /**if null, default model will be used*/
             meshModel:BABYLON.Mesh=null
@@ -41,12 +41,14 @@ module mathis{
              * between two linked vertices*/
             radiusProp=0.1
 
-            constructor(mamesh:Mamesh,scene:BABYLON.Scene,positionings?:HashMap<Vertex,Positioning>){
+            constructor(mameshOrVertices:Mamesh|Vertex[],scene:BABYLON.Scene,positionings?:HashMap<Vertex,Positioning>){
 
                 if (deconnectViewerForTest) return
 
-                if (mamesh==null) throw 'no Mamesh given'
-                else  this.mamesh=mamesh
+                if (mameshOrVertices instanceof Mamesh) this.vertices=mameshOrVertices.vertices
+                else this.vertices=<Vertex[]>mameshOrVertices
+
+
                 if (scene==null) throw  'scene is null'
                 else this.scene=scene
                 this.positionings=positionings
@@ -54,18 +56,15 @@ module mathis{
 
 
             checkArgs(){
-                if(this.mamesh.vertices[0]==null) cc('no vertex to draw')
-
+                if(this.vertices==null||this.vertices[0]==null) cc('no vertex to draw')
             }
 
             go ():void{
                 if (deconnectViewerForTest) return
 
 
-
-
                 this.checkArgs()
-                if (this.selectedVertices==null) this.selectedVertices=this.mamesh.vertices
+
 
                 if (this.meshModel==null&&this.meshModels==null){
                     /**diameter of model : 0.5 because then, we think of radius*/
@@ -107,7 +106,7 @@ module mathis{
                     this.positionings = new HashMap<Vertex,Positioning>()
 
 
-                    for (let v of this.selectedVertices) {
+                    for (let v of this.vertices) {
                         let radius:number
                         if (this.constantRadius==null) {
 
@@ -120,7 +119,7 @@ module mathis{
                             }
                             /**if no links, we look the min distance according to all other vertices*/
                             else {
-                                for (let other of this.selectedVertices) {
+                                for (let other of this.vertices) {
                                     if (!other.position.almostEqual(v.position)) {
                                         let d = geo.distance(v.position, other.position)
                                         if (d < minDist) minDist = d
@@ -147,16 +146,32 @@ module mathis{
                     //}
                 }
 
+
                 this.buildVertexVisu()
 
             }
 
             vertexToCopiedMeshes=new HashMap<Vertex,BABYLON.AbstractMesh[]>()
 
+            clear(){
+                this.vertices.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.dispose()
+                    }
+                    this.vertexToCopiedMeshes.removeKey(vertex)
+                })
+            }
+
 
             /**can also be use to rebuild a part of the visualisation */
-            buildVertexVisu(verticesToUpdate:Vertex[]=this.selectedVertices,verticesToClear:Vertex[]=[]):void{
+            buildVertexVisu(verticesToUpdate:Vertex[]=this.vertices, verticesToClear:Vertex[]=[]):void{
 
+                verticesToClear.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.dispose()
+                    }
+                    this.vertexToCopiedMeshes.removeKey(vertex)
+                })
 
                 verticesToUpdate.forEach(vertex=>{
 
@@ -184,17 +199,12 @@ module mathis{
 
                 })
 
-                verticesToClear.forEach(vertex=>{
-                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
-                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.dispose()
-                    }
-                    this.vertexToCopiedMeshes.removeKey(vertex)
-                })
+
 
             }
 
             /**can also be used to modify a part of the visualisation*/
-            updatePositionings(vertice:Vertex[]=this.selectedVertices):void{
+            updatePositionings(vertice:Vertex[]=this.vertices):void{
                 vertice.forEach(v=>this.updatePositioning(v))
             }
 
@@ -259,7 +269,7 @@ module mathis{
 
 
 
-                let positions = new Array<number>()
+                let positions :number[]=[]
                 let uvs = [];
 
                 for (let v of this.mamesh.vertices) {
@@ -267,11 +277,11 @@ module mathis{
                 }
 
 
-                let hashToIndex=new Array<number>()
+                let hashToIndex:number[]=[]
 
                 for (let index=0;index<this.mamesh.vertices.length;index++) hashToIndex[this.mamesh.vertices[index].hashNumber]=index
 
-                let indices = new Array<number>()
+                let indices :number[]=[]
 
                 for (let i=0;i<this.mamesh.smallestTriangles.length;i+=3){
                     let v0=this.mamesh.smallestTriangles[i]
@@ -764,7 +774,11 @@ module mathis{
 
         export class LinesViewer{
 
-            private mamesh:Mamesh
+
+            lines:Line[]
+            /**only useful to compute  a  line-radius which is proportional to the mean-vertex-spacing*/
+            vertices:Vertex[]=null
+
             private scene:BABYLON.Scene
             parentNode:BABYLON.Node
 
@@ -793,75 +807,79 @@ module mathis{
 
 
 
-            seedForRandomColor=12345
 
 
             private res:BABYLON.Mesh[]=[]
 
-            constructor(mamesh:Mamesh,scene:BABYLON.Scene){
-                this.mamesh=mamesh
+            constructor(mameshOrLines:Mamesh|Line[],scene:BABYLON.Scene){
+
+                if (mameshOrLines instanceof Mamesh){
+                    let mamesh=<Mamesh> mameshOrLines
+                    if (!mamesh.linesWasMade) mamesh.fillLineCatalogue()
+                    this.lines=mamesh.lines
+                }
+                else{
+                    this.lines=<Line[]>mameshOrLines
+                }
+
+
                 this.scene=scene
 
             }
 
 
-            /**TODO transfert to the line filler*/
-            static directionnalLineSelector=(nbExceptionAllowed:number,direction:Direction)=>{
-                return (index: number,line:Vertex[])=>{
-                    let referenceParam=line[0].param
-                    let exceptionCount=0
-                    cc('new line')
-                    for (let vertex of line){
-                        if (vertex.param==null) throw 'no param, we can not see vertical lines'
-
-                        let a,b=-1
-                        if (direction==Direction.vertical){
-                            a=vertex.param.x
-                            b=referenceParam.x
-                        }
-                        else if (direction==Direction.horizontal){
-                            a=vertex.param.y
-                            b=referenceParam.y
-                        }
-                        else throw 'not yet done'
-
-                        cc(referenceParam,vertex.param)
-                        if (! geo.almostEquality(a,b)) {
-                            exceptionCount++
-                            referenceParam=vertex.param
-                        }
-                        if (exceptionCount>nbExceptionAllowed) {
-                            cc('false')
-                            return false
-                        }
-                    }
-                    return (exceptionCount<=nbExceptionAllowed)
-                }
-            }
+            //
+            // static directionnalLineSelector=(nbExceptionAllowed:number,direction:Direction)=>{
+            //     return (index: number,line:Vertex[])=>{
+            //         let referenceParam=line[0].param
+            //         let exceptionCount=0
+            //         for (let vertex of line){
+            //             if (vertex.param==null) throw 'no param, we can not see vertical lines'
+            //
+            //             let a,b=-1
+            //             if (direction==Direction.vertical){
+            //                 a=vertex.param.x
+            //                 b=referenceParam.x
+            //             }
+            //             else if (direction==Direction.horizontal){
+            //                 a=vertex.param.y
+            //                 b=referenceParam.y
+            //             }
+            //             else throw 'not yet done'
+            //
+            //             cc(referenceParam,vertex.param)
+            //             if (! geo.almostEquality(a,b)) {
+            //                 exceptionCount++
+            //                 referenceParam=vertex.param
+            //             }
+            //             if (exceptionCount>nbExceptionAllowed) {
+            //                 cc('false')
+            //                 return false
+            //             }
+            //         }
+            //         return (exceptionCount<=nbExceptionAllowed)
+            //     }
+            // }
 
 
 
 
             go():BABYLON.Mesh[]{
 
-                /**for test-mode : fillLineCatalogue before deconnecting viewer*/
-                if (!this.mamesh.linesWasMade) this.mamesh.fillLineCatalogue()
 
                 /**even when viewer is de-connected, we can use lineToColor during test*/
                 this.buildLineToColor()
-
-
                 if (deconnectViewerForTest) return
 
                 if (this.scene==null) throw 'scene is null'
 
-                /**very small rotation because of a bug of babylon : Some strictly vertical lines disappear
-                 * TODO: complain*/
-                new spacialTransformations.Similitude(this.mamesh.vertices,0.0001).goChanging()
+                /**OLD: very small rotation because of a bug of babylon : Some strictly vertical lines disappear
+                 * */
+                //new spacialTransformations.Similitude(this.mamesh.vertices,0.0001).goChanging()
 
 
 
-                for (let line of this.mamesh.lines){
+                for (let line of this.lines){
                     if (this.lineToColor.getValue(line)!=null) this.drawOneLine(line)
                 }
 
@@ -875,7 +893,7 @@ module mathis{
                 /**priority 1*/
                 if (this.color!=null){
                     this.lineToColor=new HashMap<Line,Color>()
-                    for (let line of this.mamesh.lines) this.lineToColor.putValue(line,this.color)
+                    for (let line of this.lines) this.lineToColor.putValue(line,this.color)
                     return
                 }
 
@@ -886,13 +904,13 @@ module mathis{
                 /**nothing is specified. The level is the index of the line*/
                 if (this.lineToLevel==null) {
                     this.lineToLevel=new HashMap<Line, number>()
-                    for (let i=0;i<this.mamesh.lines.length;i++) this.lineToLevel.putValue(this.mamesh.lines[i],i)
+                    for (let i=0;i<this.lines.length;i++) this.lineToLevel.putValue(this.lines[i],i)
                 }
                 /**from level to color*/
                 let max=tab.maxValue(this.lineToLevel.allValues())
                 let min=tab.minValue(this.lineToLevel.allValues())
                 this.lineToColor=new HashMap<Line,Color>()
-                for (let line of this.mamesh.lines){
+                for (let line of this.lines){
                     let value=this.lineToLevel.getValue(line)
                     if (value!=null){
                         let prop=(value-min)/(max-min)
@@ -965,27 +983,20 @@ module mathis{
                         }
                         modifiedFunction= (ind:number,alphaProp:number)=> this.radiusFunction(ind,alphaProp/pathTotalLength)
 
-
                         res= BABYLON.Mesh.CreateTube('',path,null,this.tesselation,modifiedFunction,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
 
                     }
                     else  {
                         if (this.constantRadius==null){
-                            let distance=0
-                            let nbVerticesWithLinks=0
-                            for (let v of this.mamesh.vertices) {
-                                nbVerticesWithLinks++
-                                if (v.links.length!=0) {
-                                    let minDist = Number.MAX_VALUE
-                                    for (let li of v.links) {
-                                        let d = geo.distance(v.position, li.to.position)
-                                        if (d < minDist) minDist = d
-                                    }
-                                    distance += minDist
+                           let totalLength=0
+                            let nbVertices=0
+                            for (let line of this.lines) {
+                                for (let i=0;i< line.vertices.length-1;i++) {
+                                    totalLength+=geo.distance(line.vertices[i].position,line.vertices[i+1].position)
+                                    nbVertices++
                                 }
                             }
-                            distance/=nbVerticesWithLinks
-                            this.constantRadius=distance*this.radiusProp
+                            this.constantRadius=totalLength/nbVertices*this.radiusProp
                         }
 
                         res= BABYLON.Mesh.CreateTube('',path,this.constantRadius,this.tesselation,null,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
