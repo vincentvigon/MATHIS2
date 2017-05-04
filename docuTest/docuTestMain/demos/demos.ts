@@ -39,7 +39,6 @@ module mathis{
             }
 
             private common(){
-                this.infinite.pathFromHtmlToAssets='../../assets/'
                 this.infinite.nameOfResau3d=this.nameOfResau3d
                 this.infinite.go()
             }

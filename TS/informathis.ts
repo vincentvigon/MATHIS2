@@ -256,6 +256,12 @@ module mathis{
             for (let index in this.keys) res.push(new Entry(this.keys[index],this.values[index]) )
             return res
         }
+
+
+        aRandomValue():T{
+            let keys=Object.keys(this.values)
+            return this.values[keys[ Math.floor(keys.length * Math.random())]]
+        }
         
         
         
@@ -327,10 +333,17 @@ module mathis{
         }
 
         allKeys():string[]{
-            let res:string[]=[]
-            for (let key in this.values) res.push(key)
-            return res
+            // let res:string[]=[]
+            // for (let key in this.values) res.push(key)
+            // return res
+            return Object.keys(this.values)
         }
+
+        aRandomValue():T{
+            let keys=Object.keys(this.values)
+            return this.values[keys[ Math.floor(keys.length * Math.random())]]
+        }
+
         
         size():number{
             let res=0

@@ -524,7 +524,7 @@ module mathis {
                 lineMak.meshModel=model
                 lineMak.parentNode=res
                 lineMak.segmentOrientationFunction = (vert0, vert1)=> {
-                    if (vert0.hasMark(Vertex.Markers.pintagoneCenter)|| vert1.hasMark(Vertex.Markers.pintagoneCenter)) return 0
+                    if (vert0.hasMark(Vertex.Markers.polygonCenter)|| vert1.hasMark(Vertex.Markers.polygonCenter)) return 0
                     return 1
                 }
                 lineMak.go()
@@ -542,11 +542,11 @@ module mathis {
 
                 let nonPintaCenter:Vertex[]=[]
                 mamesh.vertices.forEach(v=>{
-                    if (!v.hasMark(Vertex.Markers.pintagoneCenter) ) nonPintaCenter.push(v)
+                    if (!v.hasMark(Vertex.Markers.polygonCenter) ) nonPintaCenter.push(v)
                 })
                 let vertMak=new visu3d.VerticesViewer(mamesh,scene,positioningsMaker.go())
                 vertMak.parentNode=res
-                vertMak.selectedVertices=nonPintaCenter
+                vertMak.vertices=nonPintaCenter
                 vertMak.go()
 
 

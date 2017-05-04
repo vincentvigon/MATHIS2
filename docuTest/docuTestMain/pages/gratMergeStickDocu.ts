@@ -63,12 +63,30 @@ module mathis {
 
 
             proportionOfSeed0=0.1
-            $$$proportionOfSeed0=[0.1,0.3,0.5,0.7]
+            $$$proportionOfSeed0=[0.01,0.1,0.3,0.5,0.7]
             proportionOfSeed1=0.1
             $$$proportionOfSeed1=[0.1,0.3,0.5,0.7]
 
             seedComputedFromBarycentersVersusFromAllPossibleCells=true
             $$$seedComputedFromBarycentersVersusFromAllPossibleCells=[true,false]
+
+            addAsymetry=false
+            $$$addAsymetry=[true,false]
+
+            asyDirection0=-1
+            $$$asyDirection0=[-1,1]
+            asyDirection1=-1
+            $$$asyDirection1=[-1,1]
+            asyInfluence0=0.5
+            $$$asyInfluence0=[0.1,0.5,1]
+            asyInfluence1=0.5
+            $$$asyInfluence1=[0.1,0.5,1]
+
+            modulo0=null
+            $$$modulo0=[null,1.5,0.7]
+            modulo1=null
+            $$$modulo1=[null,1.5,0.7]
+
 
 
             constructor(private mathisFrame:MathisFrame) {
@@ -89,9 +107,8 @@ module mathis {
 
                 this.mathisFrame.clearScene(false, false)
 
-                //$$$begin
 
-
+                //$$$bh creation of the 2 mamesh
                 let creator0 = new reseau.TriangulatedPolygone(this.nbSides0)
                 creator0.origin = new XYZ(-1,-1 , 0)
                 creator0.end = new XYZ(0.5,0.5, 0)
@@ -103,7 +120,9 @@ module mathis {
                 creator1.end = new XYZ(1,1, 0)
                 creator1.nbSubdivisionInARadius = this.nbSubdivisionInARadius1
                 let mamesh1 = creator1.go()
+                //$$$eh
 
+                //$$$begin
                 let grater:grateAndGlue.GraphGrater=null
                 if (this.grate){
                     grater=new grateAndGlue.GraphGrater()
@@ -120,6 +139,17 @@ module mathis {
                     /**Determine the proportion of seeds of each concurrent: only useful is previous attribute is true*/
                     grater.proportionOfSeeds=[this.proportionOfSeed0,this.proportionOfSeed1]
 
+
+                    if (this.addAsymetry) {
+                        /**to change the localisation of seeds.
+                         * --- direction: pull the seeds in this direction
+                         * --- influence: influence of this direction against the 'natural' direction of seed
+                         * --- modulo (optional): allow to pull seeds in several directions
+                         * */
+                        grater.asymmetriesForSeeds = [
+                            {direction: new XYZ(this.asyDirection0, 0, 0), influence: this.asyInfluence0,modulo:this.modulo0},
+                            {direction: new XYZ(0, this.asyDirection1, 0), influence: this.asyInfluence1,modulo:this.modulo1}]
+                    }
 
                     let remainingVertices=grater.go()
 
@@ -140,13 +170,13 @@ module mathis {
                 //$$$bh visualization
                 if (grater!=null) {
                     let verticesViewer0 = new visu3d.VerticesViewer(mamesh0, this.mathisFrame.scene)
-                    verticesViewer0.selectedVertices=grater.OUT_allSeeds[0]
+                    verticesViewer0.vertices=grater.OUT_allSeeds[0]
                     verticesViewer0.color = new Color(Color.names.red)
                     verticesViewer0.go()
 
 
                     let verticesViewer1 = new visu3d.VerticesViewer(mamesh1, this.mathisFrame.scene)
-                    verticesViewer1.selectedVertices=grater.OUT_allSeeds[1]
+                    verticesViewer1.vertices=grater.OUT_allSeeds[1]
                     verticesViewer1.color = new Color(Color.names.red)
                     verticesViewer1.go()
 
@@ -271,13 +301,13 @@ module mathis {
                 //$$$bh visualization
                 if (grater!=null) {
                     let verticesViewer0 = new visu3d.VerticesViewer(mamesh0, this.mathisFrame.scene)
-                    verticesViewer0.selectedVertices=grater.OUT_allSeeds[0]
+                    verticesViewer0.vertices=grater.OUT_allSeeds[0]
                     verticesViewer0.color = new Color(Color.names.red)
                     verticesViewer0.go()
 
 
                     let verticesViewer1 = new visu3d.VerticesViewer(mamesh1, this.mathisFrame.scene)
-                    verticesViewer1.selectedVertices=grater.OUT_allSeeds[1]
+                    verticesViewer1.vertices=grater.OUT_allSeeds[1]
                     verticesViewer1.color = new Color(Color.names.red)
                     verticesViewer1.go()
 
@@ -424,15 +454,15 @@ module mathis {
 
                 /**source vertices in blue*/
                 let verticesViewerSource=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
-                verticesViewerSource.selectedVertices=graterAndSticker.OUT_stickingMap.allKeys()
+                verticesViewerSource.vertices=graterAndSticker.OUT_stickingMap.allKeys()
                 verticesViewerSource.color=new Color(Color.names.blueviolet)
                 verticesViewerSource.go()
 
                 /**receiver vertices in red*/
                 let verticesViewer=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
-                verticesViewer.selectedVertices=[]
+                verticesViewer.vertices=[]
                 for (let vertices of graterAndSticker.OUT_stickingMap.allValues()) {
-                    verticesViewer.selectedVertices=verticesViewer.selectedVertices.concat(vertices)
+                    verticesViewer.vertices=verticesViewer.vertices.concat(vertices)
                 }
                 verticesViewer.go()
 

@@ -2,12 +2,13 @@
 
 module mathis {
 
-
-    export enum Direction{vertical,horizontal,slash,antislash}
+    //
+    // export enum Direction{vertical,horizontal,slash,antislash}
 
     export var myFavoriteColors={
         green:new BABYLON.Color3(124 / 255, 252 / 255, 0)
-    } 
+        //greenMathis:new Color(new RGB_range255(124,252,0))
+    }
     
     export class UV{
         u:number
@@ -425,7 +426,6 @@ module mathis {
                 this.m[8]+this.m[9]+this.m[10]+this.m[11]+"\n"+
                 this.m[12]+this.m[13]+this.m[14]+this.m[15]+"\n"
 
-
         }
     }
 
@@ -433,8 +433,8 @@ module mathis {
     export class Link{
         to:Vertex
         opposites:Link[]
-        /**to specify some weight*/
         weight:number
+        customerOb:any=null
 
         constructor(to:Vertex){
             if (to==null) throw 'a links is construct with a null vertex'
@@ -465,11 +465,13 @@ module mathis {
         customerObject:any={}
 
 
-        setPosition(x:number,y:number,z:number,useAlsoTheseValuesForParam=false):Vertex{
+        setPosition(x:number,y:number,z:number,useAlsoTheseValuesForParam=true):Vertex{
             this.position=new XYZ(x,y,z)
-            this.param=new XYZ(x,y,z)
+            if(useAlsoTheseValuesForParam) this.param=new XYZ(x,y,z)
             return this
         }
+
+
 
         
         hasMark(mark:Vertex.Markers):boolean{
@@ -550,12 +552,7 @@ module mathis {
             if (vertex==this) throw "it is forbidden to link to itself"
             
             this.suppressOneLink(vertex)
-            
-            // let link1=this.findLink(vertex)
-            // if (link1==null) link1=new Link(vertex)
-            // else {
-            //     link1.opposites=[]
-            // }
+
             this.links.push(new Link(vertex))
             return this
         }
@@ -566,10 +563,7 @@ module mathis {
             v2.suppressOneLink(v1)
         }
         
-        static addWeightToLink(v1:Vertex,v2:Vertex,weight:number){
-            v1.findLink(v2).weight=weight
-            v2.findLink(v1).weight=weight
-        }
+
       
         
         /**to completely separate to vertex, you have to apply this procedure on both the two vertices*/
@@ -630,7 +624,7 @@ module mathis {
 
 
     export module Vertex{
-        export enum Markers{honeyComb,corner,center,border,pintagoneCenter,selectedForLineDrawing}
+        export enum Markers{honeyComb,corner,center,border,polygonCenter,selectedForLineDrawing}
 
     }
 

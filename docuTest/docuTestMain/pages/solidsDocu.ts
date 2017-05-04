@@ -1,17 +1,25 @@
+/**
+ * Created by vigon on 03/05/2017.
+ */
 
+
+/**
+ * Created by vigon on 19/11/2016.
+ */
 
 module mathis{
 
     export module documentation{
 
 
-        export class ArchimedeDocu implements OnePage{
-            pageIdAndTitle="remarkable solids"
+        export class SolidsDocu implements OnePage{
+
+            pageIdAndTitle="Famous solids"
             severalParts:SeveralParts
 
             constructor(private mathisFrame:MathisFrame){
                 let several=new SeveralParts()
-                several.addPart(new ArchimedePieceDocu(this.mathisFrame))
+                several.addPart(new SimplestSolids(this.mathisFrame))
                 this.severalParts=several
             }
 
@@ -19,15 +27,18 @@ module mathis{
                 return this.severalParts.go()
             }
 
+
         }
 
-        class ArchimedePieceDocu implements PieceOfCode{
 
-            $$$name="WhatAreArchimedianSolids"
-            $$$title="Several ways to create an Archedian Solid !"
 
-            polyhedronType=creation3D.ArchimedeanSolidType.TruncatedIcosidodecahedron
-            $$$polyhedronType=new Choices(allIntegerValueOfEnume(creation3D.ArchimedeanSolidType),{visualValues:allStringValueOfEnume(creation3D.ArchimedeanSolidType)})
+        class SimplestSolids implements PieceOfCode{
+
+            $$$name="SimplestSolids"
+            $$$title="Platonic, Archimedian, and other simple solids"
+
+            polyhedronType=creation3D.PolyhedronType.TruncatedIcosidodecahedron
+            $$$polyhedronType=new Choices(allIntegerValueOfEnume(creation3D.PolyhedronType),{visualValues:allStringValueOfEnume(creation3D.PolyhedronType)})
 
             constructor(private mathisFrame:MathisFrame){
                 this.mathisFrame=mathisFrame
@@ -45,21 +56,30 @@ module mathis{
 
             go(){
 
-                /**NE PAS TOUCHER*/
+
                 this.mathisFrame.clearScene(false,false)
 
                 //$$$begin
-                let polyArch = new creation3D.ArchimedeanSolid(this.polyhedronType);
+                let polyArch = new creation3D.Polyhedron(this.polyhedronType);
                 let mamesh = polyArch.go();
                 //$$$end
 
 
                 //$$$bh visualization
 
-                let verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);
+                let vertices=[]
+                for (var i=0;i<mamesh.vertices.length;i++){
+                    var vertex=mamesh.vertices[i]
+                    if (!vertex.hasMark(Vertex.Markers.polygonCenter)) vertices.push(vertex)
+                }
+                let verticesViewer = new mathis.visu3d.VerticesViewer(vertices, this.mathisFrame.scene);
                 verticesViewer.go();
 
                 let linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
+                linksViewer.segmentOrientationFunction=function(v0,v1){
+                    if (v0.hasMark(Vertex.Markers.polygonCenter)||v1.hasMark(Vertex.Markers.polygonCenter)) return 0
+                    return 1
+                }
                 linksViewer.go();
 
                 let surfaceViewer = new mathis.visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene);
@@ -68,6 +88,22 @@ module mathis{
 
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
 }
+
+
 

@@ -337,7 +337,7 @@ module mathis {
                     else if (p.length >= 5 && indexSurface != numSurf)
                     {
                         let centerVertex2 = PolygoIndexToVertexCenter[indexSurface]
-                        centerVertex2.markers.push(Vertex.Markers.pintagoneCenter)
+                        centerVertex2.markers.push(Vertex.Markers.polygonCenter)
                         this.mamesh.vertices.push(centerVertex2)
 
                         for (let i = 0; i < p.length; i++)
