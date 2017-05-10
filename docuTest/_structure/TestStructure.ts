@@ -7,7 +7,7 @@
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
         //
         // function toto(){
@@ -225,7 +225,7 @@ module mathis{
 
 
                 indexPage.sendMessageAndWaitForReply(false,
-                    {type:'checkExisting',name:this.pieceOfCode.$$$name},
+                    {type:'checkExisting',name:this.pieceOfCode.NAME},
                     (msg)=>{
 
                         if (msg.status=='nonExisting'){
@@ -239,7 +239,7 @@ module mathis{
                                 JS_configAttributes.push(key)
                             }
 
-                            checkAttributes(true,msg.username,this.pieceOfCode.$$$name,JS_configAttributes.sort(),msg.configurationAttributes,this.$divToCreateTest,
+                            checkAttributes(true,msg.username,this.pieceOfCode.NAME,JS_configAttributes.sort(),msg.configurationAttributes,this.$divToCreateTest,
                                 /**callback after DB changing*/
                                 ()=>{
                                     this.emptyAndRestart()
@@ -255,7 +255,7 @@ module mathis{
                                         if ( key.substring(0,1)=='_') JS_savedAttributes.push(key)
                                     }
 
-                                    checkAttributes(false,msg.username,this.pieceOfCode.$$$name,JS_savedAttributes.sort(),msg.savedAttributes,this.$divToCreateTest,
+                                    checkAttributes(false,msg.username,this.pieceOfCode.NAME,JS_savedAttributes.sort(),msg.savedAttributes,this.$divToCreateTest,
                                         /**callback after DB changing*/
                                         ()=>{
                                             this.emptyAndRestart()
@@ -300,7 +300,7 @@ module mathis{
                 }
 
                 indexPage.sendMessageAndWaitForReply(true,
-                    {savedAttributes:savedAttributes,type:'initializeTest',name:this.pieceOfCode.$$$name,creator:this.pieceOfCode.$$$creator,configurationAttributes:configAttributes},
+                    {savedAttributes:savedAttributes,type:'initializeTest',name:this.pieceOfCode.NAME,creator:this.pieceOfCode.CREATOR,configurationAttributes:configAttributes},
                     (msg)=>{
                         /**msg.status is always 'ok' */
                         this.$divToCreateTest.empty().append(this.retrieveThenDevelopp())
@@ -324,7 +324,7 @@ module mathis{
             private retrieveThenDevelopp(){
 
                 indexPage.sendMessageAndWaitForReply(false,
-                    {type:'retrieveSavedValues',name:this.pieceOfCode.$$$name,configuration:this.getConfiguration()},
+                    {type:'retrieveSavedValues',name:this.pieceOfCode.NAME,configuration:this.getConfiguration()},
                     (msg)=>{
                         this.$divToCreateTest.append(this.developp(msg))
                     }
@@ -362,7 +362,7 @@ module mathis{
                         let $line=$('<div></div>').text(" '"+key+"' is in DB but not in JS")
                         $line.appendTo($visual)
                         let $button=$('<button class="clickable"></button>').text("remove attribute in DB").on('click touch',()=>{
-                            indexPage.sendMessage(true,{type:'removeAttribute',attrib:key,name:this.pieceOfCode.$$$name})
+                            indexPage.sendMessage(true,{type:'removeAttribute',attrib:key,name:this.pieceOfCode.NAME})
                             $button.hide()
                         })
                         $button.appendTo($line)
@@ -436,7 +436,7 @@ module mathis{
                     }
 
 
-                    indexPage.sendMessageAndWaitForReply(true,{type:'saveOneTest',name:this.pieceOfCode.$$$name,configuration:this.getConfiguration(),saved:savedValues},(msg)=>{
+                    indexPage.sendMessageAndWaitForReply(true,{type:'saveOneTest',name:this.pieceOfCode.NAME,configuration:this.getConfiguration(),saved:savedValues},(msg)=>{
                         this.emptyAndRestart()
                     })
                 })
@@ -524,7 +524,7 @@ module mathis{
                             //;(<any>pieceOfCode).mathisFrame=originalMathisFrame
                         }
                         catch (e){
-                            this.showException(e,pieceOfCode.$$$name,null)
+                            this.showException(e,pieceOfCode.NAME,null)
                         }
                     }
                 }
@@ -552,12 +552,12 @@ module mathis{
                                 let JSconfigAttrib=[]
                                 for (let key in pieceOfCode) {
                                     if (key.substring(0, 3) == '$$$') {
-                                        if (key!='$$$name'&& key!='$$$title'&& key!='$$$creator' ) JSconfigAttrib.push(key.slice(3))
+                                        JSconfigAttrib.push(key.slice(3))
                                     }
                                 }
 
 
-                                checkAttributes(true,DB_item.username,pieceOfCode.$$$name,JSconfigAttrib.sort(),DB_item.configurationAttributes,this.$visual,
+                                checkAttributes(true,DB_item.username,pieceOfCode.NAME,JSconfigAttrib.sort(),DB_item.configurationAttributes,this.$visual,
                                     /**callback after DB changing*/
                                     ()=>{
 
@@ -574,7 +574,7 @@ module mathis{
                                             if (key.substring(0,1)=='_') JS_savedAttributes.push(key)
                                         }
 
-                                        checkAttributes(false,DB_item.username,pieceOfCode.$$$name,JS_savedAttributes.sort(),DB_item.savedAttributes,this.$visual,null,
+                                        checkAttributes(false,DB_item.username,pieceOfCode.NAME,JS_savedAttributes.sort(),DB_item.savedAttributes,this.$visual,null,
                                             ()=>{
                                             },
                                             ()=>{

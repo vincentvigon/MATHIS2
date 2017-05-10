@@ -3,12 +3,14 @@
     "target": "es5",
     "removeComments": false,
     "sourceMap": true,
-    "out": "JS/MATHIS3.js",
-    "declaration":false,
+    "out": "JS/MATHIS.js",
+    "declaration":true,
     "diagnostics":false,
     "watch":true
   },
   "exclude": [
-    "JS/MATHIS3.d.ts"
+    "JS/MATHIS.d.ts",
+    "JS/babylon.2.5.d.ts"
+    //"subProjects/"
   ]
 }

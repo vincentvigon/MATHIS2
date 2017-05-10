@@ -1,6 +1,6 @@
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class TorusPlatonicDocu implements OnePage{
@@ -27,8 +27,8 @@ module mathis {
 
 
         class BoySurface implements PieceOfCode{
-            $$$name="BoySurface"
-            $$$title="The Boy surface"
+            NAME="BoySurface"
+            TITLE="The Boy surface"
 
             nbI=10
             $$$nbI=[5,10,20,30]
@@ -124,8 +124,8 @@ module mathis {
 
 
         class TorusPart implements PieceOfCode{
-            $$$name="TorusPart"
-            $$$title="A twisted torus from a skewed reseau"
+            NAME="TorusPart"
+            TITLE="A twisted torus from a skewed reseau"
 
             nbVerticalDecays=2
             $$$nbVerticalDecays=[0,1,2,3,4]
@@ -223,8 +223,8 @@ module mathis {
 
 
         class TorusPartLines implements PieceOfCode{
-            $$$name="TorusPartLines"
-            $$$title="Problem : lines of the flat reseau behave badly on the torus. \nSolution : merge the vertices and remake links"
+            NAME="TorusPartLines"
+            TITLE="Problem : lines of the flat reseau behave badly on the torus. \nSolution : merge the vertices and remake links"
 
             nbVerticalDecays=2
             $$$nbVerticalDecays=[0,1,2,3,4]
@@ -316,110 +316,110 @@ module mathis {
 
 
 
-
-        class TorusAllOptions implements PieceOfCode{
-            $$$name="TorusAllOptions"
-            $$$title="Problem : lines of the flat reseau behave badly on the torus. \nSolution : merge the vertices and remake links"
-
-            nbVerticalDecays=2
-            $$$nbVerticalDecays=[0,1,2,3,4]
-            nbHorizontalDecays=1
-            $$$nbHorizontalDecays=[0,1,2,3,4]
-
-            bent=true
-            $$$bent=[true,false]
-            merge=false
-            $$$merge=[true,false]
-
-            nbI=5
-            $$$nbI=[4,5,6,7,8]
-            nbJ=20
-            $$$nbJ=[15,16,20,30]
-
-            interpolationStyle=geometry.InterpolationStyle.hermite
-            $$$interpolationStyle=new Choices([geometry.InterpolationStyle.none,geometry.InterpolationStyle.octavioStyle,geometry.InterpolationStyle.hermite]
-                ,{'before':'geometry.InterpolationStyle.','visualValues':['none','octavioStyle','hermite']})
-
-
-            drawILines=true
-            $$$drawILines=[true,false]
-
-            drawJLines=true
-
-            $$$drawJLines=[true,false]
-
-            constructor(private mathisFrame:MathisFrame){}
-
-            goForTheFirstTime(){
-                this.mathisFrame.clearScene()
-                this.mathisFrame.addDefaultCamera()
-                this.mathisFrame.addDefaultLight()
-
-                this.go()
-            }
-
-
-            go() {
-                this.mathisFrame.clearScene(false, false)
-
-                //$$$begin
-                let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=this.nbI
-                generator.nbJ=this.nbJ
-                generator.origin=new XYZ(0,0,0)
-                generator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
-                generator.nbVerticalDecays=this.nbVerticalDecays
-                generator.nbHorizontalDecays=this.nbHorizontalDecays
-
-                let creator = new reseau.Regular(generator)
-                let mamesh=creator.go()
-
-                //n
-                let bent=this.bent
-                if (bent){
-                    let r=0.3
-                    let a=0.75
-                    mamesh.vertices.forEach((vertex:Vertex)=>{
-
-                        let u=vertex.position.x*10
-                        let v=vertex.position.y*10
-
-                        vertex.position.x=(r*Math.cos(u)+a)*Math.cos((v))
-                        vertex.position.y=(r*Math.cos(u)+a)*Math.sin((v))
-                        vertex.position.z=r*Math.sin(u)
-
-                    })
-
-                    let merge=this.merge
-                    if (merge) {
-                        let merger = new grateAndGlue.Merger(mamesh,null,null)
-                        merger.mergeLink = true
-                        merger.goChanging()
-
-                        let oppositeAssocier = new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices)
-                        oppositeAssocier.maxAngleToAssociateLinks = Math.PI
-                        oppositeAssocier.goChanging()
-                    }
-                }
-                let interpolationStyle=this.interpolationStyle
-                //$$$end
-
-
-                //$$$bh visualization
-                let lineViewer=new visu3d.LinesViewer(mamesh, this.mathisFrame.scene)
-                lineViewer.interpolationOption.interpolationStyle=interpolationStyle
-                lineViewer.go()
-
-
-                //$$$eh
-
-
-            }
-
-
-        }
-
-
+        //
+        // class TorusAllOptions implements PieceOfCode{
+        //     NAME="TorusAllOptions"
+        //     TITLE="Problem : lines of the flat reseau behave badly on the torus. \nSolution : merge the vertices and remake links"
+        //
+        //     nbVerticalDecays=2
+        //     $$$nbVerticalDecays=[0,1,2,3,4]
+        //     nbHorizontalDecays=1
+        //     $$$nbHorizontalDecays=[0,1,2,3,4]
+        //
+        //     bent=true
+        //     $$$bent=[true,false]
+        //     merge=false
+        //     $$$merge=[true,false]
+        //
+        //     nbI=5
+        //     $$$nbI=[4,5,6,7,8]
+        //     nbJ=20
+        //     $$$nbJ=[15,16,20,30]
+        //
+        //     interpolationStyle=geometry.InterpolationStyle.hermite
+        //     $$$interpolationStyle=new Choices([geometry.InterpolationStyle.none,geometry.InterpolationStyle.octavioStyle,geometry.InterpolationStyle.hermite]
+        //         ,{'before':'geometry.InterpolationStyle.','visualValues':['none','octavioStyle','hermite']})
+        //
+        //
+        //     drawILines=true
+        //     $$$drawILines=[true,false]
+        //
+        //     drawJLines=true
+        //
+        //     $$$drawJLines=[true,false]
+        //
+        //     constructor(private mathisFrame:MathisFrame){}
+        //
+        //     goForTheFirstTime(){
+        //         this.mathisFrame.clearScene()
+        //         this.mathisFrame.addDefaultCamera()
+        //         this.mathisFrame.addDefaultLight()
+        //
+        //         this.go()
+        //     }
+        //
+        //
+        //     go() {
+        //         this.mathisFrame.clearScene(false, false)
+        //
+        //         //$$$begin
+        //         let generator = new reseau.BasisForRegularReseau()
+        //         generator.nbI=this.nbI
+        //         generator.nbJ=this.nbJ
+        //         generator.origin=new XYZ(0,0,0)
+        //         generator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
+        //         generator.nbVerticalDecays=this.nbVerticalDecays
+        //         generator.nbHorizontalDecays=this.nbHorizontalDecays
+        //
+        //         let creator = new reseau.Regular(generator)
+        //         let mamesh=creator.go()
+        //
+        //         //n
+        //         let bent=this.bent
+        //         if (bent){
+        //             let r=0.3
+        //             let a=0.75
+        //             mamesh.vertices.forEach((vertex:Vertex)=>{
+        //
+        //                 let u=vertex.position.x*10
+        //                 let v=vertex.position.y*10
+        //
+        //                 vertex.position.x=(r*Math.cos(u)+a)*Math.cos((v))
+        //                 vertex.position.y=(r*Math.cos(u)+a)*Math.sin((v))
+        //                 vertex.position.z=r*Math.sin(u)
+        //
+        //             })
+        //
+        //             let merge=this.merge
+        //             if (merge) {
+        //                 let merger = new grateAndGlue.Merger(mamesh,null,null)
+        //                 merger.mergeLink = true
+        //                 merger.goChanging()
+        //
+        //                 let oppositeAssocier = new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices)
+        //                 oppositeAssocier.maxAngleToAssociateLinks = Math.PI
+        //                 oppositeAssocier.goChanging()
+        //             }
+        //         }
+        //         let interpolationStyle=this.interpolationStyle
+        //         //$$$end
+        //
+        //
+        //         //$$$bh visualization
+        //         let lineViewer=new visu3d.LinesViewer(mamesh, this.mathisFrame.scene)
+        //         lineViewer.interpolationOption.interpolationStyle=interpolationStyle
+        //         lineViewer.go()
+        //
+        //
+        //         //$$$eh
+        //
+        //
+        //     }
+        //
+        //
+        // }
+        //
+        //
 
 
 

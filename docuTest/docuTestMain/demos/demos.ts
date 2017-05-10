@@ -6,12 +6,12 @@
 module mathis{
     
     
-    export module documentation{
+    export module appli{
 
 
         export class InfiniteWordOnIndex implements PieceOfCode{
 
-            $$$name="InfiniteWordOnIndex"
+            NAME="InfiniteWordOnIndex"
             nameOfResau3d=infiniteWorlds.NameOfReseau3D.cube
             $$$nameOfResau3d=new Choices(allIntegerValueOfEnume(infiniteWorlds.NameOfReseau3D),{'visualValues':allStringValueOfEnume(infiniteWorlds.NameOfReseau3D)})
 
@@ -27,7 +27,6 @@ module mathis{
                 this.infinite=new infiniteWorlds.InfiniteCartesian(this.mathisFrame)
                 this.infinite.buildLightCameraSkyboxAndFog=true
                 this.common()
-
             }
 
             go(){
@@ -62,7 +61,7 @@ module mathis{
 
         
         export class IsingOnIndex implements PieceOfCode{
-            $$$name="IsingOnIndex"
+            NAME="IsingOnIndex"
             beta=0.5
             $$$beta=new Choices([0,0.5,1,3],{'before':"repulsion force:"})
             q=1
@@ -101,15 +100,14 @@ module mathis{
         }
 
 
-
         export class DifferentialOnIndex implements PieceOfCode{
-            $$$name="DifferentialOnIndex"
+            NAME="DifferentialOnIndex"
 
             vectorField=2//Math.floor(Math.random()*3)
-            $$$vectorField=new Choices([0,1,2],{'before':'vector field:'})
+            $$$vectorField=new Choices([0,1,2],{label:'vector field:'})
 
             noiseIntensity=0
-            $$$noiseIntensity=new Choices([0,0.01,0.02,0.05,0.1],{'onchange':this.changeNoise,'before':'noise'})
+            $$$noiseIntensity=new Choices([0,0.01,0.02,0.05,0.1],{'onchange':this.changeNoise,label:'noise'})
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -230,25 +228,25 @@ module mathis{
 
 
         export class FractalOnIndex implements PieceOfCode{
-            $$$name="FractalOnIndex"
+            NAME="FractalOnIndex"
 
 
             alpha=1.2
-            $$$alpha=new Choices([0.8,1,1.2,1.5,1.7,1.9],{'before':'alpha'})
+            $$$alpha=new Choices([0.8,1,1.2,1.5,1.7,1.9],{label:'alpha'})
 
             beta=0.
-            $$$beta=new Choices([-1,-0.7,-0.5,-0.2,0,0.2,0.5,0.7,1],{'before':'beta'})
+            $$$beta=new Choices([-1,-0.7,-0.5,-0.2,0,0.2,0.5,0.7,1],{label:'beta'})
 
 
             nbDicho=4
-            $$$nbDicho=new Choices([2,3,4,5],{'before':'nb dichotomy'})
+            $$$nbDicho=new Choices([2,3,4,5],{label:'nb dichotomy'})
 
             showLine=false
-            $$$showLine=new Choices([true,false],{'before':"showLines:"})
+            $$$showLine=new Choices([true,false],{label:"showLines:"})
 
 
             shape='plan'
-            $$$shape=new Choices(['sphere','plan'],{'before':'shape:'})
+            $$$shape=new Choices(['sphere','plan'],{label:'shape:'})
 
 
 
@@ -330,11 +328,11 @@ module mathis{
 
         export class SeveralDemo implements PieceOfCode{
 
-            $$$name="SeveralDemo"
-            demoChoice=Math.floor(Math.random()*4)
-            $$$demoChoice=new Choices([0,1,2,3],{'visualValues':["infinite world","ising model",'2d differential','alpha fractal']})
+            NAME="SeveralDemo"
+            demoChoice=4//Math.floor(Math.random()*5)
+            $$$demoChoice=new Choices([0,1,2,3,4],{'visualValues':["infinite world","ising model",'2d differential','alpha fractal','spacial random graph']})
 
-            constructor(private mathisFrame){}
+            constructor(private mathisFrame:MathisFrame){}
 
             goForTheFirstTime(){
 
@@ -347,30 +345,37 @@ module mathis{
                 else if(this.demoChoice==1) pieceOfCode=new IsingOnIndex(this.mathisFrame)
                 else if (this.demoChoice==2) pieceOfCode=new DifferentialOnIndex(this.mathisFrame)
                 else if (this.demoChoice==3) pieceOfCode=new FractalOnIndex(this.mathisFrame)
+                else if (this.demoChoice==4) pieceOfCode=new smallProject.RandomSpacialGraph(this.mathisFrame)
 
                 else throw "boum"
 
-                let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
-                let binder=new Binder(pieceOfCode,attributeChoices,null)
+                indexPage.eventManager.fireEvent(new Event('changeDemo',pieceOfCode.NAME))
+
+
+
+                //let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
+                //let $divForDemoSelect=$('#divForDemoSelects').empty()
+                let binder=new Binder(pieceOfCode,this.mathisFrame.subWindow_NW.$visual,this.mathisFrame)
+                binder.pushState=false//TODO
                 binder.selectAndAroundClassName="spanForDemoSelects"
-                let $selects=binder.go()
+                binder.go()
 
                 pieceOfCode.goForTheFirstTime()
 
-                $('#divForDemoSelects').empty().append($selects)
 
-                //$('#mainCanvasDiv').append($placeForSelects)
             }
         }
+
+
 
         export function startDemo(mathisFrame){
 
             let pieceOfCode=new SeveralDemo(mathisFrame)
-            let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
-            let binder=new Binder(pieceOfCode,attributeChoices,null)
-            let $selects=binder.go()
-            $('#demoChoice').append($selects)
-            
+            //let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
+            let binder=new Binder(pieceOfCode,$('#demoChoice'),this.mathisFrame)
+            binder.pushState=false
+            binder.go()
+
             pieceOfCode.goForTheFirstTime()
 
         }

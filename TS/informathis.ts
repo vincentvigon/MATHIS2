@@ -326,6 +326,7 @@ module mathis{
         }
 
         allValues():T[]{
+
             let res=new Array<T>()
             for (let index in this.values) res.push(this.values[index])
             return res

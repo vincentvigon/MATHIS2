@@ -125,7 +125,7 @@ module mathis {
 
 
                 let commonSizes=positioning.getValue(mamesh.vertices[0]).scaling
-                let action=new PeriodicActionBeforeRender(()=>{
+                let action=new PeriodicAction(()=>{
                     let changed=ising.iterateAndGetChangedVertices()
                     changed.allKeys().forEach((v:Vertex)=>{
                         if (v.customerObject.value==0) {

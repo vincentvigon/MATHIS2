@@ -6,7 +6,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class TotoPage1 implements OnePage {
@@ -29,8 +29,8 @@ module mathis {
         }
 
         class TotoTryReseau implements PieceOfCode{
-            $$$name="TotoTryReseau"
-            $$$title="In this first part, we try to make a simple reseau"
+            NAME="TotoTryReseau"
+            TITLE="In this first part, we try to make a simple reseau"
 
             nbI = 3
             $$$nbI=[3,5,7]

@@ -5,7 +5,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class GraphDistance implements OnePage{
@@ -54,8 +54,8 @@ module mathis {
         
         class GeodesicDocu implements PieceOfCode {
 
-            $$$name = "GeodesicDocu"
-            $$$title = "Compute distances and geodesics between vertices"
+            NAME = "GeodesicDocu"
+            TITLE = "Compute distances and geodesics between vertices"
 
             nbSides=4
             $$$nbSides=[4,6,8,10]
@@ -70,9 +70,9 @@ module mathis {
 
             onlyOneGeodesic=false
             $$$onlyOneGeodesic=[true,false]
-
-            useGraphDistanceVersusDistanceVersusLinkWeights=0
-            $$$useGraphDistanceVersusDistanceVersusLinkWeights=[0,1,2]
+            //
+            // useGraphDistanceVersusDistanceVersusLinkWeights=0
+            // $$$useGraphDistanceVersusDistanceVersusLinkWeights=[0,1,2]
 
 
             _distanceBetweenSelectedVertices:number
@@ -170,8 +170,8 @@ module mathis {
 
         class GeodesicGroupDocu implements PieceOfCode {
 
-            $$$name = "GeodesicGroupDocu"
-            $$$title = "Compute distances and geodesics from a set of vertices"
+            NAME = "GeodesicGroupDocu"
+            TITLE = "Compute distances and geodesics from a set of vertices"
 
             nbSides=4
             $$$nbSides=[4,6,8,10]
@@ -181,8 +181,8 @@ module mathis {
             // marker=Vertex.Markers.border
             // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
 
-            randomSeed=38434
-            $$$randomSeed=[38434,984651,3481,9846513,684123]
+            // randomSeed=38434
+            // $$$randomSeed=[38434,984651,3481,9846513,684123]
 
             onlyOneGeodesic=false
             $$$onlyOneGeodesic=[true,false]
@@ -292,8 +292,8 @@ module mathis {
 
         class DiameterDocu implements PieceOfCode {
 
-            $$$name = "DiameterDocu"
-            $$$title = `Two methods to find the diameter of polygones. 1/ compute all distances between vertices which is long.
+            NAME = "DiameterDocu"
+            TITLE = `Two methods to find the diameter of polygones. 1/ compute all distances between vertices which is long.
             2/ an heuristic iterative method. Be aware : If the graph is non-connected, this second method only look at the component of the first vertex.
             But if the graph is connected, it is hard to find a counter-example where the second method fails. 
             You can see such counter-example by fitting 4/9/0.3 as the three first parameters. `
@@ -303,8 +303,8 @@ module mathis {
             nbSubdivisionInARadius=2
             $$$nbSubdivisionInARadius=[2,3,5,7,9,11]
 
-            marker=Vertex.Markers.border
-            $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
+            // marker=Vertex.Markers.border
+            // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
 
             percolationProba=0.5
             $$$percolationProba=[0.2,0.3,0.4,0.5,0.6,0.7,0.8]
@@ -367,7 +367,7 @@ module mathis {
                     let diameterComputer=new graph.HeuristicDiameter(mamesh.vertices)
                     diameter=diameterComputer.go()
                     duration=window.performance.now()-startingTime
-                    someExtremeVertices=diameterComputer.OUT_twoExtremeVertices
+                    someExtremeVertices=diameterComputer.OUT_twoChosenExtremeVertices
                 }
                 mathisFrame.messageDiv.append("diameter:"+diameter+", computed in:"+duration+" ms")
 
@@ -392,8 +392,8 @@ module mathis {
 
         class CornerBorderCenterForPolygone implements PieceOfCode {
 
-            $$$name = "CornerBorderCenterForPolygone"
-            $$$title = "find some marked vertices and their Neighbors "
+            NAME = "CornerBorderCenterForPolygone"
+            TITLE = "find some marked vertices and their Neighbors "
 
 
             nbSides=6
@@ -591,8 +591,8 @@ module mathis {
 
         class TwoGraphDistances implements PieceOfCode {
 
-            $$$name = "TwoGraphDistances"
-            $$$title = "For reseaux with squares, considering or not considering the diagonals lead to two different notions of distances : "
+            NAME = "TwoGraphDistances"
+            TITLE = "For reseaux with squares, considering or not considering the diagonals lead to two different notions of distances : "
 
             useDiago=true
             $$$useDiago=[true,false]
@@ -696,11 +696,11 @@ module mathis {
         
         class PercoForReseau implements PieceOfCode {
 
-            $$$name = "PercoForReseau"
-            $$$title = "get a connected component "
+            NAME = "PercoForReseau"
+            TITLE = "get a connected component "
 
-            marker=Vertex.Markers.border
-            $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
+            // marker=Vertex.Markers.border
+            // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
 
             squareVersusTriangleMaille=false
             $$$squareVersusTriangleMaille=[true,false]

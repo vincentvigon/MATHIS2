@@ -4,7 +4,7 @@ declare function prettyPrint()
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         class TestIndexPage extends IndexPage{
@@ -19,7 +19,6 @@ module mathis{
                  this.severalPages.addPage(new BidonPage2(this.mathisFrame),true)
              }
 
-
         }
 
         export var indexPage:IndexPage
@@ -27,7 +26,7 @@ module mathis{
         export function startTestDocuTestBidon(){
 
             let mathisFrame=new MathisFrame('placeForMathis')
-            indexPage=new TestIndexPage(mathisFrame,true)
+            indexPage=new TestIndexPage(mathisFrame,false)
             indexPage.go()
 
         }

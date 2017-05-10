@@ -5,7 +5,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class BidonPage1 implements OnePage{
@@ -37,9 +37,9 @@ module mathis {
         
         class BidonPartA implements PieceOfCode {
 
-            $$$name = "BidonPartA"
-            $$$title = "BidonPartA"
-            $$$creator="vincent"
+            NAME = "BidonPartA"
+            TITLE = "BidonPartA"
+            CREATOR="vincent"
 
             nbSides=7
             $$$nbSides=[4,7,9]
@@ -137,9 +137,9 @@ module mathis {
 
         class BidonPartB implements PieceOfCode {
 
-            $$$name = "BidonPartB"
-            $$$title = "BidonPartB"
-            $$$creator="vincent"
+            NAME = "BidonPartB"
+            TITLE = "BidonPartB"
+            CREATOR="vincent"
 
 
             configB1=5

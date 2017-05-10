@@ -3,7 +3,7 @@ declare function prettyPrint()
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         class MainIndexPage extends IndexPage{
@@ -35,7 +35,7 @@ module mathis{
                  this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
                  this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
                  this.severalPages.addPage( new TorusPlatonicDocu(this.mathisFrame))
-                 this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
+                 // this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
 
 
 
@@ -62,7 +62,7 @@ module mathis{
             let mathisFrame=new MathisFrame('placeForMathis')
             /**Attention : la variable globale indexPage est affectée APRES la construction de MainIndexPage.
              * Pour toutes les opérations qui se font pendant la construction, indexPage est null ! */
-            indexPage=new MainIndexPage(mathisFrame,true)
+            indexPage=new MainIndexPage(mathisFrame,false)
 
             indexPage.go()
 

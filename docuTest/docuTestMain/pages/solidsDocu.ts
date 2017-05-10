@@ -9,7 +9,7 @@
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class SolidsDocu implements OnePage{
@@ -34,8 +34,8 @@ module mathis{
 
         class SimplestSolids implements PieceOfCode{
 
-            $$$name="SimplestSolids"
-            $$$title="Platonic, Archimedian, and other simple solids"
+            NAME="SimplestSolids"
+            TITLE="Platonic, Archimedian, and other simple solids"
 
             polyhedronType=creation3D.PolyhedronType.TruncatedIcosidodecahedron
             $$$polyhedronType=new Choices(allIntegerValueOfEnume(creation3D.PolyhedronType),{visualValues:allStringValueOfEnume(creation3D.PolyhedronType)})

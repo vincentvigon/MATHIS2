@@ -665,7 +665,7 @@ module mathis {
                 let currentNormal:TwoMeshes=null
                 let currentDifference:TwoMeshes={initial:null,onSphere:null}
 
-                let action=new PeriodicActionBeforeRender(()=>{
+                let action=new PeriodicAction(()=>{
 
                     let UVinter=new UV(0,0)
                     geo.betweenUV(UVclicked,UVcenter,alphas[count],UVinter)

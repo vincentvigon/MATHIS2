@@ -7,7 +7,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class DichoDocu implements OnePage{
@@ -32,8 +32,8 @@ module mathis {
 
         class ReseauDicho implements PieceOfCode {
 
-            $$$name = "ReseauDicho"
-            $$$title = "we do dichotomy on some square or triangle net"
+            NAME = "ReseauDicho"
+            TITLE = "we do dichotomy on some square or triangle net"
 
             nbTrianglesCut=2
             $$$nbTrianglesCut=[1,2,3,4,5,10,16,32,50]
@@ -142,8 +142,8 @@ module mathis {
 
         class SolideDicho implements PieceOfCode {
 
-            $$$name = "SolideDicho"
-            $$$title = "we do dichotomy on some solid"
+            NAME = "SolideDicho"
+            TITLE = "we do dichotomy on some solid"
 
             polyhedronType=creation3D.PolyhedronType.Dodecahedron
             $$$polyhedronType=new Choices(allIntegerValueOfEnume(creation3D.PolyhedronType),{visualValues:allStringValueOfEnume(creation3D.PolyhedronType)})

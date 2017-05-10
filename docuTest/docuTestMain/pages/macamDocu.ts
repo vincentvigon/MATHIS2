@@ -10,7 +10,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         import StandardMaterial = BABYLON.StandardMaterial;
@@ -55,12 +55,12 @@ module mathis {
             NO_TEST=true
 
 
-            $$$name = "TwoGrabberCameraDocu"
-            $$$title = "Several grabbers. Usually used  for several for several meshes of interest. Here, two better show the process, we add only on mesh of" +
+            NAME = "TwoGrabberCameraDocu"
+            TITLE = "Several grabbers. Usually used  for several for several meshes of interest. Here, two better show the process, we add only on mesh of" +
                 "interest in the middle of two grabbers that we never hide."
 
-            cameraOptionChoice=0
-            $$$cameraOptionChoice=[0,1,2]
+            // cameraOptionChoice=0
+            // $$$cameraOptionChoice=[0,1,2]
 
             toIncludeAtTheBeginOfTheFirstHiddenPiece=["var mathisFrame=new MathisFrame(false) // false so no default light and camera"]
 
@@ -141,8 +141,8 @@ module mathis {
             NO_TEST=true
 
 
-            $$$name = "SphericalGrabberCameraDocu"
-            $$$title = "Mathis camera with spherical grabber"
+            NAME = "SphericalGrabberCameraDocu"
+            TITLE = "Mathis camera with spherical grabber"
 
             cameraOptionChoice=0
             $$$cameraOptionChoice=[0,1]
@@ -224,8 +224,8 @@ module mathis {
             NO_TEST=true
 
 
-            $$$name = "PlanarGrabberCameraDocu"
-            $$$title = "Mathis camera with planar grabber"
+            NAME = "PlanarGrabberCameraDocu"
+            TITLE = "Mathis camera with planar grabber"
 
             cameraOptionChoice=0
             $$$cameraOptionChoice=[0,1]
@@ -318,8 +318,8 @@ module mathis {
 
             NO_TEST=true
 
-            $$$name = "SeveralGrabber"
-            $$$title = " "
+            NAME = "SeveralGrabber"
+            TITLE = " "
 
             
             

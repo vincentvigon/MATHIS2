@@ -6,7 +6,7 @@
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class LinksDocu implements OnePage{
@@ -33,13 +33,12 @@ module mathis{
 
         class WhatAreLinks implements PieceOfCode{
 
-            $$$name="WhatAreLinks"
-            $$$title="Several ways to create manually links (without association of opposite)"
+            NAME="WhatAreLinks"
+            TITLE="Several ways to create manually links (without association of opposite)"
 
             technicChoice=0
             $$$technicChoice=[0,1,2]
 
-            
 
             _nbLinks
 
@@ -132,8 +131,8 @@ module mathis{
 
         class WhatAreOppositeLinks implements PieceOfCode{
 
-            $$$name="WhatAreOppositeLinks"
-            $$$title="several ways to associate manually opposite links"
+            NAME="WhatAreOppositeLinks"
+            TITLE="several ways to associate manually opposite links"
 
             technicChoice=0
             $$$technicChoice=[0,1,2]
@@ -233,12 +232,12 @@ module mathis{
 
         class AutomaticLink implements PieceOfCode{
 
-            $$$name="AutomaticLink"
-            $$$title="We create some random links. Then we associate opposite-links using an automatic process based on angles. " +
+            NAME="AutomaticLink"
+            TITLE="We create some random links. Then we associate opposite-links using an automatic process based on angles. " +
                 "This can create bifurcation"
 
-            technicChoice=0
-            $$$technicChoice=[0,1,2]
+            // technicChoice=0
+            // $$$technicChoice=[0,1,2]
 
             createBifurcation=true
             $$$createBifurcation=[true,false]
@@ -343,8 +342,8 @@ module mathis{
 
         class AutomaticPolygonLink implements PieceOfCode{
 
-            $$$name="AutomaticPolygonLink"
-            $$$title="We associate opposite-links using an automatic process based on polygons."
+            NAME="AutomaticPolygonLink"
+            TITLE="We associate opposite-links using an automatic process based on polygons."
 
             seed=3534
             $$$seed=[3534,7654,909123,58912307]

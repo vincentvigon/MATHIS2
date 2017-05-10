@@ -293,7 +293,7 @@ module mathis {
                     let vertexRefSize=positionings.getValue(mamesh.vertices[0]).scaling.x
                     let curentTime=0
                     var curentStep=0
-                    let mainAction=new PeriodicActionBeforeRender(()=>{
+                    let mainAction=new PeriodicAction(()=>{
                         curentTime+=deltaT
                         curentStep++
                         let point = new XYZ(0,0,0)
@@ -340,7 +340,7 @@ module mathis {
 
                     /**onClick, we restart the snake*/
                     (<any> planForClick).onClick=(dep:XYZ)=>{
-                        let action=new PeriodicActionBeforeRender(()=>{
+                        let action=new PeriodicAction(()=>{
                             for (let i=0;i<maxPathSegment;i++) path[i]=dep
                             curentStep=0
                             headSerpent.position=dep
@@ -754,7 +754,7 @@ module mathis {
 
                 let commonSizes=positionning.getValue(mamesh.vertices[0]).scaling
                 let cumul=0
-                let action=new PeriodicActionBeforeRender(()=>{
+                let action=new PeriodicAction(()=>{
                     let changed=ising.iterateAndGetChangedVertices()
 
                     changed.allKeys().forEach((v:Vertex)=>{
