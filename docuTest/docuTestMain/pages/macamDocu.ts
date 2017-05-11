@@ -118,7 +118,7 @@ module mathis {
 
 
                 //n
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Cube)
+                let creator=new polyhedron.Polyhedron("cube")
                 let mamesh=creator.go()
 
                 new visu3d.LinksViewer(mamesh,this.mathisFrame.scene).go()
@@ -200,7 +200,7 @@ module mathis {
 
 
                 //n
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Cube)
+                let creator=new polyhedron.Polyhedron("cube")
                 let mamesh=creator.go()
                 
                 new visu3d.LinksViewer(mamesh,this.mathisFrame.scene).go()
@@ -296,7 +296,7 @@ module mathis {
 
 
                 //n
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Cube)
+                let creator=new polyhedron.Polyhedron("cube")
                 let mamesh=creator.go()
 
                 new visu3d.LinksViewer(mamesh,this.mathisFrame.scene).go()
@@ -345,7 +345,7 @@ module mathis {
 
                 //$$$begin
                 
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Rhombicuboctahedron)
+                let creator=new polyhedron.Polyhedron("rhombicosidodecahedron")
                 let mamesh=creator.go()
 
 

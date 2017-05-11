@@ -35,7 +35,7 @@ module mathis {
             bilanGeo.assertTrue(!geo.almostParallel(v0,v2,false))
 
 
-            let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Cube)
+            let creator=new polyhedron.Polyhedron("cube")
             let mamesh=creator.go()
 
             let count100=0

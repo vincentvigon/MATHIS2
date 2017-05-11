@@ -118,7 +118,21 @@ module mathis{
             /**ils mettent cette ligne dans le premier tuto de Babylon. J'imagine pour utiliser hand.JS*/
             this.canvas.style.touchAction="none"
             this.canvasParent.appendChild(this.canvas)
-            //this.canvasParent.style.position="relative"
+            // let style = getComputedStyle(this.canvasParent);
+            // if(style.position==null||style.position==""){
+            //           throw("the proposed place for mathisFrame, had no a style.position given (must be relative, absolute or fixed). " +
+            //               "So it is automatically put to relative ")}
+
+           // let style = getComputedStyle(this.canvasParent);
+           //  setTimeout(()=>{
+           //  if(style.position==null||style.position==""){
+           //      logger.c("the proposed place for mathisFrame, had no a style.position given (must be relative, absolute or fixed). " +
+           //          "So it is automatically put to relative ")
+           //      this.canvasParent.style.position="relative"
+           //  }},30
+           // )
+
+            /**it is important that the parent has position*/
             this.set100(this.canvas)
 
 

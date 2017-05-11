@@ -251,8 +251,6 @@ module mathis{
 
 
 
-
-
             constructor(private mathisFrame:MathisFrame){}
 
             goForTheFirstTime(){
@@ -269,7 +267,7 @@ module mathis{
 
                 let mamesh:Mamesh
                 if (this.shape=='sphere') {
-                    let creator = new creation3D.Polyhedron(creation3D.PolyhedronType.Dodecahedron)
+                    let creator = new polyhedron.Polyhedron("dodecahedron")
                     mamesh = creator.go()
                 }
                 else{
@@ -326,11 +324,143 @@ module mathis{
         }
 
 
+
+        export class PolyhedronOnIndex implements PieceOfCode{
+
+            NAME="PolyhedronOnIndex"
+
+            chosenType="dodecahedron"
+
+            name:string="platonic"
+            $$$name=new Choices(["platonic","archimedean","prisms","antiprisms","johnson"],{label:''})
+
+            platonicType="dodecahedron"
+            $$$platonicType=new Choices(polyhedron.platonic)
+
+            archimedeanType="rhombicuboctahedron"
+            $$$archimedeanType=new Choices(polyhedron.archimedean)
+
+            prismsType="octagonal prism"
+            $$$prismsType=new Choices(polyhedron.prisms)
+
+            antiprismsType="pentagonal antiprism"
+            $$$antiprismsType=new Choices(polyhedron.antiprisms)
+
+
+            johnsonType="elongated triangular bipyramid"
+            $$$johnsonType=new Choices(polyhedron.johnson)
+
+
+            constructor(private mathisFrame:MathisFrame){
+
+                this.$$$name.options.onchange=()=>{
+                    this.showAndHide()
+                }
+
+                this.$$$platonicType.options.onchange=()=>{
+                    //if(this.platonicType!="") {
+                        this.chosenType=this.platonicType
+                        this.go()
+                    //}
+                }
+                this.$$$archimedeanType.options.onchange=()=>{
+                    this.chosenType=this.archimedeanType
+                    this.go()
+                }
+                this.$$$prismsType.options.onchange=()=>{
+                    this.chosenType=this.prismsType
+                    this.go()
+                }
+                this.$$$antiprismsType.options.onchange=()=>{
+                    this.chosenType=this.antiprismsType
+                    this.go()
+                }
+                this.$$$johnsonType.options.onchange=()=>{
+                    this.chosenType=this.johnsonType
+                    this.go()
+                }
+
+
+            }
+
+            showAndHide(){
+                this.$$$platonicType.hide()
+                this.$$$archimedeanType.hide()
+                this.$$$johnsonType.hide()
+                this.$$$prismsType.hide()
+                this.$$$antiprismsType.hide()
+
+
+
+                if (this.name=="platonic"){
+                    this.$$$platonicType.show()
+                }
+                else if (this.name=="archimedean"){
+                    this.$$$archimedeanType.show()
+                }
+                else if (this.name=="prisms"){
+                    this.$$$prismsType.show()
+                }
+                else if (this.name=="antiprisms"){
+                    this.$$$antiprismsType.show()
+                }
+                else if (this.name=="johnson"){
+                    this.$$$johnsonType.show()
+                }
+
+            }
+
+            goForTheFirstTime(){
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+                this.mathisFrame.getGrabberCamera().changePosition(new XYZ(0,0,-7))
+
+                this.showAndHide()
+
+                this.go()
+
+            }
+
+            go() {
+                this.mathisFrame.clearScene(false, false)
+
+                this.mathisFrame.clearScene(false,false)
+
+                polyhedron.getPolyhedronAsync(this.chosenType,(mamesh)=>{
+
+                    let vertices=[]
+                    for (var i=0;i<mamesh.vertices.length;i++){
+                        var vertex=mamesh.vertices[i]
+                        if (!vertex.hasMark(Vertex.Markers.polygonCenter)) vertices.push(vertex)
+                    }
+                    let verticesViewer = new mathis.visu3d.VerticesViewer(vertices, this.mathisFrame.scene);
+                    verticesViewer.go();
+
+                    let linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
+                    linksViewer.segmentOrientationFunction=function(v0,v1){
+                        if (v0.hasMark(Vertex.Markers.polygonCenter)||v1.hasMark(Vertex.Markers.polygonCenter)) return 0
+                        return 1
+                    }
+                    linksViewer.go();
+
+                    let surfaceViewer = new mathis.visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene);
+                    surfaceViewer.go();
+
+                })
+
+
+            }
+
+
+        }
+
+
         export class SeveralDemo implements PieceOfCode{
 
             NAME="SeveralDemo"
-            demoChoice=4//Math.floor(Math.random()*5)
-            $$$demoChoice=new Choices([0,1,2,3,4],{'visualValues':["infinite world","ising model",'2d differential','alpha fractal','spacial random graph']})
+            demoChoice=5//Math.floor(Math.random()*6)
+            $$$demoChoice=new Choices([0,1,2,3,4,5],{'visualValues':["infinite world","ising model",'2d differential','alpha fractal','random graph',"polyhedrons"]})
 
             constructor(private mathisFrame:MathisFrame){}
 
@@ -346,6 +476,7 @@ module mathis{
                 else if (this.demoChoice==2) pieceOfCode=new DifferentialOnIndex(this.mathisFrame)
                 else if (this.demoChoice==3) pieceOfCode=new FractalOnIndex(this.mathisFrame)
                 else if (this.demoChoice==4) pieceOfCode=new smallProject.RandomSpacialGraph(this.mathisFrame)
+                    else if (this.demoChoice==5) pieceOfCode=new PolyhedronOnIndex(this.mathisFrame)
 
                 else throw "boum"
 

@@ -61,7 +61,7 @@ module mathis {
 
 
 
-                let sphereMaker=new creation3D.Polyhedron(creation3D.PolyhedronType.Dodecahedron)
+                let sphereMaker=new polyhedron.Polyhedron("dodecahedron")
                 let mamesh=sphereMaker.go()
 
                 for (let i =0;i<this.nbDicho;i++){

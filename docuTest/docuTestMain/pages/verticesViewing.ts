@@ -416,7 +416,7 @@ module mathis{
                     }
                 }
                 else{
-                    let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Dodecahedron)
+                    let creator=new polyhedron.Polyhedron("dodecahedron")
                     mamesh = creator.go()
                     new mameshModification.TriangleDichotomer(mamesh).go()
                     for (let i=0;i<mamesh.vertices.length;i++) {

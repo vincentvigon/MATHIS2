@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "removeComments": false,
+    "sourceMap": true,
+    "out": "JS/smallProject.js",
+    "declaration":false,
+    "watch":true
+  },
+  "exclude": [
+  ]
+}

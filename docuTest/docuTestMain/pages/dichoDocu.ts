@@ -145,8 +145,8 @@ module mathis {
             NAME = "SolideDicho"
             TITLE = "we do dichotomy on some solid"
 
-            polyhedronType=creation3D.PolyhedronType.Dodecahedron
-            $$$polyhedronType=new Choices(allIntegerValueOfEnume(creation3D.PolyhedronType),{visualValues:allStringValueOfEnume(creation3D.PolyhedronType)})
+            polyhedronType="icosahedron"
+            $$$polyhedronType=polyhedron.platonic
 
 
 
@@ -173,7 +173,7 @@ module mathis {
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$begin
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh =creator.go()
 
                 //n

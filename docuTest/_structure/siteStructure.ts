@@ -8,7 +8,7 @@ module mathis{
     
     export module appli{
 
-        export enum Keywords {basic, tool, math, forDeveloper, proba}
+
 
 
         /**most of time, OnePage is a simple wrapper of SeveralParts, but is  can also contain an iframe*/

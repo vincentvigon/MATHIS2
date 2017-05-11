@@ -169,7 +169,7 @@ module mathis{
                 //$$$begin
 
 
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.PentagonalDipyramid)
+                let creator=new polyhedron.Polyhedron("PentagonalDipyramid")
                 let mamesh=creator.go()
 
 

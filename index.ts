@@ -33,7 +33,7 @@ module mathis{
                 this.severalPages.addPage( new DichoDocu(this.mathisFrame))
 
                  this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
-                 this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
+                 //this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
                  this.severalPages.addPage( new TorusPlatonicDocu(this.mathisFrame))
                  // this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
 
@@ -50,8 +50,8 @@ module mathis{
                  this.severalPages.addSeparator("PURE TEST (NO DOCU)",true)
                  this.severalPages.addPage( new Creation2dDocu(this.mathisFrame),true)
 
-                 this.severalPages.addSeparator("GUILLAUME'S PAGES",true)
-                 this.severalPages.addPage( new ConnectorTest(this.mathisFrame),true)
+                 // this.severalPages.addSeparator("GUILLAUME'S PAGES",true)
+                 // this.severalPages.addPage( new ConnectorTest(this.mathisFrame),true)
 
             }
         }

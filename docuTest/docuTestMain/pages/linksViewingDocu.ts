@@ -106,12 +106,9 @@ module mathis{
             NAME="OrientationLinksViewing"
 
             TITLE=`Now we specify a model (here an arrow), and indicate which links must be drawn and in which direction.`
-            
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
-
+            polyhedronType="cube"
+            $$$polyhedronType=polyhedron.platonic
 
             // showLateralDirection=false
             // $$$showLateralDirection=[true,false]
@@ -137,7 +134,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 //$$$e
 
@@ -332,10 +329,8 @@ module mathis{
             justSeeModels=false
             $$$justSeeModels=[true,false]
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
-
+            polyhedronType="icosahedron"
+            $$$polyhedronType=polyhedron.platonic
 
             showLateralDirection=true
             $$$showLateralDirection=[true,false]
@@ -355,7 +350,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 let modelChoice=this.modelChoice
                 //$$$e
@@ -454,10 +449,8 @@ module mathis{
             justSeeModels=false
             $$$justSeeModels=[true,false]
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
-
+            polyhedronType="cube"
+            $$$polyhedronType=polyhedron.platonic
 
             showLateralDirection=true
             $$$showLateralDirection=[true,false]
@@ -483,7 +476,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 let modelChoice=this.modelChoice
                 //$$$e

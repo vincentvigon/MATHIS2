@@ -7,63 +7,6 @@ module mathis{
 
 
     export module appli{
-        
-        export module conv{
-            
-            //export var idForAttributeSelect=(key:string,pieceOfCodeName:string)=>key+'_of_'+pieceOfCodeName
-            export var $$$='$$$'
-
-            export var spacesToSuppress='                '
-            export var toIncludeAtTheBeginOfTheFirstHiddenPiece:string[]=["var mathisFrame=new mathis.MathisFrame()"]
-
-            export var traitementsForEachLine:((line:string)=>string)[]=
-                [
-                function(line:string){
-                    return line.replace(/this.mathisFrame\./g,"mathisFrame\.")
-                    //return line.replace(/mathis\./g,"")
-                }
-                ]
-
-            export var begin=["$$$begin","$$$b"]
-            export var beginHidden=["$$$beginHidden","$$$bh"]
-            export var end=["$$$end","$$$e"]
-            export var endHidden=["$$$endHidden","$$$eh"]
-
-        }
-
-
-
-
-
-
-
-        export function pieceOfCodeToConfiguration(pieceOfCode:PieceOfCode):any{
-
-            let res={}
-            for (let $$$key in pieceOfCode){
-                if ($$$key.slice(0,3)==conv.$$$) {
-                    let key=$$$key.slice(3)
-                    if (key!='name'&& key!='title' &&key!='creator'&&key!='keyWords') {
-                        res[key]=pieceOfCode[key]
-                    }
-                }
-            }
-            return res
-        }
-
-        export function pieceOfCodeToSrotedConfigurationAttributes(pieceOfCode:PieceOfCode):string[]{
-
-            let res:string[]=[]
-            for (let $$$key in pieceOfCode){
-                if ($$$key.slice(0,3)==conv.$$$) {
-                    let key=$$$key.slice(3)
-                    if (key!='name'&& key!='title' &&key!='creator'&&key!='keyWords') {
-                        res.push(key)
-                    }
-                }
-            }
-            return res.sort()
-        }
 
 
 
@@ -199,23 +142,25 @@ module mathis{
                 for (let i=0;i<lines.length;i++){
                     let line=lines[i]
 
-                    let isTitle=/^                \/\/\$\$\$(beginHidden|bh) *./g.test(line)
+                    /**titre: //$$$bh quelquechose
+                     * \s stands for space or tabulation*/
+                    let isTitle=/^\s*\/\/\$\$\$(beginHidden|bh) *./g.test(line)
 
-                    if (/^                \/\/\$\$\$(begin|b)$/g.test(line))  indexOfBegin.push({'index':i,'type':'show'})
-                    if (isTitle||/^                \/\/\$\$\$(beginHidden|bh)$/g.test(line)){
+                    if (/^\s*\/\/\$\$\$(begin|b)\s*$/g.test(line))  indexOfBegin.push({'index':i,'type':'show'})
+                    if (isTitle||/^\s*\/\/\$\$\$(beginHidden|bh)\s*$/g.test(line)){
                         let title=""
                         if (isTitle){
-                            let reg:any=/^                \/\/\$\$\$(beginHidden|bh) *./g
+                            let reg:any=/^\s*\/\/\$\$\$(beginHidden|bh) *./g
                             reg.exec(line)
                             title=line.slice(reg.lastIndex-1)
                         }
                         indexOfBegin.push({'index':i,'type':'hidden','title':title})
                     }
-                    if (/^                \/\/\$\$\$(end|e)$/g.test(line)) indexOfEnd.push({'index':i,'type':'show'})
-                    if (/^                \/\/\$\$\$(endHidden|eh)$/g.test(line)) indexOfEnd.push({'index':i,'type':'hidden'})
+                    if (/^\s*\/\/\$\$\$(end|e)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'show'})
+                    if (/^\s*\/\/\$\$\$(endHidden|eh)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'hidden'})
 
-                    if (/^                \/\/\$\$\$(beginTest|bt)$/g.test(line))  indexOfBegin.push({'index':i,'type':'test'})
-                    if (/^                \/\/\$\$\$(endTest|et)$/g.test(line)) indexOfEnd.push({'index':i,'type':'test'})
+                    if (/^\s*\/\/\$\$\$(beginTest|bt)\s*$/g.test(line))  indexOfBegin.push({'index':i,'type':'test'})
+                    if (/^\s*\/\/\$\$\$(endTest|et)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'test'})
                 }
 
                 if (indexOfBegin.length!=indexOfEnd.length) throw 'not the same number of $$$begin and $$$end'
@@ -242,11 +187,6 @@ module mathis{
                 return res
 
 
-
-
-                // let beginIndex=lines.indexOf('                //$$$begin')
-                // let endIndex=lines.indexOf('                //$$$end')
-                // lines=lines.slice(beginIndex+1,endIndex)
             }
             
         }
@@ -314,59 +254,6 @@ module mathis{
         }
 
 
-
-
-
-
-
-        export class APieceOfCodeForTest implements PieceOfCode{
-
-            NAME="part1"
-            TITLE="Bonjour ici c'est ça"
-
-            a=0
-            $$$a=new Choices([0,1,2,3,4])
-
-            aaa=new XYZ(12,2,3)
-            $$$aaa=new Choices([new XYZ(12,2,3),new XYZ(0,0,3)])
-
-            mlkajert="toto"
-            $$$mlkajert=new Choices(["a","b","c","b","toto"])
-
-
-            constructor() {
-            }
-
-
-            goForTheFirstTime(){
-                console.log("we goChanging for the first time")
-                this.go()
-            }
-
-            go() {
-
-                let n=1234
-
-                //$$$begin
-                /**AAAAAAAAAAAAAAA*/
-                let a=this.a
-                let aze=this.mlkajert
-                let roro=this.aaa
-                let b=0
-                let azeaze="mathis."
-                let r=new mathis.Bilan()
-                for (var k=0;k<4;k++){
-                    b+=k
-                }
-                function qsd(){
-                    return 4
-                }
-                //$$$end
-
-                console.log(a,aze,roro)
-
-            }
-        }
 
 
 
