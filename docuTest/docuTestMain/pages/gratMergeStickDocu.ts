@@ -8,7 +8,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class GrateMergeStick implements OnePage{
@@ -34,8 +34,8 @@ module mathis {
 
         class GrateMamesh implements PieceOfCode {
 
-            $$$name = "GrateMamesh"
-            $$$title =  `When two mameshes overlap (they are concurrent), we could want to grate them to suppress overlapping.  
+            NAME = "GrateMamesh"
+            TITLE =  `When two mameshes overlap (they are concurrent), we could want to grate them to suppress overlapping.  
             Grating process starts from seeds: each concurrent have some given (or computed) seeds which are keep (and represented here as red bullet). 
             Around these seeds, we compute strates, and we keep their cell, until strates of concurrent overlap`
 
@@ -201,8 +201,8 @@ module mathis {
 
         class GrateMameshConcentric implements PieceOfCode {
 
-            $$$name = "GrateMameshConcentric"
-            $$$title =  `Variant with two concentric mameshes`
+            NAME = "GrateMameshConcentric"
+            TITLE =  `Variant with two concentric mameshes`
 
 
             nbSides0=6
@@ -332,8 +332,8 @@ module mathis {
 
         class GrateGluedMamesh implements PieceOfCode {
 
-            $$$name = "GrateGluedMamesh"
-            $$$title =  `When two mameshes overlap (they are concurrent), we could want to grate them and to stick them.  
+            NAME = "GrateGluedMamesh"
+            TITLE =  `When two mameshes overlap (they are concurrent), we could want to grate them and to stick them.  
             Techniques for grating and Sticking are detail further on.`
 
 
@@ -474,8 +474,8 @@ module mathis {
 
         class MergeVersusStick implements PieceOfCode {
 
-            $$$name = "MergeVersusStick"
-            $$$title =  `Merging or Sticking mameshes`
+            NAME = "MergeVersusStick"
+            TITLE =  `Merging or Sticking mameshes`
 
 
             oneVersusTwoMameshes=false

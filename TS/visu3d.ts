@@ -158,7 +158,6 @@ module mathis{
                     if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
                         for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.dispose()
                     }
-                    this.vertexToCopiedMeshes.removeKey(vertex)
                 })
             }
 
@@ -878,14 +877,16 @@ module mathis{
                 //new spacialTransformations.Similitude(this.mamesh.vertices,0.0001).goChanging()
 
 
-
                 for (let line of this.lines){
                     if (this.lineToColor.getValue(line)!=null) this.drawOneLine(line)
                 }
 
-                
                 return this.res
 
+            }
+
+            clear(){
+                for (let mesh of this.res) mesh.dispose()
             }
 
             private buildLineToColor(){

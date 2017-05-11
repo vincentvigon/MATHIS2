@@ -1,14 +1,17 @@
+//compilation of all the TS-source. For an internal use.
+//to compile only the distributed TS, compile the other tsconfig.json
 {
   "compilerOptions": {
     "target": "es5",
     "removeComments": false,
     "sourceMap": true,
-    "out": "JS/MATHIS3.js",
+    "out": "JS/MATHIS.js",
     "declaration":false,
     "diagnostics":false,
     "watch":true
   },
   "exclude": [
-    "JS/MATHIS3.d.ts"
+    "**/MATHIS.d.ts",
+    "small_projects/**/JS/"
   ]
 }

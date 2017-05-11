@@ -1,0 +1,6 @@
+Four different pages using mathis in pure-JS-mode
+
+1/ a simple mathisFrame covering the whole page
+2/ two div, one this a mathisFrame, one with some comment
+3/ three div : two with mathisFrames, one with some latex
+4/ exactly as 3/ but with the classical organisation of file HTML/CSS/JS

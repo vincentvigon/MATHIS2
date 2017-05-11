@@ -7,7 +7,7 @@
 
 module mathis{
 
-    export module documentation {
+    export module appli{
 
 
         export class PureJavascriptTuto implements OnePage {

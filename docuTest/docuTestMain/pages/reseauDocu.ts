@@ -3,7 +3,7 @@
  */
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class ReseauDocu implements OnePage{
@@ -30,8 +30,8 @@ module mathis{
         }
 
         class RegularReseauDocu implements PieceOfCode{
-            $$$name="RegularReseauDocu"
-            $$$title="Regular Reseau (=net)"
+            NAME="RegularReseauDocu"
+            TITLE="Regular Reseau (=net)"
 
             nbI = 3
             $$$nbI=[3,5,7]
@@ -106,17 +106,14 @@ module mathis{
 
 
         class RegularBasisDocu implements PieceOfCode{
-            $$$name="RegularBasisDocu"
-            $$$title="Often we want to draw a reseau which starts from an given point, ends at a given point. So we can use the class which compute the right  Basis (ie: the rights kVi and Vj) "
+            NAME="RegularBasisDocu"
+            TITLE="Often we want to draw a reseau which starts from an given point, ends at a given point. So we can use the class which compute the right  Basis (ie: the rights kVi and Vj) "
 
             nbI = 3
             $$$nbI=new Choices([3,5,7])
 
             squareMaille=true
             $$$squareMaille=new Choices([true,false])
-
-            Vj=new XYZ(0,0.2,0)
-            $$$Vj=new Choices([new XYZ(0,0.2,0),new XYZ(0.05,0.2,0)],{"before":"new mathis.XYZ"})
 
             end=new XYZ(0.7,0.7,0)
             $$$end=new Choices([new XYZ(0.7,0.7,0),new XYZ(0,0,0),new XYZ(0.5,1,0)],{"before":"new mathis.XYZ"})
@@ -125,7 +122,6 @@ module mathis{
             $$$setNBJ=[true,false]
 
             _nbVertices
-            //_nnRien=null
 
 
             constructor(private mathisFrame:MathisFrame) {}
@@ -179,11 +175,12 @@ module mathis{
         class PolygonalResauDocu implements PieceOfCode{
             nbSides=7
             $$$nbSides=new Choices([3,4,5,6,7,9,11])
+
             nbSubdivisionsInARadius=3
             $$$nbSubdivisionsInARadius=new Choices([1,2,3,4,5])
             
-            $$$name="PolygonalResauDocu"
-            $$$title="Polygonal reseau"
+            NAME="PolygonalResauDocu"
+            TITLE="Polygonal reseau"
 
             _nbVertices
 
@@ -234,11 +231,11 @@ module mathis{
 
         class Regular3dReseauDocu implements PieceOfCode{
 
-            $$$name="Regular3dReseauDocu"
-            $$$title="A 3d reseau now"
+            NAME="Regular3dReseauDocu"
+            TITLE="A 3d reseau now"
 
 
-            Vj:XYZ=new XYZ(0,0.2,0)
+            Vj=new XYZ(0,0.2,0)
             $$$Vj=new Choices([new XYZ(0,0.2,0),new XYZ(0.05,0.2,0)],{"before":"new mathis.XYZ"})
 
             nbI=4

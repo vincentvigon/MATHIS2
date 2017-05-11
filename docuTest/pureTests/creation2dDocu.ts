@@ -2,7 +2,7 @@
 
 module mathis {
 
-    export module documentation {
+    export module appli{
 
 
         export class Creation2dDocu implements OnePage{
@@ -31,8 +31,8 @@ module mathis {
 
         class OctavioConcentricBoard implements PieceOfCode {
 
-            $$$name = "OctavioConcentricBoard"
-            $$$title = "OctavioConcentricBoard"
+            NAME = "OctavioConcentricBoard"
+            TITLE = "OctavioConcentricBoard"
 
 
             _linesAsSortedString=""
@@ -98,8 +98,8 @@ module mathis {
 
         class PercoAndAssociate implements PieceOfCode {
 
-            $$$name = "PercoAndAssociate"
-            $$$title = "octavio board"
+            NAME = "PercoAndAssociate"
+            TITLE = "octavio board"
 
 
             keywords='perco'
@@ -319,8 +319,8 @@ module mathis {
 
         class SimpleTube implements PieceOfCode {
 
-            $$$name = "SimpleTube"
-            $$$title = "Babylon tube function had a bug : exactly vertical lines was not draw. but it was fixed"
+            NAME = "SimpleTube"
+            TITLE = "Babylon tube function had a bug : exactly vertical lines was not draw. but it was fixed"
 
 
 

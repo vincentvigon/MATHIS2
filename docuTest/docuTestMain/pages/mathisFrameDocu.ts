@@ -4,7 +4,7 @@
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class MathisFrameDocu implements OnePage{
@@ -30,11 +30,11 @@ module mathis{
 
             NO_TEST=true
 
-            $$$name="AxisAndSomeMesh"
-            $$$title="We position some mesh on space"
+            NAME="AxisAndSomeMesh"
+            TITLE="We position some mesh on space"
 
-            order=0
-            $$$order=[0,1,2]
+            // order=0
+            // $$$order=[0,1,2]
 
             move=true
             $$$move=[true,false]

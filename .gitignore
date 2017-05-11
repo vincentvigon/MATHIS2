@@ -1,12 +1,12 @@
 #idea-files are personal
 .idea/
 #generated files would create a lot of conflict. Plea
-JS/MATHIS*
+MATHIS*
 #nodeJS
 node_modules/
 
 # comment/uncomment to keep/synchronize your typescript config
-#tsconfig.json
+#tsconfig*
 
 
 #mac directory utility  (one .DS_Store per directory. All will be ignored)

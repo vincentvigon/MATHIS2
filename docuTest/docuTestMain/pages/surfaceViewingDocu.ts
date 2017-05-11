@@ -14,7 +14,7 @@
  */
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class SurfaceViewerDocu implements OnePage{
@@ -39,8 +39,8 @@ module mathis{
 
 
         class BackFaceCullingDocu implements PieceOfCode{
-            $$$name="BackFaceCullingDocu"
-            $$$title="We observe the effect of the side orientation and the back-face-culling"
+            NAME="BackFaceCullingDocu"
+            TITLE="We observe the effect of the side orientation and the back-face-culling"
 
             alpha=0.5
             $$$alpha=[0.1,0.3,0.5,0.8,1]
@@ -122,16 +122,16 @@ module mathis{
 
 
         class DuplicateNormalDocu implements PieceOfCode{
-            $$$name="DuplicateNormalDocu"
-            $$$title="WebGL need normals to reflect light. But, what a pity, normal was positioned at points (while mathematically, a better choice would be to put one normal per triangle)." +
+            NAME="DuplicateNormalDocu"
+            TITLE="WebGL need normals to reflect light. But, what a pity, normal was positioned at points (while mathematically, a better choice would be to put one normal per triangle)." +
                 "So if you want to see sharp angle, you have du duplicate points in order to duplicate normals. "
 
             alpha=1
             $$$alpha=[0.1,0.3,0.5,0.8,1]
 
-            color=Color.names.rebeccapurple
-            $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
-                {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
+            // color=Color.names.rebeccapurple
+            // $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
+            //     {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
 
             backFaceCulling=true
             $$$backFaceCulling=[true,false]
@@ -169,7 +169,7 @@ module mathis{
                 //$$$begin
 
 
-                let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.PentagonalDipyramid)
+                let creator=new polyhedron.Polyhedron("PentagonalDipyramid")
                 let mamesh=creator.go()
 
 
@@ -205,16 +205,16 @@ module mathis{
 
 
         class MoebiusBandDocu implements PieceOfCode{
-            $$$name="MoebiusBandDocu"
-            $$$title="Here is the moebius band, this is a non orientable surface. In this case, to duplicate  normal-vectors have a bad effect at the place where the band is glued ! " +
+            NAME="MoebiusBandDocu"
+            TITLE="Here is the moebius band, this is a non orientable surface. In this case, to duplicate  normal-vectors have a bad effect at the place where the band is glued ! " +
                 "To see this bad effect, look at the white triangle alternating with red-triangles this is due to the reflection of the specular light"
 
             alpha=1
             $$$alpha=[0.1,0.3,0.5,0.8,1]
 
-            color=Color.names.rebeccapurple
-            $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
-                {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
+            // color=Color.names.rebeccapurple
+            // $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
+            //     {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
 
             backFaceCulling=true
             $$$backFaceCulling=[true,false]
