@@ -169,7 +169,7 @@ module mathis{
                 //$$$begin
 
 
-                let creator=new polyhedron.Polyhedron("PentagonalDipyramid")
+                let creator=new polyhedron.Polyhedron("truncated dodecahedron")
                 let mamesh=creator.go()
 
 

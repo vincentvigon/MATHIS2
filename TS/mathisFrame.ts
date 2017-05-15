@@ -305,7 +305,7 @@ module mathis{
         }
 
         addDefaultLight():void{
-            var light0 = new BABYLON.HemisphericLight("Hemi0", new BABYLON.Vector3(-1, 1, -1), this.scene);
+            var light0 = new BABYLON.HemisphericLight("Hemi0", new BABYLON.Vector3(-2.5, 1.4, -3.3), this.scene);
             // light0.diffuse = new BABYLON.Color3(1, 1, 1);
             // light0.specular = new BABYLON.Color3(1, 1, 1);
             // light0.groundColor = new BABYLON.Color3(0, 0, 0);

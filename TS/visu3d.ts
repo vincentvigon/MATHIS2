@@ -254,6 +254,7 @@ module mathis{
 
                 this.mamesh=mamesh
                 this.scene=scene
+
             }
 
 
@@ -263,6 +264,8 @@ module mathis{
             }
 
             go():Mesh {
+                if (this.mamesh==null) throw 'no mamesh'
+
 
                 if (deconnectViewerForTest) return
 
@@ -513,7 +516,6 @@ module mathis{
                     positionNormals.forEach((v:XYZ)=>{
                         v.normalize()
                     })
-
                 }
                 else if (this.normalDuplication==NormalDuplication.duplicateVertex||this.normalDuplication==NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr ){
 

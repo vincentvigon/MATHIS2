@@ -1,7 +1,7 @@
 #idea-files are personal
 .idea/
 #generated files would create a lot of conflict. Plea
-MATHIS*
+MATHIS.*
 #nodeJS
 node_modules/
 

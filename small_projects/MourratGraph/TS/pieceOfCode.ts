@@ -23,7 +23,7 @@ module mathis {
             TITLE = "On présente le modèle de Mourrat & Valessin. On voit le sampling de Gibbs en fonctionnement. "
 
 
-            graphType = "1d"
+            graphType = "2d"
             $$$graphType = new appli.Choices(["1d", "2d", "3d"])
 
             N_1d = 20

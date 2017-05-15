@@ -19,7 +19,7 @@ var mathis;
                 this.mathisFrame = mathisFrame;
                 this.NAME = "RandomSpacialGraph";
                 this.TITLE = "On présente le modèle de Mourrat & Valessin. On voit le sampling de Gibbs en fonctionnement. ";
-                this.graphType = "1d";
+                this.graphType = "2d";
                 this.$$$graphType = new mathis.appli.Choices(["1d", "2d", "3d"]);
                 this.N_1d = 20;
                 this.$$$N_1d = new mathis.appli.Choices([10, 20, 100, 400, 1000, 2000]);

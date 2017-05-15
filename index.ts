@@ -34,6 +34,10 @@ module mathis{
 
                  this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
                  //this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
+
+                 this.severalPages.addPage( new Menger(this.mathisFrame))
+
+
                  this.severalPages.addPage( new TorusPlatonicDocu(this.mathisFrame))
                  // this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
 

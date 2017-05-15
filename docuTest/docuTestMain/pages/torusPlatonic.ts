@@ -10,9 +10,10 @@ module mathis {
 
             constructor(private mathisFrame:MathisFrame) {
                 let severalParts = new SeveralParts()
-                severalParts.addPart(new BoySurface(this.mathisFrame))
                 severalParts.addPart(new TorusPart(this.mathisFrame))
                 severalParts.addPart(new TorusPartLines(this.mathisFrame))
+                severalParts.addPart(new BoySurface(this.mathisFrame))
+
                 this.severalParts=severalParts
             }
 

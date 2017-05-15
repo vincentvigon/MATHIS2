@@ -1,5 +1,5 @@
-//compilation of all the TS-source. For an internal use.
-//to compile only the distributed TS, compile the other tsconfig.json
+//compilation of all the TS-source. For an internal use only.
+//to compile only the distributed TS, compile the other json
 {
   "compilerOptions": {
     "target": "es5",
@@ -15,3 +15,29 @@
     "small_projects/**/JS/"
   ]
 }
+
+
+
+// COMPILATEUR SPECIFIC FOR SMALL PROJECT:
+//it actually exclude the TS-files of all small projects, in order to let the small project re-compile
+// these TS-file itself. If is better to minify the generated code after such a compilation
+//{
+//  "compilerOptions": {
+//    "target": "es5",
+//    "removeComments": true,
+//    "sourceMap": true,
+//    "out": "JS_small/MATHIS.js",
+//    "declaration":true,
+//    "diagnostics":false,
+//    "watch":true
+//  },
+//  "exclude": [
+//    "**/MATHIS.d.ts",
+//    "small_projects/**/JS/",
+//
+//    "docuTest/",
+//    "index.ts",
+//    "tests/",
+//    "small_projects/"
+//  ]
+//}

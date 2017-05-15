@@ -459,7 +459,7 @@ module mathis{
         export class SeveralDemo implements PieceOfCode{
 
             NAME="SeveralDemo"
-            demoChoice=5//Math.floor(Math.random()*6)
+            demoChoice=Math.floor(Math.random()*6)
             $$$demoChoice=new Choices([0,1,2,3,4,5],{'visualValues':["infinite world","ising model",'2d differential','alpha fractal','random graph',"polyhedrons"]})
 
             constructor(private mathisFrame:MathisFrame){}

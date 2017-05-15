@@ -14,25 +14,31 @@
             padding: 0;
         }
         #placeForSomeExplanation {
+            position: absolute;
             display: inline-block;
-            vertical-align: top;
-            width: 50%;
+            left:0;
+            top:20%;
+            width: 30%;
             height: 50%;
             background-color: indianred;
-
+            text-align: center;
+            /*padding: 2em;*/
         }
         #placeForMathis {
-            position: relative;/* IMPORTANT : the position must be relative, absolute or fixed*/
+            position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
             display: inline-block;
-            vertical-align: top;
-            width: 50%;
+            top:0;
+            left:30%;
+            right:0;
             height: 50%;
         }
         #placeForMathis2 {
-            position: relative;/* IMPORTANT : the position must be relative, absolute or fixed*/
+            position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
             display: inline-block;
-            width: 30%;
-            height: 30%;
+            top:50%;
+            left:30%;
+            right:0;
+            height: 50%;
         }
         #placeForSomeLatex{
             width: 50%;

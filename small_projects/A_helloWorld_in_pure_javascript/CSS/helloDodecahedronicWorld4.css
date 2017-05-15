@@ -6,31 +6,32 @@ html, body {
     padding: 0;
 }
 #placeForSomeExplanation {
-    display: inline-block;
-    vertical-align: top;
-    width: 50%;
-    height: 50%;
-    background-color: indianred;
-
-}
+     position: absolute;
+     display: inline-block;
+     left:0;
+     top:0;
+     width: 30%;
+     height: 50%;
+     background-color: indianred;
+     text-align: center;
+ }
 #placeForMathis {
-    position: relative;/* IMPORTANT : the position must be relative, absolute or fixed*/
-
+    position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
     display: inline-block;
-    vertical-align: top;
-    width: 50%;
+    top:0;
+    left:30%;
+    right:0;
     height: 50%;
 }
 #placeForMathis2 {
-    position: relative;/* IMPORTANT : the position must be relative, absolute or fixed*/
-
+    position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
     display: inline-block;
+    top:50%;
+    left:0;
     width: 30%;
-    height: 30%;
+    height: 50%;
 }
 #placeForSomeLatex{
-    position: relative;/* IMPORTANT : the position must be relative, absolute or fixed*/
-
     width: 50%;
     margin-top: 3em;
     border: solid 1px white;

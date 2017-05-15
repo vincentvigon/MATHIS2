@@ -23,8 +23,8 @@ module mathis{
                 /**obligé d'agir sur le parent car l'iframe sinon n'a pas de hauteur*/
                 $('#pageContent').height('100%').empty()
                 let $res=$('<div class="aWholeDiv" style="margin: auto"></div>')
-                $res.append('<a target="_blank" href="https://drive.google.com/open?id=0B5ZYbxojmGIaMVFvdkZSVVFDY3M">Codes for this tuto and for the next one</a>')
-                let $iframe=$('<iframe src="https://docs.google.com/document/d/1tqyLj66D4xKTPKeXS81GCZJwV_WHKH9PNywTrozmfM0/pub?embedded=true" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>')
+                $res.append('<a target="_blank" href="https://drive.google.com/open?id=0B5ZYbxojmGIaOURXVUJpazFxSHc">Click here to see code of small projects</a>')
+                let $iframe=$('<iframe src="https://docs.google.com/document/d/1Dco9kju6mBSucROX3XyIU2Fa2Zs6LWUo5p4vQcsFkcY/pub?embedded=true" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>')
                 $res.append($iframe)
                 
                 return $res
@@ -46,8 +46,8 @@ module mathis{
 
                 let $res=$('<div class="aWholeDiv"></div>')
 
-                $res.append('<a target="_blank" href="https://drive.google.com/open?id=0B5ZYbxojmGIaMVFvdkZSVVFDY3M">Codes for this tuto and for the next one</a>')
-                let $iframe=$('<iframe src="https://docs.google.com/document/d/1p6Ch4wyT9qVzLzdRSVumNRRB6CcpfrtNcJ_wbRku_94/pub?embedded=true" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>')
+                $res.append('<a target="_blank" href="https://drive.google.com/open?id=0B5ZYbxojmGIaOURXVUJpazFxSHc">Click here to see code of small projects</a>')
+                let $iframe=$('<iframe src="https://docs.google.com/document/d/1m9gG9uTiCAVtj_s0BQRumcF-smMm0AL4FcVv5WhUDFQ/pub?embedded=true" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>')
                 $res.append($iframe)
 
                 return $res
