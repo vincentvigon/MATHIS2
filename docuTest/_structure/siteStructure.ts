@@ -9,8 +9,6 @@ module mathis{
     export module appli{
 
 
-
-
         /**most of time, OnePage is a simple wrapper of SeveralParts, but is  can also contain an iframe*/
         export interface OnePage{
             pageIdAndTitle:string
@@ -195,6 +193,8 @@ module mathis{
                 if(indexPage.testMode) $partHead.append($('<span style="color: red">').text(onePart.pieceOfCode.NAME+':'))
                 $partHead.append(onePart.pieceOfCode.TITLE)
                 $partHead.append(onePart.$playButton)
+                let $afterPlayButton=$('<div class="afterPlayButton" style="text-align: right"></div>').appendTo($partHead)
+
 
 
                 // for (let key in onePart.pieceOfCode){
@@ -213,7 +213,15 @@ module mathis{
                 onePart.$transformedPieceOfCode=pieceOfCodeTransformer.go()
 
                 onePart.binder=new Binder(onePart.pieceOfCode,onePart.$transformedPieceOfCode,indexPage.mathisFrame)
-                onePart.binder.pushState=true
+                if (indexPage.testMode) onePart.binder.addKeyOnTestOptions=true
+                onePart.binder.containersToPutCommand.putValue('afterPlayButton',$afterPlayButton)
+                onePart.binder.onConfigChange=()=>{
+                    indexPage.navigator.pushState({
+                        type: 'part',
+                        name: onePart.pieceOfCode.NAME,
+                        configuration: pieceOfCodeToConfiguration(onePart.pieceOfCode)
+                    })
+                }
                 onePart.binder.go()
                 $partContent.append(onePart.$transformedPieceOfCode)
 
@@ -263,7 +271,6 @@ module mathis{
                 clickPart.pieceOfCode.goForTheFirstTime()
 
                 if (!fromNavigator) {
-
                     indexPage.navigator.pushState({type:'part',name:clickPart.name,configuration:pieceOfCodeToConfiguration(clickPart.pieceOfCode)})
                 }
                 else{

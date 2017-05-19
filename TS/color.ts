@@ -38,6 +38,9 @@ module mathis {
 
 
         static names = {
+            favoriteGreen:"7CFC00",
+
+
             aliceblue: "f0f8ff",
             antiquewhite: "faebd7",
             aqua: "0ff",

@@ -491,14 +491,14 @@ interface Window {
     MSGesture: MSGesture;
     CANNON: any;
     SIMD: any;
-    AudioContext: AudioContext;
+    AudioContext: _AudioContext;
     webkitAudioContext: AudioContext;
     PointerEvent: any;
     Math: Math;
     Uint8Array: Uint8ArrayConstructor;
     Float32Array: Float32ArrayConstructor;
 }
-interface AudioContext extends EventTarget {
+interface _AudioContext extends EventTarget {
     decodeAudioData(audioData: ArrayBuffer, successCallback: DecodeSuccessCallback, errorCallback?: any): void;
 }
 interface HTMLURL {

@@ -291,6 +291,7 @@ module mathis{
                 let linesViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
                 linesViewer.interpolationOption.interpolationStyle= interpolationStyle
                 linesViewer.interpolationOption.loopLine=makeLoop
+
                 linesViewer.go()
                 new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene).go()
 

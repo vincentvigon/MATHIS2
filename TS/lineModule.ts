@@ -87,7 +87,7 @@ module mathis{
                     res=cutter.go()
                 }
                 
-                this.mamesh.lines = res
+                //this.mamesh.lines = res
 
                 return res
             }

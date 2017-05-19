@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>1/ Hello Dodecahedronic world</title>
+    <script src="../../../JS/babylon.2.5.js"></script>
+    <script src="../../../JS/MATHIS.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    /**the frame where all objects will be ploted*/
+    var mathisFrame=new mathis.MathisFrame()
+    /**  Mamesh stands for Mathis-Mesh. */
+    var mamesh=new mathis.polyhedron.Polyhedron("dodecahedron").go()
+    /**we plot the vertices of the dodecahedron*/
+    new mathis.visu3d.VerticesViewer(mamesh,mathisFrame.scene).go()
+    /**We plot the links between vertices*/
+    new mathis.visu3d.LinksViewer(mamesh,mathisFrame.scene).go()
+</script>
+</body>
+</html>

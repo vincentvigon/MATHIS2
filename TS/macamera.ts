@@ -1286,8 +1286,6 @@ module mathis {
             }
 
 
-
-            
         }
 
 
@@ -1300,7 +1298,9 @@ module mathis {
                 super(scene)
                 this.radius=sizes.x
                 this.endOfZone1=this.radius
-                this.endOfZone2=3*this.radius
+                /** endOfZone2=3 is not enough: the problem is that Babylon do not capture  intersection point between ray and Mamesh when camera is close to the Mesh (why ?).
+                 * So it capture the backward point of the sphere, and the camera turn in the opposite sens.  */
+                this.endOfZone2=4*this.radius
                 this.endOfZone3=10*this.radius
 
                 this.referenceCenter=positionAndReferenceCenter
