@@ -8,6 +8,8 @@ module mathis {
 
     export module mameshModification {
 
+
+        
         //import RadiusFunction = mathis.visu3d.LineGameoStatic.RadiusFunction;
         function completSegment(newParamForMiddle:(p1:XYZ, p2:XYZ)=>XYZ, mamesh:Mamesh, segment:Segment, orthogonalVertex?:Vertex):void {
 
@@ -648,7 +650,8 @@ module mathis {
                                      [4,5],[5,6],[6,7],[7,4]];
                 for(let [na,nb] of segmentList) {
                     let el = Hash.segment(this.hexahedronsToCut[h+na],this.hexahedronsToCut[h+nb]);
-                    if(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber) [na,nb] = [nb,na];
+                    if(this.hexahedronsToCut[h+na].hashNumber > this.hexahedronsToCut[h+nb].hashNumber)
+                        [na,nb] = [nb,na];
 
                     let [i1,j1,k1] = coordsList[na];
                     let [i2,j2,k2] = coordsList[nb];
@@ -709,7 +712,6 @@ module mathis {
                 for(let i = 0;i < n;i++) {
                     for(let j = 0;j < n;j++) {
                         for(let k = 0;k < n;k++) {
-                            //TODO ici faire un dico
                             if(this.suppressVolumes.some(function (value) { // WARNING : Arguments missing
                                     return value[0] == i && value[1] == j && value[2] == k;
                                 }))
@@ -969,6 +971,8 @@ module mathis {
         }
 
 
+
+    
         
         export class PercolationOnLinks{
             

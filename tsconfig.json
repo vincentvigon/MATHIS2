@@ -2,13 +2,13 @@
 //to compile only the distributed TS, compile the other json
 {
   "compilerOptions": {
+    "module": "none",
     "target": "es5",
     "removeComments": false,
     "sourceMap": true,
     "out": "JS/MATHIS.js",
     "declaration":false,
-    "diagnostics":false,
-    "watch":true
+    "diagnostics":false
   },
   "exclude": [
     "**/MATHIS.d.ts",
@@ -28,15 +28,11 @@
 //    "sourceMap": true,
 //    "out": "JS_small/MATHIS.js",
 //    "declaration":true,
-//    "diagnostics":false,
-//    "watch":true
+//    "diagnostics":false
 //  },
 //  "exclude": [
 //    "**/MATHIS.d.ts",
-//    "small_projects/**/JS/",
-//
 //    "docuTest/",
-//    "index.ts",
 //    "tests/",
 //    "small_projects/"
 //  ]

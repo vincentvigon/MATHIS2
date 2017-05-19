@@ -394,18 +394,26 @@ module mathis{
 
                 if (this.name=="platonic"){
                     this.$$$platonicType.show()
+                    this.$$$platonicType.changeIndex(Math.floor(Math.random()*this.$$$platonicType.values.length))
                 }
                 else if (this.name=="archimedean"){
                     this.$$$archimedeanType.show()
+                    this.$$$archimedeanType.changeIndex(Math.floor(Math.random()*this.$$$archimedeanType.values.length))
                 }
                 else if (this.name=="prisms"){
                     this.$$$prismsType.show()
+                    this.$$$prismsType.changeIndex(Math.floor(Math.random()*this.$$$prismsType.values.length))
+
                 }
                 else if (this.name=="antiprisms"){
                     this.$$$antiprismsType.show()
+                    this.$$$antiprismsType.changeIndex(Math.floor(Math.random()*this.$$$antiprismsType.values.length))
+
                 }
                 else if (this.name=="johnson"){
                     this.$$$johnsonType.show()
+                    this.$$$johnsonType.changeIndex(Math.floor(Math.random()*this.$$$johnsonType.values.length))
+
                 }
 
             }
@@ -487,7 +495,7 @@ module mathis{
                 //let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
                 //let $divForDemoSelect=$('#divForDemoSelects').empty()
                 let binder=new Binder(pieceOfCode,this.mathisFrame.subWindow_NW.$visual,this.mathisFrame)
-                binder.pushState=false//TODO
+                //binder.pushState=false//TODO
                 binder.selectAndAroundClassName="spanForDemoSelects"
                 binder.go()
 
@@ -504,7 +512,7 @@ module mathis{
             let pieceOfCode=new SeveralDemo(mathisFrame)
             //let attributeChoices=buildChoicesFromPieceOfCode(pieceOfCode)
             let binder=new Binder(pieceOfCode,$('#demoChoice'),this.mathisFrame)
-            binder.pushState=false
+            //binder.pushState=false//TODO
             binder.go()
 
             pieceOfCode.goForTheFirstTime()

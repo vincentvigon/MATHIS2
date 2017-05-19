@@ -65,47 +65,73 @@ module mathis{
                 if (options!=null) this.options=options
                 else this.options={}
 
+
+                if (this.options.visualValues!=null&&values.length!=this.options.visualValues.length) throw "values.length and visualValues.length must be equal for:"+this.key
+
+
             }
 
             $select:HTMLSelectElement=null
             $button:$Button=null
             $parent:any
 
+            // /**build by the Binder
+            //  * it is :
+            //  * - onConfigurationChange()
+            //  * - options.onchange()  or go()
+            //  *  */
+            // $totalOnChange:()=>void
 
-            changePossibleValues(values:any[],visualValues:any[]=null,indexPage=null){
-                if (visualValues!=null&&values.length!=visualValues.length) throw "values.length and visualValues.length must be equal for:"+this.key
-                this.values=values
-                if (visualValues!=null) this.options.visualValues=visualValues
 
+            // changePossibleValues(values:any[],visualValues:any[]=null,indexPage=null){
+            //     if (visualValues!=null&&values.length!=visualValues.length) throw "values.length and visualValues.length must be equal for:"+this.key
+            //     this.values=values
+            //     if (visualValues!=null) this.options.visualValues=visualValues
+            //
+            //
+            //     if (this.$select!=null) {
+            //
+            //         for (let i = 0; i < this.$select.options.length; i++) {
+            //             this.$select.options[i] = null;
+            //         }
+            //
+            //         for (let i = 0; i < this.values.length; i++) {
+            //             let option: HTMLOptionElement = document.createElement("option");
+            //             option.value = this.values[i];
+            //
+            //             let textOption = ""
+            //             if (indexPage && indexPage.testMode) textOption = this.key + ":"
+            //
+            //             if (this.options.visualValues != null) {
+            //                 textOption += this.options.visualValues[i]
+            //             }
+            //             else textOption += this.values[i];
+            //             option.text = textOption
+            //             this.$select.appendChild(option);
+            //         }
+            //     }
+            //     else if (this.$button!=null){
+            //         if (this.options.visualValues != null) this.$button.visualValues=this.options.visualValues
+            //         else for (let i = 0; i < this.values.length; i++) {
+            //             this.$button.visualValues.push(this.values[i])
+            //         }
+            //     }
+            // }
 
+            changeIndex(index:number){
                 if (this.$select!=null) {
-
-                    for (let i = 0; i < this.$select.options.length; i++) {
-                        this.$select.options[i] = null;
-                    }
-
-                    for (let i = 0; i < this.values.length; i++) {
-                        let option: HTMLOptionElement = document.createElement("option");
-                        option.value = this.values[i];
-
-                        let textOption = ""
-                        if (indexPage && indexPage.testMode) textOption = this.key + ":"
-
-                        if (this.options.visualValues != null) {
-                            textOption += this.options.visualValues[i]
-                        }
-                        else textOption += this.values[i];
-                        option.text = textOption
-                        this.$select.appendChild(option);
-                    }
+                    this.$select.selectedIndex=index
+                    this.$select.onchange(null)
                 }
                 else if (this.$button!=null){
-                    if (this.options.visualValues != null) this.$button.visualValues=this.options.visualValues
-                    else for (let i = 0; i < this.values.length; i++) {
-                        this.$button.visualValues.push(this.values[i])
-                    }
+                    this.$button.selectedIndex=index
+                    this.$button.onchange()
+                    this.$button.updateVisual()
                 }
+
+                //this.$totalOnChange()
             }
+
 
             show(){
                 this.$parent.show()
@@ -138,7 +164,7 @@ module mathis{
 
         export function buildCommandDico(pieceOfCode:PieceOfCode):void{
 
-            if (pieceOfCode.COMMAND_DICO!=null) throw "command dico was already made for the piece of code:"+pieceOfCode.NAME
+            //if (pieceOfCode.COMMAND_DICO!=null) return //throw "command dico was already made for the piece of code:"+pieceOfCode.NAME
 
             let res=new StringMap<Choices>()
 
@@ -188,12 +214,21 @@ module mathis{
 
             containersToPutCommand=new StringMap<any>()
 
+
+            cleanContainerBefore=false
+
+
+
             /**only valid for the docuTestAppli*/
-            pushState=false
+            //pushState=false
 
 
             /**only for the docuTest*/
-            indexPage:any//actually the type is described in the docuPage
+            //indexPage:any//actually the type is described in the docuPage
+
+
+            addKeyOnTestOptions=false
+            rebuildCommandDico=true
 
 
             constructor(
@@ -205,7 +240,7 @@ module mathis{
                     if (defaultContainer.length!=1) throw "defaultContainer must contain a unique HTMLElement"
 
                 }
-                if (pieceOfCode.COMMAND_DICO==null) buildCommandDico(this.pieceOfCode)
+                if (this.rebuildCommandDico||pieceOfCode.COMMAND_DICO==null) buildCommandDico(this.pieceOfCode)
 
                 //if ($placesToPutSelects==null && $alreadyOrganisedPlace==null) throw "at least one of the two place must be non null"
             }
@@ -275,6 +310,11 @@ module mathis{
                 }
 
 
+                if (this.cleanContainerBefore){
+                    for (let cont of this.containersToPutCommand.allValues()) cont.empty()
+                }
+
+
                 for (let key of this.pieceOfCode.COMMAND_DICO.allKeys()) {
                     let choices:Choices=this.pieceOfCode.COMMAND_DICO.getValue(key)
                     choices.initialValueMemorized=this.pieceOfCode[key]
@@ -289,8 +329,6 @@ module mathis{
                         if ($container==null||$container.length==0) throw "the container name:"+choices.options.containerName+" has no corresponding container"
                     }
                     else $container=this.containersToPutCommand.getValue('default')
-
-
 
 
                     let $place=$container.find('.'+key)
@@ -330,7 +368,27 @@ module mathis{
                         $place.append(choices.$select)
 
 
-                        choices.changePossibleValues(choices.values,null,this.indexPage)
+                        //choices.changePossibleValues(choices.values,null,this.indexPage)
+
+
+                        for (let i = 0; i < choices.$select.options.length; i++) {
+                            choices.$select.options[i] = null;
+                        }
+
+                        for (let i = 0; i < choices.values.length; i++) {
+                            let option: HTMLOptionElement = document.createElement("option");
+                            option.value = choices.values[i];
+
+                            let textOption = ""
+                            if (this.addKeyOnTestOptions) textOption = choices.key + ":"
+
+                            if (choices.options.visualValues != null) {
+                                textOption += choices.options.visualValues[i]
+                            }
+                            else textOption += choices.values[i];
+                            option.text = textOption
+                            choices.$select.appendChild(option);
+                        }
 
 
                         choices.$select.onchange = () => {
@@ -347,15 +405,21 @@ module mathis{
                         $place.append(choices.$button.$visual)
 
 
-                        choices.changePossibleValues(choices.values,null,this.indexPage)
+                        //choices.changePossibleValues(choices.values,null,this.indexPage)
 
 
-                        choices.$button.onclick = () => {
-                            choices.$button.increment()
-                            choices.$button.updateVisual()
+                        if (choices.options.visualValues != null) choices.$button.visualValues=choices.options.visualValues
+                        else for (let i = 0; i < choices.values.length; i++) {
+                            choices.$button.visualValues.push(choices.values[i])
+                        }
+
+
+                        choices.$button.onchange = () => {
                             this.pieceOfCode[choices.key] = choices.values[choices.$button.selectedIndex]
                             this.whenSelectOrButtonChange(choices)
+                            choices.$button.updateVisual()
                         }
+
 
                     }
 
@@ -367,19 +431,13 @@ module mathis{
             }
 
             whenSelectOrButtonChange(choices:Choices){
+                if (this.onConfigChange != null) this.onConfigChange()
 
-                if (this.indexPage!=null && this.pushState) {
-                    this.indexPage.navigator.pushState({
-                        type: 'part',
-                        name: this.pieceOfCode.NAME,
-                        configuration: pieceOfCodeToConfiguration(this.pieceOfCode)
-                    })
-                }
+                /**if no method onchange() given, the default one is the .go() méthode of the pieceOfCode*/
                 if (choices.options.onchange != null) choices.options.onchange()
-                /**if no method onchange given, the default one is the .goChanging méthode of the pieceOfCode*/
                 else this.pieceOfCode.go()
 
-                if (this.onConfigChange != null) this.onConfigChange()
+
             }
 
         }
@@ -389,16 +447,24 @@ module mathis{
             //values:any[]
             visualValues=[]
             selectedIndex=0
-            onclick:()=>void
+
+            onchange:()=>void
+
             $visual:any
 
             constructor(
             ){
-                this.$visual=$('<div class="clickable appliButton" "></div>')
-                this.$visual.on('click touch',()=>{this.onclick()})
+                this.$visual=$('<div class="clickable appliButton"></div>')
+                this.$visual.on('click touch',()=>{
+                    this.increment()
+                    this.onchange()
+
+                })
             }
 
-            increment(){
+
+
+            private increment(){
                 this.selectedIndex=(this.selectedIndex+1)%this.visualValues.length
             }
 

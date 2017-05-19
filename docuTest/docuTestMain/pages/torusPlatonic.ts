@@ -31,10 +31,20 @@ module mathis {
             NAME="BoySurface"
             TITLE="The Boy surface"
 
-            nbI=10
-            $$$nbI=[5,10,20,30]
-            nbJ=10
-            $$$nbJ=[5,10,20,30]
+            nbI=20
+            $$$nbI=[10,20,40,60,100]
+            nbJ=20
+            $$$nbJ=[10,20,40,60,100]
+
+
+            nb_U_lines=3
+            $$$nb_U_lines=[0,1,2,3,4,5]
+
+
+            radius=0.05
+            $$$radius=[0.01,0.02,0.05,0.07]
+
+
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -44,23 +54,35 @@ module mathis {
                 this.mathisFrame.addDefaultCamera()
                 this.mathisFrame.addDefaultLight()
 
+                // this.mathisFrame.getGrabberCamera().changeFrontDir(0,0,0)
+                //
+                // this.mathisFrame.getGrabberCamera().changePosition(0,6,0)
+
                 this.go()
             }
 
 
             go() {
                 this.mathisFrame.clearScene(false, false)
+                var mathisFrame=this.mathisFrame
 
                 //$$$begin
 
                 /**SUB_generator allow to compute basis (Vi,Vj) of a planar reseau. If no decays,
                  * Vi and Vj are simply computed so that the reseau start at "origine" [default (0,0,0)]
                  * and finish at "end". To see effect of decays, observe ! */
+
+                let nbU=this.nbI
+                let nbV=this.nbJ
+
                 let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=this.nbI
-                generator.nbJ=this.nbJ
-                generator.origin=new XYZ(- 0.035,- 0.035,0)
-                generator.end=new XYZ(Math.PI,Math.PI,0)
+                generator.nbI=nbU
+                generator.nbJ=nbV
+                //generator.origin=new XYZ(- 0.035,- 0.035,0)
+
+                generator.origin=new XYZ(-Math.PI/2,-Math.PI/2,0)
+
+                generator.end=new XYZ(Math.PI/2,Math.PI/2,0)
 
 
                 //n
@@ -86,30 +108,59 @@ module mathis {
 
                         //let S = Math.sin(u)
 
-
                     })
 
 
 
+                function UorV_lines(space:number,UorV:boolean) {
+                    let lineBuilder = new lineModule.LineComputer(mamesh)
+                    lineBuilder.startingVertices = []
+                    for (let i = 0; i < mamesh.vertices.length; i++) {
+                        let vertex = mamesh.vertices[i]
+                        if (UorV&& vertex.param.x  == 0 && vertex.param.y%space == 0) lineBuilder.startingVertices.push(vertex);
+                        else if (!UorV && vertex.param.x%space == 0 && vertex.param.y  == 0) lineBuilder.startingVertices.push(vertex);
+                    }
+                    var lines = lineBuilder.go()
+
+
+                    let radius=this.radius
+                    for (let line of lines){
+                        let lineViewer = new visu3d.LinesViewer([line], mathisFrame.scene)
+                        lineViewer.color = new Color(Color.names.favoriteGreen)
+                        lineViewer.radiusFunction=function(alpha:number,position:XYZ){
+                            return Math.min(position.length()*radius,radius)
+                        }
+                        lineViewer.go()
+
+                    }
+
+
+
+                }
+                let nb_U_lines=this.nb_U_lines
+                if (nb_U_lines>0){
+                    let spaceBetweenULines=Math.floor(nbV/nb_U_lines)
+                    cc('spaceBetweenULines',spaceBetweenULines)
+                    UorV_lines(spaceBetweenULines,false)
+                }
+
                 //$$$end
 
-                let linksViewer=new visu3d.LinksViewer(mamesh, this.mathisFrame.scene)
-                linksViewer.lateralScalingConstant=0.02
-                linksViewer.go()
+
+
+
+
+
+                //$$$bh visualisation
+
 
                 let surfaceViewer=new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene)
                 surfaceViewer.alpha=0.7
                 surfaceViewer.go()
 
+                //$$$eh
 
 
-                // let merger=new mameshModification.Merger(mamesh)
-                // merger.mergeLink=true
-                // merger.goChanging()
-                //
-                // let oppositeAssocier=new linkModule.OppositeLinkAssocierByAngles(IN_mamesh.vertices)
-                // oppositeAssocier.maxAngleToAssociateLinks=Math.PI
-                // oppositeAssocier.goChanging()
 
 
 

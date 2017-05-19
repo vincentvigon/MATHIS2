@@ -161,6 +161,22 @@ module mathis{
                 })
             }
 
+            hidde(){
+                this.vertices.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.visibility=0
+                    }
+                })
+            }
+
+            show(){
+                this.vertices.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.visibility=1
+                    }
+                })
+            }
+
 
             /**can also be use to rebuild a part of the visualisation */
             buildVertexVisu(verticesToUpdate:Vertex[]=this.vertices, verticesToClear:Vertex[]=[]):void{
@@ -795,7 +811,7 @@ module mathis{
             levelPropToColorFunc=(prop:number)=>new Color(new HSV_01(prop*0.7,1,0.8))
 
 
-            cap=BABYLON.Mesh.NO_CAP
+            cap=BABYLON.Mesh.NO_CAP//BABYLON.Mesh.NO_CAP
             tesselation=10
 
             /**if null, no interpolation*/
@@ -804,7 +820,7 @@ module mathis{
             isThin=false
             constantRadius=null
             radiusProp=0.05
-            radiusFunction:(index:number,alphaRatio:number)=>number=null
+            radiusFunction:(alphaRatio:number,position:XYZ)=>number=null
 
 
 
@@ -976,7 +992,7 @@ module mathis{
                 }
                 else {
 
-                    let modifiedFunction=null
+                    //let modifiedFunction=null
 
                     if (this.radiusFunction!=null){
 
@@ -984,11 +1000,15 @@ module mathis{
                         for (let i=0;i<path.length-1;i++){
                             pathTotalLength+=geo.distance(path[i],path[i+1])
                         }
-                        modifiedFunction= (ind:number,alphaProp:number)=> this.radiusFunction(ind,alphaProp/pathTotalLength)
+
+
+                        let modifiedFunction= (ind:number,len:number)=> this.radiusFunction(len/pathTotalLength,path[ind])
+
 
                         res= BABYLON.Mesh.CreateTube('',path,null,this.tesselation,modifiedFunction,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
 
                     }
+
                     else  {
                         if (this.constantRadius==null){
                            let totalLength=0

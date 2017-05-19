@@ -67,18 +67,32 @@ module mathis{
             radiusProp=0.05
             $$$radiusProp=[0.01,0.05,0.1]
 
-            constantRadius=null
-            $$$constantRadius=[null,0.01,0.02,0.05]
+            constantRadius=0.01
+            $$$constantRadius=[0.01,0.02,0.05]
 
-            isThin=false
+            isThin=true
             $$$isThin=[true,false]
 
-            radiusFunction=null
-            $$$radiusFunction=[null,function(i,alpha){return 0.02*Math.sin(2*Math.PI*alpha)}]
+            radiusFunction=function(i,alpha){return alpha*0.05}
+            $$$radiusFunction=[
+                function(alpha,position){return alpha*0.05},
+                function(alpha,position){return geo.norme(position)*0.05},
+                function(alpha,position){return 0.02*Math.sin(2*Math.PI*alpha)},
+                function(alpha,position){return 0.1*position.x},
+                function(alpha,position){return 0.1*position.y*alpha}
+            ]
+
+
+
 
 
             interpolationStyle=geometry.InterpolationStyle.octavioStyle
             $$$interpolationStyle=new Choices(allIntegerValueOfEnume(geometry.InterpolationStyle),{"before":"geometry.InterpolationStyle.","visualValues":allStringValueOfEnume(geometry.InterpolationStyle)})
+
+
+
+            radiusChoices='default'
+            $$$radiusChoices=['default','constant','proportional','varying']
 
 
 
@@ -108,18 +122,38 @@ module mathis{
 
                 //n
 
+                switch (this.radiusChoices){
 
-                /**to have line of one pixel*/
-                linesViewer.isThin=this.isThin
-                /**useless is previous is not false :
-                 * argument 'i' is the index of the line in the lineCatalogue of the mamesh (see further)
-                 * argument 'alpha' in range [0,1] is the position in the line
-                 * return the radius of the i-th lines at the position alpha*/
-                linesViewer.radiusFunction=this.radiusFunction
-                /**useless if one of the previous is not null/false*/
-                linesViewer.constantRadius=this.constantRadius
-                /**useless if one of the previous is not null/false*/
-                linesViewer.radiusProp=this.radiusProp
+                    case 'default':{
+
+                    }
+                        break
+                    case 'constant':{
+                        linesViewer.constantRadius=this.constantRadius
+                    }
+                        break
+
+
+                    case 'proportional':{
+                        /**proportionnal according to vertex spacing*/
+                        linesViewer.radiusProp=this.radiusProp
+                    }
+                        break
+                    case 'varying':{
+                        /** argument 'alpha' in [0,1] represent the proportionnal length from line-begin to the current point of the line
+                         *  arument 'position' represent the absolute position of current point of the line */
+                        linesViewer.radiusFunction=this.radiusFunction
+                    }
+                        break
+
+                    case 'thin':{
+                        /**to have line of one pixel*/
+                        linesViewer.isThin=this.isThin
+                    }
+
+                }
+
+
 
 
                 linesViewer.go()

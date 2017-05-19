@@ -163,7 +163,7 @@ module mathis{
                     if (/^\s*\/\/\$\$\$(endTest|et)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'test'})
                 }
 
-                if (indexOfBegin.length!=indexOfEnd.length) throw 'not the same number of $$$begin and $$$end'
+                if (indexOfBegin.length!=indexOfEnd.length) throw 'not the same number of $$$begin and $$$end in the pieceOfCode:'+ this.pieceOfCode.NAME
                 
                 let res=[]
                 
