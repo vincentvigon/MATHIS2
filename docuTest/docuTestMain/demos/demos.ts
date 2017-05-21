@@ -67,7 +67,7 @@ module mathis{
             q=1
             $$$q=new Choices([0.1,0.5,1,3],{'before':"density:"})
 
-            nbDicho=4
+            nbDicho=3
             $$$nbDicho=new Choices([2,3,4],{'before':"nb particles:"})
             
             
