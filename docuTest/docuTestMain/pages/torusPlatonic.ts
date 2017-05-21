@@ -31,19 +31,24 @@ module mathis {
             NAME="BoySurface"
             TITLE="The Boy surface"
 
-            nbI=20
-            $$$nbI=[10,20,40,60,100]
-            nbJ=20
-            $$$nbJ=[10,20,40,60,100]
-
 
             nb_U_lines=3
             $$$nb_U_lines=[0,1,2,3,4,5]
 
+            nb_V_lines=3
+            $$$nb_V_lines=[0,1,2,3,4,5]
 
-            radius=0.05
-            $$$radius=[0.01,0.02,0.05,0.07]
 
+
+            radius=1
+            $$$radius=[0.01,0.02,0.05,0.07,1]
+
+
+            bend=false
+            $$$bend=[true,false]
+
+            showSurface=false
+            $$$showSurface=[true,false]
 
 
 
@@ -72,31 +77,38 @@ module mathis {
                  * Vi and Vj are simply computed so that the reseau start at "origine" [default (0,0,0)]
                  * and finish at "end". To see effect of decays, observe ! */
 
-                let nbU=this.nbI
-                let nbV=this.nbJ
+                let nbU=100
+                let nbV=100
+                let nb_U_lines=this.nb_U_lines
+                let nb_V_lines=this.nb_V_lines
+                let spaceU=Math.floor(nbU/nb_U_lines)
+                let spaceV=Math.floor(nbV/nb_V_lines)
+                nbU=nb_U_lines*spaceU
+                nbV=nb_V_lines*spaceV
+
 
                 let generator = new reseau.BasisForRegularReseau()
                 generator.nbI=nbU
                 generator.nbJ=nbV
-                //generator.origin=new XYZ(- 0.035,- 0.035,0)
-
-                generator.origin=new XYZ(-Math.PI/2,-Math.PI/2,0)
-
-                generator.end=new XYZ(Math.PI/2,Math.PI/2,0)
+                generator.origin=new XYZ(-Math.PI,-Math.PI,0)
+                generator.end=new XYZ(Math.PI,Math.PI,0)
 
 
                 //n
                 let creator = new reseau.Regular(generator)
                 let mamesh=creator.go()
+
+                let creator0 = new reseau.Regular(generator)
+                let mamesh0=creator0.go()
                 //n
 
 
 
-                    mamesh.vertices.forEach((vertex:Vertex)=>{
+                if (this.bend) {
+                    mamesh.vertices.forEach((vertex: Vertex) => {
 
-                        let u=vertex.position.x
-                        let v=vertex.position.y
-
+                        let u = vertex.position.x
+                        let v = vertex.position.y
 
                         vertex.position.x = 2 / 3. * (Math.cos(u) * Math.cos(2 * v)
                             + Math.sqrt(2) * Math.sin(u) * Math.cos(v)) * Math.cos(u) / (Math.sqrt(2) -
@@ -109,55 +121,73 @@ module mathis {
                         //let S = Math.sin(u)
 
                     })
-
-
-
-                function UorV_lines(space:number,UorV:boolean) {
-                    let lineBuilder = new lineModule.LineComputer(mamesh)
-                    lineBuilder.startingVertices = []
-                    for (let i = 0; i < mamesh.vertices.length; i++) {
-                        let vertex = mamesh.vertices[i]
-                        if (UorV&& vertex.param.x  == 0 && vertex.param.y%space == 0) lineBuilder.startingVertices.push(vertex);
-                        else if (!UorV && vertex.param.x%space == 0 && vertex.param.y  == 0) lineBuilder.startingVertices.push(vertex);
-                    }
-                    var lines = lineBuilder.go()
-
-
-                    let radius=this.radius
-                    for (let line of lines){
-                        let lineViewer = new visu3d.LinesViewer([line], mathisFrame.scene)
-                        lineViewer.color = new Color(Color.names.favoriteGreen)
-                        lineViewer.radiusFunction=function(alpha:number,position:XYZ){
-                            return Math.min(position.length()*radius,radius)
-                        }
-                        lineViewer.go()
-
-                    }
-
-
-
-                }
-                let nb_U_lines=this.nb_U_lines
-                if (nb_U_lines>0){
-                    let spaceBetweenULines=Math.floor(nbV/nb_U_lines)
-                    cc('spaceBetweenULines',spaceBetweenULines)
-                    UorV_lines(spaceBetweenULines,false)
                 }
 
+
+                let radius=this.radius
                 //$$$end
-
-
-
-
 
 
                 //$$$bh visualisation
 
 
-                let surfaceViewer=new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene)
-                surfaceViewer.alpha=0.7
-                surfaceViewer.go()
+                let lineBuilder = new lineModule.LineComputer(mamesh)
+                lineBuilder.startingVertices = []
+                for (let i = 0; i < mamesh.vertices.length; i++) {
+                    let vertex = mamesh.vertices[i]
+                    if ( vertex.param.x  == 0 && vertex.param.y%spaceU == 0) lineBuilder.startingVertices.push(vertex);
+                    else if (vertex.param.x%spaceV == 0 && vertex.param.y  == 0) lineBuilder.startingVertices.push(vertex);
+                }
+                mamesh.lines = lineBuilder.go()
+                let lineViewer = new visu3d.LinesViewer(mamesh, mathisFrame.scene)
+                //lineViewer.color = new Color(Color.names.favoriteGreen)
+                lineViewer.radiusFunction=function(alpha:number,position:XYZ){
+                    return Math.min(geo.norme(position)*radius,radius)
+                }
+                lineViewer.go()
 
+
+                // function UorV_lines(space:number,UorV:boolean) {
+                //     let lineBuilder = new lineModule.LineComputer(mamesh)
+                //     lineBuilder.startingVertices = []
+                //     for (let i = 0; i < mamesh.vertices.length; i++) {
+                //         let vertex = mamesh.vertices[i]
+                //         if (UorV && vertex.param.x  == 0 && vertex.param.y%space == 0) lineBuilder.startingVertices.push(vertex);
+                //         else if (!UorV && vertex.param.x%space == 0 && vertex.param.y  == 0) lineBuilder.startingVertices.push(vertex);
+                //     }
+                //     mamesh.lines = lineBuilder.go()
+                //     let lineViewer = new visu3d.LinesViewer(mamesh, mathisFrame.scene)
+                //     //lineViewer.color = new Color(Color.names.favoriteGreen)
+                //     lineViewer.radiusFunction=function(alpha:number,position:XYZ){
+                //         return Math.min(geo.norme(position)*radius,radius)
+                //     }
+                //     lineViewer.go()
+                //
+                //
+                //
+                //
+                //
+                // }
+                // if (nb_U_lines>0){
+                //     UorV_lines(spaceU,false)
+                // }
+                //
+                //
+                // if (nb_V_lines>0){
+                //     UorV_lines(spaceV,true)
+                // }
+
+
+
+
+
+
+                if (this.showSurface) {
+                    let surfaceViewer = new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene)
+                    surfaceViewer.alpha = 0.7
+                    surfaceViewer.normalDuplication=visu3d.NormalDuplication.none
+                    surfaceViewer.go()
+                }
                 //$$$eh
 
 

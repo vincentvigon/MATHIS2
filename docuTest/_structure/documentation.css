@@ -314,18 +314,13 @@ pre{
     display:inline-block;
     width: 60%;
     overflow: scroll;
-    /*background-color: red;*/
-
     height: 100%;
-
 
 }
 
 .otherColumn{
     display:inline-block;
     width: 19.5%;
-    /*padding-left: 1em;*/
-    /*padding-right: 1em;*/
 
     border-left: solid black 1px;
     text-align: center;
