@@ -17,7 +17,7 @@ module mathis {
                 let [a,b] = [-0.0000000001,1.0000000001];
                 let range = b - a;
                 for(let i = 0;i < colors.length;i++)
-                    this.colors.push([i * range + a,colors[i]]);
+                    this.colors.push([i / (colors.length-1) * range + a,colors[i]]);
             }
 
             static colorToVec3(color : Array<number>) {
