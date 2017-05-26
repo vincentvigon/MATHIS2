@@ -115,7 +115,7 @@ module mathis{
             NO_TEST=true
 
             NAME="HelicoidDocu"
-            TITLE="We create an hellicoid. Best representation can de done with more vertices, but in this case, " +
+            TITLE="We create an helicoid. Best representation can de done with more vertices, but in this case, " +
                 "to be esthetic, do not draw all the lines (see section in line visualization for line selection)"
 
             a=0.2

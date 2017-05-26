@@ -194,7 +194,7 @@ module mathis {
                 for (let i=0; i<this.maxLength; i++) this.path.push(this.initialPosition)
                 this.serpentMesh=BABYLON.Mesh.CreateTube('',this.path,this.serpentRadius,10,null,BABYLON.Mesh.CAP_ALL,this.mathisFrame.scene,true)
                 let green=new BABYLON.StandardMaterial('',this.mathisFrame.scene)
-                green.diffuseColor=myFavoriteColors.green
+                green.diffuseColor=new BABYLON.Color3(124 / 255, 252 / 255, 0)
                 this.serpentMesh.material=green
 
                 this.headSerpent=BABYLON.Mesh.CreateSphere('',10,this.serpentRadius*2.5,this.mathisFrame.scene)
