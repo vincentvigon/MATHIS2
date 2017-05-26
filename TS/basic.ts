@@ -5,10 +5,10 @@ module mathis {
     //
     // export enum Direction{vertical,horizontal,slash,antislash}
 
-    export var myFavoriteColors={
-        green:new BABYLON.Color3(124 / 255, 252 / 255, 0)
-        //greenMathis:new Color(new RGB_range255(124,252,0))
-    }
+    // export var myFavoriteColors={
+    //     green:new BABYLON.Color3(124 / 255, 252 / 255, 0)
+    //     //greenMathis:new Color(new RGB_range255(124,252,0))
+    // }
     
     export class UV{
         u:number
@@ -138,6 +138,13 @@ module mathis {
             this.y*=vec.y
             this.z*=vec.z
             return this
+        }
+
+        length():number{
+            return geo.norme(this)
+        }
+        lengthSquared():number{
+            return geo.squareNorme(this)
         }
 
         substract(vec:XYZ):XYZ{
@@ -293,7 +300,9 @@ module mathis {
             
             return quaternion
         }
-        
+
+
+
         applyToMeshes(meshes:BABYLON.Mesh[]){
             let quaternion=null
             if (this.frontDir!=null||this.upVector!=null) quaternion=this.quaternion()
@@ -744,16 +753,7 @@ module mathis {
               this.vertices.push(vertex)
         }
         
-        // suppressVertex(vertex:Vertex,exceptionIfNotInside=true):void{
-        //     if (!this.hasVertex(vertex)) {
-        //         if (exceptionIfNotInside) throw 'this vertex is not in this IN_mamesh'
-        //     }
-        //     else{
-        //         removeFromArray(this.vertices,vertex)
-        //         this.paramToVertex.removeKey(vertex.param)
-        //     }
-        // }
-        //
+
         
         
         hasVertex(vertex:Vertex):boolean{
@@ -1276,115 +1276,10 @@ module mathis {
             return c == this.a || c == this.b
         }
         
-        
 
     }
 
 
-
-    //export enum BasiConfig{internal,babylon,minimal}
-    //
-    //
-    //export class Basic {
-    //
-    //    newXYZ:(x:number, y:number, z:number)=>XYZ
-    //    newXYZW:(x:number, y:number, z:number, w:number)=>XYZW
-    //    newZeroMat:()=>MM
-    //    newVertex:(id:number)=>Vertex
-    //
-    //    constructor() {
-    //        /**
-    //         * replace this to fit with your favorite environment. e.g. BabylonJS or ThreeJS
-    //         * */
-    //        //this.newXYZ = function (x:number,y:number,z:number){return {x:x,y:y,z:z}}
-    //
-    //        //if (basicConfig==BasiConfig.internal){
-    //            this.newXYZ = (x:number, y:number, z:number)=>{return new XYZ(x,y,z)}
-    //            this.newXYZW = (x:number, y:number, z:number, w:number)=>{return new XYZW(x,y,z,w)}
-    //            this.newZeroMat=()=>{return new MM()}
-    //
-    //        //}
-    //        //else if (basicConfig==BasiConfig.minimal){
-    //        //    this.newXYZ = (x:number, y:number, z:number)=>{return {x:x,y:y,z:z}}
-    //        //    this.newXYZW = (x:number, y:number, z:number, w:number)=>{return {x:x,y:y,z:z,w:w}}
-    //        //    this.newZeroMat=()=>{return {m:new Float32Array(16)}}
-    //        //    this.newVertex=(id:number)=>{return new Vertex(id)}
-    //        //
-    //        //}
-    //        //else if (basicConfig==BasiConfig.babylon){
-    //        //    this.newXYZ = (x:number, y:number, z:number)=>{return new BABYLON.Vector3(x,y,z)}
-    //        //    this.newXYZW = (x:number, y:number, z:number, w:number)=>{return new BABYLON.Quaternion(x,y,z,w)}
-    //        //    this.newZeroMat=()=>{return new BABYLON.Matrix()}
-    //        //    this.newVertex=(id:number)=>{return new Vertex(id)}
-    //        //
-    //        //
-    //        //}
-    //
-    //
-    //    }
-    //
-    //
-    //
-    //    copyXYZ(original:XYZ, result:XYZ):XYZ {
-    //        result.x = original.x
-    //        result.y = original.y
-    //        result.z = original.z
-    //        return result
-    //    }
-    //
-    //    copyXyzFromFloat(x:number, y:number, z:number, result:XYZ):XYZ {
-    //        result.x = x
-    //        result.y = y
-    //        result.z = z
-    //        return result
-    //    }
-    //
-    //    copyMat(original:MM,result:MM):MM{
-    //        for (var i=0;i<16;i++) result.m[i]=original.m[i]
-    //        return result
-    //    }
-    //
-    //    matEquality(mat1:MM,mat2:MM):boolean{
-    //        for (var i=0;i<16;i++){
-    //            if( mat1.m[i]!=mat2.m[i]) return false
-    //        }
-    //        return true
-    //    }
-    //
-    //    matAlmostEquality(mat1:MM,mat2:MM):boolean{
-    //        for (var i=0;i<16;i++){
-    //            if( !this.almostEquality(mat1.m[i],mat2.m[i])) return false
-    //        }
-    //        return true
-    //    }
-    //
-    //    xyzEquality(vec1:XYZ, vec2:XYZ) {
-    //        return vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z
-    //    }
-    //
-    //    epsilon = 0.001
-    //
-    //    xyzAlmostEquality(vec1:XYZ, vec2:XYZ) {
-    //        return Math.abs(vec1.x - vec2.x) < this.epsilon && Math.abs(vec1.y - vec2.y) < this.epsilon && Math.abs(vec1.z - vec2.z) < this.epsilon
-    //    }
-    //
-    //    xyzwAlmostEquality(vec1:XYZW, vec2:XYZW) {
-    //        return Math.abs(vec1.x - vec2.x) < this.epsilon && Math.abs(vec1.y - vec2.y) < this.epsilon && Math.abs(vec1.z - vec2.z) < this.epsilon && Math.abs(vec1.w - vec2.w) < this.epsilon
-    //    }
-    //
-    //
-    //    xyzAlmostZero(vec:XYZ) {
-    //        return Math.abs(vec.x) < this.epsilon && Math.abs(vec.y) < this.epsilon && Math.abs(vec.z) < this.epsilon
-    //    }
-    //
-    //    almostEquality(a:number,b:number){
-    //        return Math.abs(b-a)<this.epsilon
-    //    }
-    //
-    //
-    //}
-    //
-    //
 
 
 }
