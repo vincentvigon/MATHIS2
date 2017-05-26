@@ -6,9 +6,7 @@
 module mathis{
     
     
-    export module documentation{
-
-        export enum Keywords {basic, tool, math, forDeveloper, proba}
+    export module appli{
 
 
         /**most of time, OnePage is a simple wrapper of SeveralParts, but is  can also contain an iframe*/
@@ -57,7 +55,7 @@ module mathis{
             fromPieceOfCode(pieceOfCode:PieceOfCode,isVariant=false):OnePart{
                 this.pieceOfCode=pieceOfCode
                 this.isVariant=isVariant
-                this.name=pieceOfCode.$$$name
+                this.name=pieceOfCode.NAME
                 return this
             }
             
@@ -108,9 +106,11 @@ module mathis{
 
 
             goToPage(onePage:OnePage,history_doNotPushState:boolean,activateFirstPart:boolean):void{
+                indexPage.eventManager.fireEvent(new Event('goToPage',onePage.pageIdAndTitle))
+
                 $('#pageTitle').empty().text(onePage.pageIdAndTitle)
-                $('#divForDemoSelects').empty()
-                $('#demoChoice').empty()
+                // $('#divForDemoSelects').empty()
+                // $('#demoChoice').empty()
 
                 if (!history_doNotPushState) indexPage.navigator.pushState({type:'page',name:onePage.pageIdAndTitle})
 
@@ -190,18 +190,43 @@ module mathis{
 
                 onePart.$playButton=$('<div class="fa fa-play playButton"></div>')
                 .on('click touch',()=>{this.clickInOnePlayButton(onePart,false,false)})
-                if(indexPage.testMode) $partHead.append($('<span style="color: red">').text(onePart.pieceOfCode.$$$name+':'))
-                $partHead.append(onePart.pieceOfCode.$$$title)
+                if(indexPage.testMode) $partHead.append($('<span style="color: red">').text(onePart.pieceOfCode.NAME+':'))
+                $partHead.append(onePart.pieceOfCode.TITLE)
                 $partHead.append(onePart.$playButton)
+                let $afterPlayButton=$('<div class="afterPlayButton" style="text-align: right"></div>').appendTo($partHead)
+
+
+
+                // for (let key in onePart.pieceOfCode){
+                //     let field=onePart.pieceOfCode[key]
+                //     if (field instanceof $Button$){
+                //         $partHead.append(field.visual)
+                //         field.visual.on('click touch',()=>{
+                //             field.onClick()
+                //         })
+                //     }
+                // }
+
 
 
                 let pieceOfCodeTransformer=new PieceOfCodeTransformer(onePart.pieceOfCode)
                 onePart.$transformedPieceOfCode=pieceOfCodeTransformer.go()
-                onePart.binder=new Binder(onePart.pieceOfCode,pieceOfCodeTransformer.allChoices,onePart.$transformedPieceOfCode)
-                $partContent.append(onePart.binder.go())
+
+                onePart.binder=new Binder(onePart.pieceOfCode,onePart.$transformedPieceOfCode,indexPage.mathisFrame)
+                if (indexPage.testMode) onePart.binder.addKeyOnTestOptions=true
+                onePart.binder.containersToPutCommand.putValue('afterPlayButton',$afterPlayButton)
+                onePart.binder.onConfigChange=()=>{
+                    indexPage.navigator.pushState({
+                        type: 'part',
+                        name: onePart.pieceOfCode.NAME,
+                        configuration: pieceOfCodeToConfiguration(onePart.pieceOfCode)
+                    })
+                }
+                onePart.binder.go()
+                $partContent.append(onePart.$transformedPieceOfCode)
 
                 if (indexPage.testMode&&onePart.pieceOfCode.NO_TEST==null){
-                    $partContent.append(new InteractiveTestBox(pieceOfCodeTransformer.allChoices,onePart).getVisual())
+                    $partContent.append(new InteractiveTestBox(pieceOfCodeTransformer.pieceOfCode.COMMAND_DICO,onePart).getVisual())
 
                 }
 
@@ -221,23 +246,24 @@ module mathis{
             
             clickInOnePlayButton(clickPart:OnePart,fromNavigator:boolean,rulesSelects:boolean):void{
 
-                indexPage.mathisFrame.cleanAllPeriodicActions()
-                
+                indexPage.eventManager.fireEvent(new Event('clickInOnePlayButton',clickPart.name))
+
+
                 for (let onePart of this.allParts){
                     if (onePart.pieceOfCode!=null){
                         onePart.$transformedPieceOfCode.find('select').prop('disabled', true);
-                        onePart.$playButton.removeClass("activePlayButton")
+                        //onePart.$playButton.removeClass("activePlayButton")
+                        onePart.$playButton.css('opacity','0.5')
                         if (onePart.endTest!=null) onePart.endTest()
                     }
                 }
 
                 if (indexPage.testMode&& clickPart.actionTest!=null) clickPart.actionTest()
 
-                indexPage.mathisFrame.messageDiv.empty()
-                
 
                 
-                clickPart.$playButton.addClass("activePlayButton")
+                //clickPart.$playButton.addClass("activePlayButton")
+                clickPart.$playButton.css('opacity','1')
                 clickPart.$transformedPieceOfCode.find('select').prop('disabled', false);
                 if(clickPart.isVariant) clickPart.$transformedPieceOfCode.show()
 
@@ -245,7 +271,6 @@ module mathis{
                 clickPart.pieceOfCode.goForTheFirstTime()
 
                 if (!fromNavigator) {
-
                     indexPage.navigator.pushState({type:'part',name:clickPart.name,configuration:pieceOfCodeToConfiguration(clickPart.pieceOfCode)})
                 }
                 else{
@@ -264,103 +289,6 @@ module mathis{
         }
 
 
-
-        export class Navigator{
-
-            idToParts=new StringMap<OnePart>()
-
-
-            constructor(private severalPages:SeveralPages,private indexPage:IndexPage){
-            }
-
-            pushState(obj){
-                //let name='#'+encodeURI(JSON.stringify(obj))
-                let name='#'+JSON.stringify(obj)
-
-                history.pushState(name,name,name)
-            }
-
-            registerAllPieceOfCodes(){
-
-                for (let onePage of this.severalPages.idToPage.allValues()){
-                    let severalParts:SeveralParts=onePage.severalParts
-                    if (onePage.severalParts!=null){
-                        for (let onePart of severalParts.allParts){
-                            if(onePart.pieceOfCode!=null) this.idToParts.putValue(onePart.name,onePart)
-                        }
-                    }
-                }
-            }
-
-
-            goTo(actionString:string){
-
-                indexPage.mathisFrame.cleanAllPeriodicActions()
-
-                /**on enlève le '#' et l'on parse la string*/
-
-
-                let action= JSON.parse(actionString.slice(1))
-
-
-                if (action.type==null) throw 'in navigator, action :'+actionString+', has no type'
-                else if (action.type=='part'){
-                    this.goToPartWithSomeConfiguration(action.name,action.configuration)
-                }
-                else if (action.type=='page'){
-                    this.goToPage(action.name)
-                }
-                else if (action.type=='index'||action.type=='login'){
-                    this.indexPage.showMainIndex(true)
-                }
-                else console.log("no action for state:"+action.type)
-            }
-
-
-            goToPage(pageName:string):void{
-
-                for (let onePage of this.severalPages.idToPage.allValues()){
-                    if (onePage.pageIdAndTitle==pageName) {
-                        this.severalPages.goToPage(onePage,true,true)
-                    }
-                }
-
-
-            }
-
-
-            goToPartWithSomeConfiguration(partName:string,config:any):void{
-
-                for (let onePage of this.severalPages.idToPage.allValues()){
-
-                    let severalParts:SeveralParts=onePage.severalParts
-
-                    if (onePage.severalParts!=null){
-                        for (let onePart of severalParts.allParts){
-                            if (onePart.name==partName){
-                                this.severalPages.goToPage(onePage,true,false)
-
-                                if (config!=null) {
-                                    for (let key in config) {
-                                        onePart.pieceOfCode[key] = config[key]
-                                    }
-                                }
-                                else {
-                                    for (let key of onePart.binder.allChoices.allKeys()){
-                                        cc(key,onePart.binder.allChoices.getValue(key))
-                                        onePart.pieceOfCode[key]=onePart.binder.allChoices.getValue(key).initialValueMemorized
-                                    }
-                                }
-                                severalParts.clickInOnePlayButton(onePart,true,true)
-                            }
-                        }
-                    }
-                }
-            }
-
-
-
-        }
 
 
 

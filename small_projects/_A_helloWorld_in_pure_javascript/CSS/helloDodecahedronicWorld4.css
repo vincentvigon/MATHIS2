@@ -1,0 +1,38 @@
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#placeForSomeExplanation {
+     position: absolute;
+     display: inline-block;
+     left:0;
+     top:0;
+     width: 30%;
+     height: 50%;
+     background-color: indianred;
+     text-align: center;
+ }
+#placeForMathis {
+    position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
+    display: inline-block;
+    top:0;
+    left:30%;
+    right:0;
+    height: 50%;
+}
+#placeForMathis2 {
+    position: absolute;  /* IMPORTANT : the position must be relative, absolute or fixed (in order than the mathisFrame has the good sizes */
+    display: inline-block;
+    top:50%;
+    left:0;
+    width: 30%;
+    height: 50%;
+}
+#placeForSomeLatex{
+    width: 50%;
+    margin-top: 3em;
+    border: solid 1px white;
+}

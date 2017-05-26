@@ -29,13 +29,6 @@ module mathis{
 
     export var deconnectViewerForTest=false
 
-    
-    // $.getScript("my_lovely_script.js", function(){
-    //    
-    // });
-    
-    
-
 
     
 

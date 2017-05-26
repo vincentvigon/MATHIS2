@@ -158,7 +158,22 @@ module mathis{
                     if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
                         for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.dispose()
                     }
-                    this.vertexToCopiedMeshes.removeKey(vertex)
+                })
+            }
+
+            hidde(){
+                this.vertices.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.visibility=0
+                    }
+                })
+            }
+
+            show(){
+                this.vertices.forEach(vertex=>{
+                    if (this.vertexToCopiedMeshes.getValue(vertex)!=null) {
+                        for (let mesh of this.vertexToCopiedMeshes.getValue(vertex)) mesh.visibility=1
+                    }
                 })
             }
 
@@ -255,6 +270,7 @@ module mathis{
 
                 this.mamesh=mamesh
                 this.scene=scene
+
             }
 
 
@@ -264,6 +280,8 @@ module mathis{
             }
 
             go():Mesh {
+                if (this.mamesh==null) throw 'no mamesh'
+
 
                 if (deconnectViewerForTest) return
 
@@ -514,7 +532,6 @@ module mathis{
                     positionNormals.forEach((v:XYZ)=>{
                         v.normalize()
                     })
-
                 }
                 else if (this.normalDuplication==NormalDuplication.duplicateVertex||this.normalDuplication==NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr ){
 
@@ -794,7 +811,7 @@ module mathis{
             levelPropToColorFunc=(prop:number)=>new Color(new HSV_01(prop*0.7,1,0.8))
 
 
-            cap=BABYLON.Mesh.NO_CAP
+            cap=BABYLON.Mesh.NO_CAP//BABYLON.Mesh.NO_CAP
             tesselation=10
 
             /**if null, no interpolation*/
@@ -803,7 +820,7 @@ module mathis{
             isThin=false
             constantRadius=null
             radiusProp=0.05
-            radiusFunction:(index:number,alphaRatio:number)=>number=null
+            radiusFunction:(alphaRatio:number,position:XYZ)=>number=null
 
 
 
@@ -878,14 +895,16 @@ module mathis{
                 //new spacialTransformations.Similitude(this.mamesh.vertices,0.0001).goChanging()
 
 
-
                 for (let line of this.lines){
                     if (this.lineToColor.getValue(line)!=null) this.drawOneLine(line)
                 }
 
-                
                 return this.res
 
+            }
+
+            clear(){
+                for (let mesh of this.res) mesh.dispose()
             }
 
             private buildLineToColor(){
@@ -973,7 +992,7 @@ module mathis{
                 }
                 else {
 
-                    let modifiedFunction=null
+                    //let modifiedFunction=null
 
                     if (this.radiusFunction!=null){
 
@@ -981,11 +1000,15 @@ module mathis{
                         for (let i=0;i<path.length-1;i++){
                             pathTotalLength+=geo.distance(path[i],path[i+1])
                         }
-                        modifiedFunction= (ind:number,alphaProp:number)=> this.radiusFunction(ind,alphaProp/pathTotalLength)
+
+
+                        let modifiedFunction= (ind:number,len:number)=> this.radiusFunction(len/pathTotalLength,path[ind])
+
 
                         res= BABYLON.Mesh.CreateTube('',path,null,this.tesselation,modifiedFunction,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
 
                     }
+
                     else  {
                         if (this.constantRadius==null){
                            let totalLength=0

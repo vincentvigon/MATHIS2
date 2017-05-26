@@ -192,9 +192,9 @@ module mathis{
 
             OUT_nbIteration=0
             
-            OUT_twoExtremeVertices:Vertex[]=[]
-            OUT_extremeGeodesics:Vertex[][]
-
+            OUT_twoChosenExtremeVertices:Vertex[]=[]
+            OUT_geodesicsBetweenChosenExtremeVertices:Vertex[][]
+            OUT_oneGeodesicBetweenChosenExtremeVertices:Vertex[][]
 
             constructor(private vertices:Vertex[]){
                 
@@ -208,10 +208,11 @@ module mathis{
                 let extremeGroup=[this.vertices[0]]
                 let d=0
                 let extremeVertices:Vertex[]=[]
+                let distanceAround : DistancesFromAGroup
                 while (this.evolution()) {
                     this.OUT_nbIteration++
 
-                    let distanceAround = new DistancesFromAGroup(extremeGroup)
+                    distanceAround = new DistancesFromAGroup(extremeGroup)
                     distanceAround.go()
                     d = distanceAround.OUT_stratesAround.length
                     let oneExtreme=distanceAround.OUT_stratesAround[d - 1][0]
@@ -221,8 +222,9 @@ module mathis{
                 }
 
 
-                
-                this.OUT_twoExtremeVertices=[extremeVertices[this.OUT_nbIteration-1],extremeVertices[this.OUT_nbIteration-2]]
+                this.OUT_twoChosenExtremeVertices=[extremeVertices[this.OUT_nbIteration-1],extremeVertices[this.OUT_nbIteration-2]]
+                this.OUT_geodesicsBetweenChosenExtremeVertices=distanceAround.OUT_allGeodesics(extremeVertices[this.OUT_nbIteration-1])
+                this.OUT_oneGeodesicBetweenChosenExtremeVertices=distanceAround.OUT_allGeodesics(extremeVertices[this.OUT_nbIteration-1],true)
 
                 return d-1
 

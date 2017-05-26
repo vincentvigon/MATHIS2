@@ -8,7 +8,7 @@
  */
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class VerticesViewingDocu implements OnePage{
@@ -35,8 +35,8 @@ module mathis{
             NO_TEST=true
 
 
-            $$$name="DefaultVerticesViewing"
-            $$$title="By default : Each vertices is represented by a sphere. " +
+            NAME="DefaultVerticesViewing"
+            TITLE="By default : Each vertices is represented by a sphere. " +
                 "Sizes can be given or computed according to distances between vertices."
 
             radiusProportion=0.1
@@ -48,8 +48,8 @@ module mathis{
             constantRadius=null
             $$$constantRadius=[null,0.05,0.1,0.2]
 
-            useAModel=false
-            $$$useAModel=[true,false]
+            // useAModel=false
+            // $$$useAModel=[true,false]
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -110,8 +110,8 @@ module mathis{
             NO_TEST=true
 
 
-            $$$name="ModelVerticesViewing"
-            $$$title="we use  babylonJS meshes as model for vertices"
+            NAME="ModelVerticesViewing"
+            TITLE="we use  babylonJS meshes as model for vertices"
 
             radiusProportion=0.25
             $$$radiusProportion=[0.1,0.25,0.5,1]
@@ -129,11 +129,11 @@ module mathis{
             $$$justShowTheModel=[true,false]
 
 
-            scaleTheModel=true
-            $$$scaleTheModel=[true,false]
+            // scaleTheModel=true
+            // $$$scaleTheModel=[true,false]
 
-            backFaceCulling=true
-            $$$backFaceCulling=[true,false]
+            // backFaceCulling=true
+            // $$$backFaceCulling=[true,false]
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -222,17 +222,17 @@ module mathis{
             NO_TEST=true
 
 
-            $$$name="ModelPositioning"
-            $$$title="we specify the positioning of the models"
+            NAME="ModelPositioning"
+            TITLE="we specify the positioning of the models"
 
-            radiusProportion=0.25
-            $$$radiusProportion=[0.1,0.25,0.5,1]
+            // radiusProportion=0.25
+            // $$$radiusProportion=[0.1,0.25,0.5,1]
 
             squareMailleInsteadOfTriangle=false
             $$$squareMailleInsteadOfTriangle=[true,false]
 
-            constantRadius=null
-            $$$constantRadius=[null,0.1,0.2,0.3]
+            // constantRadius=null
+            // $$$constantRadius=[null,0.1,0.2,0.3]
 
             modelChoice=3
             $$$modelChoice=[0,1,2,3]
@@ -241,11 +241,11 @@ module mathis{
             $$$justShowTheModel=[true,false]
 
 
-            scaleTheModel=true
-            $$$scaleTheModel=[true,false]
+            // scaleTheModel=true
+            // $$$scaleTheModel=[true,false]
 
-            backFaceCulling=true
-            $$$backFaceCulling=[true,false]
+            // backFaceCulling=true
+            // $$$backFaceCulling=[true,false]
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -347,29 +347,29 @@ module mathis{
             NO_TEST=true
 
 
-            $$$name="ModelAutoPositioning"
-            $$$title="Positionings are computed from mamesh : " +
+            NAME="ModelAutoPositioning"
+            TITLE="Positionings are computed from mamesh : " +
                 "FrontDir is aligned to the link which has the direction the closest as possible from the give 'attractionForTangent'.  " +
                 "UpVector is the normal of the surface, which is the mean of the normal of triangle/quad around."
 
-            squareMailleInsteadOfTriangle=false
-            $$$squareMailleInsteadOfTriangle=[true,false]
+            // squareMailleInsteadOfTriangle=false
+            // $$$squareMailleInsteadOfTriangle=[true,false]
 
-            constantRadius=null
-            $$$constantRadius=[null,0.1,0.2,0.3]
+            // constantRadius=null
+            // $$$constantRadius=[null,0.1,0.2,0.3]
 
             modelChoice=3
             $$$modelChoice=[0,1,2,3]
 
-            justShowTheModel=false
-            $$$justShowTheModel=[true,false]
+            // justShowTheModel=false
+            // $$$justShowTheModel=[true,false]
 
 
-            scaleTheModel=true
-            $$$scaleTheModel=[true,false]
+            // scaleTheModel=true
+            // $$$scaleTheModel=[true,false]
 
-            backFaceCulling=true
-            $$$backFaceCulling=[true,false]
+            // backFaceCulling=true
+            // $$$backFaceCulling=[true,false]
 
 
             attractionForTangent=new XYZ(100,10,0)
@@ -378,8 +378,8 @@ module mathis{
             cylinderVersusSphere=true
             $$$cylinderVersusSphere=[true,false]
 
-            randomFrontDir=false
-            $$$randomFrontDir=[true,false]
+            // randomFrontDir=false
+            // $$$randomFrontDir=[true,false]
 
 
             constructor(private mathisFrame:MathisFrame){}
@@ -416,7 +416,7 @@ module mathis{
                     }
                 }
                 else{
-                    let creator=new creation3D.Polyhedron(creation3D.PolyhedronType.Dodecahedron)
+                    let creator=new polyhedron.Polyhedron("dodecahedron")
                     mamesh = creator.go()
                     new mameshModification.TriangleDichotomer(mamesh).go()
                     for (let i=0;i<mamesh.vertices.length;i++) {

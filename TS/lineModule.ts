@@ -12,6 +12,7 @@ module mathis{
             cannotOverwriteExistingLines=true
             
             startingVertices:Vertex[]=null
+            startingSegments:Vertex[][]=null
             restrictLinesToTheseVertices:Vertex[]=null
             
             lookAtBifurcation=true
@@ -49,45 +50,33 @@ module mathis{
                         }
                     }
 
-                    // let endToLines=new HashMap<Vertex,Line>()
-                    // let beginToLine=new HashMap<Vertex,Line>()
-                    // for (let line of preres){
-                    //     if (!line.isLoop){
-                    //         beginToLine.putValue(line.vertices[0],line)
-                    //         endToLines.putValue(line.vertices[line.vertices.length-1],line)
-                    //     }
-                    //     else res.push(line)
-                    // }
-                    //
-                    // for (let line of preres){
-                    //     if (!line.isLoop){
-                    //         let end:Vertex=line.vertices[line.vertices.length-1]
-                    //
-                    //
-                    //         let l=beginToLine.getValue(end)
-                    //         if (l!=null){
-                    //             let beforeEnd:Vertex=line.vertices[line.vertices.length-2]
-                    //             if
-                    //
-                    //
-                    //         }
-                    //
-                    //
-                    //
-                    //
-                    //
-                    //     }
-                    // }
+
 
                 }
-                else res=preres
+                if(this.startingSegments!=null){
+                    let hashDico=new StringMap<boolean>()
+                    for (let [v0,v1] of this.startingSegments) hashDico.putValue(Hash.segment(v0,v1),true)
+                    for (let line of preres){
+                        let addOne=0
+                        if (line.isLoop) addOne=1
+                        for (let i=0;i<line.vertices.length+addOne;i++){
+                            if (hashDico.getValue(Hash.segment(line.vertices[i],line.vertices[(i+1)%line.vertices.length]))==true) {
+                                res.push(line)
+                                break
+                            }
+                        }
+                    }
+
+
+                }
+                if(this.startingVertices==null &&this.startingSegments==null) res=preres
 
                 if (this.restrictLinesToTheseVertices!=null) {
                     let cutter=new LinesCuter(res,this.restrictLinesToTheseVertices)
                     res=cutter.go()
                 }
                 
-                this.mamesh.lines = res
+                //this.mamesh.lines = res
 
                 return res
             }
@@ -384,8 +373,12 @@ module mathis{
 
             symmetries:((a:XYZ)=>XYZ)[]=null
 
-
             OUT_nbFoundSymmetricLines=0
+
+
+            OUT_lineIndexToColorIndex:number[]=[]
+
+
 
             go():HashMap<Line,number>{
 
@@ -488,7 +481,10 @@ module mathis{
                 
                 for (let i=0;i<this.mamesh.lines.length;i++){
                     res2.putValue(this.mamesh.lines[i],res[i])
+                    this.OUT_lineIndexToColorIndex[i]=res[i]
                 }
+
+
                 return res2
 
             }

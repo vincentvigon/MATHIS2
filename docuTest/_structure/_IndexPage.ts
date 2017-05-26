@@ -12,7 +12,9 @@ declare function prettyPrint()
 
 module mathis{
 
-    export module documentation{
+    export module appli{
+
+
 
         export class Enlarger{
 
@@ -91,6 +93,7 @@ module mathis{
 
             /**only when testMode=true*/
             identification:Identification=null
+            eventManager:EventManager
 
 
             protected severalPages:SeveralPages
@@ -103,6 +106,8 @@ module mathis{
                 this.enlarger=new Enlarger($('#enlargeLeft'),$('#enlargeRight'),$('#mainLeftCol'),$('#mainRightCol'))
 
                 this.navigator=new Navigator(this.severalPages,this)
+
+                this.eventManager=new EventManager(this)
 
             }
 
@@ -128,8 +133,6 @@ module mathis{
                     else this.afterIdentification()
                 }
                 else this.afterIdentification()
-
-
 
             }
 
@@ -204,7 +207,8 @@ module mathis{
 
             showMainIndex(fromNavigator:boolean){
 
-                this.mathisFrame.cleanAllPeriodicActions()
+                this.eventManager.fireEvent(new Event('showMainIndex'))
+
 
                 if (!fromNavigator) {
                     this.navigator.pushState({type:'index'})
@@ -231,12 +235,9 @@ module mathis{
                 else{
                     $pageContent.empty().append(this.severalPages.$visual)
                     this.severalPages.remakeHandlers()
-
                     startDemo(this.mathisFrame)
-
                 }
             }
-
         }
 
 
@@ -369,6 +370,231 @@ module mathis{
 
 
         }
+
+
+
+        export class Navigator{
+
+            idToParts=new StringMap<OnePart>()
+
+            constructor(private severalPages:SeveralPages,private indexPage:IndexPage){
+            }
+
+            pushState(obj){
+                //let name='#'+encodeURI(JSON.stringify(obj))
+                let name='#'+JSON.stringify(obj)
+
+                history.pushState(name,name,name)
+            }
+
+            registerAllPieceOfCodes(){
+
+                for (let onePage of this.severalPages.idToPage.allValues()){
+                    let severalParts:SeveralParts=onePage.severalParts
+                    if (onePage.severalParts!=null){
+                        for (let onePart of severalParts.allParts){
+                            if(onePart.pieceOfCode!=null) this.idToParts.putValue(onePart.name,onePart)
+                        }
+                    }
+                }
+            }
+
+
+            goTo(actionString:string){
+
+                indexPage.mathisFrame.cleanAllPeriodicActions()
+
+                /**on enlève le '#' et l'on parse la string*/
+                let action= JSON.parse(actionString.slice(1))
+
+
+                if (action.type==null) throw 'in navigator, action :'+actionString+', has no type'
+                else if (action.type=='part'){
+                    this.goToPartWithSomeConfiguration(action.name,action.configuration)
+                }
+                else if (action.type=='page'){
+                    this.goToPage(action.name)
+                }
+                else if (action.type=='index'||action.type=='login'){
+                    this.indexPage.showMainIndex(true)
+                }
+                else console.log("no action for state:"+action.type)
+            }
+
+
+            goToPage(pageName:string):void{
+
+                for (let onePage of this.severalPages.idToPage.allValues()){
+                    if (onePage.pageIdAndTitle==pageName) {
+                        this.severalPages.goToPage(onePage,true,true)
+                    }
+                }
+            }
+
+
+            goToPartWithSomeConfiguration(partName:string,config:any):void{
+
+                for (let onePage of this.severalPages.idToPage.allValues()){
+
+                    let severalParts:SeveralParts=onePage.severalParts
+
+                    if (onePage.severalParts!=null){
+                        for (let onePart of severalParts.allParts){
+                            if (onePart.name==partName){
+                                this.severalPages.goToPage(onePage,true,false)
+
+                                if (config!=null) {
+                                    for (let key in config) {
+                                        onePart.pieceOfCode[key] = config[key]
+                                    }
+                                }
+                                else {
+                                    for (let key of onePart.pieceOfCode.COMMAND_DICO.allKeys()){
+                                        //cc(key,onePart.binder.allChoices.getValue(key))
+                                        onePart.pieceOfCode[key]=onePart.pieceOfCode.COMMAND_DICO.getValue(key).initialValueMemorized
+                                    }
+                                }
+                                severalParts.clickInOnePlayButton(onePart,true,true)
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        export class Event{
+            from="inside"
+            constructor(
+                public name:string,public precision?:string
+            ){}
+        }
+
+        export class EventManager{
+
+            constructor(private indexPage:IndexPage){}
+
+            fireEvent(event:Event){
+
+                let precision=event.precision||""
+                cc('new event:',event.name,precision)
+
+
+                switch (event.name){
+
+
+
+
+                    case 'changeDemo':{
+                        this.fireEvent(new Event('theViewChange'))
+                    }
+                    break
+
+                    case 'goToPage':{
+                        $('#demoChoice').empty()
+                        this.fireEvent(new Event('theViewChange'))
+
+                    }
+                    break
+
+
+                    case 'clickInOnePlayButton':{
+                        this.fireEvent(new Event('theViewChange'))
+                    }
+                        break
+
+                    case 'showMainIndex':{
+                        $('#demoChoice').empty()
+                        this.fireEvent(new Event('theViewChange'))
+                    }
+                        break
+
+
+                    case 'theViewChange':{
+                        this.indexPage.mathisFrame.messageDiv.empty()
+                        this.indexPage.mathisFrame.emptyAllCorner()
+                        indexPage.mathisFrame.cleanAllPeriodicActions()
+                    }
+                    break
+                }
+            }
+        }
+
+
+
+        class MainIndexPage extends IndexPage{
+
+
+            constructor(mathisFrame:MathisFrame,testMode:boolean){
+                super(mathisFrame,testMode)
+            }
+
+            build(){
+
+                this.severalPages.addPage(new WhyBlabla(this.mathisFrame))
+                this.severalPages.addPage(new PureJavascriptTuto())
+                this.severalPages.addPage(new TypescriptTuto())
+                this.severalPages.addPage(new SimpleObjectsPage(this.mathisFrame))
+                this.severalPages.addPage(new BasicDocu(this.mathisFrame))
+                this.severalPages.addPage(new ReseauDocu(this.mathisFrame))
+                this.severalPages.addPage( new SurfaceDocu(this.mathisFrame))
+                this.severalPages.addPage( new LinksDocu(this.mathisFrame))
+                this.severalPages.addPage(new MacamDocu(this.mathisFrame))
+                this.severalPages.addPage( new VerticesViewingDocu(this.mathisFrame))
+                this.severalPages.addPage( new LinesViewingDocu(this.mathisFrame))
+                this.severalPages.addPage( new LinksViewingDocu(this.mathisFrame))
+                this.severalPages.addPage(new SurfaceViewerDocu(this.mathisFrame))
+                this.severalPages.addPage(new GraphDistance(this.mathisFrame))
+                this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
+                this.severalPages.addPage( new DichoDocu(this.mathisFrame))
+
+                this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
+                //this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
+
+                this.severalPages.addPage( new FractalPage(this.mathisFrame))
+
+
+                this.severalPages.addPage( new TorusPlatonicDocu(this.mathisFrame))
+                // this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
+
+
+
+                /**for coder*/
+                this.severalPages.addSeparator("FOR COLLABORATORS")
+                this.severalPages.addPage( new ColaborateWithGit())
+                this.severalPages.addPage( new DocutestTuto())
+                this.severalPages.addPage( new DocutestTutoAdvanced())
+
+
+                /**pure test*/
+                this.severalPages.addSeparator("PURE TEST (NO DOCU)",true)
+                this.severalPages.addPage( new Creation2dDocu(this.mathisFrame),true)
+
+                // this.severalPages.addSeparator("GUILLAUME'S PAGES",true)
+                // this.severalPages.addPage( new ConnectorTest(this.mathisFrame),true)
+
+            }
+        }
+
+        export var indexPage:IndexPage
+
+        export function startSite(){
+            let mathisFrame=new MathisFrame('placeForMathis')
+            /**Attention : la variable globale indexPage est affectée APRES la construction de MainIndexPage.
+             * Pour toutes les opérations qui se font pendant la construction, indexPage est null ! */
+            indexPage=new MainIndexPage(mathisFrame,false)
+
+            indexPage.go()
+
+        }
+
+
+
+
+
+
+
 
     }
 

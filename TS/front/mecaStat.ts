@@ -61,7 +61,7 @@ module mathis {
 
 
 
-                let sphereMaker=new creation3D.Polyhedron(creation3D.PolyhedronType.Dodecahedron)
+                let sphereMaker=new polyhedron.Polyhedron("dodecahedron")
                 let mamesh=sphereMaker.go()
 
                 for (let i =0;i<this.nbDicho;i++){
@@ -125,7 +125,7 @@ module mathis {
 
 
                 let commonSizes=positioning.getValue(mamesh.vertices[0]).scaling
-                let action=new PeriodicActionBeforeRender(()=>{
+                let action=new PeriodicAction(()=>{
                     let changed=ising.iterateAndGetChangedVertices()
                     changed.allKeys().forEach((v:Vertex)=>{
                         if (v.customerObject.value==0) {

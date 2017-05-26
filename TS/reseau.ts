@@ -257,8 +257,6 @@ module mathis{
         }
 
 
-        
-
         export class BasisForRegularReseau{
             nbI=3
             set_nbJ_toHaveRegularReseau=false
@@ -401,18 +399,12 @@ module mathis{
 
             putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
 
+            generator:BasisForRegularReseau
+            OUT_paramToVertex=new HashMap<XYZ,Vertex>(true)
+
             constructor( generator?:BasisForRegularReseau){
                 this.mamesh=new Mamesh()
-                if (generator!=null){
-                    let VV=generator.go()
-                    this.Vi.copyFrom(VV.Vi)
-                    this.Vj.copyFrom(VV.Vj)
-                    this.nbI=VV.nbI
-                    this.nbJ=VV.nbJ
-                    this.origine.copyFrom(generator.origin)
-                    this.squareVersusTriangleMaille=generator.squareMailleInsteadOfTriangle
-                }
-
+                this.generator=generator
             }
 
 
@@ -436,7 +428,7 @@ module mathis{
                 this._xyz.y=j
                 this._xyz.z=this.fixedK
 
-                return this.paramToVertex.getValue(this._xyz)//this.paramToVertex[i+','+j]
+                return this.OUT_paramToVertex.getValue(this._xyz)//this.paramToVertex[i+','+j]
             }
 
             
@@ -445,12 +437,24 @@ module mathis{
             private _kDirection=new XYZ(0,0,0)
 
 
-            paramToVertex=new HashMap<XYZ,Vertex>(true)
 
             go():Mamesh{
 
+                if (this.generator!=null){
+
+                    let VV=this.generator.go()
+                    this.Vi.copyFrom(VV.Vi)
+                    this.Vj.copyFrom(VV.Vj)
+                    this.nbI=VV.nbI
+                    this.nbJ=VV.nbJ
+                    this.origine.copyFrom(this.generator.origin)
+                    this.squareVersusTriangleMaille=this.generator.squareMailleInsteadOfTriangle
+                }
+
 
                 this.checkArgs()
+
+
 
 
                 for (let i=0; i<this.nbI; i++){
@@ -467,7 +471,7 @@ module mathis{
 
                             if (this.putAVertexOnlyAtXYZCheckingThisCondition==null || this.putAVertexOnlyAtXYZCheckingThisCondition(position)){
                                 let vertex = this.mamesh.newVertex(position,0,param)
-                                this.paramToVertex.putValue(param,vertex)
+                                this.OUT_paramToVertex.putValue(param,vertex)
                             }
                         }
                     }
@@ -489,7 +493,7 @@ module mathis{
 
                                 if (this.putAVertexOnlyAtXYZCheckingThisCondition == null || this.putAVertexOnlyAtXYZCheckingThisCondition(position)) {
                                     let vertex:Vertex = this.mamesh.newVertex(position, 0, param)
-                                    this.paramToVertex.putValue(param,vertex)
+                                    this.OUT_paramToVertex.putValue(param,vertex)
 
                                 }
 
@@ -589,8 +593,8 @@ module mathis{
 
                 this.mamesh.vertices.forEach((cell:Vertex)=> {
 
-                    makeLinksFromDeltaParam(cell, XYZ.temp0(1,0,0),XYZ.temp1(-1,0,0),this.paramToVertex)
-                    makeLinksFromDeltaParam(cell, XYZ.temp0(0,1,0),XYZ.temp1(0,-1,0),this.paramToVertex)
+                    makeLinksFromDeltaParam(cell, XYZ.temp0(1,0,0),XYZ.temp1(-1,0,0),this.OUT_paramToVertex)
+                    makeLinksFromDeltaParam(cell, XYZ.temp0(0,1,0),XYZ.temp1(0,-1,0),this.OUT_paramToVertex)
 
 
                     // {
@@ -628,7 +632,7 @@ module mathis{
                 let dir1=new XYZ(1,0,0)
                 let dir2=new XYZ(0,1,0)
                 for (let vertex of this.mamesh.vertices){
-                    makeSquareFromDeltaParam(vertex,this.mamesh,dir1,dir2,this.paramToVertex)
+                    makeSquareFromDeltaParam(vertex,this.mamesh,dir1,dir2,this.OUT_paramToVertex)
                 }
                 
                 // for (let i = 0; i<this.nbI-1; i++){
@@ -659,23 +663,23 @@ module mathis{
 
                 this.mamesh.vertices.forEach((cell:Vertex)=> {
 
-                    makeLinksFromDeltaParam(cell,XYZ.temp0(1,0,0),XYZ.temp1(-1,0,0),this.paramToVertex)
+                    makeLinksFromDeltaParam(cell,XYZ.temp0(1,0,0),XYZ.temp1(-1,0,0),this.OUT_paramToVertex)
                     
                     /**even lines */
                     if (cell.param.y%2==0){
                         /** sud est - nord ouest*/
-                        makeLinksFromDeltaParam(cell,XYZ.temp0(1,1,0),XYZ.temp1(0,-1,0),this.paramToVertex)
+                        makeLinksFromDeltaParam(cell,XYZ.temp0(1,1,0),XYZ.temp1(0,-1,0),this.OUT_paramToVertex)
                         /** sud ouest - nord est*/
-                        makeLinksFromDeltaParam(cell,XYZ.temp0(0,1,0),XYZ.temp1(1,-1,0),this.paramToVertex)
+                        makeLinksFromDeltaParam(cell,XYZ.temp0(0,1,0),XYZ.temp1(1,-1,0),this.OUT_paramToVertex)
 
                     }
                     /**odd lines */
                     else {
                         /**sud est - nord ouest*/
-                        makeLinksFromDeltaParam(cell,XYZ.temp0(0,1,0),XYZ.temp1(-1,-1,0),this.paramToVertex)
+                        makeLinksFromDeltaParam(cell,XYZ.temp0(0,1,0),XYZ.temp1(-1,-1,0),this.OUT_paramToVertex)
 
                         /**sud ouest - nord est*/
-                        makeLinksFromDeltaParam(cell,XYZ.temp0(-1,1,0),XYZ.temp1(0,-1,0),this.paramToVertex)
+                        makeLinksFromDeltaParam(cell,XYZ.temp0(-1,1,0),XYZ.temp1(0,-1,0),this.OUT_paramToVertex)
                     }
 
                 });
@@ -727,6 +731,148 @@ module mathis{
             }
             
         }
+
+
+        export class Regular2dPlus{
+
+
+            nbI=3
+            set_nbJ_toHaveRegularReseau=false
+            nbJ=3
+            origin=new XYZ(-0.7,-0.7,0)
+            end=new XYZ(0.7,0.7,0)
+            nbVerticalDecays=0
+            nbHorizontalDecays=0
+            squareMailleInsteadOfTriangle=true
+
+
+            makeLinks=true
+            makeTriangleOrSquare=true
+            oneMoreVertexForOddLine=false
+            holeParameters=new HashMap<XYZ,boolean>()
+            markCorner=true
+            markBorder=true
+            markCenter=true
+            putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
+
+            createBandsWithLines=false
+            nbVerticalBands:number=null
+            nbHorizontalBands:number=null
+            adapt_nbInbJ_forRegularity=true
+
+
+            constructor(){
+            }
+
+
+
+
+            go():Mamesh{
+
+
+                /**creation de la base*/
+                let basisCrea=new BasisForRegularReseau()
+                basisCrea.nbI=this.nbI
+                basisCrea.set_nbJ_toHaveRegularReseau=this.set_nbJ_toHaveRegularReseau
+                basisCrea.nbJ=this.nbJ
+                basisCrea.origin=this.origin
+                basisCrea.end=this.end
+                basisCrea.nbVerticalDecays=this.nbVerticalDecays
+                basisCrea.nbHorizontalDecays=this.nbHorizontalDecays
+                basisCrea.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
+                let VV=basisCrea.go()
+
+
+                let creator=new Regular()
+                creator.Vi.copyFrom(VV.Vi)
+                creator.Vj.copyFrom(VV.Vj)
+                creator.nbI=VV.nbI
+                creator.nbJ=VV.nbJ
+                creator.origine.copyFrom(basisCrea.origin)
+                creator.squareVersusTriangleMaille=basisCrea.squareMailleInsteadOfTriangle
+
+
+                /**éventuellement, on adapte nbJ et nbJ pour des bandes régulières*/
+                let widthVert:number
+                let widthHor:number
+                if (this.createBandsWithLines){
+                    if (this.nbVerticalBands==null) this.nbVerticalBands=creator.nbI
+                    if (this.nbHorizontalBands==null) this.nbHorizontalBands=creator.nbJ
+
+                    widthVert=Math.floor(creator.nbI/this.nbVerticalBands)
+                    widthHor=Math.floor(creator.nbJ/this.nbHorizontalBands)
+
+                    if (this.adapt_nbInbJ_forRegularity){
+                        if(this.nbVerticalBands!=0) creator.nbI=this.nbVerticalBands*widthVert+1
+                        if(this.nbHorizontalBands!=0) creator.nbJ=this.nbHorizontalBands*widthHor+1
+                    }
+                }
+
+
+
+
+                creator.makeLinks=this.makeLinks
+                creator.makeTriangleOrSquare=this.makeTriangleOrSquare
+                creator.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine
+                creator.holeParameters=this.holeParameters
+                creator.markCorner=this.markCorner
+                creator.markBorder=this.markBorder
+                creator.markCenter=this.markCenter
+                creator.putAVertexOnlyAtXYZCheckingThisCondition=this.putAVertexOnlyAtXYZCheckingThisCondition
+
+                let mamesh=creator.go()
+
+
+
+
+                if (this.createBandsWithLines&&(this.nbVerticalBands>0||this.nbHorizontalBands>0)) {
+                    let lineBuilder = new lineModule.LineComputer(mamesh)
+
+                    if (this.squareMailleInsteadOfTriangle) {
+
+                        lineBuilder.startingSegments = []
+
+
+                        if (this.nbVerticalBands > 0) {
+                            for (let i = 0; i < this.nbVerticalBands + 1; i++) {
+                                let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
+                                let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
+                                lineBuilder.startingSegments.push([v0, v1])
+                            }
+                        }
+                        if (this.nbHorizontalBands > 0) {
+                            for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
+                                let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
+                                let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
+                                lineBuilder.startingSegments.push([v0, v1])
+                            }
+                        }
+                    }
+                    else{
+
+                        lineBuilder.startingVertices=[]
+                        for (let vertex of mamesh.vertices) {
+                            if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
+                            if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
+
+                        }
+
+                    }
+
+                    mamesh.lines = lineBuilder.go()
+                }
+
+
+
+                return mamesh
+
+            }
+
+
+
+
+        }
+
 
         export class Regular1D{
 
@@ -838,7 +984,7 @@ module mathis{
                     twoD.putAVertexOnlyAtXYZCheckingThisCondition=this.putAVertexOnlyAtXYZCheckingThisCondition
                     /** chaque strate est un mamesh. On ne les mémorise plus comme avant*/
                     let twoDimMamesh=twoD.go()
-                    for (let entry of twoD.paramToVertex.allEntries()){
+                    for (let entry of twoD.OUT_paramToVertex.allEntries()){
                        this.mamesh.vertices.push(entry.value)
                        this.paramToVertex.putValue(entry.key,entry.value)
                     }

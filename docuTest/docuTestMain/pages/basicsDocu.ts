@@ -4,7 +4,7 @@
 
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class BasicDocu implements OnePage{
@@ -31,8 +31,8 @@ module mathis{
 
         class SimpleMamesh implements PieceOfCode{
 
-            $$$name="SimpleMamesh"
-            $$$title="A simple Mamesh with polygons and links"
+            NAME="SimpleMamesh"
+            TITLE="A simple Mamesh with polygons and links"
 
             link=true
             $$$link=new Choices([true,false])
@@ -115,8 +115,8 @@ module mathis{
 
         class SimpleMameshLine implements PieceOfCode{
 
-            $$$name="SimpleMameshLine"
-            $$$title="the same mamesh, but we also add lines"
+            NAME="SimpleMameshLine"
+            TITLE="the same mamesh, but we also add lines"
 
             link=true
             $$$link=new Choices([true,false])
@@ -226,8 +226,8 @@ module mathis{
 
         
         class LineDocu implements PieceOfCode{
-            $$$name="LineDocu"
-            $$$title="Defining lines joining vertices"
+            NAME="LineDocu"
+            TITLE="Defining lines joining vertices"
 
             makeLoop=false
             $$$makeLoop=new Choices([true,false])
@@ -291,6 +291,7 @@ module mathis{
                 let linesViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
                 linesViewer.interpolationOption.interpolationStyle= interpolationStyle
                 linesViewer.interpolationOption.loopLine=makeLoop
+
                 linesViewer.go()
                 new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene).go()
 

@@ -5,12 +5,21 @@
 
 module mathis{
 
+
+
+    export function jQueryOK(ifNotThrowException=false){
+        if(typeof $ !== 'undefined') return true
+        if (ifNotThrowException) throw "jQuery is not present"
+        else return false
+    }
+
     
     import GrabberCamera = mathis.macamera.GrabberCamera;
-    export class PeriodicActionBeforeRender{
+    export class PeriodicAction{
 
         /**if 1, the action is just done 1 times*/
         nbTimesThisActionMustBeFired=Number.POSITIVE_INFINITY
+        isPaused=false
         firedCount=0
 
         id:string=""
@@ -45,6 +54,17 @@ module mathis{
         
         
         messageDiv:MessageDiv
+
+        /**only when jQuery is added*/
+        subWindow_NE:SubWindow
+        subWindow_NW:SubWindow
+        subWindow_N:SubWindow
+        subWindow_SE:SubWindow
+        subWindow_SW:SubWindow
+        subWindow_S:SubWindow
+        subWindow_W:SubWindow
+        subWindow_E:SubWindow
+
 
 
         showFPSinCorner(){
@@ -87,20 +107,32 @@ module mathis{
                 else if (htmlElementOrId instanceof HTMLElement) this.canvasParent = <HTMLElement> htmlElementOrId
                 else throw 'htmlElementOrId must be an htmlElement or the id of an html element'
 
-
-
             }
 
 
-            if (this.canvasParent.offsetHeight<10) throw "the container-height is too small"
-            if (this.canvasParent.offsetWidth<10) throw "the container-width is too small"
+            if (this.canvasParent.offsetHeight<10) throw "the container-height is too small. Perhaps no css-included ?"
+            if (this.canvasParent.offsetWidth<10) throw "the container-width is too small.  Perhaps no css-included ?"
 
 
             this.canvas=document.createElement('canvas')
             /**ils mettent cette ligne dans le premier tuto de Babylon. J'imagine pour utiliser hand.JS*/
             this.canvas.style.touchAction="none"
             this.canvasParent.appendChild(this.canvas)
-            this.canvasParent.style.position="relative"
+            // let style = getComputedStyle(this.canvasParent);
+            // if(style.position==null||style.position==""){
+            //           throw("the proposed place for mathisFrame, had no a style.position given (must be relative, absolute or fixed). " +
+            //               "So it is automatically put to relative ")}
+
+           // let style = getComputedStyle(this.canvasParent);
+           //  setTimeout(()=>{
+           //  if(style.position==null||style.position==""){
+           //      logger.c("the proposed place for mathisFrame, had no a style.position given (must be relative, absolute or fixed). " +
+           //          "So it is automatically put to relative ")
+           //      this.canvasParent.style.position="relative"
+           //  }},30
+           // )
+
+            /**it is important that the parent has position*/
             this.set100(this.canvas)
 
 
@@ -163,10 +195,14 @@ module mathis{
                     frameCount++
 
 
-                    for (let key in this.actionsBeforeRender){
-                        let act:PeriodicActionBeforeRender=this.actionsBeforeRender[key]
+                    for (let key in this.periodicActions){
 
-                        //cc(frameCount%4)
+                        let act:PeriodicAction=this.periodicActions[key]
+
+                        if (act.isPaused) continue
+
+
+
                         if (act.timeIntervalMilli==null && act.frameInterval==null) {
                             act.frameInterval=1
                             logger.c("no intervalle given for a periodic action: by default the action is fired every frame")
@@ -201,8 +237,17 @@ module mathis{
                 this.addDefaultCamera()
             }
 
-
-            this.messageDiv=new MessageDiv(this)
+            if (jQueryOK()) {
+                this.messageDiv = new MessageDiv(this)
+                this.subWindow_NE = new SubWindow(this, 'NE')
+                this.subWindow_NW = new SubWindow(this, 'NW')
+                this.subWindow_N = new SubWindow(this, 'N')
+                this.subWindow_SE = new SubWindow(this, 'SE')
+                this.subWindow_SW = new SubWindow(this, 'SW')
+                this.subWindow_S = new SubWindow(this, 'S')
+                this.subWindow_W = new SubWindow(this, 'W')
+                this.subWindow_E = new SubWindow(this, 'E')
+            }
 
         }
 
@@ -246,9 +291,21 @@ module mathis{
 
         }
 
+        emptyAllCorner(){
+            jQueryOK(true)
+            this.subWindow_NW.empty()
+            this.subWindow_NE.empty()
+            this.subWindow_N.empty()
+            this.subWindow_SW.empty()
+            this.subWindow_SE.empty()
+            this.subWindow_S.empty()
+
+            this.subWindow_W.empty()
+            this.subWindow_E.empty()
+        }
 
         addDefaultLight():void{
-            var light0 = new BABYLON.HemisphericLight("Hemi0", new BABYLON.Vector3(-1, 1, -1), this.scene);
+            var light0 = new BABYLON.HemisphericLight("Hemi0", new BABYLON.Vector3(-2.5, 1.4, -3.3), this.scene);
             // light0.diffuse = new BABYLON.Color3(1, 1, 1);
             // light0.specular = new BABYLON.Color3(1, 1, 1);
             // light0.groundColor = new BABYLON.Color3(0, 0, 0);
@@ -274,27 +331,33 @@ module mathis{
         }
 
 
-        private actionsBeforeRender:Array<PeriodicActionBeforeRender>=[]
-        private sortAction=(action1:PeriodicActionBeforeRender,action2:PeriodicActionBeforeRender)=>action1.passageOrderIndex-action2.passageOrderIndex
+        periodicActions:PeriodicAction[]=[]
+        private sortAction=(action1:PeriodicAction, action2:PeriodicAction)=>action1.passageOrderIndex-action2.passageOrderIndex
 
-        pushPeriodicAction(action:PeriodicActionBeforeRender):void{
-            this.actionsBeforeRender.push(action)
-            this.actionsBeforeRender.sort(this.sortAction)
+        pushPeriodicAction(action:PeriodicAction):void{
+            this.periodicActions.push(action)
+            this.periodicActions.sort(this.sortAction)
         }
-        private suppressPeriodicAction(action:PeriodicActionBeforeRender):void{
-            let index=this.actionsBeforeRender.indexOf(action)
+        private suppressPeriodicAction(action:PeriodicAction):void{
+            let index=this.periodicActions.indexOf(action)
             if (index==-1) throw 'this action is not registered'
-            this.actionsBeforeRender.splice(index,1)
+            this.periodicActions.splice(index,1)
         }
         cleanAllPeriodicActions():void{
-            this.actionsBeforeRender=[]
+            this.periodicActions=[]
+        }
+        pauseAllPeriodicActions():void{
+            for (let action of this.periodicActions) action.isPaused=true
+        }
+        unpauseAllPeriodicActions():void{
+            for (let action of this.periodicActions) action.isPaused=false
         }
 
         
         backgroundColor =new Color("#d3d3d3")
         $info:HTMLElement
         
-        private fireAction(ac:PeriodicActionBeforeRender){
+        private fireAction(ac:PeriodicAction){
             ac.action()
             ac.firedCount++
             if (ac.firedCount>=ac.nbTimesThisActionMustBeFired) {
@@ -383,11 +446,72 @@ module mathis{
             this.canvas.addEventListener(prefix + "up", upAction, false);
 
 
-
         }
-        
-
     }
+
+
+    export class SubWindow{
+
+
+        $visual
+        constructor(private mathisFrame:MathisFrame,className:string){
+            jQueryOK(true)
+            this.$visual = $('<div class="subWindow">');
+            this.$visual.addClass(className)
+            this.mathisFrame.canvasParent.appendChild(this.$visual[0])
+        }
+
+
+
+        appendAndGoToLine($obj:any){
+            this.$visual.append($('<div>').append($obj))
+        }
+
+        append($obj:any){
+            this.$visual.append($obj)
+        }
+
+        empty(){
+            this.$visual.empty()
+        }
+    }
+
+    // class NE_CornerWindow extends CornerWindow{
+    //
+    //     constructor(mathisFrame:MathisFrame){
+    //         super(mathisFrame)
+    //
+    //         this.$visual[0].style.top='0';
+    //         this.$visual[0].style.left='0';
+    //     }
+    // }
+    // class NO_CornerWindow extends CornerWindow{
+    //
+    //     constructor(mathisFrame:MathisFrame){
+    //         super(mathisFrame)
+    //         //this.$visual[0].style.top='0';
+    //         //this.$visual[0].style.right='0';
+    //         this.$visual.css({
+    //             top:'0',
+    //             right:'0',
+    //             textAlign:'right'
+    //         })
+    //     }
+    // }
+    //
+    // class N_CornerWindow extends CornerWindow{
+    //
+    //     constructor(mathisFrame:MathisFrame){
+    //         super(mathisFrame)
+    //
+    //         this.$visual.css({
+    //             top:'0',
+    //             right:"50%"
+    //         })
+    //     }
+    // }
+
+
 
 
     export class MessageDiv{
@@ -418,6 +542,8 @@ module mathis{
             $message.innerHTML=message
             this.$logDiv.appendChild($message)
         }
+
+
 
         empty(){
             if (this.$logDiv==null)return
@@ -452,7 +578,7 @@ module mathis{
         addDefaultLight(){}
         getGrabberCamera(){return new EmptyGrabberCameraForTest() }
         addDefaultCamera(){}
-        pushPeriodicAction(action:PeriodicActionBeforeRender):void{}
+        pushPeriodicAction(action:PeriodicAction):void{}
         set100(element:HTMLElement){}
 
     }

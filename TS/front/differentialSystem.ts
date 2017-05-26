@@ -228,7 +228,7 @@ module mathis{
 
                 let curentTime=0
 
-                let mainAction=new PeriodicActionBeforeRender(()=>{
+                let mainAction=new PeriodicAction(()=>{
                     curentTime+=this.deltaT
                     let point = new XYZ(0,0,0)
                     this.computeNewPathPoint(snake.getHeadPosition(), curentTime,point)
@@ -255,7 +255,7 @@ module mathis{
 
                 /**onClick, we restart the snake*/
                 (<any> this.planForClick).onClick=(dep:XYZ)=>{
-                    let action=new PeriodicActionBeforeRender(()=>{
+                    let action=new PeriodicAction(()=>{
                         snake.contractInOnePoint(dep)
                     })
                     action.frameInterval=1

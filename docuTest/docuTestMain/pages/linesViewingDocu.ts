@@ -13,7 +13,7 @@
  */
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class LinesViewingDocu implements OnePage{
@@ -49,9 +49,9 @@ module mathis{
             NO_TEST=true
 
 
-            $$$name="JustTheSizeOfLines"
+            NAME="JustTheSizeOfLines"
 
-            $$$title="We change radius and interpolation style"
+            TITLE="We change radius and interpolation style"
 
             nbSides=4
             $$$nbSides=[4,7,10]
@@ -59,26 +59,40 @@ module mathis{
             nbSubdivisionInARadius=3
             $$$nbSubdivisionInARadius=[2,3,5]
 
-            color=Color.names.rebeccapurple
-            $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
-                {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
+            // color=Color.names.rebeccapurple
+            // $$$color=new Choices([Color.names.rebeccapurple,Color.names.rosybrown,Color.names.darkorange],
+            //     {'before':'Color.names.','visualValues':['rebeccapurple','rosybrown','darkorange']})
 
 
             radiusProp=0.05
             $$$radiusProp=[0.01,0.05,0.1]
 
-            constantRadius=null
-            $$$constantRadius=[null,0.01,0.02,0.05]
+            constantRadius=0.01
+            $$$constantRadius=[0.01,0.02,0.05]
 
-            isThin=false
+            isThin=true
             $$$isThin=[true,false]
 
-            radiusFunction=null
-            $$$radiusFunction=[null,function(i,alpha){return 0.02*Math.sin(2*Math.PI*alpha)}]
+            radiusFunction=function(i,alpha){return alpha*0.05}
+            $$$radiusFunction=[
+                function(alpha,position){return alpha*0.05},
+                function(alpha,position){return geo.norme(position)*0.05},
+                function(alpha,position){return 0.02*Math.sin(2*Math.PI*alpha)},
+                function(alpha,position){return 0.1*position.x},
+                function(alpha,position){return 0.1*position.y*alpha}
+            ]
+
+
+
 
 
             interpolationStyle=geometry.InterpolationStyle.octavioStyle
             $$$interpolationStyle=new Choices(allIntegerValueOfEnume(geometry.InterpolationStyle),{"before":"geometry.InterpolationStyle.","visualValues":allStringValueOfEnume(geometry.InterpolationStyle)})
+
+
+
+            radiusChoices='default'
+            $$$radiusChoices=['default','constant','proportional','varying']
 
 
 
@@ -108,18 +122,38 @@ module mathis{
 
                 //n
 
+                switch (this.radiusChoices){
 
-                /**to have line of one pixel*/
-                linesViewer.isThin=this.isThin
-                /**useless is previous is not false :
-                 * argument 'i' is the index of the line in the lineCatalogue of the mamesh (see further)
-                 * argument 'alpha' in range [0,1] is the position in the line
-                 * return the radius of the i-th lines at the position alpha*/
-                linesViewer.radiusFunction=this.radiusFunction
-                /**useless if one of the previous is not null/false*/
-                linesViewer.constantRadius=this.constantRadius
-                /**useless if one of the previous is not null/false*/
-                linesViewer.radiusProp=this.radiusProp
+                    case 'default':{
+
+                    }
+                        break
+                    case 'constant':{
+                        linesViewer.constantRadius=this.constantRadius
+                    }
+                        break
+
+
+                    case 'proportional':{
+                        /**proportionnal according to vertex spacing*/
+                        linesViewer.radiusProp=this.radiusProp
+                    }
+                        break
+                    case 'varying':{
+                        /** argument 'alpha' in [0,1] represent the proportionnal length from line-begin to the current point of the line
+                         *  arument 'position' represent the absolute position of current point of the line */
+                        linesViewer.radiusFunction=this.radiusFunction
+                    }
+                        break
+
+                    case 'thin':{
+                        /**to have line of one pixel*/
+                        linesViewer.isThin=this.isThin
+                    }
+
+                }
+
+
 
 
                 linesViewer.go()
@@ -144,9 +178,9 @@ module mathis{
 
 
 
-            $$$name="DoNotDrawAllTheLines"
+            NAME="DoNotDrawAllTheLines"
 
-            $$$title="We construct only the lines starting from selected vertices."
+            TITLE="We construct only the lines starting from selected vertices."
 
             nbI=10
             $$$nbI=[5,10,12,15,20]
@@ -225,9 +259,9 @@ module mathis{
         class DoNotDrawAllTheLines3d implements PieceOfCode{
 
 
-            $$$name="DoNotDrawAllTheLines3d"
+            NAME="DoNotDrawAllTheLines3d"
 
-            $$$title="variant with 3d cartesian reseau"
+            TITLE="variant with 3d cartesian reseau"
 
             nbI=10
             $$$nbI=[5,10,12,15,20]
@@ -317,9 +351,9 @@ module mathis{
 
 
 
-            $$$name="DrawOnlyLinePassingInside"
+            NAME="DrawOnlyLinePassingInside"
 
-            $$$title="We draw lines only passing inside selected vertices"
+            TITLE="We draw lines only passing inside selected vertices"
 
             nbI=10
             $$$nbI=[5,10,12,15,20]
@@ -400,9 +434,9 @@ module mathis{
 
 
 
-            $$$name="ChoseColorOfLinesAccordingToLevel"
+            NAME="ChoseColorOfLinesAccordingToLevel"
 
-            $$$title="colors of vertical lines are chosen via lineToColor. color of horizontal lines are chosen via a lineToLevel"
+            TITLE="colors of vertical lines are chosen via lineToColor. color of horizontal lines are chosen via a lineToLevel"
 
             nbI = 11
             $$$nbI=new Choices([11,5,15])
@@ -469,20 +503,20 @@ module mathis{
 
         class ChoseColorOfLinesAccordingToSymmetries implements PieceOfCode{
 
-            $$$name="ChoseColorOfLinesAccordingToSymmetries"
+            NAME="ChoseColorOfLinesAccordingToSymmetries"
 
-            $$$title="We color symmetric lines with the same color"
+            TITLE="We color symmetric lines with the same color"
             
-            nbI = 11
-            $$$nbI=new Choices([11,5,15])
+            // nbI = 11
+            // $$$nbI=new Choices([11,5,15])
 
-            oneMoreVertexForOddLine=false
-            $$$oneMoreVertexForOddLine=new Choices([true,false])
+            // oneMoreVertexForOddLine=false
+            // $$$oneMoreVertexForOddLine=new Choices([true,false])
             
-            squareMaille=true
-            $$$squareMaille=new Choices([true,false])
-            Vj=new XYZ(0,0.1,0)
-            $$$Vj=new Choices([new XYZ(0,0.1,0),new XYZ(0.05,0.1,0)],{"before":"new mathis.XYZ"})
+            // squareMaille=true
+            // $$$squareMaille=new Choices([true,false])
+            // Vj=new XYZ(0,0.1,0)
+            // $$$Vj=new Choices([new XYZ(0,0.1,0),new XYZ(0.05,0.1,0)],{"before":"new mathis.XYZ"})
 
 
             selectionChoice=0
@@ -546,9 +580,9 @@ module mathis{
         
         class ChoseColorOfLinesBifurcation implements PieceOfCode{
 
-            $$$name="ChoseColorOfLinesBifurcation"
+            NAME="ChoseColorOfLinesBifurcation"
 
-            $$$title="We color bifurcation with the same color"
+            TITLE="We color bifurcation with the same color"
 
             nbSides=7
             $$$nbSides=[4,7,10]
@@ -557,8 +591,8 @@ module mathis{
             $$$nbSubdivisionInARadius=[2,3,5]
 
 
-            selectionChoice=0
-            $$$selectionChoice=[0,1,2]
+            // selectionChoice=0
+            // $$$selectionChoice=[0,1,2]
 
 
             _nbLevels:number

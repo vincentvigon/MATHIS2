@@ -1,15 +1,76 @@
+//compilation of all the TS-source. For an internal use only.
+//to compile only the distributed TS, compile the other json
 {
   "compilerOptions": {
+    "module": "none",
     "target": "es5",
     "removeComments": false,
     "sourceMap": true,
     "out": "JS/MATHIS.js",
     "declaration":false,
-    "diagnostics":false,
-    "watch":true
+    "diagnostics":false
   },
   "exclude": [
-    "JS/MATHIS.d.ts",
-    "JS/MATHIS3.d.ts"
+    "**/MATHIS.d.ts",
+    "small_projects/**/JS/",
+    "TS/_fakeBABYLON.ts"
   ]
 }
+
+
+
+// COMPILATEUR SPECIFIC FOR SMALL PROJECT:
+//it actually exclude the TS-files of all small projects, in order to let the small project re-compile
+// these TS-file itself. If is better to minify the generated code after such a compilation
+//{
+//  "compilerOptions": {
+//    "target": "es5",
+//    "removeComments": true,
+//    "sourceMap": true,
+//    "out": "JS_small/MATHIS.js",
+//    "declaration":true,
+//    "diagnostics":false
+//  },
+//  "exclude": [
+//    "**/MATHIS.d.ts",
+//    "docuTest/",
+//    "tests/",
+//    "small_projects/"
+//  ]
+//}
+
+
+//{
+//  "compilerOptions": {
+//    "target": "es5",
+//    "removeComments": true,
+//    "sourceMap": true,
+//    "out": "JS_small/MATHIS.js",
+//    "declaration":true,
+//    "diagnostics":false
+//  },
+//  "include": [
+//    "TS/_fakeBABYLON.ts",
+//    "TS/basic.ts",
+//    "TS/creation2D.ts",
+//    "TS/geometry.ts",
+//    "TS/graph.ts",
+//    "TS/grateAndGlue.ts",
+//    "TS/informathis.ts",
+//    "TS/lineModule.ts",
+//    "TS/linkModule.ts",
+//    "TS/mameshModification.ts",
+//    "TS/mameshComputation.ts",
+//    "TS/reseau.ts",
+//    "TS/spacialTransformations.ts",
+//    "TS/symmetries.ts",
+//    "TS/tab.ts",
+//    "TS/zzMain.ts",
+//    "TS/specificMath/proba.ts"
+//  ]
+//}
+
+
+
+
+

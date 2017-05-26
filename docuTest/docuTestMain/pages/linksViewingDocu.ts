@@ -13,7 +13,7 @@
  */
 module mathis{
 
-    export module documentation{
+    export module appli{
 
 
         export class LinksViewingDocu implements OnePage{
@@ -42,9 +42,9 @@ module mathis{
         class JustTheSizeOfLinks implements PieceOfCode{
 
 
-            $$$name="JustTheSizeOfLinks"
+            NAME="JustTheSizeOfLinks"
 
-            $$$title="As a simple usage, you can specified  the color and the lateral-size of links. This size can be relative or absolute."
+            TITLE="As a simple usage, you can specified  the color and the lateral-size of links. This size can be relative or absolute."
 
             nbSides=4
             $$$nbSides=[4,7,10]
@@ -103,18 +103,15 @@ module mathis{
         class OrientationLinksViewing implements PieceOfCode{
 
 
-            $$$name="OrientationLinksViewing"
+            NAME="OrientationLinksViewing"
 
-            $$$title=`Now we specify a model (here an arrow), and indicate which links must be drawn and in which direction.`
-            
+            TITLE=`Now we specify a model (here an arrow), and indicate which links must be drawn and in which direction.`
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
+            polyhedronType="cube"
+            $$$polyhedronType=polyhedron.platonic
 
-
-            showLateralDirection=false
-            $$$showLateralDirection=[true,false]
+            // showLateralDirection=false
+            // $$$showLateralDirection=[true,false]
 
 
             methodChoice=-1
@@ -137,7 +134,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 //$$$e
 
@@ -214,9 +211,9 @@ module mathis{
 
         class Elongate implements PieceOfCode{
 
-            $$$name="Elongate"
+            NAME="Elongate"
 
-            $$$title="Links viewing is made via an 'elongator'. This elongator take a vertical mesh (eg cylinder, arrow...) " +
+            TITLE="Links viewing is made via an 'elongator'. This elongator take a vertical mesh (eg cylinder, arrow...) " +
                 "and place its between two positions. Lateral-direction and lateral-scaling can be given."
 
             upVector=new XYZ(0,0,1)
@@ -315,9 +312,9 @@ module mathis{
         class DefaultLinksViewing implements PieceOfCode{
 
 
-            $$$name="DefaultLinksViewing"
+            NAME="DefaultLinksViewing"
 
-            $$$title="The links are drawn using the default method to compute lateral directions (these direction are illustrated by the white arrows)"
+            TITLE="The links are drawn using the default method to compute lateral directions (these direction are illustrated by the white arrows)"
 
             modelChoice=0
             $$$modelChoice=[-1,0,1,2]
@@ -332,10 +329,8 @@ module mathis{
             justSeeModels=false
             $$$justSeeModels=[true,false]
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
-
+            polyhedronType="icosahedron"
+            $$$polyhedronType=polyhedron.platonic
 
             showLateralDirection=true
             $$$showLateralDirection=[true,false]
@@ -355,7 +350,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 let modelChoice=this.modelChoice
                 //$$$e
@@ -437,27 +432,25 @@ module mathis{
         class CustomLinksViewing implements PieceOfCode{
 
 
-            $$$name="CustomLinksViewing"
+            NAME="CustomLinksViewing"
 
-            $$$title="The links are drawn using some methods to compute lateral directions (these direction are illustrated by the white arrows)"
+            TITLE="The links are drawn using some methods to compute lateral directions (these direction are illustrated by the white arrows)"
 
             modelChoice=0
             $$$modelChoice=[-1,0,1,2]
 
-            lateralScalingProp=0.05
-            $$$lateralScalingProp=[0.01,0.05,0.1]
-
-            lateralScalingConstant=null
-            $$$lateralScalingConstant=[null,0.05,0.1,0.2]
+            // lateralScalingProp=0.05
+            // $$$lateralScalingProp=[0.01,0.05,0.1]
+            //
+            // lateralScalingConstant=null
+            // $$$lateralScalingConstant=[null,0.05,0.1,0.2]
 
 
             justSeeModels=false
             $$$justSeeModels=[true,false]
 
-            polyhedronType=creation3D.PolyhedronType.Cube
-            $$$polyhedronType=new Choices([creation3D.PolyhedronType.Tetrahedron,creation3D.PolyhedronType.Cube,creation3D.PolyhedronType.Dodecahedron]
-                ,{'before':'creation3D.PolyhedronType.','visualValues':['Tetrahedron','Cube','Dodecahedron']})
-
+            polyhedronType="cube"
+            $$$polyhedronType=polyhedron.platonic
 
             showLateralDirection=true
             $$$showLateralDirection=[true,false]
@@ -483,7 +476,7 @@ module mathis{
 
                 //$$$b
 
-                let creator=new creation3D.Polyhedron(this.polyhedronType)
+                let creator=new polyhedron.Polyhedron(this.polyhedronType)
                 let mamesh=creator.go()
                 let modelChoice=this.modelChoice
                 //$$$e
