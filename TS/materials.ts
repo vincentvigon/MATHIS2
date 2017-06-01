@@ -18,6 +18,7 @@ module mathis {
                 max+= 0.0001
                 min+=-0.0001
 
+
                 let range = (max - min)/(colors.length-1);
                 for(let i = 0;i < colors.length;i++)
 
