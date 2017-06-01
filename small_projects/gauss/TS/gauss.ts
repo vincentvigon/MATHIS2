@@ -726,7 +726,7 @@ module mathis {
                 //lin.color=new Color(new RGB_range255(124, 252, 0))
                 lin.color=new Color(new RGB_range255(124, 252, 0))
 
-                lin.constantRadius=0.004
+                lin.radiusAbsolute=0.004
 
                 this.linesOnSurf=lin.go()
                 this.linesOnSurf.forEach(mesh=>mesh.isPickable=false)

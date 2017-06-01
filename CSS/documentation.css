@@ -115,7 +115,7 @@ iframe{
     left: 0;
     height: 100%;
     width: 5em;
-    background-image: url("../../assets/img/mathisLogo.png");
+    background-image: url("../assets/img/mathisLogo.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -306,30 +306,38 @@ pre{
     line-height: 1.5em;
     display:inline-block;
     width: 100%;
-    border-top: solid black 1px;
+    /*border-top: solid black 1px;*/
     /*background-color: #0086b3;*/
 }
 
 .firstColumn{
     display:inline-block;
     width: 60%;
-    overflow: scroll;
+    /*overflow: scroll;*/
     height: 100%;
+    overflow-x: auto ;
+
+    outline: solid black 1px;
+
+
 
 }
 
 .otherColumn{
     display:inline-block;
-    width: 19.5%;
+    width: 20%;
 
-    border-left: solid black 1px;
     text-align: center;
 
-    overflow: scroll;
+    /*overflow: scroll;*/
+    overflow-x: auto ;
 
     /*background-color: blue;*/
 
     height: 100%;
+
+    outline: solid black 1px;
+
 
 
 }

@@ -355,7 +355,7 @@ module mathis {
 
 
                 let merger=new grateAndGlue.Merger(mamesh2,null,null)
-                merger.cleanDoubleLinks=false
+                //merger.cleanDoubleLinks=false
                 merger.mergeLink=false
                 merger.goChanging()
 
@@ -407,7 +407,7 @@ module mathis {
 
 
                 let merger=new grateAndGlue.Merger(mamesh,null,null)
-                merger.cleanDoubleLinks=true
+                //merger.cleanDoubleLinks=true
                 merger.mergeLink=true
                 merger.goChanging()
 

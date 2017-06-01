@@ -89,9 +89,9 @@ module mathis{
                 let linksViewer=new visu3d.LinksViewer(mamesh,this.mathisFrame.scene)
                 linksViewer.color=new Color(this.color)
                 /**if null, the lateral scaling is proportional to the mean distance between linked vertices*/
-                linksViewer.lateralScalingConstant=this.lateralScalingConstant
+                linksViewer.radiusAbsolute=this.lateralScalingConstant
                 /**useless if previous is not null,*/
-                linksViewer.lateralScalingProp=this.lateralScalingProp
+                linksViewer.radiusProp=this.lateralScalingProp
                 linksViewer.go()
                 //$$$e
 
@@ -391,9 +391,9 @@ module mathis{
                     let linksViewer=new visu3d.LinksViewer(mamesh,this.mathisFrame.scene)
                     linksViewer.meshModel=model
                     /**if null, the lateral scaling is proportional to the mean distance between linked vertices*/
-                    linksViewer.lateralScalingConstant=this.lateralScalingConstant
+                    linksViewer.radiusAbsolute=this.lateralScalingConstant
                     /**useless if previous is not null,*/
-                    linksViewer.lateralScalingProp=this.lateralScalingProp
+                    linksViewer.radiusProp=this.lateralScalingProp
 
                     linksViewer.go()
                 }
@@ -411,7 +411,7 @@ module mathis{
                     if (!justSeeModels) {
                         let linksViewer = new visu3d.LinksViewer(mamesh, this.mathisFrame.scene)
                         linksViewer.meshModel = lateralVector
-                        linksViewer.lateralScalingConstant = 0.3
+                        linksViewer.radiusAbsolute = 0.15
                         linksViewer.go()
                     }
                 }
@@ -569,7 +569,7 @@ module mathis{
                     if (!justSeeModels) {
                         let linksViewer = new visu3d.LinksViewer(mamesh, this.mathisFrame.scene)
                         linksViewer.meshModel = lateralVector
-                        linksViewer.lateralScalingConstant = 0.3
+                        linksViewer.radiusAbsolute = 0.15
                         linksViewer.pairVertexToLateralDirection=pairVertexToLateralDirection
                         linksViewer.go()
                     }

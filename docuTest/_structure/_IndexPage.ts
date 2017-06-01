@@ -545,6 +545,8 @@ module mathis{
                 this.severalPages.addPage( new LinesViewingDocu(this.mathisFrame))
                 this.severalPages.addPage( new LinksViewingDocu(this.mathisFrame))
                 this.severalPages.addPage(new SurfaceViewerDocu(this.mathisFrame))
+                this.severalPages.addPage(new GradientColorDocu(this.mathisFrame))
+
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
                 this.severalPages.addPage( new DichoDocu(this.mathisFrame))

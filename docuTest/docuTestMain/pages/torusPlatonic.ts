@@ -274,7 +274,7 @@ module mathis {
                 //$$$end
 
                 let linksViewer=new visu3d.LinksViewer(mamesh, this.mathisFrame.scene)
-                linksViewer.lateralScalingConstant=0.02
+                linksViewer.radiusAbsolute=0.01
                     linksViewer.go()
 
                 let surfaceViewer=new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene)

@@ -5,6 +5,8 @@ MATHIS.*
 #nodeJS
 node_modules/
 
+Icon
+
 # comment/uncomment to keep/synchronize your typescript config
 #tsconfig*
 

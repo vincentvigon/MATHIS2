@@ -318,13 +318,13 @@ module mathis{
                     let lineIndexer=new lineModule.CreateAColorIndexRespectingBifurcationsAndSymmetries(mamesh)
                     linesViewer.lineToLevel=lineIndexer.go()
                 }
-                linesViewer.constantRadius=0.01
+                linesViewer.radiusAbsolute=0.01
                 linesViewer.go()
 
 
 
                 let verticesViewer=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
-                verticesViewer.constantRadius=0.03
+                verticesViewer.radiusAbsolute=0.03
                 verticesViewer.go()
                 //$$$eh
 
@@ -411,12 +411,12 @@ module mathis{
 
                 //$$$bh visualization
                 let verticesViewer=new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene)
-                verticesViewer.constantRadius=0.05
+                verticesViewer.radiusAbsolute=0.05
                 verticesViewer.go()
 
 
                 let linesViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
-                linesViewer.constantRadius=0.02
+                linesViewer.radiusAbsolute=0.02
                 linesViewer.go()
 
                 new visu3d.SurfaceViewer(mamesh,this.mathisFrame.scene).go()

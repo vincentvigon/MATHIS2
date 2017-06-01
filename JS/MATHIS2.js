@@ -12008,7 +12008,7 @@ var mathis;
                 model.material = material;
                 model.convertToFlatShadedMesh();
                 var linksViewer = new mathis.visu3d.LinksViewer(ma, this.mathisFrame.scene);
-                linksViewer.lateralScalingConstant = 0.2;
+                linksViewer.radiusAbsolute = 0.2;
                 /**collision sur les poutres pas terrible*/
                 linksViewer.checkCollision = this.collisionOnLinks;
                 linksViewer.meshModel = model;
@@ -12512,7 +12512,7 @@ var mathis;
             mathis.geo.numbersToMM(-cos, 0, -sin, 0, 0, 0, 0, 0, sin, 0, -cos, 0, 0, 0, 0, 1, res);
             return res;
         };
-    })(usualFunction = mathis.usualFunction || (mathis.usualFunction = {}));
+    })(usualFunction = mathis.specialFunctions || (mathis.specialFunctions = {}));
     var riemann;
     (function (riemann) {
         var Carte = (function () {
@@ -12681,7 +12681,7 @@ var mathis;
                     return vertOk || horOk;
                 }
                 var lin = new mathis.visu3d.LinesViewer(mesh, scene);
-                lin.constantRadius = 0.01;
+                lin.radiusAbsolute = 0.01;
                 var linesOnSurf = lin.go();
                 linesOnSurf.forEach(function (mesh) { return mesh.isPickable = false; });
                 var surf = new mathis.visu3d.SurfaceViewer(mesh, scene);
@@ -12722,7 +12722,7 @@ var mathis;
         riemann.Surface = Surface;
         (function (SurfaceName) {
             SurfaceName[SurfaceName["selle"] = 0] = "selle";
-            SurfaceName[SurfaceName["cylinder"] = 1] = "cylinder";
+            SurfaceName[SurfaceName["cylinderUp"] = 1] = "cylinder";
             SurfaceName[SurfaceName["torus"] = 2] = "torus";
             SurfaceName[SurfaceName["pseudoSphere"] = 3] = "pseudoSphere";
         })(riemann.SurfaceName || (riemann.SurfaceName = {}));
@@ -14649,7 +14649,7 @@ var mathis;
                         return 0;
                 };
                 linksViewer.color = new mathis.Color(mathis.Color.names.red);
-                linksViewer.lateralScalingProp = 0.08;
+                linksViewer.radiusProp = 0.08;
                 linksViewer.go();
                 new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go();
                 //$$$eh
@@ -15543,7 +15543,7 @@ var mathis;
                  * return the radius of the i-th lines at the position alpha*/
                 linesViewer.radiusFunction = this.radiusFunction;
                 /**useless if one of the previous is not null/false*/
-                linesViewer.constantRadius = this.constantRadius;
+                linesViewer.radiusAbsolute = this.constantRadius;
                 /**useless if one of the previous is not null/false*/
                 linesViewer.radiusProp = this.radiusProp;
                 linesViewer.go();
@@ -16135,10 +16135,10 @@ var mathis;
                     var lineIndexer = new mathis.lineModule.CreateAColorIndexRespectingBifurcationsAndSymmetries(mamesh);
                     linesViewer.lineToLevel = lineIndexer.go();
                 }
-                linesViewer.constantRadius = 0.01;
+                linesViewer.radiusAbsolute = 0.01;
                 linesViewer.go();
                 var verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);
-                verticesViewer.constantRadius = 0.03;
+                verticesViewer.radiusAbsolute = 0.03;
                 verticesViewer.go();
                 //$$$eh
                 // let surfaceViewer=new visu3d.SurfaceViewer(mamesh,this.mathisFrame.scene)
@@ -16191,10 +16191,10 @@ var mathis;
                 //$$$end
                 //$$$bh visualization
                 var verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);
-                verticesViewer.constantRadius = 0.05;
+                verticesViewer.radiusAbsolute = 0.05;
                 verticesViewer.go();
                 var linesViewer = new mathis.visu3d.LinesViewer(mamesh, this.mathisFrame.scene);
-                linesViewer.constantRadius = 0.02;
+                linesViewer.radiusAbsolute = 0.02;
                 linesViewer.go();
                 new mathis.visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene).go();
                 //$$$eh
@@ -16269,9 +16269,9 @@ var mathis;
                 var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
                 linksViewer.color = new mathis.Color(this.color);
                 /**if null, the lateral scaling is proportional to the mean distance between linked vertices*/
-                linksViewer.lateralScalingConstant = this.lateralScalingConstant;
+                linksViewer.radiusAbsolute = this.lateralScalingConstant;
                 /**useless if previous is not null,*/
-                linksViewer.lateralScalingProp = this.lateralScalingProp;
+                linksViewer.radiusProp = this.lateralScalingProp;
                 linksViewer.go();
                 //$$$e
             };
@@ -16502,9 +16502,9 @@ var mathis;
                     var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
                     linksViewer.meshModel = model;
                     /**if null, the lateral scaling is proportional to the mean distance between linked vertices*/
-                    linksViewer.lateralScalingConstant = this.lateralScalingConstant;
+                    linksViewer.radiusAbsolute = this.lateralScalingConstant;
                     /**useless if previous is not null,*/
-                    linksViewer.lateralScalingProp = this.lateralScalingProp;
+                    linksViewer.radiusProp = this.lateralScalingProp;
                     linksViewer.go();
                 }
                 //n
@@ -16520,7 +16520,7 @@ var mathis;
                     if (!justSeeModels) {
                         var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
                         linksViewer.meshModel = lateralVector;
-                        linksViewer.lateralScalingConstant = 0.3;
+                        linksViewer.radiusAbsolute = 0.3;
                         linksViewer.go();
                     }
                 }
@@ -16643,7 +16643,7 @@ var mathis;
                     if (!justSeeModels) {
                         var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
                         linksViewer.meshModel = lateralVector;
-                        linksViewer.lateralScalingConstant = 0.3;
+                        linksViewer.radiusAbsolute = 0.3;
                         linksViewer.pairVertexToLateralDirection = pairVertexToLateralDirection;
                         linksViewer.go();
                     }
@@ -17604,7 +17604,7 @@ var mathis;
                 }
                 //$$$end
                 var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
-                linksViewer.lateralScalingConstant = 0.02;
+                linksViewer.radiusAbsolute = 0.02;
                 linksViewer.go();
                 var surfaceViewer = new mathis.visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene);
                 surfaceViewer.alpha = 0.7;
@@ -17801,7 +17801,7 @@ var mathis;
                 var verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);
                 /**by default, this attribute is null. So radius of vertices are computed
                  * according to the distances between neighbor vertices*/
-                verticesViewer.constantRadius = this.constantRadius;
+                verticesViewer.radiusAbsolute = this.constantRadius;
                 /**this affectation is useless if previous is not null*/
                 verticesViewer.radiusProp = this.radiusProportion;
                 /**you can change the color (or the material via verticesViewer.material)*/
@@ -17853,7 +17853,7 @@ var mathis;
                 //$$$eh
                 //$$$begin
                 var verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);
-                verticesViewer.constantRadius = this.constantRadius;
+                verticesViewer.radiusAbsolute = this.constantRadius;
                 verticesViewer.radiusProp = this.radiusProportion;
                 /**model mush have a bounding "radius" of 1. It will be re-sized by the vertices-viewer */
                 var modelChoice = this.modelChoice;
@@ -18089,7 +18089,7 @@ var mathis;
                     /**if you do not fire "verticesViewer.goChanging()", we just see the model.*/
                     verticesViewer.go();
                     var linksViewer = new mathis.visu3d.LinksViewer(mamesh, this.mathisFrame.scene);
-                    linksViewer.lateralScalingConstant = 0.01;
+                    linksViewer.radiusAbsolute = 0.01;
                     linksViewer.go();
                 }
                 //$$$end
@@ -18666,7 +18666,7 @@ var mathis;
                 }
                 lineFiller.go();
                 var lin = new mathis.visu3d.LinesViewer(mesh, this.surfaceScene);
-                lin.constantRadius = 0.004;
+                lin.radiusAbsolute = 0.004;
                 this.linesOnSurf = lin.go();
                 this.linesOnSurf.forEach(function (mesh) { return mesh.isPickable = false; });
                 var surf = new mathis.visu3d.SurfaceViewer(mesh, this.surfaceScene);
@@ -26910,7 +26910,7 @@ var mathis;
                 concurenter.justGrateDoNotStick = false;
                 var mamesh = concurenter.goChanging(); //oneCarte(new XYZ(-Math.PI/2,-Math.PI, 0),new XYZ(Math.PI/2 , Math.PI , 0)).arrivalOpenMesh
                 var liner = new mathis.visu3d.LinksViewer(mamesh, mathisFrame.scene);
-                liner.lateralScalingConstant = 0.01;
+                liner.radiusAbsolute = 0.01;
                 liner.go();
                 var surfacer = new mathis.visu3d.SurfaceViewer(mamesh, mathisFrame.scene);
                 surfacer.go();

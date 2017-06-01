@@ -8,7 +8,7 @@ module mathis{
 
     export module reseau{
 
-        export enum Maille{square,triangle,diamond,hexagonal,slash,croisillon}
+        //export enum Maille{square,triangle,diamond,hexagonal,slash,croisillon}
 
         
         export class SingleTriangle {
@@ -334,13 +334,13 @@ module mathis{
         function makeLinksFromDeltaParam(cell:Vertex, dir1:XYZ, dir2:XYZ,paramToVertex:HashMap<XYZ,Vertex>):void{
             {
                 aParam.copyFromFloats(cell.param.x,cell.param.y,cell.param.z).add(dir1)
-                let c:Vertex = paramToVertex.getValue(aParam)
+                let vert:Vertex = paramToVertex.getValue(aParam)
                 aParam.copyFromFloats(cell.param.x,cell.param.y,cell.param.z).add(dir2)
-                let cc:Vertex =  paramToVertex.getValue(aParam)
+                let vertex:Vertex =  paramToVertex.getValue(aParam)
 
-                if (c != null && cc != null) cell.setTwoOppositeLinks(c,cc)
-                else if (c == null && cc != null) cell.setOneLink(cc)
-                else if (c != null && cc == null) cell.setOneLink(c)
+                if (vert != null && vertex != null) cell.setTwoOppositeLinks(vert,vertex)
+                else if (vert == null && vertex != null) cell.setOneLink(vertex)
+                else if (vert != null && vertex == null) cell.setOneLink(vert)
 
             }
         }
@@ -597,25 +597,6 @@ module mathis{
                     makeLinksFromDeltaParam(cell, XYZ.temp0(0,1,0),XYZ.temp1(0,-1,0),this.OUT_paramToVertex)
 
 
-                    // {
-                    //     let c:Vertex = this.getVertex(cell.param.x + 1, cell.param.y)
-                    //     let cc:Vertex = this.getVertex(cell.param.x - 1, cell.param.y)
-                    //
-                    //     if (c != null && cc != null) cell.setTwoOppositeLinks(c,cc,false)
-                    //     else if (c == null && cc != null) cell.setOneLink(cc,true)
-                    //     else if (c != null && cc == null) cell.setOneLink(c,true)
-                    //
-                    // }
-                    //
-                    // {
-                    //
-                    //     let c:Vertex = this.getVertex(cell.param.x  , cell.param.y+1);
-                    //     let cc:Vertex = this.getVertex(cell.param.x  , cell.param.y-1);
-                    //     if (c != null && cc != null) cell.setTwoOppositeLinks(c,cc,false)
-                    //     else if (c == null && cc != null) cell.setOneLink(cc,true)
-                    //     else if (c != null && cc == null) cell.setOneLink(c,true)
-                    //
-                    // }
 
 
 
@@ -732,22 +713,405 @@ module mathis{
             
         }
 
+        //
+        // export class Regular2dPlus{
+        //
+        //
+        //     nbI=3
+        //     set_nbJ_toHaveRegularReseau=false
+        //     nbJ=3
+        //
+        //     origin=new XYZ(-0.7,-0.7,0)
+        //     end=new XYZ(0.7,0.7,0)
+        //
+        //     nbVerticalDecays=0
+        //     nbHorizontalDecays=0
+        //     squareMailleInsteadOfTriangle=true
+        //
+        //
+        //     makeLinks=true
+        //     makeTriangleOrSquare=true
+        //     oneMoreVertexForOddLine=false
+        //     holeParameters=new HashMap<XYZ,boolean>()
+        //     markCorner=true
+        //     markBorder=true
+        //     markCenter=true
+        //     putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
+        //
+        //     createBandsWithLines=false
+        //     nbVerticalBands:number=null
+        //     nbHorizontalBands:number=null
+        //
+        //     adapt_nbInbJ_forBandRegularity=true
+        //
+        //
+        //     constructor(){
+        //     }
+        //
+        //
+        //
+        //
+        //     go():Mamesh{
+        //
+        //
+        //
+        //
+        //
+        //
+        //         /**creation de la base*/
+        //         let basisCrea=new BasisForRegularReseau()
+        //         basisCrea.nbI=this.nbI
+        //         basisCrea.set_nbJ_toHaveRegularReseau=this.set_nbJ_toHaveRegularReseau
+        //         basisCrea.nbJ=this.nbJ
+        //         basisCrea.origin=this.origin
+        //         basisCrea.end=this.end
+        //         basisCrea.nbVerticalDecays=this.nbVerticalDecays
+        //         basisCrea.nbHorizontalDecays=this.nbHorizontalDecays
+        //         basisCrea.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
+        //         let VV=basisCrea.go()
+        //
+        //
+        //         let creator=new Regular()
+        //         creator.Vi.copyFrom(VV.Vi)
+        //         creator.Vj.copyFrom(VV.Vj)
+        //         creator.nbI=VV.nbI
+        //         creator.nbJ=VV.nbJ
+        //         creator.origine.copyFrom(basisCrea.origin)
+        //         creator.squareVersusTriangleMaille=basisCrea.squareMailleInsteadOfTriangle
+        //
+        //
+        //         /**éventuellement, on adapte nbJ et nbJ pour des bandes régulières*/
+        //         let widthVert:number
+        //         let widthHor:number
+        //         if (this.createBandsWithLines){
+        //             if (this.nbVerticalBands==null) this.nbVerticalBands=creator.nbI
+        //             if (this.nbHorizontalBands==null) this.nbHorizontalBands=creator.nbJ
+        //
+        //             widthVert=Math.floor(creator.nbI/this.nbVerticalBands)
+        //             widthHor=Math.floor(creator.nbJ/this.nbHorizontalBands)
+        //
+        //             if (this.adapt_nbInbJ_forBandRegularity){
+        //                 if(this.nbVerticalBands!=0) creator.nbI=this.nbVerticalBands*widthVert+1
+        //                 if(this.nbHorizontalBands!=0) creator.nbJ=this.nbHorizontalBands*widthHor+1
+        //             }
+        //         }
+        //
+        //
+        //
+        //
+        //         creator.makeLinks=this.makeLinks
+        //         creator.makeTriangleOrSquare=this.makeTriangleOrSquare
+        //         creator.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine
+        //         creator.holeParameters=this.holeParameters
+        //         creator.markCorner=this.markCorner
+        //         creator.markBorder=this.markBorder
+        //         creator.markCenter=this.markCenter
+        //         creator.putAVertexOnlyAtXYZCheckingThisCondition=this.putAVertexOnlyAtXYZCheckingThisCondition
+        //
+        //         let mamesh=creator.go()
+        //
+        //
+        //
+        //
+        //         if (this.createBandsWithLines&&(this.nbVerticalBands>0||this.nbHorizontalBands>0)) {
+        //             let lineBuilder = new lineModule.LineComputer(mamesh)
+        //
+        //             if (this.squareMailleInsteadOfTriangle) {
+        //
+        //                 lineBuilder.startingSegments = []
+        //
+        //
+        //                 if (this.nbVerticalBands > 0) {
+        //                     for (let i = 0; i < this.nbVerticalBands + 1; i++) {
+        //                         let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
+        //                         let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
+        //                         if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+        //                     }
+        //                 }
+        //                 if (this.nbHorizontalBands > 0) {
+        //                     for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
+        //                         let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
+        //                         let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
+        //                         if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+        //                     }
+        //                 }
+        //             }
+        //             else{
+        //
+        //                 lineBuilder.startingVertices=[]
+        //
+        //                 for (let vertex of mamesh.vertices) {
+        //                     if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
+        //                     if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
+        //
+        //                 }
+        //
+        //             }
+        //
+        //             mamesh.lines = lineBuilder.go()
+        //         }
+        //
+        //
+        //
+        //         return mamesh
+        //
+        //     }
+        //
+        //
+        //
+        //
+        // }
 
+
+
+        export enum Sticking{none, direct, indirect}
+
+        // export class Regular2dPlus{
+        //
+        //
+        //     nbI=3
+        //     set_nbJ_toHaveRegularReseau=false
+        //     nbJ=3
+        //
+        //     origin=new XYZ(-0.7,-0.7,0)
+        //     end=new XYZ(0.7,0.7,0)
+        //
+        //     nbVerticalDecays=0
+        //     nbHorizontalDecays=0
+        //     squareMailleInsteadOfTriangle=true
+        //
+        //
+        //     makeLinks=true
+        //     makeTriangleOrSquare=true
+        //     oneMoreVertexForOddLine=false
+        //     holeParameters=new HashMap<XYZ,boolean>()
+        //     markCorner=true
+        //     markBorder=true
+        //     markCenter=true
+        //     putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
+        //
+        //     createBandsWithLines=false
+        //     nbVerticalBands:number=null
+        //     nbHorizontalBands:number=null
+        //
+        //     adapt_nbInbJ_forBandRegularity=true
+        //
+        //
+        //
+        //     verticalSticking=Sticking.none
+        //     horizontalSticking=Sticking.none
+        //
+        //
+        //
+        //     constructor(){
+        //     }
+        //
+        //
+        //
+        //
+        //     go():Mamesh{
+        //
+        //
+        //
+        //         /**creation de la base*/
+        //         let basisCrea=new BasisForRegularReseau()
+        //         basisCrea.nbI=this.nbI
+        //         basisCrea.set_nbJ_toHaveRegularReseau=this.set_nbJ_toHaveRegularReseau
+        //         basisCrea.nbJ=this.nbJ
+        //         basisCrea.origin=this.origin
+        //         basisCrea.end=this.end
+        //         basisCrea.nbVerticalDecays=this.nbVerticalDecays
+        //         basisCrea.nbHorizontalDecays=this.nbHorizontalDecays
+        //         basisCrea.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
+        //         let VV=basisCrea.go()
+        //
+        //
+        //         let creator=new Regular()
+        //         creator.Vi.copyFrom(VV.Vi)
+        //         creator.Vj.copyFrom(VV.Vj)
+        //         creator.nbI=VV.nbI
+        //         creator.nbJ=VV.nbJ
+        //         creator.origine.copyFrom(basisCrea.origin)
+        //         creator.squareVersusTriangleMaille=basisCrea.squareMailleInsteadOfTriangle
+        //
+        //
+        //         /**éventuellement, on adapte nbJ et nbJ pour des bandes régulières*/
+        //         let widthVert:number
+        //         let widthHor:number
+        //         if (this.createBandsWithLines){
+        //             if (this.nbVerticalBands==null) this.nbVerticalBands=creator.nbI
+        //             if (this.nbHorizontalBands==null) this.nbHorizontalBands=creator.nbJ
+        //
+        //             widthVert=Math.floor(creator.nbI/this.nbVerticalBands)
+        //             widthHor=Math.floor(creator.nbJ/this.nbHorizontalBands)
+        //
+        //             if (this.adapt_nbInbJ_forBandRegularity){
+        //                 if(this.nbVerticalBands!=0) {
+        //                     let newNbI=this.nbVerticalBands*widthVert+1
+        //                     creator.Vi.scale(creator.nbI/newNbI)
+        //                     creator.nbI=newNbI
+        //
+        //                 }
+        //                 if(this.nbHorizontalBands!=0) {
+        //                     let newNbJ=this.nbHorizontalBands*widthHor+1
+        //                     creator.Vj.scale(creator.nbJ/newNbJ)
+        //                     creator.nbJ=newNbJ
+        //                 }
+        //             }
+        //         }
+        //
+        //
+        //         creator.makeLinks=this.makeLinks
+        //         creator.makeTriangleOrSquare=this.makeTriangleOrSquare
+        //         creator.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine
+        //         creator.holeParameters=this.holeParameters
+        //         creator.markCorner=this.markCorner
+        //         creator.markBorder=this.markBorder
+        //         creator.markCenter=this.markCenter
+        //         creator.putAVertexOnlyAtXYZCheckingThisCondition=this.putAVertexOnlyAtXYZCheckingThisCondition
+        //
+        //         let mamesh=creator.go()
+        //
+        //
+        //
+        //         if (this.verticalSticking==Sticking.direct) this.sticking(mamesh)
+        //
+        //
+        //
+        //         if (this.createBandsWithLines&&(this.nbVerticalBands>0||this.nbHorizontalBands>0)) {
+        //             this.someLines(mamesh,creator,widthVert,widthHor)
+        //         }
+        //
+        //
+        //         return mamesh
+        //
+        //     }
+        //
+        //
+        //     private someLines(mamesh:Mamesh,creator:Regular,widthVert:number,widthHor:number){
+        //         let lineBuilder = new lineModule.LineComputer(mamesh)
+        //
+        //         if (this.squareMailleInsteadOfTriangle) {
+        //
+        //             lineBuilder.startingSegments = []
+        //
+        //
+        //             if (this.nbVerticalBands > 0) {
+        //                 for (let i = 0; i < this.nbVerticalBands + 1; i++) {
+        //                     let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
+        //                     let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
+        //                     if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+        //                 }
+        //             }
+        //             if (this.nbHorizontalBands > 0) {
+        //                 for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
+        //                     let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
+        //                     let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
+        //                     if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+        //                 }
+        //             }
+        //         }
+        //         else{
+        //
+        //             lineBuilder.startingVertices=[]
+        //
+        //             for (let vertex of mamesh.vertices) {
+        //                 if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
+        //                 if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
+        //
+        //             }
+        //
+        //         }
+        //
+        //         mamesh.lines = lineBuilder.go()
+        //     }
+        //
+        //
+        //
+        //
+        //     private sticking(mamesh){
+        //
+        //         let X
+        //         let Y
+        //         let Z
+        //         let pi=Math.PI
+        //
+        //         let memorize=new HashMap<Vertex,XYZ>()
+        //         for (let vert of mamesh.vertices){
+        //             memorize.putValue(vert,XYZ.newFrom(vert.position))
+        //         }
+        //
+        //         let amplX=this.end.x-this.origin.x
+        //         let amplY=this.end.y-this.origin.y
+        //
+        //
+        //         //if (this.verticalSticking==Sticking.direct){
+        //             X=function(u,v){return Math.cos(2*pi*u)}
+        //             Y=function(u,v){return v}
+        //             Z=function(u,v){return Math.sin(2*pi*u)}
+        //         //}
+        //
+        //
+        //
+        //         for (var i=0;i<mamesh.vertices.length;i++){
+        //             let vertex=mamesh.vertices[i]
+        //             let u=(vertex.position.x-this.origin.x)/amplX
+        //             let v=(vertex.position.y-this.origin.y)/amplY
+        //
+        //             vertex.position.x=X(u,v)
+        //             vertex.position.y=Y(u,v)
+        //             vertex.position.z=Z(u,v)
+        //         }
+        //
+        //         var merger = new mathis.grateAndGlue.Merger(mamesh, null, null);
+        //         merger.mergeLink = true;
+        //         merger.goChanging();
+        //         var oppositeAssocier = new mathis.linkModule.OppositeLinkAssocierByAngles(mamesh.vertices);
+        //         oppositeAssocier.maxAngleToAssociateLinks = Math.PI*0.8;
+        //         oppositeAssocier.goChanging();
+        //
+        //
+        //
+        //
+        //
+        //
+        //     }
+        //
+        //
+        //
+        //
+        //
+        // }
+
+
+        export enum Topology{flat,cylinder,moebius,torus,klein}
+
+
+
+        export enum Maille{quad,triangleH,triangleV}
         export class Regular2dPlus{
 
 
             nbI=3
-            set_nbJ_toHaveRegularReseau=false
+            adaptIJForRegularReseau=false
             nbJ=3
+
+            nbSubInterval_I=1
+            nbSubInterval_J=1
+
+
             origin=new XYZ(-0.7,-0.7,0)
             end=new XYZ(0.7,0.7,0)
+
             nbVerticalDecays=0
             nbHorizontalDecays=0
-            squareMailleInsteadOfTriangle=true
+            //squareVersusTriangleMaille=true
 
 
             makeLinks=true
             makeTriangleOrSquare=true
+            makeLine=true
+
             oneMoreVertexForOddLine=false
             holeParameters=new HashMap<XYZ,boolean>()
             markCorner=true
@@ -755,10 +1119,17 @@ module mathis{
             markCenter=true
             putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
 
-            createBandsWithLines=false
-            nbVerticalBands:number=null
-            nbHorizontalBands:number=null
-            adapt_nbInbJ_forRegularity=true
+
+
+
+            maille=Maille.quad
+
+
+            topology=Topology.flat
+
+
+            flatVersusNaturalShape=true
+
 
 
             constructor(){
@@ -766,48 +1137,69 @@ module mathis{
 
 
 
+            private inverseXY(xyz:XYZ){
+                let x=xyz.x
+                xyz.x=xyz.y
+                xyz.y=x
+            }
+
 
             go():Mamesh{
+
+                let inversed=(this.maille==Maille.triangleV)
+
+
+                let origin=XYZ.newFrom(this.origin)
+                let end=XYZ.newFrom(this.end)
+
+                let nbI=this.nbI
+                let nbJ=this.nbJ
+                let nbSubInterval_I=this.nbSubInterval_I
+                let nbSubInterval_J=this.nbSubInterval_J
+                let nbVerticalDecays=this.nbVerticalDecays
+                let nbHorizontalDecays=this.nbHorizontalDecays
+
+                if (inversed){
+                    this.inverseXY(origin)
+                    this.inverseXY(end)
+                    nbI=this.nbJ
+                    nbJ=this.nbI
+                    nbSubInterval_I=this.nbSubInterval_J
+                    nbSubInterval_J=this.nbSubInterval_I
+
+                    nbVerticalDecays=this.nbHorizontalDecays
+                    nbHorizontalDecays=this.nbVerticalDecays
+
+                }
+
 
 
                 /**creation de la base*/
                 let basisCrea=new BasisForRegularReseau()
-                basisCrea.nbI=this.nbI
-                basisCrea.set_nbJ_toHaveRegularReseau=this.set_nbJ_toHaveRegularReseau
-                basisCrea.nbJ=this.nbJ
-                basisCrea.origin=this.origin
-                basisCrea.end=this.end
-                basisCrea.nbVerticalDecays=this.nbVerticalDecays
-                basisCrea.nbHorizontalDecays=this.nbHorizontalDecays
-                basisCrea.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
+                basisCrea.nbI=(nbI-1)*nbSubInterval_I+1
+                basisCrea.set_nbJ_toHaveRegularReseau=this.adaptIJForRegularReseau
+                basisCrea.nbJ=(nbJ-1)*nbSubInterval_J+1
+                basisCrea.origin=origin
+                basisCrea.end=end
+                basisCrea.nbVerticalDecays=nbVerticalDecays
+                basisCrea.nbHorizontalDecays=nbHorizontalDecays
+                basisCrea.squareMailleInsteadOfTriangle=!this.triangle
                 let VV=basisCrea.go()
 
 
+
+
+
+
+
                 let creator=new Regular()
-                creator.Vi.copyFrom(VV.Vi)
-                creator.Vj.copyFrom(VV.Vj)
-                creator.nbI=VV.nbI
-                creator.nbJ=VV.nbJ
-                creator.origine.copyFrom(basisCrea.origin)
-                creator.squareVersusTriangleMaille=basisCrea.squareMailleInsteadOfTriangle
+                    creator.Vi.copyFrom(VV.Vi)
+                    creator.Vj.copyFrom(VV.Vj)
+                    creator.nbI = VV.nbI
+                    creator.nbJ = VV.nbJ
+                    creator.origine.copyFrom(basisCrea.origin)
 
-
-                /**éventuellement, on adapte nbJ et nbJ pour des bandes régulières*/
-                let widthVert:number
-                let widthHor:number
-                if (this.createBandsWithLines){
-                    if (this.nbVerticalBands==null) this.nbVerticalBands=creator.nbI
-                    if (this.nbHorizontalBands==null) this.nbHorizontalBands=creator.nbJ
-
-                    widthVert=Math.floor(creator.nbI/this.nbVerticalBands)
-                    widthHor=Math.floor(creator.nbJ/this.nbHorizontalBands)
-
-                    if (this.adapt_nbInbJ_forRegularity){
-                        if(this.nbVerticalBands!=0) creator.nbI=this.nbVerticalBands*widthVert+1
-                        if(this.nbHorizontalBands!=0) creator.nbJ=this.nbHorizontalBands*widthHor+1
-                    }
-                }
-
+                creator.squareVersusTriangleMaille = !this.triangle
 
 
 
@@ -824,43 +1216,18 @@ module mathis{
 
 
 
-
-                if (this.createBandsWithLines&&(this.nbVerticalBands>0||this.nbHorizontalBands>0)) {
-                    let lineBuilder = new lineModule.LineComputer(mamesh)
-
-                    if (this.squareMailleInsteadOfTriangle) {
-
-                        lineBuilder.startingSegments = []
-
-
-                        if (this.nbVerticalBands > 0) {
-                            for (let i = 0; i < this.nbVerticalBands + 1; i++) {
-                                let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
-                                let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
-                                lineBuilder.startingSegments.push([v0, v1])
-                            }
-                        }
-                        if (this.nbHorizontalBands > 0) {
-                            for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
-                                let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
-                                let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
-                                lineBuilder.startingSegments.push([v0, v1])
-                            }
-                        }
+                if (inversed){
+                    for (let vert of mamesh.vertices){
+                        this.inverseXY(vert.position)
                     }
-                    else{
-
-                        lineBuilder.startingVertices=[]
-                        for (let vertex of mamesh.vertices) {
-                            if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
-                            if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
-
-                        }
-
-                    }
-
-                    mamesh.lines = lineBuilder.go()
                 }
+
+
+
+                if (this.topology!=Topology.flat) this.stickingTopologies(mamesh)
+
+
+                this.subdivisionsAndLines(mamesh,nbSubInterval_I,nbSubInterval_J)
 
 
 
@@ -868,10 +1235,169 @@ module mathis{
 
             }
 
+            get triangle(){
+                return (this.maille==Maille.triangleV||this.maille==Maille.triangleH)
+            }
+
+
+            private subdivisionsAndLines(mamesh:Mamesh,nbSubInterval_I,nbSubInterval_J){
+
+                let startingVertices=[]
+
+                if (!this.triangle){
+
+
+                    for (let vert of mamesh.vertices){
+                        if (vert.param.x%nbSubInterval_I==0 && vert.param.y%nbSubInterval_J==0) {
+                            vert.dichoLevel=0
+                            startingVertices.push(vert)
+                        }
+                        else vert.dichoLevel=1
+                    }
+                }
+                else{
+                    let space=this.nbSubInterval_I
+
+
+                    for (let vertex of mamesh.vertices) {
+                        if (vertex.param.x%space==0&&vertex.param.y%(2*space)==0) {
+                            vertex.dichoLevel=0
+                            startingVertices.push(vertex)
+                        }
+                        else if (vertex.param.x%space ==Math.ceil(space/2) &&  vertex.param.y%(2*space) ==space) {
+                            vertex.dichoLevel=0
+                            startingVertices.push(vertex)
+                        }
+                        else vertex.dichoLevel=1
+
+                    }
+                }
+
+
+                if (this.makeLine){
+                    let  lineBuilder=new lineModule.LineComputer(mamesh)
+                    lineBuilder.startingVertices=startingVertices
+                    mamesh.lines = lineBuilder.go()
+                }
+
+
+            }
+
+
+
+            //
+            // private someLines(mamesh:Mamesh,creator:Regular,widthVert:number,widthHor:number){
+            //     let lineBuilder = new lineModule.LineComputer(mamesh)
+            //
+            //     if (this.squareMailleInsteadOfTriangle) {
+            //
+            //         lineBuilder.startingSegments = []
+            //
+            //
+            //         if (this.nbVerticalBands > 0) {
+            //             for (let i = 0; i < this.nbVerticalBands + 1; i++) {
+            //                 let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
+            //                 let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
+            //                 if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+            //             }
+            //         }
+            //         if (this.nbHorizontalBands > 0) {
+            //             for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
+            //                 let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
+            //                 let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
+            //                 if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
+            //             }
+            //         }
+            //     }
+            //     else{
+            //
+            //         lineBuilder.startingVertices=[]
+            //
+            //         for (let vertex of mamesh.vertices) {
+            //             if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
+            //             if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
+            //
+            //         }
+            //
+            //     }
+            //
+            //     mamesh.lines = lineBuilder.go()
+            // }
+            //
+
+
+            memorize:HashMap<Vertex,XYZ>
+            private stickingTopologies(mamesh:Mamesh){
+
+                // let X
+                // let Y
+                // let Z
+                // let pi=Math.PI
+
+
+
+                if (this.flatVersusNaturalShape) {
+                    this.memorize = new HashMap<Vertex, XYZ>()
+                    for (let vert of mamesh.vertices) {
+                        this.memorize.putValue(vert, XYZ.newFrom(vert.position))
+                    }
+                }
+
+                let eq:equations.SurfaceEquation
+
+
+                if (this.topology==Topology.klein) {
+                    eq=new equations.KleinBagel()
+                }
+                else if (this.topology==Topology.cylinder) {
+                    eq = new equations.Cylinder()
+                }
+                else if (this.topology==Topology.moebius){
+                    eq = new equations.Moebius()
+                }
+                else if (this.topology==Topology.torus){
+                    eq=new equations.Torus()
+                }
+                else throw "topology non valid in this class"
+
+
+                let amplX=this.end.x-this.origin.x
+                let amplY=this.end.y-this.origin.y
+                for (let vertex of mamesh.vertices){
+                    let u=(vertex.position.x-this.origin.x)/amplX-0.5
+                    let v=(vertex.position.y-this.origin.y)/amplY-0.5
+
+                    vertex.position.x=eq.X(u,v)
+                    vertex.position.y=eq.Y(u,v)
+                    vertex.position.z=eq.Z(u,v)
+                }
+
+                var merger = new mathis.grateAndGlue.Merger(mamesh, null, null);
+                merger.mergeLink = true;
+                merger.goChanging();
+                var oppositeAssocier = new mathis.linkModule.OppositeLinkAssocierByAngles(mamesh.vertices);
+                oppositeAssocier.maxAngleToAssociateLinks = Math.PI*0.3;
+                oppositeAssocier.goChanging();
+
+                if (this.flatVersusNaturalShape) {
+                    for (let vertex of mamesh.vertices) {
+                        vertex.position = this.memorize.getValue(vertex)
+                    }
+                }
+
+
+
+            }
+
+
 
 
 
         }
+
+
+
+
 
 
         export class Regular1D{

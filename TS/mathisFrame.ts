@@ -311,8 +311,8 @@ module mathis{
             // light0.groundColor = new BABYLON.Color3(0, 0, 0);
 
             light0.diffuse = new BABYLON.Color3(1,1,1);
-            light0.specular = new BABYLON.Color3(1,1,1);
-            light0.groundColor = new BABYLON.Color3(0.5,0.5,0.5);
+            light0.specular = new BABYLON.Color3(0.6,0.6,0.6);
+            light0.groundColor = new BABYLON.Color3(0.3,0.3,0.3);
 
         }
 
