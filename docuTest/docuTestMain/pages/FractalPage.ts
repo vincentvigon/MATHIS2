@@ -648,9 +648,7 @@ module mathis {
                     for (var a=0;a<subdivider;a++){
                         for (var b=0;b<subdivider;b++){
                             for (var c=0;c<subdivider;c++){
-                                for (var d=0;d<subdivider;d++){
-                                    all.push([a,b,c,d])
-                                }
+                                    all.push([a,b,c])
                             }
                         }
                     }

@@ -585,7 +585,7 @@ module mathis{
             let mathisFrame=new MathisFrame('placeForMathis')
             /**Attention : la variable globale indexPage est affectée APRES la construction de MainIndexPage.
              * Pour toutes les opérations qui se font pendant la construction, indexPage est null ! */
-            indexPage=new MainIndexPage(mathisFrame,true)
+            indexPage=new MainIndexPage(mathisFrame,false)
 
             indexPage.go()
 
