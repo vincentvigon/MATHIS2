@@ -7,11 +7,10 @@
 <body>
 
 <script>
-    var st="12*x+(cos(2)*1) "
+    var st="12*x+(cos(2*x)*1)*123423/ln(x)+7"
 
-
-
-
+    /**intergers as 34 are replaced by float as 34.
+     * (begin or non-digit)   (several digits) and after: (not dot or digit or end)*/
     st=st.replace(/(^|[^0-9.])([0-9]+)(?=([^0-9.]|$))/g,"$1$2.")
 
 

@@ -1200,6 +1200,24 @@ module mathis{
 
         }
 
+        export interface HasPosition extends HasHashString{
+            position:XYZ
+        }
+
+        export class Particle implements HasPosition,HasHashString{
+
+            get position():XYZ{
+                return new XYZ(0,0,0)
+            }
+
+            get hashString():string{
+                return "toto"
+            }
+
+
+
+        }
+
         
         export class FindCloseVerticesFast{
 
@@ -1210,10 +1228,10 @@ module mathis{
             throwExceptionIfReceiverHaveCloseVertices=false
             receiverAndSourceMustBeDisjoint=false
             
-            private receivers:Vertex[]
-            private sources:Vertex[]
+            private receivers:HasPosition[]
+            private sources:HasPosition[]
 
-            constructor(receivers:Vertex[],sources:Vertex[]){
+            constructor(receivers:HasPosition[],sources:HasPosition[]){
                 this.receivers=receivers
                 this.sources=sources
             }
@@ -1222,13 +1240,13 @@ module mathis{
             deformationFunction=(point:XYZ)=>point
 
             
-            go ():HashMap<Vertex,Vertex[]>{
+            go ():HashMap<HasPosition,HasPosition[]>{
 
                 this.buildScaler()
                 let amplitude=new XYZ(Math.max(1,this.maxs.x-this.mins.x),Math.max(1,this.maxs.y-this.mins.y),Math.max(1,this.maxs.z-this.mins.z) )
 
 
-                let roundPositionToReceiver=new StringMap<Vertex>()  //: {[id:string]:number}={}
+                let roundPositionToReceiver=new StringMap<HasPosition>()  //: {[id:string]:number}={}
 
 
                 for (let receiver of this.receivers){
@@ -1243,7 +1261,7 @@ module mathis{
 
                 
 
-                let res=new HashMap<Vertex,Vertex[]>(true)//:{[id:number]:number}={}
+                let res=new HashMap<HasPosition,HasPosition[]>(true)//:{[id:number]:number}={}
 
 
                 for (let source of this.sources){
@@ -1252,12 +1270,12 @@ module mathis{
                     let resy=Math.round( (val.y-this.mins.y)/amplitude.y*this.nbDistinctPoint)
                     let resz=Math.round( (val.z-this.mins.z)/amplitude.z*this.nbDistinctPoint)
 
-                    let receiverFounded:Vertex=roundPositionToReceiver.getValue(resx+','+resy+','+resz)
+                    let receiverFounded:HasPosition=roundPositionToReceiver.getValue(resx+','+resy+','+resz)
                     if (receiverFounded!=null){
                         /** receiver and source can be the same list (ex : if we want to make a cylinder by bending a plan );
                          *  in this case, we do not want to associate each receiver to itself */
                         if (receiverFounded!=source) {
-                            let perhapsAList:Vertex[]=res.getValue(receiverFounded)
+                            let perhapsAList:HasPosition[]=res.getValue(receiverFounded)
                             if (perhapsAList==null) res.putValue(source,[receiverFounded])
                             else {
                                 /**some source already found near this receiver: we must put the closes source in the first position*/
@@ -1396,7 +1414,7 @@ module mathis{
                 }
 
 
-                if (map==null) map=new FindCloseVerticesFast(this.receiverMamesh.vertices,this.sourceMamesh.vertices).go()
+                if (map==null) map=<HashMap<Vertex,Vertex[]>>new FindCloseVerticesFast(this.receiverMamesh.vertices,this.sourceMamesh.vertices).go()
 
 
                 this.merginMap=new HashMap<Vertex,Vertex>(true)
