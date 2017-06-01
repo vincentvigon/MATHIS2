@@ -296,7 +296,7 @@ module mathis{
                 model.convertToFlatShadedMesh()
 
                 let linksViewer=new visu3d.LinksViewer(ma,this.mathisFrame.scene)
-                linksViewer.lateralScalingConstant=0.2
+                linksViewer.radiusAbsolute=0.2
                 /**collision sur les poutres pas terrible*/
                 linksViewer.checkCollision=this.collisionOnLinks
                 linksViewer.meshModel=model

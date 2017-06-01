@@ -6,7 +6,216 @@ module mathis{
 
 
 
-    export module usualFunction{
+    /**
+     *
+     * from http://bugman123.com/Physics/index.html
+     *
+     *
+     * Clear[x, y, t, p, v]; mu = 0.0123001; x1 = -mu; x2 = 1 - mu; r1 = Sqrt[(x - x1)^2 + y^2]; r2 = Sqrt[(x - x2)^2 + y^2];
+     {x0, y0} = {x, y} /.
+
+     Last[NSolve[{-x == -x2(x - x1)/r1^3 + x1(x - x2)/r2^3, -y == -(x2/r1^3 - x1/r2^3) y}, {x, y}]];
+
+     JacobianMatrix[p_, q_] := Outer[D, p, q];
+
+     vlist = Eigenvectors[JacobianMatrix[{xdot, -x2(x - x1)/r1^3 + x1(x - x2)/r2^3 + 2ydot + x, ydot, -(x2/r1^3 - x1/r2^3)y - 2xdot + y}, {x, xdot, y, ydot}] /. {x -> x0, xdot -> 0, y -> y0, ydot -> 0}];
+     r1 = Sqrt[(x[t] - x1)^2 + y[t]^2]; r2 = Sqrt[(x[t] - x2)^2 + y[t]^2];
+     tmax = 355;
+     p0 = {x0, y0, 0, 0} + Re[0.5 vlist[[1]] + vlist[[3]]]/3.84400*^5;
+     p[t_] = {x[t], y[t]} /. NDSolve[{x''[t] - 2y'[t] - x[t] == -x2(x[t] - x1)/r1^3 + x1(x[t] - x2)/r2^3, y''[t] + 2x'[t] - y[t] == -(x2/r1^3 - x1/r2^3)y[t], x[0] == p0[[1]], y[0] == p0[[2]], x'[0] == p0[[3]], y'[0] == p0[[4]]}, {x[t], y[t]}, {t, 0, tmax}, MaxSteps -> 100000, AccuracyGoal -> 10][[1]];
+     v[t_] = D[p[t], t];
+     ParametricPlot3D[Append[p[t], v[t][[1]]], {t, 0, tmax}, Compiled -> False, PlotPoints -> 1000, BoxRatios -> {1, 1, 1}, ViewPoint -> {0, 10, 0}]
+     *
+     *
+     * */
+
+
+    const pi=Math.PI
+    const cos=Math.cos
+    const sin=Math.sin
+
+
+    export namespace equations{
+
+
+
+
+        export class SurfaceEquation{
+            X:(u:number,v:number)=>number
+            Y:(u:number,v:number)=>number
+            Z:(u:number,v:number)=>number
+
+            permuteXYZ(xyzOrder:string[]){
+
+                if (xyzOrder.length!=3) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+
+
+                let X=this[xyzOrder[0]]
+                let Y=this[xyzOrder[1]]
+                let Z=this[xyzOrder[2]]
+
+                this.X=X
+                this.Y=Y
+                this.Z=Z
+
+                if (this.X==null || this.Y==null || this.Z==null ) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+
+                return this
+            }
+
+            //Xperm=(u,v)=>this.X(u,v)
+
+
+        }
+
+        export class KleinBottle extends SurfaceEquation{
+
+            begin=new UV(-0.5,-0.5)
+            end=new UV(0.5,0.5)
+
+
+            X= function(u,v){
+                u=2*pi*u
+                v=2*pi*v
+                return -(2/15)*cos(u)*(3*cos(v)-30*sin(u)+90*cos(u)**4.*sin(u)- 60*cos(u)**6.*sin(u)+5*cos(u)*cos(v)*sin(u))}
+
+            Y= function(u,v){
+                u=2*pi*u
+                v=2*pi*v
+                return -(1/15)*sin(u)*(3*cos(v)-3*cos(u)**2.*cos(v)-48*cos(u)**4.*cos(v)+48*cos(u)**6.*cos(v)-60*sin(u)+5*cos(u)*cos(v)*sin(u)
+            -5*cos(u)**3.*cos(v)*sin(u) -80*cos(u)**5.*cos(v)*sin(u)+80*cos(u)**7*cos(v)*sin(u))}
+
+            Z= function(u,v){
+                u=2*pi*u
+                v=2*pi*v
+                return (2/15)*(3+5*cos(u)*sin(u))*sin(v)}
+        }
+
+
+        export class KleinBagel extends SurfaceEquation{
+
+            begin=new UV(-0.5,-0.5)
+            end=new UV(0.5,0.5)
+
+
+            r = 2.1
+            X = (u, v) => ( this.r + Math.cos(pi * u) * Math.sin(2 * pi * v) - Math.sin(pi * u) * Math.sin(4 * pi * v)) * Math.cos(2 * pi * u)
+            Y = (u, v) => (this.r + Math.cos(pi * u) * Math.sin(2 * pi * v) - Math.sin(pi * u) * Math.sin(4 * pi * v)) * Math.sin(2 * pi * u)
+            Z = (u, v) => Math.sin(pi * u) * Math.sin(2 * pi * v) + Math.cos(pi * u) * Math.sin(4 * pi * v)
+        }
+
+        export class Cylinder extends SurfaceEquation{
+
+            X=function(u,v){return Math.cos(2*pi*u)}
+            Y=function(u,v){return v}
+            Z=function(u,v){return Math.sin(2*pi*u)}
+        }
+
+
+        export class Moebius extends SurfaceEquation{
+            X=function(u,v){return (1-1*v*Math.sin(pi*u))*Math.sin(2*pi*u)}
+            Y=function(u,v){return (1-1*v*Math.sin(pi*u))*Math.cos(2*pi*u)}
+            Z=function(u,v){return 1*v*Math.cos(pi*u)}
+
+        }
+
+
+        export class Torus extends SurfaceEquation{
+            r=0.3
+            a=0.7
+            X = (u, v) =>(this.r*Math.cos(2*pi*u)+this.a)*Math.cos(2*pi*v)
+            Y = (u, v) =>(this.r*Math.cos(2*pi*u)+this.a)*Math.sin(2*pi*v)
+            Z = (u, v) =>this.r*Math.sin(2*pi*u)
+
+        }
+
+
+
+
+
+
+        /**je n'ai pas l'impression que cette formule (pompée) soit bonne pour tous les m*/
+        export class SphericalHarmonic{
+            m=[]
+
+            XYZ(phi,theta) {
+                let p=new XYZ(0,0,0)
+
+                var r = 0;
+                r += Math.pow(sin(this.m[0] * theta), this.m[1]);
+                r += Math.pow(cos(this.m[2] * theta), this.m[3]);
+                r += Math.pow(sin(this.m[4] * phi), this.m[5]);
+                r += Math.pow(cos(this.m[6] * phi), this.m[7]);
+
+                var sinTheta = sin(theta);
+                p.x = r * sinTheta * cos(phi);
+                p.y = r * cos(theta);
+                p.z = r * sinTheta * sin(phi);
+                return p;
+            }
+        }
+
+
+        // export class SurfaceEquationModified extends SurfaceEquation{
+        //
+        //     constructor(private originalEquation){
+        //         super()
+        //     }
+        //
+        //     scale(lambda:number|XYZ){
+        //         if (lambda instanceof XYZ){
+        //             let scale =<XYZ> lambda
+        //             this.X=(u,v)=>scale.x*this.originalEquation.X()
+        //             this.Y=(u,v)=>scale.y*this.originalEquation.Y()
+        //             this.Z=(u,v)=>scale.z*this.originalEquation.Z()
+        //         }
+        //         else{
+        //             let scale =<number> lambda
+        //             this.X=(u,v)=>scale*this.originalEquation.X()
+        //             this.Y=(u,v)=>scale*this.originalEquation.Y()
+        //             this.Z=(u,v)=>scale*this.originalEquation.Z()
+        //         }
+        //         return this
+        //
+        //
+        //     }
+        //
+        //     permute(xyzOrder:string[]){
+        //
+        //         if (xyzOrder.length!=3) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+        //
+        //         this.X=this.originalEquation[xyzOrder[0]]
+        //         this.Y=this.originalEquation[xyzOrder[1]]
+        //         this.Z=this.originalEquation[xyzOrder[2]]
+        //         if (this.X==null || this.Y==null || this.Z==null ) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+        //
+        //         return this
+        //     }
+        //
+        //
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+    export module specialFunctions{
 
         export let sinh=x=>(Math.exp(x)-Math.exp(-x))/2
 
@@ -306,7 +515,7 @@ module mathis{
 
 
                 let lin=new visu3d.LinesViewer(mesh,scene)
-                lin.constantRadius=0.01
+                lin.radiusAbsolute=0.01
                 let linesOnSurf=lin.go()
                 linesOnSurf.forEach(mesh=>mesh.isPickable=false)
 
@@ -509,12 +718,12 @@ module mathis{
                 
                 
                 
-                        let rotationCarteMaker=new riemann.RotationCarteMaker(usualFunction.tractrice)
+                        let rotationCarteMaker=new riemann.RotationCarteMaker(specialFunctions.tractrice)
                         rotationCarteMaker.translation=new XYZ(0,-1,0)
                         let sc=1
                         rotationCarteMaker.scaling=new XYZ(sc,sc,sc)
-                        rotationCarteMaker.curveP=usualFunction.tractriceP
-                        rotationCarteMaker.curvePP=usualFunction.tractricePP
+                        rotationCarteMaker.curveP=specialFunctions.tractriceP
+                        rotationCarteMaker.curvePP=specialFunctions.tractricePP
                 
                         let carte0 =rotationCarteMaker.go()
                         carte0.maillage = departureMesh
@@ -737,40 +946,40 @@ module mathis{
                 let res=new Carte()
                 res.X=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxis(u),this.curve(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curve(v),r)
                     r.resizes(this.scaling).add(this.translation)
                     return r
                 }
 
                 res.Xu=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxisP(u),this.curve(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisP(u),this.curve(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
                 res.Xuu=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxisPP(u),this.curve(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisPP(u),this.curve(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
 
                 res.Xv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxis(u),this.curveP(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curveP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
 
                 res.Xvv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxis(u),this.curvePP(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curvePP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
                 res.Xuv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(usualFunction.rotationYAxisP(u),this.curveP(v),r)
+                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisP(u),this.curveP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }

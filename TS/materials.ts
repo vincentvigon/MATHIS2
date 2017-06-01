@@ -8,16 +8,19 @@ module mathis {
         import ShaderMaterial = BABYLON.ShaderMaterial;
 
         export class GradientColor {
-            errColor : Color = new Color("#FFFF00");
+            errColor : Color = new Color("#000");
             colors : Array<[number,Color]>;
 
-            constructor(...colors : Color[]) {
+            constructor(colors : Color[],min=0,max=1) {
                 this.colors = [];
 
-                let [a,b] = [-0.0000000001,1.0000000001];
-                let range = b - a;
+                //let [a,b] = [-0.0000000001,1.0000000001];
+                max+= 0.0001
+                min+=-0.0001
+
+                let range = (max - min)/(colors.length-1);
                 for(let i = 0;i < colors.length;i++)
-                    this.colors.push([i * range + a,colors[i]]);
+                    this.colors.push([i * range + min,colors[i]]);
             }
 
             static colorToVec3(color : Array<number>) {
@@ -95,8 +98,8 @@ module mathis {
                 let gradient = this.gradient;
                 if(gradient == null)
                     gradient = new GradientColor(
-                        new Color("#2211dd"),
-                        new Color("#dd1122")
+                        [new Color("#2211dd"),
+                        new Color("#dd1122")]
                     );
 
                 let tmpCode = gradient.toWebGLCode("color","func");

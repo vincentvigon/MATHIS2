@@ -385,10 +385,6 @@ module mathis{
 
 
 
-
-
-
-
         export class SubMameshExtractor {
             mamesh:Mamesh
             verticesToKeep:Vertex[]
@@ -1350,7 +1346,11 @@ module mathis{
 
         export class Merger {
 
+            /**
+             * The receiver-mamesh eat some vertices of the source-mamesh
+             * */
 
+            /** key are source-vertices, values are receiver-vertices*/
             merginMap:HashMap<Vertex,Vertex>
             private receiverMamesh:Mamesh
 
@@ -1358,7 +1358,7 @@ module mathis{
             private sourceMamesh:Mamesh
             private sourceEqualRecepter = false
 
-            cleanDoubleLinks = false
+            //cleanDoubleLinks = false
             cleanDoubleSquareAndTriangles = true
             cleanLinksCrossingSegmentMiddle = true
             suppressSomeTriangleAndSquareSuperposition=false
@@ -1403,29 +1403,6 @@ module mathis{
                 for (let entry of map.allEntries()) this.merginMap.putValue(entry.key,entry.value[0])
 
 
-                // if (mergingMap==null){
-                //     this.buildMergingMap()
-                //     this.merginMap=new FindCloseVerticesFast(this.receiverMamesh.vertices,this.sourceMamesh.vertices).go()
-                //     console.log(this.merginMap)
-                //
-                // }
-                // else {
-                //     let entries=mergingMap.allEntries()
-                //     if (entries.length==0) {
-                //         logger.c( 'empty merging map')
-                //         this.merginMap=new HashMap<Vertex,Vertex>(true)
-                //     }
-                //     else{
-                //         if (entries[0].value instanceof Array){
-                //             this.merginMap=new HashMap<Vertex,Vertex>(true)
-                //             for (let entry of entries) this.merginMap.putValue(entry.key,entry.value[0])
-                //         }
-                //         else this.merginMap=<HashMap<Vertex,Vertex>> mergingMap
-                //     }
-                //
-                //
-                //
-                // }
 
             }
 
@@ -1671,18 +1648,32 @@ module mathis{
 
 
 
+
+
+
                 /**we add source-links to receivers, except some links */
-                this.merginMap.allKeys().forEach(v1=> {
+                this.merginMap.allKeys().forEach(vSource=> {
+
+                    let vReceiver=this.merginMap.getValue(vSource)
+
 
                     var linksThatWeKeep:Link[] = []
-                    v1.links.forEach(link=> {
+                    vSource.links.forEach(link=> {
                         /**the links must not be composed with suppressed vertex*/
                         if (this.merginMap.getValue(link.to) == null) {
                             /** the link must not be contracted into one vertex after merging*/
-                            if (this.merginMap.getValue(v1) != link.to) linksThatWeKeep.push(link)
+                            if (this.merginMap.getValue(vSource) != link.to) linksThatWeKeep.push(link)
                         }
                     })
-                    this.merginMap.getValue(v1).links = this.merginMap.getValue(v1).links.concat(linksThatWeKeep)
+                    vReceiver.links = vReceiver.links.concat(linksThatWeKeep)
+
+                    /**useful for Reseau2dPlus, which use some special param to extract lines*/
+                    if (vReceiver.param.x==0) vSource.param.x=0
+                    if (vSource.param.y==0) vReceiver.param.y=0
+
+
+
+
                 })
 
                 /**suppression of  sources*/
@@ -1727,10 +1718,10 @@ module mathis{
 
 
                 /** suppression of double links*/
-                if (this.cleanDoubleLinks) {
-                    //new linkModule.GraphCleaning(this.receiverMamesh.vertices).goChanging()
-                    //TODO
-                }
+                // if (this.cleanDoubleLinks) {
+                //     //new linkModule.GraphCleaning(this.receiverMamesh.vertices).goChanging()
+                //     //TODO
+                // }
 
 
 

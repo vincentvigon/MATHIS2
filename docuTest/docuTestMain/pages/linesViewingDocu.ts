@@ -129,7 +129,7 @@ module mathis{
                     }
                         break
                     case 'constant':{
-                        linesViewer.constantRadius=this.constantRadius
+                        linesViewer.radiusAbsolute=this.constantRadius
                     }
                         break
 

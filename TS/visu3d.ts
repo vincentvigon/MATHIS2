@@ -10,7 +10,6 @@ module mathis{
         import Mesh = BABYLON.Mesh;
         import VertexData = BABYLON.VertexData;
         import Path3D = BABYLON.Path3D;
-        //import Ribbon = BABYLON.Geometry.Primitives.Ribbon
         import Quaternion = BABYLON.Quaternion;
 
         export class VerticesViewer{
@@ -19,6 +18,7 @@ module mathis{
             scene:BABYLON.Scene
             vertices:Vertex[]
 
+            /**precision of the default sphere*/
             nbSegments=32
 
             /**if null, default model will be used*/
@@ -36,10 +36,15 @@ module mathis{
             checkCollision=false
 
             color:Color=color.thema.defaultVertexColor
-            constantRadius=null
+            radiusAbsolute=null
             /**if no constantRadius and no positioning.size is given, the radius of vertex representation is a proportion of the distance
              * between two linked vertices*/
             radiusProp=0.1
+
+
+            material
+
+
 
             constructor(mameshOrVertices:Mamesh|Vertex[],scene:BABYLON.Scene,positionings?:HashMap<Vertex,Positioning>){
 
@@ -108,29 +113,32 @@ module mathis{
 
                     for (let v of this.vertices) {
                         let radius:number
-                        if (this.constantRadius==null) {
+                        if (this.radiusAbsolute==null) {
 
-                            let minDist = Number.MAX_VALUE
-                            if (v.links.length != 0) {
-                                for (let li of v.links) {
-                                    let d = geo.distance(v.position, li.to.position)
-                                    if (d < minDist) minDist = d
-                                }
-                            }
-                            /**if no links, we look the min distance according to all other vertices*/
-                            else {
-                                for (let other of this.vertices) {
-                                    if (!other.position.almostEqual(v.position)) {
-                                        let d = geo.distance(v.position, other.position)
-                                        if (d < minDist) minDist = d
-                                    }
-                                }
-                            }
+                            // let minDist = Number.MAX_VALUE
+                            // if (v.links.length != 0) {
+                            //     for (let li of v.links) {
+                            //         let d = geo.distance(v.position, li.to.position)
+                            //         if (d < minDist) minDist = d
+                            //     }
+                            // }
+                            // /**if no links, we look the min distance according to all other vertices*/
+                            // else {
+                            //     for (let other of this.vertices) {
+                            //         if (!other.position.almostEqual(v.position)) {
+                            //             let d = geo.distance(v.position, other.position)
+                            //             if (d < minDist) minDist = d
+                            //         }
+                            //     }
+                            // }
+                            //
+                            // radius = minDist * this.radiusProp
 
-                            radius = minDist * this.radiusProp
+                            radius=meanOfMinLinks(this.vertices)* this.radiusProp
+
 
                         }
-                        else radius=this.constantRadius
+                        else radius=this.radiusAbsolute
 
                         let pos = new Positioning()
                         pos.frontDir = new XYZ(1, 0, 0)
@@ -254,7 +262,7 @@ module mathis{
             parentNode:BABYLON.Node=null
             mamesh:Mamesh
             sideOrientation=BABYLON.Mesh.DOUBLESIDE
-            normalDuplication=NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr//SurfaceVisuStatic.NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr
+            normalDuplication=NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr
             maxAngleBetweenNormals=Math.PI/4
 
             scene:BABYLON.Scene
@@ -545,6 +553,7 @@ module mathis{
                                 let newIndex=positions.length/3
                                 positions.push(posX,posY,posZ)
                                 indices[indexInIndices]=newIndex
+                                //let newNormal=XYZ.newFrom(triangleNormal).add(XYZ.newRandom().scale(0.1))
                                 positionNormals.push(triangleNormal)
                             }
                         }
@@ -592,6 +601,25 @@ module mathis{
         export enum NormalDuplication{none,duplicateOnlyWhenNormalsAreTooFarr,duplicateVertex}
 
 
+        function meanOfMinLinks(vertices:Vertex[]):number{
+            let distance=0
+            let nbVerticesWithLinks=0
+            for (let v of vertices) {
+                if (v.links.length!=0) {
+                    let minDist = Number.MAX_VALUE
+                    for (let li of v.links) {
+                        let d = geo.distance(v.position, li.to.position)
+                        if (d < minDist) minDist = d
+                    }
+                    distance += minDist
+                    nbVerticesWithLinks++
+                }
+            }
+            distance/=nbVerticesWithLinks
+            return distance
+        }
+
+
 
         export class LinksViewer{
 
@@ -600,8 +628,8 @@ module mathis{
 
             parentNode:BABYLON.Node
             //lineRadius=0.05
-            lateralScalingConstant=null
-            lateralScalingProp=0.05
+            radiusAbsolute:number=null
+            radiusProp=0.05
             tesselation=12
 
             material:any=null
@@ -653,22 +681,8 @@ module mathis{
                 /**we hide the model*/
                 this.meshModel.scaling=new XYZ(0,0,0)
 
-                if (this.lateralScalingConstant==null){
-                    let distance=0
-                    let nbVerticesWithLinks=0
-                    for (let v of this.mamesh.vertices) {
-                        if (v.links.length!=0) {
-                            let minDist = Number.MAX_VALUE
-                            for (let li of v.links) {
-                                let d = geo.distance(v.position, li.to.position)
-                                if (d < minDist) minDist = d
-                            }
-                            distance += minDist
-                            nbVerticesWithLinks++
-                        }
-                    }
-                    distance/=nbVerticesWithLinks
-                    this.lateralScalingConstant=distance*this.lateralScalingProp
+                if (this.radiusAbsolute==null){
+                    this.radiusAbsolute=meanOfMinLinks(this.mamesh.vertices)*this.radiusProp/2
                 }
 
 
@@ -712,7 +726,7 @@ module mathis{
                 else segment=this.meshModel.createInstance('')
                 segment.checkCollisions=this.checkCollision
                 let elongateAMeshFromBeginToEnd=new ElongateAMeshFromBeginToEnd(beginVertex.position,endVertex.position,segment)
-                elongateAMeshFromBeginToEnd.lateralScaling=this.lateralScalingConstant
+                elongateAMeshFromBeginToEnd.lateralScaling=this.radiusAbsolute*2
 
                 if (this.pairVertexToLateralDirection!=null) {
                     elongateAMeshFromBeginToEnd.lateralDirection=this.pairVertexToLateralDirection(beginVertex,endVertex)
@@ -818,9 +832,11 @@ module mathis{
             interpolationOption:geometry.InterpolationOption=new geometry.InterpolationOption()
 
             isThin=false
-            constantRadius=null
+            radiusAbsolute=null
             radiusProp=0.05
             radiusFunction:(alphaRatio:number,position:XYZ)=>number=null
+
+            //forRadiusProp_considerAllVertices_Versus_onlyLines=true
 
 
 
@@ -832,7 +848,10 @@ module mathis{
 
                 if (mameshOrLines instanceof Mamesh){
                     let mamesh=<Mamesh> mameshOrLines
-                    if (!mamesh.linesWasMade) mamesh.fillLineCatalogue()
+                    if (mamesh.lines==null) {
+                        mamesh.fillLineCatalogue()
+                        logger.c("the mamesh has no line. So the line viewer automaticaly call the method mameh.fillLineCataclogue()")
+                    }
                     this.lines=mamesh.lines
                 }
                 else{
@@ -882,6 +901,8 @@ module mathis{
 
 
             go():BABYLON.Mesh[]{
+
+                cc("this.lines.length",this.lines.length)
 
 
                 /**even when viewer is de-connected, we can use lineToColor during test*/
@@ -1001,28 +1022,43 @@ module mathis{
                             pathTotalLength+=geo.distance(path[i],path[i+1])
                         }
 
-
                         let modifiedFunction= (ind:number,len:number)=> this.radiusFunction(len/pathTotalLength,path[ind])
-
 
                         res= BABYLON.Mesh.CreateTube('',path,null,this.tesselation,modifiedFunction,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
 
                     }
 
                     else  {
-                        if (this.constantRadius==null){
-                           let totalLength=0
-                            let nbVertices=0
-                            for (let line of this.lines) {
-                                for (let i=0;i< line.vertices.length-1;i++) {
-                                    totalLength+=geo.distance(line.vertices[i].position,line.vertices[i+1].position)
-                                    nbVertices++
+                        if (this.radiusAbsolute==null){
+                            //if (this.forRadiusProp_considerAllVertices_Versus_onlyLines){
+                                let vertices=new HashMap<Vertex,boolean>(true)
+                                for (let line of this.lines){
+                                    for (let vert of line.vertices){
+                                        vertices.putValue(vert,true)
+                                    }
                                 }
-                            }
-                            this.constantRadius=totalLength/nbVertices*this.radiusProp
-                        }
 
-                        res= BABYLON.Mesh.CreateTube('',path,this.constantRadius,this.tesselation,null,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
+                                this.radiusAbsolute=meanOfMinLinks(vertices.allKeys())*this.radiusProp
+                            // }
+                            // else{
+                            //     let totalLength=0
+                            //     let nbVertices=0
+                            //     let oneMore=(line.isLoop)?1:0
+                            //     for (let line of this.lines) {
+                            //         for (let i=0;i< line.vertices.length-1+oneMore;i++) {
+                            //             totalLength+=geo.distance(line.vertices[i].position,line.vertices[(i+1)%line.vertices.length].position)
+                            //             nbVertices++
+                            //         }
+                            //     }
+                            //     this.radiusAbsolute=totalLength/nbVertices*this.radiusProp
+                            //
+                            //
+                            // }
+
+
+                          }
+
+                        res= BABYLON.Mesh.CreateTube('',path,this.radiusAbsolute,this.tesselation,null,this.cap,this.scene,true,BABYLON.Mesh.FRONTSIDE)
                     }
                 }
 
@@ -1040,33 +1076,6 @@ module mathis{
 
         }
 
-
-
-
-
-
-        //
-        // class OneLineVisuMaker {
-        //
-        //     private path:XYZ[]
-        //    
-        //     isLoop:boolean
-        //     babMesh:BABYLON.Mesh
-        //     parentNode:BABYLON.Node
-        //    
-        //     constructor(path:XYZ[],isLoop:boolean,scene:BABYLON.Scene){
-        //        
-        //         this.scene=scene
-        //         this.path=path
-        //         this.isLoop=isLoop
-        //        
-        //     }
-        //
-        //    
-        //
-        //
-        //
-        // }
 
 
         export class ElongateAMeshFromBeginToEnd {

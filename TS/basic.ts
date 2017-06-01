@@ -100,6 +100,9 @@ module mathis {
             tempXYZ1.copyFromFloats(x,y,z)
             return tempXYZ1
         }
+
+
+
         // static temp2(x,y,z):XYZ{
         //     tempXYZ2.copyFromFloats(x,y,z)
         //     return tempXYZ2

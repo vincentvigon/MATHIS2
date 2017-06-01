@@ -40,6 +40,8 @@
 //}
 
 
+
+// COMPILATEUR SPECIFIC FOR OCTAVIO : with use _fakeBABYLON instead of babylon:
 //{
 //  "compilerOptions": {
 //    "target": "es5",

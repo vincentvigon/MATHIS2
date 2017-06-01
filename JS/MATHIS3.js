@@ -25822,7 +25822,7 @@ var mathis;
             mathis.geo.numbersToMM(-cos, 0, -sin, 0, 0, 0, 0, 0, sin, 0, -cos, 0, 0, 0, 0, 1, res);
             return res;
         };
-    })(usualFunction = mathis.usualFunction || (mathis.usualFunction = {}));
+    })(usualFunction = mathis.specialFunctions || (mathis.specialFunctions = {}));
     var riemann;
     (function (riemann) {
         var Carte = (function () {

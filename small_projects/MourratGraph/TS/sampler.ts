@@ -42,7 +42,7 @@ module mathis{
                 this.lineViewer = new visu3d.LinesViewer([line], scene)
 
                 this.lineViewer.color = color
-                this.lineViewer.constantRadius = radius
+                this.lineViewer.radiusAbsolute = radius
 
                 this.lineViewer.go()
             }
@@ -118,7 +118,7 @@ module mathis{
                     /**on trace les vertex*/
                     let verticesViewer = new mathis.visu3d.VerticesViewer(geodesic[i], this.mathisFrame.scene);
                     verticesViewer.color = color
-                    verticesViewer.constantRadius = this.vertexRadius * 1.01
+                    verticesViewer.radiusAbsolute = this.vertexRadius * 1.01
                     verticesViewer.go();
                     this.viewersForGeodesic.push(verticesViewer)
 
@@ -172,20 +172,20 @@ module mathis{
 
                 if (this.showInitialGraph) {
                     let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
-                    baseVertexViewer.constantRadius = this.vertexRadius
+                    baseVertexViewer.radiusAbsolute = this.vertexRadius
                     baseVertexViewer.go()
 
 
                     if (this.lineRadius < 0.8 * this.vertexRadius) {
                         let lineViewer = new visu3d.LinesViewer(this.mamesh, this.mathisFrame.scene)
-                        lineViewer.constantRadius = this.lineRadius
+                        lineViewer.radiusAbsolute = this.lineRadius
                         lineViewer.color = new Color(Color.names.indianred)
                         lineViewer.go()
                     }
                 }
                 else {
                     let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
-                    baseVertexViewer.constantRadius = 0.005
+                    baseVertexViewer.radiusAbsolute = 0.005
                     baseVertexViewer.go()
                 }
 

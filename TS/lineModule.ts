@@ -254,7 +254,7 @@ module mathis{
 
                 /**end of line*/
                 if (opposites==null) {
-                    if (isLoop) throw 'strange : probably, the function makeLineCatalogue2 have as args a non complete graph (call getGroup before)'
+                    if (isLoop) logger.c('strange : probably, the function makeLineCatalogue2 have as args a non complete graph (call getGroup before)')
                     lines.push(new Line(lineInConstruction,false))
                 }
                 else if (opposites.length==0) throw 'convention: is no opposite, the array opposite must be null, and not empty'

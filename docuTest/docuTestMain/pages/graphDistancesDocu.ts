@@ -267,7 +267,7 @@ module mathis {
                     else return 0
                 }
                 linksViewer.color=new Color(Color.names.red)
-                linksViewer.lateralScalingProp=0.08
+                linksViewer.radiusProp=0.08
                 linksViewer.go()
 
 

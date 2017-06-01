@@ -86,7 +86,7 @@ module mathis{
 
                 /**by default, this attribute is null. So radius of vertices are computed
                  * according to the distances between neighbor vertices*/
-                verticesViewer.constantRadius=this.constantRadius
+                verticesViewer.radiusAbsolute=this.constantRadius
                 /**this affectation is useless if previous is not null*/
                 verticesViewer.radiusProp=this.radiusProportion
 
@@ -167,7 +167,7 @@ module mathis{
                 //$$$begin
 
                 let verticesViewer=new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                verticesViewer.constantRadius=this.constantRadius
+                verticesViewer.radiusAbsolute=this.constantRadius
                 verticesViewer.radiusProp=this.radiusProportion
 
 
@@ -479,7 +479,7 @@ module mathis{
 
                 //n
                 let linksViewer=new visu3d.LinksViewer(mamesh,this.mathisFrame.scene)
-                linksViewer.lateralScalingConstant=0.01
+                linksViewer.radiusAbsolute=0.005
                 linksViewer.go()
 
 
