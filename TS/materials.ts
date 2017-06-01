@@ -20,7 +20,9 @@ module mathis {
 
                 let range = (max - min)/(colors.length-1);
                 for(let i = 0;i < colors.length;i++)
+
                     this.colors.push([i * range + min,colors[i]]);
+
             }
 
             static colorToVec3(color : Array<number>) {

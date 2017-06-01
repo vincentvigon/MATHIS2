@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outFile": "brownian.js",
+    "module": "commonjs",
+    "moduleResolution":"Node",
+    "target": "es5",
+    "sourceMap": false
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+
