@@ -3,153 +3,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/**
- * Created by Gwenael on 06/05/2017.
- */
-var exports;
-(function (exports) {
-    function getC2(r, alpha) {
-        if (alpha <= 1.5)
-            return alpha / 2;
-        else {
-            var beta = alpha * (2 - alpha) / (3 * r * (r * r - 1));
-            return (alpha - beta * (r - 1) * (r - 1) * (r + 2)) / 2;
-        }
-    }
-    function rho(x, y, r, alpha) {
-        var beta, c0, c2;
-        if (alpha <= 1.5) {
-            beta = 0;
-            c2 = alpha / 2;
-            c0 = 1 - alpha / 2;
-        }
-        else {
-            beta = alpha * (2 - alpha) / (3 * r * (r * r - 1));
-            c2 = (alpha - beta * (r - 1) * (r - 1) * (r + 2)) / 2;
-            c0 = beta * Math.pow((r - 1), 3) + 1 - c2;
-        }
-        var s = Math.sqrt((x[0] - y[0]) * (x[0] - y[0]) + (x[1] - y[1]) * (x[1] - y[1]));
-        // let s = (x[0] - y[0]) + (x[1] - y[1]);
-        // let s = Math.pow((x[0] - y[0]) ** 3 + (x[1] - y[1]) ** 3,1./3);
-        // let s = Math.sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 4);
-        if (s <= 1)
-            return c0 - Math.pow(s, alpha) + c2 * s * s;
-        else if (s <= r)
-            return beta * Math.pow((r - s), 3) / s;
-        else
-            return 0;
-    }
-    function genBrownian(n, r, h) {
-        if (n === void 0) { n = 100; }
-        if (r === void 0) { r = 2; }
-        if (h === void 0) { h = 0.8; }
-        var m = n;
-        var _a = [2 * n - 2, 2 * m - 2], wr = _a[0], hr = _a[1];
-        var rows = new Float32Array(wr * hr);
-        var tmp = [0, 0];
-        for (var i = 0; i < n; i++) {
-            for (var j = 0; j < m; j++)
-                rows[i * hr + j] = rho([i * r / n, j * r / m], tmp, r, 2 * h);
-        }
-        for (var i = 1; i < n - 1; i++) {
-            rows[(wr - i) * hr] = rows[i * hr];
-        }
-        for (var j = 1; j < m - 1; j++) {
-            rows[(hr - j)] = rows[j];
-        }
-        for (var i = 1; i < n - 1; i++) {
-            for (var j = 1; j < m - 1; j++) {
-                rows[(wr - i) * hr + j] = rows[i * hr + j];
-                rows[i * hr + (hr - j)] = rows[i * hr + j];
-                rows[(wr - i) * hr + (hr - j)] = rows[i * hr + j];
-            }
-        }
-        var data = fft.FFT2D(new fft.ComplexArray(rows), hr, wr);
-        /*const data = new fft.ComplexArray(wr * hr).map((value, i, n) => {
-            value.real = rows[i];
-            value.imag = 0;
-        });*/
-        var z_i = random.randomGaussians(wr * hr);
-        var z_r = random.randomGaussians(wr * hr);
-        // let z_r = new Float32Array(wr * hr);
-        data.map(function (val, i, n) {
-            val.real /= wr * hr;
-            // console.log(val.real,val.imag," -> ",Math.sqrt(val.real));
-            if (val.real >= 0) {
-                val.imag = Math.sqrt(val.real) * z_i[i];
-                val.real = Math.sqrt(val.real) * z_r[i];
-            }
-            else {
-                val.imag = Math.sqrt(-val.real) * z_r[i];
-                val.real = -Math.sqrt(-val.real) * z_i[i];
-            }
-        });
-        data = fft.FFT2D(data, hr, wr);
-        var field = new Float32Array(n * m);
-        for (var i = 0; i < n; i++) {
-            for (var j = 0; j < m; j++) {
-                field[i * m + j] = data.real[i * hr + j];
-            }
-        }
-        var mean = field[0];
-        for (var i = 0; i < n * m; i++) {
-            field[i] -= mean;
-        }
-        /*let [wx,wy] = [random.nextGaussian(),random.nextGaussian()];
-        for(let i = 0 ;i < n;i++) {
-            for(let j = 0 ;j < m;j++) {
-                field[i*m + j] = field[i*m + j] + i*r/n * wx * j*r/m * wy * Math.sqrt(2*getC2(r,2*h));
-            }
-        }*/
-        return field;
-    }
-    exports.genBrownian = genBrownian;
-})(exports || (exports = {}));
-/**
- * Created by Gwenael on 06/05/2017.
- */
-var random;
-(function (random) {
-    var gaussian_last;
-    var gaussian_use_last = false;
-    function nextGaussian(mean, stdev) {
-        if (mean === void 0) { mean = 0.; }
-        if (stdev === void 0) { stdev = 1.; }
-        var gaussian_std;
-        if (gaussian_use_last) {
-            gaussian_use_last = false;
-            gaussian_std = gaussian_last;
-        }
-        else {
-            var x1 = void 0, x2 = void 0, w = void 0;
-            do {
-                x1 = 2.0 * Math.random() - 1.0;
-                x2 = 2.0 * Math.random() - 1.0;
-                w = x1 * x1 + x2 * x2;
-            } while (w >= 1.0);
-            w = Math.sqrt((-2.0 * Math.log(w)) / w);
-            gaussian_use_last = true;
-            gaussian_last = x2 * w;
-            gaussian_std = x1 * w;
-        }
-        return mean + stdev * gaussian_std;
-    }
-    random.nextGaussian = nextGaussian;
-    function randomGaussians(n, mean, stdev) {
-        if (mean === void 0) { mean = 0.; }
-        if (stdev === void 0) { stdev = 1.; }
-        var tab = null;
-        if (n instanceof Float32Array)
-            tab = n;
-        else
-            tab = new Float32Array(n);
-        for (var i = 0; i < tab.length; i++) {
-            tab[i] = nextGaussian(mean, stdev);
-        }
-        return tab;
-    }
-    random.randomGaussians = randomGaussians;
-})(random || (random = {}));
 // https://github.com/dntj/jsfft
 var fft;
 (function (fft) {
@@ -445,3 +298,166 @@ var fft;
     }
     fft.FFT2D = FFT2D;
 })(fft || (fft = {}));
+/**
+ * Created by Gwenael on 06/05/2017.
+ */
+var exports;
+(function (exports) {
+    function getC2(r, alpha) {
+        if (alpha <= 1.5)
+            return alpha / 2;
+        else {
+            var beta = alpha * (2 - alpha) / (3 * r * (r * r - 1));
+            return (alpha - beta * (r - 1) * (r - 1) * (r + 2)) / 2;
+        }
+    }
+    function rho(x, y, r, alpha) {
+        var beta, c0, c2;
+        if (alpha <= 1.5) {
+            beta = 0;
+            c2 = alpha / 2;
+            c0 = 1 - c2;
+        }
+        else {
+            beta = alpha * (2 - alpha) / (3 * r * (r * r - 1));
+            c2 = (alpha - beta * (r - 1) * (r - 1) * (r + 2)) / 2;
+            c0 = beta * Math.pow((r - 1), 3) + 1 - c2;
+        }
+        var s = Math.sqrt((x[0] - y[0]) * (x[0] - y[0]) + (x[1] - y[1]) * (x[1] - y[1]));
+        // let s = (x[0] - y[0]) + (x[1] - y[1]);
+        // let s = Math.pow((x[0] - y[0]) ** 3 + (x[1] - y[1]) ** 3,1./3);
+        // let s = Math.sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 4);
+        if (s <= 1)
+            return c0 - Math.pow(s, alpha) + c2 * s * s;
+        else if (s <= r)
+            return beta * Math.pow((r - s), 3) / s;
+        else
+            return 0;
+    }
+    function genBrownian(n, r, h) {
+        if (n === void 0) { n = 100; }
+        if (r === void 0) { r = 2; }
+        if (h === void 0) { h = 0.8; }
+        var m = n;
+        var _a = [2 * n - 2, 2 * m - 2], wr = _a[0], hr = _a[1];
+        var rows = new Float32Array(wr * hr);
+        var tmp = [0, 0];
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < m; j++)
+                rows[i * hr + j] = rho([i * r / n, j * r / m], tmp, r, 2 * h);
+        }
+        for (var i = 1; i < n - 1; i++) {
+            rows[(wr - i) * hr] = rows[i * hr];
+        }
+        for (var j = 1; j < m - 1; j++) {
+            rows[(hr - j)] = rows[j];
+        }
+        for (var i = 1; i < n - 1; i++) {
+            for (var j = 1; j < m - 1; j++) {
+                rows[(wr - i) * hr + j] = rows[i * hr + j];
+                rows[i * hr + (hr - j)] = rows[i * hr + j];
+                rows[(wr - i) * hr + (hr - j)] = rows[i * hr + j];
+            }
+        }
+        var data = fft.FFT2D(new fft.ComplexArray(rows), hr, wr);
+        /*const data = new fft.ComplexArray(wr * hr).map((value, i, n) => {
+            value.real = rows[i];
+            value.imag = 0;
+        });*/
+        var z_i = random.randomGaussians(wr * hr);
+        var z_r = random.randomGaussians(wr * hr);
+        // let z_r = new Float32Array(wr * hr);
+        data.map(function (val, i, n) {
+            val.real *= Math.sqrt(wr * hr); // FFT normalisation
+            val.real /= wr * hr;
+            // console.log(val.real,val.imag," -> ",Math.sqrt(val.real));
+            if (val.real >= 0) {
+                val.imag = Math.sqrt(val.real) * z_i[i];
+                val.real = Math.sqrt(val.real) * z_r[i];
+            }
+            else {
+                val.imag = Math.sqrt(-val.real) * z_r[i];
+                val.real = -Math.sqrt(-val.real) * z_i[i];
+            }
+        });
+        data = fft.FFT2D(data, hr, wr);
+        var field = new Float32Array(n * m);
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < m; j++) {
+                field[i * m + j] = data.real[i * hr + j] * Math.sqrt(wr * hr); // FFT normalisation
+            }
+        }
+        var mean = field[0];
+        for (var i = 0; i < n * m; i++) {
+            field[i] -= mean;
+        }
+        //*
+        var _b = [random.nextGaussian(), random.nextGaussian()], wx = _b[0], wy = _b[1];
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < m; j++) {
+                field[i * m + j] += (i * r / n * wx + j * r / m * wy) * Math.sqrt(2 * getC2(r, 2 * h));
+            }
+        }
+        //*/
+        return field;
+    }
+    exports.genBrownian = genBrownian;
+    function test_fft() {
+        var wr = 200;
+        var hr = 100;
+        var rows = new Float32Array(wr * hr);
+        for (var i = 0; i < wr * hr; i++)
+            rows[i] = 1;
+        var data = new fft.ComplexArray(rows); //fft.FFT2D(new fft.ComplexArray(rows),hr,wr);
+        data = fft.FFT2D(data, hr, wr);
+        data.map(function (val, i, n) {
+            console.log(i, ' -> ', val.real, ' + ', val.imag, 'i');
+        });
+    }
+    exports.test_fft = test_fft;
+})(exports || (exports = {}));
+/**
+ * Created by Gwenael on 06/05/2017.
+ */
+var random;
+(function (random) {
+    var gaussian_last;
+    var gaussian_use_last = false;
+    function nextGaussian(mean, stdev) {
+        if (mean === void 0) { mean = 0.; }
+        if (stdev === void 0) { stdev = 1.; }
+        var gaussian_std;
+        if (gaussian_use_last) {
+            gaussian_use_last = false;
+            gaussian_std = gaussian_last;
+        }
+        else {
+            var x1 = void 0, x2 = void 0, w = void 0;
+            do {
+                x1 = 2.0 * Math.random() - 1.0;
+                x2 = 2.0 * Math.random() - 1.0;
+                w = x1 * x1 + x2 * x2;
+            } while (w >= 1.0);
+            w = Math.sqrt((-2.0 * Math.log(w)) / w);
+            gaussian_use_last = true;
+            gaussian_last = x2 * w;
+            gaussian_std = x1 * w;
+        }
+        return mean + stdev * gaussian_std;
+    }
+    random.nextGaussian = nextGaussian;
+    function randomGaussians(n, mean, stdev) {
+        if (mean === void 0) { mean = 0.; }
+        if (stdev === void 0) { stdev = 1.; }
+        var tab = null;
+        if (n instanceof Float32Array)
+            tab = n;
+        else
+            tab = new Float32Array(n);
+        for (var i = 0; i < tab.length; i++) {
+            tab[i] = nextGaussian(mean, stdev);
+        }
+        return tab;
+    }
+    random.randomGaussians = randomGaussians;
+})(random || (random = {}));

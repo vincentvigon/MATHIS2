@@ -456,7 +456,7 @@ module mathis {
 
             let lineMaker=new lineModule.LineComputer(mamesh)
             lineMaker.restrictLinesToTheseVertices=mamesh.vertices
-            lineMaker.go()
+            mamesh.lines = lineMaker.go()
 
 
             bilan.assertTrue(mamesh.getStraightLines().length==1)

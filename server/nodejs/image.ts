@@ -1,6 +1,5 @@
 /**
  * Created by Gwenael on 06/05/2017.
- * Il suffit de mettre dans le module exports et ca marche (d'après mes tests du moins)
  */
 module exports {
     function getC2(r,alpha) {
@@ -17,7 +16,7 @@ module exports {
         if(alpha <= 1.5) {
             beta = 0;
             c2 = alpha/2;
-            c0 = 1-alpha/2;
+            c0 = 1-c2;
         } else {
             beta = alpha*(2-alpha)/(3*r*(r*r-1));
             c2 = (alpha - beta * (r-1)*(r-1) * (r+2))/2;
@@ -70,6 +69,7 @@ module exports {
         let z_r = random.randomGaussians(wr * hr);
         // let z_r = new Float32Array(wr * hr);
         data.map((val,i,n) => {
+            val.real *= Math.sqrt(wr * hr); // FFT normalisation
             val.real /= wr * hr;
             // console.log(val.real,val.imag," -> ",Math.sqrt(val.real));
 
@@ -86,23 +86,46 @@ module exports {
         let field = new Float32Array(n * m);
         for(let i = 0 ;i < n;i++) {
             for(let j = 0 ;j < m;j++) {
-                field[i*m + j] = data.real[i*hr + j];
+                field[i*m + j] = data.real[i*hr + j] * Math.sqrt(wr * hr); // FFT normalisation
             }
         }
 
         let mean = field[0];
         for(let i = 0;i < n * m;i++) {
             field[i] -= mean;
+            //console.log(field[i]);
         }
 
-        /*let [wx,wy] = [random.nextGaussian(),random.nextGaussian()];
+        //*
+        let [wx,wy] = [random.nextGaussian(),random.nextGaussian()];
         for(let i = 0 ;i < n;i++) {
             for(let j = 0 ;j < m;j++) {
-                field[i*m + j] = field[i*m + j] + i*r/n * wx * j*r/m * wy * Math.sqrt(2*getC2(r,2*h));
+                field[i*m + j] += (i*r/n * wx + j*r/m * wy) * Math.sqrt(2*getC2(r,2*h));
             }
-        }*/
-
+        }
+        //*/
 
         return field;
+    }
+
+    export function test_fft() {
+
+        let wr = 200
+        let hr = 100
+
+
+        let rows = new Float32Array(wr * hr);
+        for(let i = 0;i < wr*hr;i++)
+            rows[i] = 1;
+
+
+        let data = new fft.ComplexArray(rows) //fft.FFT2D(new fft.ComplexArray(rows),hr,wr);
+
+        data = fft.FFT2D(data,hr,wr);
+        data.map((val,i,n) => {
+            console.log(i,' -> ',val.real,' + ',val.imag,'i');
+        });
+
+
     }
 }
