@@ -1,15 +1,19 @@
 /**
  * Created by vigon on 10/05/2017.
+ *
+ *
  */
 
 module mathis{
 
 
-    export module smallProject {
+    export module mourratGraph {
 
-        export class LongEdgeVisual {
+        /**classe interne représentant les grands ponts*/
+        class LongEdgeVisual{
 
 
+            /**Ce hash permet d'identifier les grands ponts qui sont non-orienté.*/
             static hash(vertex0: Vertex, vertex1: Vertex): string {
                 if (vertex0.hashNumber < vertex1.hashNumber) return vertex0.hashNumber + ',' + vertex1.hashNumber
                 else return vertex1.hashNumber + ',' + vertex0.hashNumber
@@ -21,7 +25,6 @@ module mathis{
                         radius: number,
                         upDirection: XYZ,
                         scene: BABYLON.Scene
-                        //private srg:SpacialRandomGraph
             ) {
 
                 let v0 = new Vertex()
@@ -37,6 +40,7 @@ module mathis{
                 let demiDist = geo.distance(v0.position, v1.position) / 2
                 vMid.position.add(upDirection).scale(demiDist).add(bary)
 
+                /**on rajoute un vertex en hauteur pour créer une arche*/
                 let line = new Line([v0, vMid, v1], false)
 
                 this.lineViewer = new visu3d.LinesViewer([line], scene)
@@ -54,58 +58,50 @@ module mathis{
         export class SpacialRandomGraph {
 
 
-            /**la vrai formule pour le cas gamma=1 n'a pas été traité
-             * (ces simulations sont pas assez précises pour montrer la différence entre gamma=1 et gamma proche de 1) */
-            get alpha() {
-                if (this.gamma <= 1) {
-                    return Math.max(Math.min((1 - this.b) / (2 - this.gamma), 1), 0)
-                }
-                else if (this.gamma > 1) {
-                    return Math.max(Math.min((this.gamma - this.b) / (this.gamma), 1), 0)
-                }
-                else return null
-            }
 
-            get Nalpha() {
-                return Math.pow(this.N, this.alpha)
-            }
-
-
-            defaultColorForLongEdge = new Color(new RGB_range255(124, 252, 0))
-            private energy: number = null
-            private candidateEnergy = 1
-
-            private C_gamma = 0
-
+            /**paramètres importants réglables par l'utilisateur*/
             b = 1
             gamma = 1
-
             nbTryPerBatch = 1
+            probaOfLongEdgeModif = 0.5
+
+
+
+            /**réglages secondaire*/
             lineRadius = 0.01
-
+            defaultColorForLongEdge = new Color(new RGB_range255(124, 252, 0))
             upDirection = new XYZ(0, 1, 0)
-
-
-            private longEdges = new StringMap<LongEdgeVisual>()
-
-
+            /**par défaut, on utilise un générateur pseudo aléatoire avec un graine fixée*/
             rand = new proba.Random()
             showInitialGraph = true
 
+
+
+            private longEdges = new StringMap<LongEdgeVisual>()
+            private energy: number = null
+            private candidateEnergy = 1
+            private C_gamma = 0
             private graph: Vertex[]
+            private vertexRadius
+            private viewersForGeodesic: any[] = []
 
 
-            constructor(public mamesh: Mamesh,
-                        public mathisFrame: MathisFrame,
-                        private N// nombre de vertex sur une dimension
-
+            constructor(
+                /**maillage initial. ça peut-être n'importe quel graph, mais pour que la théorie fonctionne,
+                 * - il faut qu'il y ai en gros N vertex par dimension,
+                 * - il faut que la formule de distance euclidienne fonctionne (cf. plus bas)
+                 * */
+                public mamesh: Mamesh,
+                /**mathisFrame: fenêtre graphique*/
+                public mathisFrame: MathisFrame,
+                /**N: nombre de vertex sur une dimension. Donc le nombre total de vertex est N^dim */
+                private N
             ) {
                 this.graph = mamesh.vertices
 
             }
 
 
-            viewersForGeodesic: any[] = []
 
             drawAGeodesic(geodesic: Vertex[][], colorIsBlueVersusBlack) {
                 for (let i = 0; i < geodesic.length; i++) {
@@ -148,8 +144,7 @@ module mathis{
             }
 
 
-            private vertexRadius
-
+            /**pour lancer la classe*/
             go() {
 
 
@@ -193,20 +188,14 @@ module mathis{
 
 
             private areClose(vertex0: Vertex, vertex1: Vertex): boolean {
-
                 if (vertex0 == vertex1) return true
-
                 let link = vertex0.findLink(vertex1)
-
                 if (link == null) return false
-
                 if (link.customerOb == null) return false
-
                 return true
-
             }
 
-            private allClose(vertex: Vertex): Vertex[] {
+            private getAllCloseVertices(vertex: Vertex): Vertex[] {
                 let res = []
                 for (let link of vertex.links) {
                     if (link.customerOb == true) res.push(link.to)
@@ -216,19 +205,20 @@ module mathis{
 
 
             /**Attention : cette formule donne la distance euclidienne quand on suppose que les vertex sont placés
-             *
              *  cas1d :  en 1,2,...,N      et non pas  sur [-1,1] comme sur la visualisation
              *  cas2d :  en (1,1) , ..., (N,N)  et non pas  sur [-1,1]^2 comme sur la visualisation
              *  cas2d :  en (1,1,1) , ..., (N,N,N)  et non pas  sur [-1,1]^3 comme sur la visualisation
+             *
+             *  pour des graphes plus généraux, il faut réellement calculer la distance euclienne (un tout petit peu plus long)
+             *
              *  */
             euclidianDistance(vertex0: Vertex, vertex1: Vertex): number {
-
                 return geo.distance(vertex0.position, vertex1.position) * (this.N - 1) / 2
             }
 
 
-            probaOfLongEdgeModif = 0.
 
+            /**peut-être appeler autant de fois que l'on désire faire un batch (=paquet) de sample*/
 
             batchOfChanges(): {diameter: number;suppression: number;addition: number;modification: number} {
 
@@ -246,10 +236,9 @@ module mathis{
                     let proba = (this.longEdges.allValues().length < 4) ? 0 : this.probaOfLongEdgeModif
                     if (this.rand.pseudoRand() < proba) {
 
-
                         let aLongEdge = this.longEdges.aRandomValue()
 
-                        let allClos = this.allClose(aLongEdge.vertex1)
+                        let allClos = this.getAllCloseVertices(aLongEdge.vertex1)
                         let vertex1New: Vertex = allClos[Math.floor(allClos.length * this.rand.pseudoRand())]
 
                         if (!this.areClose(vertex1New, aLongEdge.vertex0)) {
@@ -262,15 +251,12 @@ module mathis{
                     }
                     else {
 
-                        /**on tire deux sommets au hasards. */
+                        /**on tire deux sommets au hasard. */
                         let vertex0 = this.graph[this.rand.pseudoRandInt(this.graph.length)]
                         let vertex1: Vertex = this.graph[this.rand.pseudoRandInt(this.graph.length)]
 
                         if (this.areClose(vertex0, vertex1)) continue
 
-                        // while (this.areClose(vertex0, vertex1)) {
-                        //     vertex1 = this.graph[this.rand.pseudoRandInt(this.graph.length)]
-                        // }
 
                         /**si un longEdge existe : on propose de le supprimer, sinon de le rajouter*/
                         if (this.longEdges.getValue(LongEdgeVisual.hash(vertex0, vertex1)) != null) linkToSuppress = [vertex0, vertex1]
@@ -297,7 +283,6 @@ module mathis{
                     if (ratioEnergy >= 1 || Math.random() < ratioEnergy) {
                         /**on accepte le changement : le graph a déjà été modifier, il reste à modifier le visuel*/
                         /**on fait des copies avec concat()*/
-                        //this.twoExtremeVertices=this.twoExtremeVertices_proposal.concat([])
 
 
                         if (linkToAdd != null) {
@@ -358,11 +343,10 @@ module mathis{
             }
 
 
+            /**quantité mémorisée durant le calcul de l'énergie.
+             * Notamment : on mémorise la géodésique extrémale pour pouvoir la faire apparaître dans la visu.*/
             private extremeGeodesics_proposal: Vertex[][]
             private extremeGeodesics: Vertex[][]
-
-            private twoExtremeVertices_proposal: Vertex[]
-            private twoExtremeVertices: Vertex[]
             private diameter_proposal: number
             private diameter: number
             private diameter_previousBatch: number
@@ -371,7 +355,6 @@ module mathis{
 
                 var diameterComputer = new mathis.graph.HeuristicDiameter(this.mamesh.vertices);
                 this.diameter_proposal = diameterComputer.go()
-                this.twoExtremeVertices_proposal = diameterComputer.OUT_twoChosenExtremeVertices
 
                 this.extremeGeodesics_proposal = diameterComputer.OUT_oneGeodesicBetweenChosenExtremeVertices
                 this.candidateEnergy = Math.pow(this.N, this.b) * this.diameter_proposal + this.C_gamma
@@ -381,6 +364,28 @@ module mathis{
                 return Math.exp(-this.candidateEnergy + this.energy)
 
             }
+
+            /**
+             * Quantités prédites par la théorie.
+             * la vrai formule pour le cas gamma=1 n'a pas été traité
+             * (ces simulations sont pas assez précises pour montrer la différence entre gamma=1 et gamma proche de 1) */
+            get alpha() {
+                if (this.gamma <= 1) {
+                    return Math.max(Math.min((1 - this.b) / (2 - this.gamma), 1), 0)
+                }
+                else if (this.gamma > 1) {
+                    return Math.max(Math.min((this.gamma - this.b) / (this.gamma), 1), 0)
+                }
+                else return null
+            }
+
+            get Nalpha() {
+                return Math.pow(this.N, this.alpha)
+            }
+
+
+
+
 
 
         }

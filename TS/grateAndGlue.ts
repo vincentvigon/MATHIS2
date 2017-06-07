@@ -925,8 +925,10 @@ module mathis{
             
             SUB_linkCleanerByAngle=new linkModule.LinksSorterAndCleanerByAngles(null,null)
 
+            SUB_PolygonCreatorFromLinks=new surfaceConnection.SurfaceConnectionProcess(null,1,false,true)
 
 
+            addMissingPolygons=true
             
 
             constructor() {
@@ -1010,14 +1012,6 @@ module mathis{
                     this.OUT_stickingMap.extend(map)
                     
 
-
-                    // let indexToRemove:number[]=[]
-                    // for (let i=0;i<map.length;i++){
-                    //     if (!this.proximityMeasurer.areClose(map[i][0],map[i][1],stickingCoef)) {
-                    //         indexToRemove.push(i)
-                    //     }
-                    // }
-                    // map=tab.arrayMinusSomeIndices(map,indexToRemove)
                     let sticker=new Sticker(res,this.OUTGratedMameshes[indexMamesh],map)
                     sticker.zIndex1=indexMamesh
                     /**already done in this method*/
@@ -1043,6 +1037,13 @@ module mathis{
                     // linkSort.suppressLinksAngularParam=this.suppressLinksAngle
                     // linkSort.goChanging()
                 }
+
+
+                if (this.addMissingPolygons) {
+                    this.SUB_PolygonCreatorFromLinks.mamesh = res
+                    this.SUB_PolygonCreatorFromLinks.go()
+                }
+                //let connect = new surfaceConnection.SurfaceConnectionProcess(mamesh, this.nbBiggerFacesDeleted, this.areaOrPerimeterChoice, this.fillConvexFaces);
 
 
 

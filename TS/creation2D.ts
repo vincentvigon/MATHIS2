@@ -120,7 +120,7 @@ module mathis{
                         if (partShape==PartShape.triangulatedRect) gene.squareMailleInsteadOfTriangle=false
                         gene.go()
 
-                        let regular=new reseau.Regular(gene)
+                        let regular=new reseau.Regular2d(gene)
                         if (partShape==PartShape.triangulatedRect) regular.oneMoreVertexForOddLine=true
                         mamesh=regular.go()
 

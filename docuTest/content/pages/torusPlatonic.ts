@@ -95,10 +95,10 @@ module mathis {
 
 
                 //n
-                let creator = new reseau.Regular(generator)
+                let creator = new reseau.Regular2d(generator)
                 let mamesh=creator.go()
 
-                let creator0 = new reseau.Regular(generator)
+                let creator0 = new reseau.Regular2d(generator)
                 let mamesh0=creator0.go()
                 //n
 
@@ -250,7 +250,7 @@ module mathis {
                 generator.nbVerticalDecays=this.nbVerticalDecays
                 generator.nbHorizontalDecays=this.nbHorizontalDecays
                 //n
-                let creator = new reseau.Regular(generator)
+                let creator = new reseau.Regular2d(generator)
                 let mamesh=creator.go()
                 //n
                 let bent=this.bent
@@ -350,7 +350,7 @@ module mathis {
                 generator.nbVerticalDecays=this.nbVerticalDecays
                 generator.nbHorizontalDecays=this.nbHorizontalDecays
 
-                let creator = new reseau.Regular(generator)
+                let creator = new reseau.Regular2d(generator)
                 let mamesh=creator.go()
 
                 //n

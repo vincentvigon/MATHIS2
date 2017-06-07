@@ -18,7 +18,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1 / 2, 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh =new reseau.Regular( gene0).go()
+            let mamesh =new reseau.Regular2d( gene0).go()
 
             let verticesToKeep=[]
             for (let i=0;i<mamesh.vertices.length;i++) {
@@ -55,14 +55,14 @@ module mathis{
                 gene0.end = new XYZ(1 / 2, 1 / 2, 0)
                 gene0.nbI = nb
                 gene0.nbJ = nb
-                let mamesh0 = new reseau.Regular(gene0).go()
+                let mamesh0 = new reseau.Regular2d(gene0).go()
 
                 let gene1 = new reseau.BasisForRegularReseau()
                 gene1.origin = new XYZ(-1 / 2, -1 / 2, 0)
                 gene1.end = new XYZ(1 / 2, 1 / 2, 0)
                 gene1.nbI = nb
                 gene1.nbJ = nb
-                let mamesh1 = new reseau.Regular(gene1).go()
+                let mamesh1 = new reseau.Regular2d(gene1).go()
 
 
                 let gene2 = new reseau.BasisForRegularReseau()
@@ -70,7 +70,7 @@ module mathis{
                 gene2.end = new XYZ(1 / 2, 1 / 2, 0)
                 gene2.nbI = nb
                 gene2.nbJ = nb
-                let mamesh2 = new reseau.Regular(gene2).go()
+                let mamesh2 = new reseau.Regular2d(gene2).go()
 
                 new mathis.spacialTransformations.Similitude(mamesh1.vertices, 0, new XYZ(0.3, 0.2, 0)).goChanging()
                 new mathis.spacialTransformations.Similitude(mamesh2.vertices, 0, new XYZ(0.2, -0.2, 0)).goChanging()
@@ -245,7 +245,7 @@ module mathis{
                 gene0.nbI = nb
                 gene0.nbJ = nb
 
-                let regularMaker = new reseau.Regular( gene0)
+                let regularMaker = new reseau.Regular2d( gene0)
                 regularMaker.squareVersusTriangleMaille = false
                 let mamesh0 =regularMaker.go()
 
@@ -279,7 +279,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1/2 , 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
 
 
             let selected=[mamesh0.vertices[0],mamesh0.vertices[1],mamesh0.vertices[4],mamesh0.vertices[5]]
@@ -378,7 +378,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1/2 , 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
 
 
             let selected=[mamesh0.vertices[0],mamesh0.vertices[1],mamesh0.vertices[4],mamesh0.vertices[5]]
@@ -410,7 +410,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1/2 , 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
             mamesh0.fillLineCatalogue()
 
             let linesBefore=mamesh0.allLinesAsASortedString()
@@ -444,7 +444,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1/2 , 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
 
             nb=5
             let gene = new reseau.BasisForRegularReseau()
@@ -452,7 +452,7 @@ module mathis{
             gene.end = new XYZ(1 / 2, 1 / 2, 0)
             gene.nbI = nb
             gene.nbJ = nb
-            let mamesh1 = new reseau.Regular( gene).go()
+            let mamesh1 = new reseau.Regular2d( gene).go()
 
             new mathis.spacialTransformations.Similitude(mamesh1.vertices,Math.PI/4,new XYZ(0,0,0),new XYZ(0.5,0.5,0)).goChanging()
 
@@ -492,7 +492,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1 / 2, 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
             mamesh0.name = 'centre00'
 
 
@@ -526,7 +526,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1 / 2, 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 = new reseau.Regular( gene0).go()
+            let mamesh0 = new reseau.Regular2d( gene0).go()
             mamesh0.name = 'centre00'
 
 
@@ -563,7 +563,7 @@ module mathis{
             gene0.end = new XYZ(1 / 2, 1 / 2, 0)
             gene0.nbI = nb
             gene0.nbJ = nb
-            let mamesh0 =new reseau.Regular( gene0).go()
+            let mamesh0 =new reseau.Regular2d( gene0).go()
             mamesh0.name = 'centre00'
 
 

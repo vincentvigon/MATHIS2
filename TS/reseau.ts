@@ -367,7 +367,7 @@ module mathis{
         
         
 
-        export class Regular{
+        export class Regular2d{
 
 
             nbI=3
@@ -502,10 +502,6 @@ module mathis{
                     }
                 }
                 
-                
-                
-
-
 
 
                 if (this.mamesh.vertices.length==0) console.log('you have created a IN_mamesh with no vertex. Perhaps because of {@link Regular.putAVertexOnlyAtXYZCheckingThisCondition }')
@@ -864,7 +860,7 @@ module mathis{
 
 
 
-        export enum Sticking{none, direct, indirect}
+        //export enum Sticking{none, direct, indirect}
 
         // export class Regular2dPlus{
         //
@@ -1088,16 +1084,21 @@ module mathis{
 
 
 
+        //TODO ajouter d'autres mailles
+
         export enum Maille{quad,triangleH,triangleV}
+
         export class Regular2dPlus{
 
 
-            nbI=3
-            adaptIJForRegularReseau=false
-            nbJ=3
+            nbU=3
+            adaptUVForRegularReseau=false
+            nbV=3
 
-            nbSubInterval_I=1
-            nbSubInterval_J=1
+
+
+            nbSubInterval_U=1
+            nbSubInterval_V=1
 
 
             origin=new XYZ(-0.7,-0.7,0)
@@ -1105,7 +1106,6 @@ module mathis{
 
             nbVerticalDecays=0
             nbHorizontalDecays=0
-            //squareVersusTriangleMaille=true
 
 
             makeLinks=true
@@ -1118,7 +1118,6 @@ module mathis{
             markBorder=true
             markCenter=true
             putAVertexOnlyAtXYZCheckingThisCondition:(xyz:XYZ)=>boolean=null
-
 
 
 
@@ -1152,20 +1151,20 @@ module mathis{
                 let origin=XYZ.newFrom(this.origin)
                 let end=XYZ.newFrom(this.end)
 
-                let nbI=this.nbI
-                let nbJ=this.nbJ
-                let nbSubInterval_I=this.nbSubInterval_I
-                let nbSubInterval_J=this.nbSubInterval_J
+                let nbI=this.nbU
+                let nbJ=this.nbV
+                let nbSubInterval_I=this.nbSubInterval_U
+                let nbSubInterval_J=this.nbSubInterval_V
                 let nbVerticalDecays=this.nbVerticalDecays
                 let nbHorizontalDecays=this.nbHorizontalDecays
 
                 if (inversed){
                     this.inverseXY(origin)
                     this.inverseXY(end)
-                    nbI=this.nbJ
-                    nbJ=this.nbI
-                    nbSubInterval_I=this.nbSubInterval_J
-                    nbSubInterval_J=this.nbSubInterval_I
+                    nbI=this.nbV
+                    nbJ=this.nbU
+                    nbSubInterval_I=this.nbSubInterval_V
+                    nbSubInterval_J=this.nbSubInterval_U
 
                     nbVerticalDecays=this.nbHorizontalDecays
                     nbHorizontalDecays=this.nbVerticalDecays
@@ -1177,7 +1176,7 @@ module mathis{
                 /**creation de la base*/
                 let basisCrea=new BasisForRegularReseau()
                 basisCrea.nbI=(nbI-1)*nbSubInterval_I+1
-                basisCrea.set_nbJ_toHaveRegularReseau=this.adaptIJForRegularReseau
+                basisCrea.set_nbJ_toHaveRegularReseau=this.adaptUVForRegularReseau
                 basisCrea.nbJ=(nbJ-1)*nbSubInterval_J+1
                 basisCrea.origin=origin
                 basisCrea.end=end
@@ -1187,12 +1186,7 @@ module mathis{
                 let VV=basisCrea.go()
 
 
-
-
-
-
-
-                let creator=new Regular()
+                let creator=new Regular2d()
                     creator.Vi.copyFrom(VV.Vi)
                     creator.Vj.copyFrom(VV.Vj)
                     creator.nbI = VV.nbI
@@ -1224,7 +1218,8 @@ module mathis{
 
 
 
-                if (this.topology!=Topology.flat) this.stickingTopologies(mamesh)
+                //TODO refaire
+                //if (this.topology!=Topology.flat) this.stickingTopologies(mamesh)
 
 
                 this.subdivisionsAndLines(mamesh,nbSubInterval_I,nbSubInterval_J)
@@ -1256,7 +1251,7 @@ module mathis{
                     }
                 }
                 else{
-                    let space=this.nbSubInterval_I
+                    let space=this.nbSubInterval_U
 
 
                     for (let vertex of mamesh.vertices) {
@@ -1285,54 +1280,9 @@ module mathis{
 
 
 
-            //
-            // private someLines(mamesh:Mamesh,creator:Regular,widthVert:number,widthHor:number){
-            //     let lineBuilder = new lineModule.LineComputer(mamesh)
-            //
-            //     if (this.squareMailleInsteadOfTriangle) {
-            //
-            //         lineBuilder.startingSegments = []
-            //
-            //
-            //         if (this.nbVerticalBands > 0) {
-            //             for (let i = 0; i < this.nbVerticalBands + 1; i++) {
-            //                 let v0 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 0, 0))
-            //                 let v1 = creator.OUT_paramToVertex.getValue(new XYZ(i * widthVert, 1, 0))
-            //                 if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
-            //             }
-            //         }
-            //         if (this.nbHorizontalBands > 0) {
-            //             for (let j = 0; j < this.nbHorizontalBands + 1; j++) {
-            //                 let v0 = creator.OUT_paramToVertex.getValue(new XYZ(0, j * widthHor, 0))
-            //                 let v1 = creator.OUT_paramToVertex.getValue(new XYZ(1, j * widthHor, 0))
-            //                 if(v0!=null &&v1!=null) lineBuilder.startingSegments.push([v0, v1])
-            //             }
-            //         }
-            //     }
-            //     else{
-            //
-            //         lineBuilder.startingVertices=[]
-            //
-            //         for (let vertex of mamesh.vertices) {
-            //             if (vertex.param.x%widthVert==0&&vertex.param.y%(2*widthVert)==0) lineBuilder.startingVertices.push(vertex)
-            //             if (vertex.param.x%widthVert ==Math.ceil(widthVert/2) &&  vertex.param.y%(2*widthVert) ==widthVert) lineBuilder.startingVertices.push(vertex)
-            //
-            //         }
-            //
-            //     }
-            //
-            //     mamesh.lines = lineBuilder.go()
-            // }
-            //
-
 
             memorize:HashMap<Vertex,XYZ>
             private stickingTopologies(mamesh:Mamesh){
-
-                // let X
-                // let Y
-                // let Z
-                // let pi=Math.PI
 
 
 
@@ -1348,6 +1298,8 @@ module mathis{
 
                 if (this.topology==Topology.klein) {
                     eq=new equations.KleinBagel()
+                    //eq.rangeU=[0.101,2*PI+0.101]
+                    //eq.rangeV=[0.101,2*PI+0.101]
                 }
                 else if (this.topology==Topology.cylinder) {
                     eq = new equations.Cylinder()
@@ -1358,14 +1310,22 @@ module mathis{
                 else if (this.topology==Topology.torus){
                     eq=new equations.Torus()
                 }
+                // else if (this.topology==Topology.projectivePlan){
+                //     eq =new equations.Moebius()
+                // }
                 else throw "topology non valid in this class"
 
 
                 let amplX=this.end.x-this.origin.x
                 let amplY=this.end.y-this.origin.y
+
+
+
                 for (let vertex of mamesh.vertices){
-                    let u=(vertex.position.x-this.origin.x)/amplX-0.5
-                    let v=(vertex.position.y-this.origin.y)/amplY-0.5
+
+
+                    let u=(vertex.position.x-this.origin.x)/amplX * (eq.rangeU[1]-eq.rangeU[0]) + eq.rangeU[0]
+                    let v=(vertex.position.y-this.origin.y)/amplY * (eq.rangeV[1]-eq.rangeV[0]) + eq.rangeV[0]
 
                     vertex.position.x=eq.X(u,v)
                     vertex.position.y=eq.Y(u,v)
@@ -1379,13 +1339,13 @@ module mathis{
                 oppositeAssocier.maxAngleToAssociateLinks = Math.PI*0.3;
                 oppositeAssocier.goChanging();
 
+
+
                 if (this.flatVersusNaturalShape) {
                     for (let vertex of mamesh.vertices) {
                         vertex.position = this.memorize.getValue(vertex)
                     }
                 }
-
-
 
             }
 
@@ -1491,7 +1451,7 @@ module mathis{
                 
                 for (let k=0; k<this.nbK; k++){
 
-                    let twoD=new Regular()
+                    let twoD=new Regular2d()
                     twoD.makeTriangleOrSquare=this.makeTriangleOrSquare
                     twoD.makeLinks=true
                     twoD.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine

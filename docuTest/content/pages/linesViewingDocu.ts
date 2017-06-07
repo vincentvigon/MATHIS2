@@ -213,7 +213,7 @@ module mathis{
                 basis.origin=new XYZ(-0.7,-0.7,0)
                 basis.end=new XYZ(+0.7,+0.7,0)
 
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
                 let mamesh=creator.go()
 
                 let lineBuilder=new lineModule.LineComputer(mamesh)
@@ -386,7 +386,7 @@ module mathis{
                 basis.end=new XYZ(+0.7,+0.7,0)
 
 
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
                 let mamesh=creator.go()
 
                 let lineBuilder=new lineModule.LineComputer(mamesh)
@@ -461,7 +461,7 @@ module mathis{
                 basis.nbJ=11
                 basis.origin=new XYZ(-1,-1,0)
                 basis.end=new XYZ(1,1,0)
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
                 let mamesh=creator.go()
                 //$$$eh
 

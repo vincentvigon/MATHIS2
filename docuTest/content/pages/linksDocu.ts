@@ -276,7 +276,7 @@ module mathis{
                 let basis=new reseau.BasisForRegularReseau()
                 basis.nbI=8
                 basis.nbJ=8
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
                 creator.makeLinks=false
                 creator.makeTriangleOrSquare=false
                 let mamesh = creator.go()
@@ -384,7 +384,7 @@ module mathis{
                 basis.nbI=5
                 basis.nbJ=5
                 basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
 
 
                 /**we intentionally forget to create links*/

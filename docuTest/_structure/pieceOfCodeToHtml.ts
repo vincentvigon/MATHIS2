@@ -10,8 +10,6 @@ module mathis{
 
 
 
-
-
         export class PieceOfCodeTransformer{
             pieceOfCode:PieceOfCode
 

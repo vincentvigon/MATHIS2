@@ -452,7 +452,7 @@ module mathis {
                     basisComputer.nbI = this.nbI
                     basisComputer.set_nbJ_toHaveRegularReseau = true
                     basisComputer.squareMailleInsteadOfTriangle = this.squareVersusTriangleMaille
-                    creator = new reseau.Regular(basisComputer)
+                    creator = new reseau.Regular2d(basisComputer)
                 }
                 //$$$eh
 
@@ -632,7 +632,7 @@ module mathis {
                 basisComputer.end = new XYZ(1, 1, 0)
                 basisComputer.nbI = this.nbI
                 basisComputer.set_nbJ_toHaveRegularReseau=true
-                let creator = new reseau.Regular(basisComputer)
+                let creator = new reseau.Regular2d(basisComputer)
 
                 let mamesh = creator.go()
 
@@ -736,7 +736,7 @@ module mathis {
                 basisComputer.nbI = this.nbI
                 basisComputer.set_nbJ_toHaveRegularReseau=true
                 basisComputer.squareMailleInsteadOfTriangle = this.squareVersusTriangleMaille
-                let creator = new reseau.Regular(basisComputer)
+                let creator = new reseau.Regular2d(basisComputer)
 
                 let mamesh = creator.go()
 

@@ -104,14 +104,14 @@ module mathis{
             let gene = new reseau.BasisForRegularReseau()
             gene.nbI = 2
             gene.nbJ = 2
-            let crea = new reseau.Regular(gene)
+            let crea = new reseau.Regular2d(gene)
             let mamesh = crea.go()
             mamesh.fillLineCatalogue()
             new spacialTransformations.Similitude(mamesh.vertices,Math.PI/4).goChanging()
             spacialTransformations.adjustInASquare(mamesh,new XYZ(0,0,0),new XYZ(1,1,0))
 
 
-            let crea2 = new reseau.Regular(gene)
+            let crea2 = new reseau.Regular2d(gene)
             let mamesh2 = crea2.go()
             mamesh2.fillLineCatalogue()
             new spacialTransformations.Similitude(mamesh2.vertices,Math.PI/2).goChanging()
@@ -183,7 +183,7 @@ module mathis{
          * */
         {
         
-            let mamCrea=new reseau.Regular()
+            let mamCrea=new reseau.Regular2d()
             mamCrea.nbI=3
             mamCrea.nbJ=2
             mamCrea.makeLinks=false

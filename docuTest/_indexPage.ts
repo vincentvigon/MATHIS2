@@ -1,12 +1,13 @@
 /**
+ * Created by vigon on 05/06/2017.
+ */
+/**
  * Created by vigon on 19/11/2016.
  */
 
 /**to work with the local server or the owh server*/
 //var webSocketAddress='ws://MacBook-Pro-de-irma.local:1234'
 var webSocketAddress='ws://92.222.90.196:1234'
-
-
 
 declare function prettyPrint()
 
@@ -68,17 +69,17 @@ module mathis{
                 }
             }
 
-            
+
             onStateChange(){
-                
+
                 let leftWidth=Math.round(this.state-this.min)/(this.max-this.min)*100
                 let rightWidth=100-leftWidth
-                
+
                 this.$left.css({width:leftWidth+"%"})
                 this.$right.css({width:rightWidth+"%",left:leftWidth+"%"})
                 this.$leftButton.css({right:rightWidth+"%"})
                 this.$rightButton.css({left:leftWidth+"%"})
-               
+
             }
 
         }
@@ -137,7 +138,7 @@ module mathis{
             }
 
 
-             afterIdentification(){
+            afterIdentification(){
 
                 if(this.testMode&& this.identification.getUsername()!=null) this.identification.activateAlreadyLoggedBox(this.identification.getUsername())
 
@@ -221,16 +222,16 @@ module mathis{
 
                 if (this.testMode) {
 
-                        $pageContent.append(this.severalPages.$visual)
-                        this.severalPages.remakeHandlers()
+                    $pageContent.append(this.severalPages.$visual)
+                    this.severalPages.remakeHandlers()
 
-                        let $fireAllTest = $('<button class="clickable">FIRE ALL TESTS</button>').on('click touch', () => {
-                            $pageContent.empty()
-                            let doAllTestAndShowProblems = new DoAllTestAndShowProblems()
-                            doAllTestAndShowProblems.$visual.appendTo($pageContent)
-                            doAllTestAndShowProblems.doAllTest()
-                            //$fireAllTest.hide()
-                        }).prependTo($pageContent)
+                    let $fireAllTest = $('<button class="clickable">FIRE ALL TESTS</button>').on('click touch', () => {
+                        $pageContent.empty()
+                        let doAllTestAndShowProblems = new DoAllTestAndShowProblems()
+                        doAllTestAndShowProblems.$visual.appendTo($pageContent)
+                        doAllTestAndShowProblems.doAllTest()
+                        //$fireAllTest.hide()
+                    }).prependTo($pageContent)
                 }
                 else{
                     $pageContent.empty().append(this.severalPages.$visual)
@@ -330,7 +331,7 @@ module mathis{
 
             }
 
-             activateAlreadyLoggedBox(username:string):void{
+            activateAlreadyLoggedBox(username:string):void{
 
                 let $res=$('<div class="alreadyLoggedBox">').appendTo($('body'))
 
@@ -489,14 +490,14 @@ module mathis{
                     case 'changeDemo':{
                         this.fireEvent(new Event('theViewChange'))
                     }
-                    break
+                        break
 
                     case 'goToPage':{
                         $('#demoChoice').empty()
                         this.fireEvent(new Event('theViewChange'))
 
                     }
-                    break
+                        break
 
 
                     case 'clickInOnePlayButton':{
@@ -516,21 +517,35 @@ module mathis{
                         this.indexPage.mathisFrame.emptyAllCorner()
                         indexPage.mathisFrame.cleanAllPeriodicActions()
                     }
-                    break
+                        break
                 }
             }
         }
 
 
+    }
 
-        class MainIndexPage extends IndexPage{
 
 
-            constructor(mathisFrame:MathisFrame,testMode:boolean){
-                super(mathisFrame,testMode)
+}
+
+
+
+
+
+module mathis {
+    export module appli {
+
+        class MainIndexPage extends IndexPage {
+
+            constructor(mathisFrame: MathisFrame, testMode: boolean) {
+                super(mathisFrame, testMode)
             }
 
-            build(){
+            build() {
+
+
+                //this.severalPages.addPage(new TotoPage(this.mathisFrame))
 
                 this.severalPages.addPage(new WhyBlabla(this.mathisFrame))
                 this.severalPages.addPage(new PureJavascriptTuto())
@@ -538,68 +553,48 @@ module mathis{
                 this.severalPages.addPage(new SimpleObjectsPage(this.mathisFrame))
                 this.severalPages.addPage(new BasicDocu(this.mathisFrame))
                 this.severalPages.addPage(new ReseauDocu(this.mathisFrame))
-                this.severalPages.addPage( new SurfaceDocu(this.mathisFrame))
-                this.severalPages.addPage( new LinksDocu(this.mathisFrame))
+                this.severalPages.addPage(new SurfaceDocu(this.mathisFrame))
+                this.severalPages.addPage(new LinksDocu(this.mathisFrame))
                 this.severalPages.addPage(new MacamDocu(this.mathisFrame))
-                this.severalPages.addPage( new VerticesViewingDocu(this.mathisFrame))
-                this.severalPages.addPage( new LinesViewingDocu(this.mathisFrame))
-                this.severalPages.addPage( new LinksViewingDocu(this.mathisFrame))
+                this.severalPages.addPage(new AnimationPage(this.mathisFrame))
+                this.severalPages.addPage(new VerticesViewingDocu(this.mathisFrame))
+                this.severalPages.addPage(new LinesViewingDocu(this.mathisFrame))
+                this.severalPages.addPage(new LinksViewingDocu(this.mathisFrame))
                 this.severalPages.addPage(new SurfaceViewerDocu(this.mathisFrame))
                 this.severalPages.addPage(new GradientColorDocu(this.mathisFrame))
-
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
-                this.severalPages.addPage( new DichoDocu(this.mathisFrame))
+                this.severalPages.addPage(new DichoDocu(this.mathisFrame))
 
                 this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
-                //this.severalPages.addPage( new SolidsDocu(this.mathisFrame))
-
-                this.severalPages.addPage( new FractalPage(this.mathisFrame))
-
-
-                this.severalPages.addPage( new TorusPlatonicDocu(this.mathisFrame))
-                // this.severalPages.addPage( new RandomGraphDocu(this.mathisFrame))
-
+                this.severalPages.addPage(new FractalPage(this.mathisFrame))
+                this.severalPages.addPage(new TorusPlatonicDocu(this.mathisFrame))
 
 
                 /**for coder*/
                 this.severalPages.addSeparator("FOR COLLABORATORS")
-                this.severalPages.addPage( new ColaborateWithGit())
-                this.severalPages.addPage( new DocutestTuto())
-                this.severalPages.addPage( new DocutestTutoAdvanced())
+                this.severalPages.addPage(new ColaborateWithGit())
+                this.severalPages.addPage(new DocutestTuto())
+                this.severalPages.addPage(new DocutestTutoAdvanced())
 
 
                 /**pure test*/
-                this.severalPages.addSeparator("PURE TEST (NO DOCU)",true)
-                this.severalPages.addPage( new Creation2dDocu(this.mathisFrame),true)
-
-                // this.severalPages.addSeparator("GUILLAUME'S PAGES",true)
-                // this.severalPages.addPage( new ConnectorTest(this.mathisFrame),true)
+                this.severalPages.addSeparator("PURE TEST (NO DOCU)", true)
+                this.severalPages.addPage(new Creation2dDocu(this.mathisFrame), true)
 
             }
         }
 
-        export var indexPage:IndexPage
+        export var indexPage: IndexPage
 
-        export function startSite(){
-            let mathisFrame=new MathisFrame('placeForMathis')
+        export function startSite() {
+            let mathisFrame = new MathisFrame('placeForMathis')
             /**Attention : la variable globale indexPage est affectée APRES la construction de MainIndexPage.
              * Pour toutes les opérations qui se font pendant la construction, indexPage est null ! */
-            indexPage=new MainIndexPage(mathisFrame,false)
+            indexPage = new MainIndexPage(mathisFrame, false)
 
             indexPage.go()
 
         }
-
-
-
-
-
-
-
-
     }
-
-
-
 }

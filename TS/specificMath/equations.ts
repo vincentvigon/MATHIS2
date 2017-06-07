@@ -29,10 +29,22 @@ module mathis{
      *
      * */
 
+        // ImplicitPlot3D.m,  http://www2.math.umd.edu/~jmr/241/mfiles/implicitplot3d.m
 
-    const pi=Math.PI
-    const cos=Math.cos
-    const sin=Math.sin
+
+    //deformation de la sphère
+    //https://en.wikipedia.org/wiki/Roman_surface
+
+
+        //plein de surface paramétriques
+        //http://faculty.ms.u-tokyo.ac.jp/users/urabe/geom/param1E.html
+
+
+        //Deformation of the Catenoid to the Helicoid
+
+
+
+
 
 
     export namespace equations{
@@ -41,6 +53,9 @@ module mathis{
 
 
         export class SurfaceEquation{
+            rangeU
+            rangeV
+
             X:(u:number,v:number)=>number
             Y:(u:number,v:number)=>number
             Z:(u:number,v:number)=>number
@@ -70,63 +85,137 @@ module mathis{
 
         export class KleinBottle extends SurfaceEquation{
 
-            begin=new UV(-0.5,-0.5)
-            end=new UV(0.5,0.5)
+
+
+            rangeU=[-PI,PI]
+            rangeV=[-PI,PI]
 
 
             X= function(u,v){
-                u=2*pi*u
-                v=2*pi*v
+
                 return -(2/15)*cos(u)*(3*cos(v)-30*sin(u)+90*cos(u)**4.*sin(u)- 60*cos(u)**6.*sin(u)+5*cos(u)*cos(v)*sin(u))}
 
             Y= function(u,v){
-                u=2*pi*u
-                v=2*pi*v
+
                 return -(1/15)*sin(u)*(3*cos(v)-3*cos(u)**2.*cos(v)-48*cos(u)**4.*cos(v)+48*cos(u)**6.*cos(v)-60*sin(u)+5*cos(u)*cos(v)*sin(u)
             -5*cos(u)**3.*cos(v)*sin(u) -80*cos(u)**5.*cos(v)*sin(u)+80*cos(u)**7*cos(v)*sin(u))}
 
             Z= function(u,v){
-                u=2*pi*u
-                v=2*pi*v
+
                 return (2/15)*(3+5*cos(u)*sin(u))*sin(v)}
         }
 
 
         export class KleinBagel extends SurfaceEquation{
 
-            begin=new UV(-0.5,-0.5)
-            end=new UV(0.5,0.5)
 
 
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
             r = 2.1
-            X = (u, v) => ( this.r + Math.cos(pi * u) * Math.sin(2 * pi * v) - Math.sin(pi * u) * Math.sin(4 * pi * v)) * Math.cos(2 * pi * u)
-            Y = (u, v) => (this.r + Math.cos(pi * u) * Math.sin(2 * pi * v) - Math.sin(pi * u) * Math.sin(4 * pi * v)) * Math.sin(2 * pi * u)
-            Z = (u, v) => Math.sin(pi * u) * Math.sin(2 * pi * v) + Math.cos(pi * u) * Math.sin(4 * pi * v)
+            X = (u, v) => ( this.r + cos(u/2) * sin(v) - sin(u/2) * sin(2 * v)) * cos(u)
+            Y = (u, v) => (this.r + cos(u/2) * sin(v) - sin(u/2) * sin(2 * v)) * sin(u)
+            Z = (u, v) => sin(u/2) * sin(v) + cos(u/2) * sin(2 * v)
         }
 
         export class Cylinder extends SurfaceEquation{
 
-            X=function(u,v){return Math.cos(2*pi*u)}
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+            X=function(u,v){return cos(u)}
             Y=function(u,v){return v}
-            Z=function(u,v){return Math.sin(2*pi*u)}
+            Z=function(u,v){return sin(u)}
         }
 
 
         export class Moebius extends SurfaceEquation{
-            X=function(u,v){return (1-1*v*Math.sin(pi*u))*Math.sin(2*pi*u)}
-            Y=function(u,v){return (1-1*v*Math.sin(pi*u))*Math.cos(2*pi*u)}
-            Z=function(u,v){return 1*v*Math.cos(pi*u)}
+
+            rangeU=[-PI,PI]
+            rangeV=[-0.5,0.5]
+
+            X=function(u,v){return (1-1*v*sin(u/2))*sin(u)}
+            Y=function(u,v){return (1-1*v*sin(u/2))*cos(u)}
+            Z=function(u,v){return 1*v*cos(u/2)}
 
         }
 
 
         export class Torus extends SurfaceEquation{
+
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+
             r=0.3
             a=0.7
-            X = (u, v) =>(this.r*Math.cos(2*pi*u)+this.a)*Math.cos(2*pi*v)
-            Y = (u, v) =>(this.r*Math.cos(2*pi*u)+this.a)*Math.sin(2*pi*v)
-            Z = (u, v) =>this.r*Math.sin(2*pi*u)
+            X = (u, v) =>(this.r*cos(u)+this.a)*cos(v)
+            Y = (u, v) =>(this.r*cos(u)+this.a)*sin(v)
+            Z = (u, v) =>this.r*sin(u)
 
+        }
+
+        export class Boy extends SurfaceEquation{
+
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+
+            X = (u, v) => 2 / 3. * (cos(u) * cos(2 * v) + sqrt(2) * sin(u) * cos(v)) * cos(u) / (sqrt(2) - sin(2 * u) * sin(3 * v))
+            Y = (u, v) => 2 / 3. * (cos(u) * sin(2 * v) - sqrt(2) * sin(u) * sin(v)) * cos(u) / (sqrt(2) - sin(2 * u) * sin(3 * v))
+            Z = (u, v) => -sqrt(2) * cos(u) * cos(u) / (sqrt(2) - sin(2 * u) * sin(3 * v))
+
+        }
+
+        export class BoyAppery extends SurfaceEquation{
+
+            //https://matematiku.wordpress.com/2011/05/26/boy-surface/
+
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+
+            a=0.5
+            D=  (u, v) => 2-this.a*sqrt(2)*sin(3*u)*sin(2*v)
+
+            X = (u, v) => sqrt(2)*cos(2*u)*cos(v)**2+cos(u)*sin(2*v)
+            Y = (u, v) => sqrt(2)*sin(2*v)*cos(v)**2-sin(u)*sin(2*v)
+            Z = (u, v) => 3*cos(v)**2/this.D(u,v)
+
+        }
+
+        // export class BourMinimalSurface extends SurfaceEquation{
+        //
+        //     //http://www.csl.mtu.edu/cs3621/www/PROBS/PROB-5/prob-5.html
+        //
+        //     rangeU=[0,Number.POSITIVE_INFINITY]
+        //     rangeV=[0,2*PI]
+        //
+        //     n=4
+        //
+        //     X = (u, v) => (u**(this.n-1)*cos((this.n-1)*v)/(2*(this.n-1))-u**(this.n+1)*cos((this.n+1)*v)/(2*(this.n+1)))*3*this.n
+        //     Y = (u, v) => (u**(this.n-1)*sin((this.n-1)*v)/(2*(this.n-1))+u**(this.n+1)*sin((this.n+1)*v)/(2*(this.n+1)))*3*this.n
+        //     Z = (u, v) => (u**this.n*cos(this.n*v)/this.n)*3*this.n
+        //
+        // }
+
+
+        /**une paramétrisation for the real projective plan
+         * https://en.wikipedia.org/wiki/Real_projective_plane*/
+        export class CrossCappedDisk extends SurfaceEquation{
+
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+            X = (u, v) =>(1+cos(v))*cos(u)
+            Y= (u, v) => (1+cos(v))*sin(u)
+            Z= (u, v) => specialFunctions.tanh(u-PI)*sin(v)
+
+        }
+
+
+        export class SelfIntersectingDisk extends SurfaceEquation{
+            rangeU=[0,2*PI]
+            rangeV=[0,2*PI]
+
+            X = (u, v) => v*cos(2*u)
+            Y = (u, v) => v*sin(2*u)
+            Z = (u, v) => v*cos(u)
         }
 
 
@@ -134,7 +223,10 @@ module mathis{
 
 
 
-        /**je n'ai pas l'impression que cette formule (pompée) soit bonne pour tous les m*/
+
+
+
+        /**not a real spherical Harmonic*/
         export class SphericalHarmonic{
             m=[]
 
@@ -142,10 +234,10 @@ module mathis{
                 let p=new XYZ(0,0,0)
 
                 var r = 0;
-                r += Math.pow(sin(this.m[0] * theta), this.m[1]);
-                r += Math.pow(cos(this.m[2] * theta), this.m[3]);
-                r += Math.pow(sin(this.m[4] * phi), this.m[5]);
-                r += Math.pow(cos(this.m[6] * phi), this.m[7]);
+                r += (sin(this.m[0] * theta)** this.m[1]);
+                r += (cos(this.m[2] * theta)** this.m[3]);
+                r += (sin(this.m[4] * phi)** this.m[5]);
+                r += (cos(this.m[6] * phi)** this.m[7]);
 
                 var sinTheta = sin(theta);
                 p.x = r * sinTheta * cos(phi);
@@ -156,44 +248,44 @@ module mathis{
         }
 
 
-        // export class SurfaceEquationModified extends SurfaceEquation{
-        //
-        //     constructor(private originalEquation){
-        //         super()
-        //     }
-        //
-        //     scale(lambda:number|XYZ){
-        //         if (lambda instanceof XYZ){
-        //             let scale =<XYZ> lambda
-        //             this.X=(u,v)=>scale.x*this.originalEquation.X()
-        //             this.Y=(u,v)=>scale.y*this.originalEquation.Y()
-        //             this.Z=(u,v)=>scale.z*this.originalEquation.Z()
-        //         }
-        //         else{
-        //             let scale =<number> lambda
-        //             this.X=(u,v)=>scale*this.originalEquation.X()
-        //             this.Y=(u,v)=>scale*this.originalEquation.Y()
-        //             this.Z=(u,v)=>scale*this.originalEquation.Z()
-        //         }
-        //         return this
-        //
-        //
-        //     }
-        //
-        //     permute(xyzOrder:string[]){
-        //
-        //         if (xyzOrder.length!=3) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
-        //
-        //         this.X=this.originalEquation[xyzOrder[0]]
-        //         this.Y=this.originalEquation[xyzOrder[1]]
-        //         this.Z=this.originalEquation[xyzOrder[2]]
-        //         if (this.X==null || this.Y==null || this.Z==null ) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
-        //
-        //         return this
-        //     }
-        //
-        //
-        // }
+        export class SurfaceEquationModified extends SurfaceEquation{
+
+            constructor(private originalEquation){
+                super()
+            }
+
+            scale(lambda:number|XYZ){
+                if (lambda instanceof XYZ){
+                    let scale =<XYZ> lambda
+                    this.X=(u,v)=>scale.x*this.originalEquation.X()
+                    this.Y=(u,v)=>scale.y*this.originalEquation.Y()
+                    this.Z=(u,v)=>scale.z*this.originalEquation.Z()
+                }
+                else{
+                    let scale =<number> lambda
+                    this.X=(u,v)=>scale*this.originalEquation.X()
+                    this.Y=(u,v)=>scale*this.originalEquation.Y()
+                    this.Z=(u,v)=>scale*this.originalEquation.Z()
+                }
+                return this
+
+
+            }
+
+            permuteXYZ(xyzOrder:string[]){
+
+                if (xyzOrder.length!=3) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+
+                this.X=this.originalEquation[xyzOrder[0]]
+                this.Y=this.originalEquation[xyzOrder[1]]
+                this.Z=this.originalEquation[xyzOrder[2]]
+                if (this.X==null || this.Y==null || this.Z==null ) throw "xyzOrder must be an array of size 3 made with letter X,Y,Z"
+
+                return this
+            }
+
+
+        }
 
 
 
@@ -217,11 +309,11 @@ module mathis{
 
     export module specialFunctions{
 
-        export let sinh=x=>(Math.exp(x)-Math.exp(-x))/2
+        export let sinh=x=>(exp(x)-exp(-x))/2
 
-        export let tanh=x=>(Math.exp(x)-Math.exp(-x))/(Math.exp(x)+Math.exp(-x))
+        export let tanh=x=>(exp(x)-exp(-x))/(exp(x)+exp(-x))
 
-        export let sech=x=>2/(Math.exp(x)+Math.exp(-x))
+        export let sech=x=>2/(exp(x)+exp(-x))
 
         export let sechP=x=> -tanh(x)*sech(x)
 
@@ -243,13 +335,13 @@ module mathis{
 
         export let rotationYAxis= (theta)=> {
             let res=new MM()
-            let cos=Math.cos(theta)
-            let sin=Math.sin(theta)
+            let cosThe=cos(theta)
+            let sinThe=sin(theta)
             
             geo.numbersToMM(
-                cos,    0,  sin,   0,
+                cosThe,    0,  sinThe,   0,
                 0,      1,  0,      0,
-                -sin,    0,  cos,    0,
+                -sinThe,    0,  cosThe,    0,
                 0,      0,  0,      1,
                 res)
             
@@ -258,13 +350,13 @@ module mathis{
         }
         export let rotationYAxisP= (theta)=> {
             let res=new MM()
-            let cos=Math.cos(theta)
-            let sin=Math.sin(theta)
+            let cosThe=cos(theta)
+            let sinThe=sin(theta)
 
             geo.numbersToMM(
-                -sin,    0,  cos,   0,
+                -sinThe,    0,  cosThe,   0,
                 0,      0,  0,      0,
-                -cos,    0,  -sin,    0,
+                -cosThe,    0,  -sinThe,    0,
                 0,      0,  0,      1,
                 res)
             
@@ -272,13 +364,13 @@ module mathis{
         }
         export let rotationYAxisPP= (theta)=> {
             let res=new MM()
-            let cos=Math.cos(theta)
-            let sin=Math.sin(theta)
+            let cosThe=cos(theta)
+            let sinThe=sin(theta)
 
             geo.numbersToMM(
-                -cos,    0,  -sin,   0,
+                -cosThe,    0,  -sinThe,   0,
                 0,      0,  0,      0,
-                sin,    0,  -cos,    0,
+                sinThe,    0,  -cosThe,    0,
                 0,      0,  0,      1,
                 res)
 
@@ -609,8 +701,8 @@ module mathis{
                         gene.nbI = 32
                         gene.nbJ = 64
                 
-                        let departureMesh =new reseau.Regular( gene).go()
-                        let arrivalMesh =new reseau.Regular( gene).go()
+                        let departureMesh =new reseau.Regular2d( gene).go()
+                        let arrivalMesh =new reseau.Regular2d( gene).go()
                 
                 
                         let r = 0.3 
@@ -620,13 +712,13 @@ module mathis{
                         carte0.maillage = departureMesh
                         carte0.arrivalOpenMesh = arrivalMesh
                 
-                        carte0.X = (u, v)=>new XYZ((r * Math.cos(u) + a) * Math.cos(v), (r * Math.cos(u) + a) * Math.sin(v), r * Math.sin(u))
-                        carte0.Xu = (u, v)=>new XYZ(-r * Math.sin(u) * Math.cos(v), -r * Math.sin(u) * Math.sin(v), r * Math.cos(u))
-                        carte0.Xv = (u, v)=>new XYZ(-(r * Math.cos(u) + a) * Math.sin(v), (r * Math.cos(u) + a) * Math.cos(v), 0)
+                        carte0.X = (u, v)=>new XYZ((r * cos(u) + a) * cos(v), (r * cos(u) + a) * sin(v), r * sin(u))
+                        carte0.Xu = (u, v)=>new XYZ(-r * sin(u) * cos(v), -r * sin(u) * sin(v), r * cos(u))
+                        carte0.Xv = (u, v)=>new XYZ(-(r * cos(u) + a) * sin(v), (r * cos(u) + a) * cos(v), 0)
                 
-                        carte0.Xuu = (u, v)=>new XYZ(-r * Math.cos(u) * Math.cos(v), -r * Math.cos(u) * Math.sin(v), -r * Math.sin(u))
-                        carte0.Xuv = (u, v)=>new XYZ(r * Math.sin(u) * Math.sin(v), -r * Math.sin(u) * Math.cos(v), 0)
-                        carte0.Xvv = (u, v)=>new XYZ(-(r * Math.cos(u) + a) * Math.cos(v), -(r * Math.cos(u) + a) * Math.sin(v), 0)
+                        carte0.Xuu = (u, v)=>new XYZ(-r * cos(u) * cos(v), -r * cos(u) * sin(v), -r * sin(u))
+                        carte0.Xuv = (u, v)=>new XYZ(r * sin(u) * sin(v), -r * sin(u) * cos(v), 0)
+                        carte0.Xvv = (u, v)=>new XYZ(-(r * cos(u) + a) * cos(v), -(r * cos(u) + a) * sin(v), 0)
                 
                         arrivalMesh.vertices.forEach(vert=>{
                             let u=vert.position.x
@@ -639,9 +731,9 @@ module mathis{
                     }
                 
                     let delta=0.1
-                    this.surface.cartes.push(oneCarte(new XYZ(delta, delta, 0),new XYZ(2 * Math.PI-delta, 2 * Math.PI-delta, 0)))
-                    this.surface.cartes.push(oneCarte(new XYZ(-Math.PI+delta, -Math.PI+delta, 0),new XYZ( Math.PI-delta, Math.PI-delta, 0)))
-                    this.surface.wholeSurfaceMesh=oneCarte(new XYZ(0, 0, 0),new XYZ(2 * Math.PI, 2 * Math.PI, 0)).arrivalOpenMesh
+                    this.surface.cartes.push(oneCarte(new XYZ(delta, delta, 0),new XYZ(2 * PI-delta, 2 * PI-delta, 0)))
+                    this.surface.cartes.push(oneCarte(new XYZ(-PI+delta, -PI+delta, 0),new XYZ( PI-delta, PI-delta, 0)))
+                    this.surface.wholeSurfaceMesh=oneCarte(new XYZ(0, 0, 0),new XYZ(2 * PI, 2 * PI, 0)).arrivalOpenMesh
                 
                 
                 }
@@ -657,8 +749,8 @@ module mathis{
                         gene.nbJ = nb + 1
 
                         
-                        let departureMesh =new reseau.Regular( gene).go()
-                        let arrivalMesh=new reseau.Regular( gene).go()
+                        let departureMesh =new reseau.Regular2d( gene).go()
+                        let arrivalMesh=new reseau.Regular2d( gene).go()
 
 
                         let rad=0.5
@@ -667,11 +759,11 @@ module mathis{
                         carte0.maillage = departureMesh
                         carte0.arrivalOpenMesh = arrivalMesh
 
-                        carte0.X = (u, v)=>new XYZ(rad*Math.cos(u),v, rad*Math.sin(u))
-                        carte0.Xu = (u, v)=>new XYZ(-rad*Math.sin(u),0,rad*Math.cos(u))
+                        carte0.X = (u, v)=>new XYZ(rad*cos(u),v, rad*sin(u))
+                        carte0.Xu = (u, v)=>new XYZ(-rad*sin(u),0,rad*cos(u))
                         carte0.Xv = (u, v)=>new XYZ(0, 1, 0)
 
-                        carte0.Xuu = (u, v)=>new XYZ(-rad*Math.cos(u),0, -rad*Math.sin(u))
+                        carte0.Xuu = (u, v)=>new XYZ(-rad*cos(u),0, -rad*sin(u))
                         carte0.Xuv = (u, v)=>new XYZ(0, 0, 0)
                         carte0.Xvv = (u, v)=>new XYZ(0, 0, 0)
 
@@ -686,16 +778,9 @@ module mathis{
                     }
 
                     let delta=0.3
-                    this.surface.cartes.push(oneCarte(new XYZ(delta,-1/2, 0),new XYZ(2*Math.PI -delta, 1/2 , 0)))
-                    this.surface.cartes.push(oneCarte(new XYZ(delta-Math.PI,-1/2, 0),new XYZ(Math.PI-delta , 1/2 , 0)))
+                    this.surface.cartes.push(oneCarte(new XYZ(delta,-1/2, 0),new XYZ(2*PI -delta, 1/2 , 0)))
+                    this.surface.cartes.push(oneCarte(new XYZ(delta-PI,-1/2, 0),new XYZ(PI-delta , 1/2 , 0)))
 
-
-                    // delta=0.8
-                    // let ma1=oneCarte(new XYZ(delta,-1/2, 0),new XYZ(2*Math.PI -delta, 1/2 , 0)).arrivalOpenMesh
-                    // let ma2=oneCarte(new XYZ(delta-Math.PI,-1/2, 0),new XYZ(Math.PI-delta , 1/2 , 0)).arrivalOpenMesh
-                    // let concurenter=new mameshModification.ConcurrentMameshesGraterAndSticker([ma1,ma2])
-                    // concurenter.duringGratingSeedAreComputedFromBarycentersVersusFromAllPossibleCells=false
-                    // concurenter.toleranceToBeOneOfTheClosest=0
 
 
                     this.surface.wholeSurfaceMesh=oneCarte(new XYZ(0,-1/2, 0),new XYZ(2*Math.PI , 1/2 , 0)).arrivalOpenMesh
@@ -713,8 +798,8 @@ module mathis{
                         gene.nbJ = 20 + 1
                 
                        
-                        let departureMesh =new reseau.Regular(gene).go()
-                        let arrivalMesh =new reseau.Regular(gene).go()
+                        let departureMesh =new reseau.Regular2d(gene).go()
+                        let arrivalMesh =new reseau.Regular2d(gene).go()
                 
                 
                 
@@ -741,9 +826,9 @@ module mathis{
                     }
                 
                     let delta=0.3
-                    this.surface.cartes.push(oneCarte(new XYZ(delta,0.1, 0),new XYZ(2*Math.PI-delta , 3.5 , 0)))
-                    this.surface.cartes.push(oneCarte(new XYZ(-Math.PI+delta,0.1, 0),new XYZ(Math.PI-delta , 3.5 , 0)))
-                    this.surface.wholeSurfaceMesh=oneCarte(new XYZ(0,0.1, 0),new XYZ(2*Math.PI , 3.5 , 0) ).arrivalOpenMesh
+                    this.surface.cartes.push(oneCarte(new XYZ(delta,0.1, 0),new XYZ(2*PI-delta , 3.5 , 0)))
+                    this.surface.cartes.push(oneCarte(new XYZ(-PI+delta,0.1, 0),new XYZ(PI-delta , 3.5 , 0)))
+                    this.surface.wholeSurfaceMesh=oneCarte(new XYZ(0,0.1, 0),new XYZ(2*PI , 3.5 , 0) ).arrivalOpenMesh
                 
                 
                 }
@@ -758,8 +843,8 @@ module mathis{
                         gene.nbJ = 40 + 1
                 
                        
-                        let departureMesh =new reseau.Regular( gene).go()
-                        let arrivalMesh =new reseau.Regular( gene).go()
+                        let departureMesh =new reseau.Regular2d( gene).go()
+                        let arrivalMesh =new reseau.Regular2d( gene).go()
                 
                 
                         let carte0 = new Carte()
@@ -795,8 +880,8 @@ module mathis{
                     }
                 
                     //let delta=0.1
-                    //this.surface.cartes.push(oneCarte(new XYZ(delta,-1/2, 0),new XYZ(2*Math.PI -delta, 1/2 , 0)))
-                    //this.surface.cartes.push(oneCarte(new XYZ(delta-Math.PI,-1/2, 0),new XYZ(Math.PI-delta , 1/2 , 0)))
+                    //this.surface.cartes.push(oneCarte(new XYZ(delta,-1/2, 0),new XYZ(2*PI -delta, 1/2 , 0)))
+                    //this.surface.cartes.push(oneCarte(new XYZ(delta-PI,-1/2, 0),new XYZ(PI-delta , 1/2 , 0)))
                 
                     let coef = 0.7
                     this.surface.cartes.push(oneCarte(new XYZ(- coef, - coef, 0),new XYZ(coef,  coef, 0)))
@@ -828,7 +913,7 @@ module mathis{
                 //         carte0.arrivalOpenMesh = arrivalMesh
                 //
                 //         if(!permute) {
-                //             carte0.X = (u, v)=>new XYZ(a*Math.cos(u)*Math.cos(v),b*Math.cos(u)*Math.sin(v),c*Math.sin(u))
+                //             carte0.X = (u, v)=>new XYZ(a*cos(u)*Math.cos(v),b*Math.cos(u)*Math.sin(v),c*Math.sin(u))
                 //             carte0.Xu = (u, v)=>new XYZ(-a*Math.sin(u)*Math.cos(v),-b*Math.sin(u)*Math.sin(v),c*Math.cos(u))
                 //             carte0.Xv = (u, v)=>new XYZ(-a*Math.cos(u)*Math.sin(v),b*Math.cos(u)*Math.cos(v),0)
                 //

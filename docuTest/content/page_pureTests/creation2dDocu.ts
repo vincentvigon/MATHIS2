@@ -349,7 +349,7 @@ module mathis {
                 creator.nbJ=7
                 let mamesh:Mamesh=creator.go()
 
-                let crea2=new reseau.Regular()
+                let crea2=new reseau.Regular2d()
                 let mamesh2=crea2.go()
 
 
