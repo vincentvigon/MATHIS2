@@ -207,13 +207,11 @@ module mathis{
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$b
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=this.nbI
-                basis.nbJ=basis.nbI
-                basis.origin=new XYZ(-0.7,-0.7,0)
-                basis.end=new XYZ(+0.7,+0.7,0)
-
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=creator.nbU
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(+0.7,+0.7,0)
                 let mamesh=creator.go()
 
                 let lineBuilder=new lineModule.LineComputer(mamesh)
@@ -289,12 +287,12 @@ module mathis{
 
                 //$$$b
                 let creator=new reseau.Regular3D()
-                creator.nbI=this.nbI
-                creator.nbJ=creator.nbI
-                creator.nbK=creator.nbI
-                creator.Vi=new XYZ(0.1,0,0)
-                creator.Vj=new XYZ(0,0.1,0)
-                creator.Vk=new XYZ(0,0,0.1)
+                creator.nbU=this.nbI
+                creator.nbJ=creator.nbU
+                creator.nbW=creator.nbU
+                creator.dirU=new XYZ(0.1,0,0)
+                creator.dirV=new XYZ(0,0.1,0)
+                creator.dirW=new XYZ(0,0,0.1)
 
                 let mamesh=creator.go()
 
@@ -379,14 +377,13 @@ module mathis{
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$b
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=this.nbI
-                basis.nbJ=basis.nbI
-                basis.origin=new XYZ(-0.7,-0.7,0)
-                basis.end=new XYZ(+0.7,+0.7,0)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=creator.nbU
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(+0.7,+0.7,0)
 
 
-                let creator=new reseau.Regular2d(basis)
                 let mamesh=creator.go()
 
                 let lineBuilder=new lineModule.LineComputer(mamesh)
@@ -456,12 +453,11 @@ module mathis{
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$bh mamesh creation
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=this.nbI
-                basis.nbJ=11
-                basis.origin=new XYZ(-1,-1,0)
-                basis.end=new XYZ(1,1,0)
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=11
+                creator.origin=new XYZ(-1,-1,0)
+                creator.end=new XYZ(1,1,0)
                 let mamesh=creator.go()
                 //$$$eh
 

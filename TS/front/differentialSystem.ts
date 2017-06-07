@@ -59,8 +59,8 @@ module mathis{
                 if (this.randomExitation==null) this.randomExitation=()=>{return new XYZ(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5)}
                 
 
-                this.generator.nbI = this.nbI
-                this.generator.nbJ = this.nbJ
+                this.generator.nbU = this.nbI
+                this.generator.nbV = this.nbJ
                 this.generator.origin = this.originView
                 this.generator.end = this.endView
                 

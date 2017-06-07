@@ -271,13 +271,13 @@ module mathis{
                     mamesh = creator.go()
                 }
                 else{
-                    let basis=new reseau.BasisForRegularReseau()
-                    basis.squareMailleInsteadOfTriangle=false
-                    basis.origin=new XYZ(-1,-1,0)
-                    basis.end=new XYZ(1,1,0)
-                    basis.nbI=4
-                    basis.nbJ=4
-                    let creator=new reseau.Regular2d(basis)
+
+                    let creator=new reseau.Regular2dPlus()
+                    creator.maille=reseau.Maille.triangleV
+                    creator.origin=new XYZ(-1,-1,0)
+                    creator.end=new XYZ(1,1,0)
+                    creator.nbU=4
+                    creator.nbV=4
                     mamesh=creator.go()
                 }
 

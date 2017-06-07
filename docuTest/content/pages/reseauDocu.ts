@@ -153,10 +153,10 @@ module mathis{
 
                 let cadreCrea=new reseau.Regular2d()
                 cadreCrea.origine=creator.origin
-                cadreCrea.Vi=new XYZ(0,creator.end.y-creator.origin.y,0)
-                cadreCrea.Vj=new XYZ(creator.end.x-creator.origin.x,0,0)
-                cadreCrea.nbI=2
-                cadreCrea.nbJ=2
+                cadreCrea.dirU=new XYZ(0,creator.end.y-creator.origin.y,0)
+                cadreCrea.dirV=new XYZ(creator.end.x-creator.origin.x,0,0)
+                cadreCrea.nbU=2
+                cadreCrea.nbV=2
                 let cadreMamesh=cadreCrea.go()
                 let cadreViewer=new visu3d.LinksViewer(cadreMamesh,this.mathisFrame.scene)
                 cadreViewer.color=new Color(Color.names.black)
@@ -462,10 +462,10 @@ module mathis{
                  * For square net, points are i*Vi + j*Vj
                  * For triangular net, points are :
                  *  i*Vi + (j+decay)*Vj where decay=0.5 when j is odd*/
-                creator.nbI = this.nbI
-                creator.nbJ = 4
-                creator.Vi = new XYZ(0.2, 0, 0)
-                creator.Vj = this.Vj
+                creator.nbU = this.nbI
+                creator.nbV = 4
+                creator.dirU = new XYZ(0.2, 0, 0)
+                creator.dirV = this.Vj
                 creator.origine = new XYZ(-0.7, -0.7, 0)
                 //n
                 creator.squareVersusTriangleMaille = this.squareMaille
@@ -940,12 +940,12 @@ module mathis{
 
                 //$$$begin
                 let creator = new reseau.Regular3D()
-                creator.nbI = this.nbI
+                creator.nbU = this.nbI
                 creator.nbJ = 4
-                creator.nbK = 5
-                creator.Vi = new XYZ(0.2, 0,   0)
-                creator.Vj = this.Vj
-                creator.Vk = new XYZ(0,   0,   0.2)
+                creator.nbW = 5
+                creator.dirU = new XYZ(0.2, 0,   0)
+                creator.dirV = this.Vj
+                creator.dirW = new XYZ(0,   0,   0.2)
                 creator.origine = new XYZ(-0.7, -0.7, -0.7)
                 //n
 

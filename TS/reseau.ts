@@ -258,9 +258,9 @@ module mathis{
 
 
         export class BasisForRegularReseau{
-            nbI=3
-            set_nbJ_toHaveRegularReseau=false
-            nbJ=3
+            nbU=3
+            set_nbV_toHaveRegularReseau=false
+            nbV=3
             origin=new XYZ(0,0,0)
             end=new XYZ(1,1,0)
 
@@ -272,19 +272,19 @@ module mathis{
             
             
 
-            go():{Vi:XYZ,Vj:XYZ,nbI:number,nbJ:number}{
+            go():{dirU:XYZ,dirV:XYZ,nbU:number,nbV:number}{
                 this.checkArgs()
 
                 
-                let deltaX=(this.end.x-this.origin.x)/(this.nbI-1)
+                let deltaX=(this.end.x-this.origin.x)/(this.nbU-1)
                 let deltaY
-                if (this.set_nbJ_toHaveRegularReseau){
+                if (this.set_nbV_toHaveRegularReseau){
                     if(this.squareMailleInsteadOfTriangle)deltaY=deltaX
                     else deltaY=deltaX*Math.sqrt(3)/2
-                    this.nbJ=Math.floor(((this.end.y-this.origin.y)/deltaY+1))
+                    this.nbV=Math.floor(((this.end.y-this.origin.y)/deltaY+1))
                 }
                 else{
-                    deltaY=(this.end.y-this.origin.y)/(this.nbJ-1)
+                    deltaY=(this.end.y-this.origin.y)/(this.nbV-1)
                 }
                 
                 let A=(this.end.x-this.origin.x)
@@ -298,7 +298,7 @@ module mathis{
                 VX.z+=this.kComponentTranslation
                 VY.z+=this.kComponentTranslation
 
-                return {Vi:VX,Vj:VY,nbI:this.nbI,nbJ:this.nbJ}
+                return {dirU:VX,dirV:VY,nbU:this.nbU,nbV:this.nbV}
             }
 
 
@@ -309,8 +309,8 @@ module mathis{
 
                 if (Math.abs(A)<geo.epsilon||Math.abs(B)<geo.epsilon) throw 'origin and end are almost in the same line'
 
-                if (this.nbI<2) throw 'this.nbI must be >=2'
-                if (this.nbJ<2) throw 'this.nbJ must be >=2'
+                if (this.nbU<2) throw 'this.nbI must be >=2'
+                if (this.nbV<2) throw 'this.nbJ must be >=2'
 
 
             }
@@ -370,13 +370,13 @@ module mathis{
         export class Regular2d{
 
 
-            nbI=3
-            nbJ=3
-            fixedK=0
+            nbU=3
+            nbV=3
+            fixedW=0
 
-            Vi=new XYZ(1,0,0)
-            Vj=new XYZ(0,1,0)
-            Vk=new XYZ(0,0,0)
+            dirU=new XYZ(1,0,0)
+            dirV=new XYZ(0,1,0)
+            dirW=new XYZ(0,0,0)
 
             origine=new XYZ(0,0,0)
 
@@ -414,7 +414,7 @@ module mathis{
                 if (!this.makeTriangleOrSquare && !this.makeLinks) logger.c('few interest if you do not add neither square nor links')
                 
                 let cros=new XYZ(0,0,0)
-                geo.cross(this.Vi,this.Vj,cros)
+                geo.cross(this.dirU,this.dirV,cros)
                 if (cros.x==Number.NaN||cros.y==Number.NaN||cros.z==Number.NaN) throw 'a problem with Vi of Vj'
                 if (cros.length()<geo.epsilon) throw 'origin and end are almost in the same line'
 
@@ -426,7 +426,7 @@ module mathis{
             private getVertex(i:number,j:number):Vertex{
                 this._xyz.x=i
                 this._xyz.y=j
-                this._xyz.z=this.fixedK
+                this._xyz.z=this.fixedW
 
                 return this.OUT_paramToVertex.getValue(this._xyz)//this.paramToVertex[i+','+j]
             }
@@ -443,10 +443,10 @@ module mathis{
                 if (this.generator!=null){
 
                     let VV=this.generator.go()
-                    this.Vi.copyFrom(VV.Vi)
-                    this.Vj.copyFrom(VV.Vj)
-                    this.nbI=VV.nbI
-                    this.nbJ=VV.nbJ
+                    this.dirU.copyFrom(VV.dirU)
+                    this.dirV.copyFrom(VV.dirV)
+                    this.nbU=VV.nbU
+                    this.nbV=VV.nbV
                     this.origine.copyFrom(this.generator.origin)
                     this.squareVersusTriangleMaille=this.generator.squareMailleInsteadOfTriangle
                 }
@@ -457,16 +457,16 @@ module mathis{
 
 
 
-                for (let i=0; i<this.nbI; i++){
-                    for (let j=0; j<this.nbJ; j++){
+                for (let i=0; i<this.nbU; i++){
+                    for (let j=0; j<this.nbV; j++){
 
-                        let param = new XYZ(i, j, this.fixedK)
+                        let param = new XYZ(i, j, this.fixedW)
                         if (this.holeParameters==null ||  !this.holeParameters.getValue(param)) {
 
                             let decay= (!this.squareVersusTriangleMaille && j%2==0)? 0.5 : 0
-                            this._iDirection.copyFrom(this.Vi).scale(i+decay)
-                            this._jDirection.copyFrom(this.Vj).scale(j)
-                            this._kDirection.copyFrom(this.Vk).scale(this.fixedK)
+                            this._iDirection.copyFrom(this.dirU).scale(i+decay)
+                            this._jDirection.copyFrom(this.dirV).scale(j)
+                            this._kDirection.copyFrom(this.dirW).scale(this.fixedW)
                             let position =  new XYZ(0,0,0).add(this._iDirection).add(this._jDirection).add(this._kDirection).add(this.origine)
 
                             if (this.putAVertexOnlyAtXYZCheckingThisCondition==null || this.putAVertexOnlyAtXYZCheckingThisCondition(position)){
@@ -479,16 +479,16 @@ module mathis{
 
                 /**to get a vertical symmetry when vertex are in quinconce*/
                 if (this.oneMoreVertexForOddLine){
-                    let i=this.nbI
-                    for (let j=0; j<this.nbJ; j++){
+                    let i=this.nbU
+                    for (let j=0; j<this.nbV; j++){
                         if (j%2==1) {
-                            let param = new XYZ(i, j, this.fixedK)
+                            let param = new XYZ(i, j, this.fixedW)
                             if (this.holeParameters == null || !this.holeParameters.getValue(param)) {
 
                                 let decay = (!this.squareVersusTriangleMaille && j % 2 == 0) ? 0.5 : 0
-                                this._iDirection.copyFrom(this.Vi).scale(i + decay)
-                                this._jDirection.copyFrom(this.Vj).scale(j)
-                                this._kDirection.copyFrom(this.Vk).scale(this.fixedK)
+                                this._iDirection.copyFrom(this.dirU).scale(i + decay)
+                                this._jDirection.copyFrom(this.dirV).scale(j)
+                                this._kDirection.copyFrom(this.dirW).scale(this.fixedW)
                                 let position = new XYZ(0, 0, 0).add(this._iDirection).add(this._jDirection).add(this._kDirection).add(this.origine)
 
                                 if (this.putAVertexOnlyAtXYZCheckingThisCondition == null || this.putAVertexOnlyAtXYZCheckingThisCondition(position)) {
@@ -536,29 +536,29 @@ module mathis{
 
                 if (this.markCorner){
 
-                    let oneMore=(this.oneMoreVertexForOddLine&&this.nbJ%2==0)?1:0
+                    let oneMore=(this.oneMoreVertexForOddLine&&this.nbV%2==0)?1:0
 
                     let vertex:Vertex
                     vertex=this.getVertex(0,0)
                     if (vertex!=null)  vertex.markers.push(Vertex.Markers.corner)
-                    vertex=this.getVertex(this.nbI-1+oneMore,this.nbJ-1)
+                    vertex=this.getVertex(this.nbU-1+oneMore,this.nbV-1)
                     if (vertex!=null)  vertex.markers.push(Vertex.Markers.corner)
-                    vertex=this.getVertex(0,this.nbJ-1)
+                    vertex=this.getVertex(0,this.nbV-1)
                     if (vertex!=null)  vertex.markers.push(Vertex.Markers.corner)
-                    vertex=this.getVertex(this.nbI-1,0)
+                    vertex=this.getVertex(this.nbU-1,0)
                     if (vertex!=null)  vertex.markers.push(Vertex.Markers.corner)
                 }
 
                 
                 if (this.markCenter){
-                    let iCenter=this.nbI/2
+                    let iCenter=this.nbU/2
                     let iCenters=[]
                     if (Math.floor(iCenter)!=iCenter){
                         iCenters.push(Math.floor(iCenter))
                     }
                     else iCenters.push(Math.floor(iCenter),Math.floor(iCenter)-1)
 
-                    let jCenter=this.nbJ/2
+                    let jCenter=this.nbV/2
                     let jCenters=[]
                     if (Math.floor(jCenter)!=jCenter){
                         jCenters.push(Math.floor(jCenter))
@@ -1175,9 +1175,9 @@ module mathis{
 
                 /**creation de la base*/
                 let basisCrea=new BasisForRegularReseau()
-                basisCrea.nbI=(nbI-1)*nbSubInterval_I+1
-                basisCrea.set_nbJ_toHaveRegularReseau=this.adaptUVForRegularReseau
-                basisCrea.nbJ=(nbJ-1)*nbSubInterval_J+1
+                basisCrea.nbU=(nbI-1)*nbSubInterval_I+1
+                basisCrea.set_nbV_toHaveRegularReseau=this.adaptUVForRegularReseau
+                basisCrea.nbV=(nbJ-1)*nbSubInterval_J+1
                 basisCrea.origin=origin
                 basisCrea.end=end
                 basisCrea.nbVerticalDecays=nbVerticalDecays
@@ -1187,10 +1187,10 @@ module mathis{
 
 
                 let creator=new Regular2d()
-                    creator.Vi.copyFrom(VV.Vi)
-                    creator.Vj.copyFrom(VV.Vj)
-                    creator.nbI = VV.nbI
-                    creator.nbJ = VV.nbJ
+                    creator.dirU.copyFrom(VV.dirU)
+                    creator.dirV.copyFrom(VV.dirV)
+                    creator.nbU = VV.nbU
+                    creator.nbV = VV.nbV
                     creator.origine.copyFrom(basisCrea.origin)
 
                 creator.squareVersusTriangleMaille = !this.triangle
@@ -1404,12 +1404,12 @@ module mathis{
 
         export class Regular3D{
 
-            nbI=3
+            nbU=3
             nbJ=3
-            nbK=3
-            Vi=new XYZ(1,0,0)
-            Vj=new XYZ(0,1,0)
-            Vk=new XYZ(0,0,1)
+            nbW=3
+            dirU=new XYZ(1,0,0)
+            dirV=new XYZ(0,1,0)
+            dirW=new XYZ(0,0,1)
 
             origine=new XYZ(0,0,0)
             decayOddStrates=false
@@ -1445,11 +1445,11 @@ module mathis{
                 
                 
                 let xDecay=new XYZ(0,0,0)
-                if (this.decayOddStrates) xDecay.add(this.Vi).scale(0.5)
+                if (this.decayOddStrates) xDecay.add(this.dirU).scale(0.5)
 
 
                 
-                for (let k=0; k<this.nbK; k++){
+                for (let k=0; k<this.nbW; k++){
 
                     let twoD=new Regular2d()
                     twoD.makeTriangleOrSquare=this.makeTriangleOrSquare
@@ -1457,12 +1457,12 @@ module mathis{
                     twoD.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine
                     twoD.squareVersusTriangleMaille=this.strateHaveSquareMailleVersusTriangleMaille
 
-                    twoD.nbI=this.nbI
-                    twoD.nbJ=this.nbJ
-                    twoD.fixedK=k
-                    twoD.Vi=this.Vi
-                    twoD.Vj=this.Vj
-                    twoD.Vk.copyFrom(this.Vk)
+                    twoD.nbU=this.nbU
+                    twoD.nbV=this.nbJ
+                    twoD.fixedW=k
+                    twoD.dirU=this.dirU
+                    twoD.dirV=this.dirV
+                    twoD.dirW.copyFrom(this.dirW)
                     
                     twoD.origine=XYZ.newFrom(this.origine)
                     if (k%2==1) twoD.origine.substract(xDecay)

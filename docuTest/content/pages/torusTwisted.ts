@@ -12,7 +12,7 @@ module mathis {
                 let severalParts = new SeveralParts()
                 severalParts.addPart(new TorusPart(this.mathisFrame))
                 severalParts.addPart(new TorusPartLines(this.mathisFrame))
-                severalParts.addPart(new BoySurface(this.mathisFrame))
+                //severalParts.addPart(new BoySurface(this.mathisFrame))
 
                 this.severalParts=severalParts
             }
@@ -88,8 +88,8 @@ module mathis {
 
 
                 let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=nbU
-                generator.nbJ=nbV
+                generator.nbU=nbU
+                generator.nbV=nbV
                 generator.origin=new XYZ(-Math.PI,-Math.PI,0)
                 generator.end=new XYZ(Math.PI,Math.PI,0)
 
@@ -214,7 +214,7 @@ module mathis {
             nbHorizontalDecays=1
             $$$nbHorizontalDecays=[0,1,2,3,4]
 
-            bent=false
+            bent=true
             $$$bent=[true,false]
 
             nbI=5
@@ -242,26 +242,24 @@ module mathis {
                 /**SUB_generator allow to compute basis (Vi,Vj) of a planar reseau. If no decays,
                  * Vi and Vj are simply computed so that the reseau start at "origine" [default (0,0,0)]
                  * and finish at "end". To see effect of decays, observe ! */
-                let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=this.nbI
-                generator.nbJ=this.nbJ
-                generator.origin=new XYZ(0,0,0)
-                generator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
-                generator.nbVerticalDecays=this.nbVerticalDecays
-                generator.nbHorizontalDecays=this.nbHorizontalDecays
-                //n
-                let creator = new reseau.Regular2d(generator)
+                let creator = new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.origin=new XYZ(0,0,0)
+                creator.end=new XYZ(2*Math.PI,2*Math.PI,0)
+                creator.nbVerticalDecays=this.nbVerticalDecays
+                creator.nbHorizontalDecays=this.nbHorizontalDecays
                 let mamesh=creator.go()
                 //n
                 let bent=this.bent
                 if (bent){
-                    let r=0.3
-                    let a=0.75
+                    var r=0.3
+                    var a=0.75
 
                     mamesh.vertices.forEach((vertex:Vertex)=>{
 
-                        let u=vertex.position.x*10
-                        let v=vertex.position.y*10
+                        let u=vertex.position.x
+                        let v=vertex.position.y
 
                         vertex.position.x=(r*Math.cos(u)+a)*Math.cos((v))
                         vertex.position.y=(r*Math.cos(u)+a)*Math.sin((v))
@@ -342,15 +340,13 @@ module mathis {
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$begin
-                let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=this.nbI
-                generator.nbJ=this.nbJ
-                generator.origin=new XYZ(0,0,0)
-                generator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
-                generator.nbVerticalDecays=this.nbVerticalDecays
-                generator.nbHorizontalDecays=this.nbHorizontalDecays
-
-                let creator = new reseau.Regular2d(generator)
+                let creator = new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.origin=new XYZ(0,0,0)
+                creator.end=new XYZ(2*Math.PI,2*Math.PI,0)
+                creator.nbVerticalDecays=this.nbVerticalDecays
+                creator.nbHorizontalDecays=this.nbHorizontalDecays
                 let mamesh=creator.go()
 
                 //n
@@ -360,8 +356,8 @@ module mathis {
                     let a=0.75
                     mamesh.vertices.forEach((vertex:Vertex)=>{
 
-                        let u=vertex.position.x*10
-                        let v=vertex.position.y*10
+                        let u=vertex.position.x
+                        let v=vertex.position.y
 
                         vertex.position.x=(r*Math.cos(u)+a)*Math.cos((v))
                         vertex.position.y=(r*Math.cos(u)+a)*Math.sin((v))

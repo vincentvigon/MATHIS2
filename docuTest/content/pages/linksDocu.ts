@@ -273,12 +273,11 @@ module mathis{
                 //$$$begin
 
                 /**let's create vertices*/
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=8
-                basis.nbJ=8
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=8
+                creator.nbV=8
                 creator.makeLinks=false
-                creator.makeTriangleOrSquare=false
+                creator.maille=reseau.Maille.triangleV
                 let mamesh = creator.go()
 
                 let nbLinks=this.nbLinks
@@ -348,8 +347,8 @@ module mathis{
             seed=3534
             $$$seed=[3534,7654,909123,58912307]
 
-            squareMailleInsteadOfTriangle=true
-            $$$squareMailleInsteadOfTriangle=[true,false]
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
 
             randomization =true
@@ -380,11 +379,10 @@ module mathis{
                 //$$$begin
 
                 /**let's create vertices*/
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=5
-                basis.nbJ=5
-                basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=5
+                creator.nbV=5
+                creator.maille=this.maille
 
 
                 /**we intentionally forget to create links*/

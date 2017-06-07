@@ -38,25 +38,25 @@ module mathis {
 
         {
             let crea = new reseau.Regular2d()
-            crea.nbI = 5
-            crea.nbJ = 6
+            crea.nbU = 5
+            crea.nbV = 6
             crea.makeLinks=false
             let mamesh = crea.go()
             new mameshModification.SquareDichotomer(mamesh).go()
             new mameshModification.SquareDichotomer(mamesh).go()
-            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbI, crea.nbJ))
+            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbU, crea.nbV))
         }
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI = 3
+            crea.nbU = 3
             /**with even number, the IN_mamesh is not j-symmetric !!!!*/
-            crea.nbJ = 7
+            crea.nbV = 7
             crea.oneMoreVertexForOddLine = true
             crea.squareVersusTriangleMaille = false
             let mamesh =crea.go()
 
-            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbI, crea.nbJ, crea.oneMoreVertexForOddLine))
+            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbU, crea.nbV, crea.oneMoreVertexForOddLine))
 
 
         }
@@ -64,9 +64,9 @@ module mathis {
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI = 9
+            crea.nbU = 9
             /**with even number, the IN_mamesh is not j-symmetric !!!!*/
-            crea.nbJ = 5
+            crea.nbV = 5
             crea.oneMoreVertexForOddLine = false
             crea.squareVersusTriangleMaille = false
             let mamesh = crea.go()
@@ -79,7 +79,7 @@ module mathis {
             dicho.go()
 
 
-            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbI, crea.nbJ, crea.oneMoreVertexForOddLine))
+            testAllSymmetries(mamesh, symmetries.cartesian(crea.nbU, crea.nbV, crea.oneMoreVertexForOddLine))
 
         }
 

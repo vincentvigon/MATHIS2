@@ -251,12 +251,11 @@ module mathis{
                 //$$$begin
 
 
-                let basis=new reseau.BasisForRegularReseau()
-                basis.origin=new XYZ(0,-1,0)
-                basis.end=new XYZ(2*Math.PI,1,0)
-                basis.nbI=20
-                basis.nbJ=10
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.origin=new XYZ(0,-1,0)
+                creator.end=new XYZ(2*Math.PI,1,0)
+                creator.nbU=20
+                creator.nbV=10
                 let mamesh=creator.go()
 
 

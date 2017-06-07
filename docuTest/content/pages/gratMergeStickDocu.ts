@@ -557,18 +557,17 @@ module mathis {
 
 
 
-                    let basis=new reseau.BasisForRegularReseau()
-                    basis.origin=new XYZ(0,-0.7,0)
-                    basis.end=new XYZ(2*Math.PI,0.7,0)
-                    basis.nbI=20
-                    basis.nbJ=10
-                    basis.nbHorizontalDecays=2
-
-                    mamesh0  = new reseau.Regular2d(basis).go()
+                    let creator=new reseau.Regular2dPlus()
+                    creator.origin=new XYZ(0,-0.7,0)
+                    creator.end=new XYZ(2*Math.PI,0.7,0)
+                    creator.nbU=20
+                    creator.nbV=10
+                    creator.nbHorizontalDecays=2
+                    mamesh0  = creator.go()
                     mamesh1  = mamesh0
                     for (let v of mamesh0.vertices) {
                         if (v.param.x==0) vertices0.push(v)
-                        else if (v.param.x==basis.nbI-1) vertices1.push(v)
+                        else if (v.param.x==creator.nbU-1) vertices1.push(v)
                     }
 
 
@@ -581,19 +580,19 @@ module mathis {
                         }
 
                 else {
-                    let basis0 = new reseau.BasisForRegularReseau()
-                    basis0.origin = new XYZ(-1, -0.9, 0)
-                    basis0.end = new mathis.XYZ(-0.05, 1.1, 0)
-                    basis0.nbI = 5
-                    basis0.nbJ = 10
-                    mamesh0  = new reseau.Regular2d(basis0).go()
+                    let creator0 = new reseau.Regular2dPlus()
+                    creator0.origin = new XYZ(-1, -0.9, 0)
+                    creator0.end = new mathis.XYZ(-0.05, 1.1, 0)
+                    creator0.nbU = 5
+                    creator0.nbV = 10
+                    mamesh0  = creator0.go()
 
-                    let basis1 = new reseau.BasisForRegularReseau()
-                    basis1.origin = new XYZ(0.05, -1, 0)
-                    basis1.end = new mathis.XYZ(1, 1, 0)
-                    basis1.nbI = 5
-                    basis1.nbJ = 10
-                    mamesh1 = new reseau.Regular2d(basis1).go()
+                    let creator1 = new reseau.Regular2dPlus()
+                    creator1.origin = new XYZ(0.05, -1, 0)
+                    creator1.end = new mathis.XYZ(1, 1, 0)
+                    creator1.nbU = 5
+                    creator1.nbV = 10
+                    mamesh1 = creator1.go()
 
                     vertices0=mamesh0.vertices
                     vertices1=mamesh1.vertices

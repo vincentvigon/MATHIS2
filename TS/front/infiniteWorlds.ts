@@ -210,8 +210,8 @@ module mathis{
 
                 let basis=new reseau.BasisForRegularReseau()
                 basis.end=new XYZ(this.fondamentalDomainSize,this.fondamentalDomainSize,0)
-                basis.nbI=this.nbSubdivision
-                basis.nbJ=this.nbSubdivision
+                basis.nbU=this.nbSubdivision
+                basis.nbV=this.nbSubdivision
                 basis.origin=new XYZ(0,0,0)
                 basis.nbVerticalDecays=this.nbVerticalDecays
                 basis.nbHorizontalDecays=this.nbHorizontalDecays
@@ -219,12 +219,12 @@ module mathis{
 
 
                 let crea = new reseau.Regular3D()
-                crea.nbI = this.nbSubdivision*this.nbRepetition
+                crea.nbU = this.nbSubdivision*this.nbRepetition
                 crea.nbJ = this.nbSubdivision*this.nbRepetition
-                crea.nbK = this.nbSubdivision*this.nbRepetition
-                crea.Vi = VV.Vi
-                crea.Vj = VV.Vj
-                crea.Vk = new XYZ(0, 0, this.fondamentalDomainSize / (this.nbSubdivision - 1))
+                crea.nbW = this.nbSubdivision*this.nbRepetition
+                crea.dirU = VV.dirU
+                crea.dirV = VV.dirV
+                crea.dirW = new XYZ(0, 0, this.fondamentalDomainSize / (this.nbSubdivision - 1))
 
                 crea.makeTriangleOrSquare = false
                 crea.createIKSquaresOrTriangles=false

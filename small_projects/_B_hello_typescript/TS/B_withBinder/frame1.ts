@@ -38,10 +38,10 @@ module mathis{
 
                 let creator = new reseau.Regular2d()
 
-                creator.nbI = this.nbI
-                creator.nbJ = 4
-                creator.Vi = new XYZ(0.2, 0, 0)
-                creator.Vj = this.Vj
+                creator.nbU = this.nbI
+                creator.nbV = 4
+                creator.dirU = new XYZ(0.2, 0, 0)
+                creator.dirV = this.Vj
                 creator.origine = new XYZ(-0.7, -0.7, 0)
                 creator.squareVersusTriangleMaille = this.squareMaille
 
