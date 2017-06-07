@@ -36,7 +36,7 @@ module mathis{
 
                 this.mathisFrame.clearScene(false, false)
 
-                let creator = new reseau.Regular()
+                let creator = new reseau.Regular2d()
 
                 creator.nbI = this.nbI
                 creator.nbJ = 4

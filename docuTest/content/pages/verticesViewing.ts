@@ -74,7 +74,7 @@ module mathis{
                 basis.origin=new XYZ(-0.7,-0.7,0)
                 basis.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular(basis)
+                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
                 //$$$eh
@@ -158,7 +158,7 @@ module mathis{
                 basis.origin=new XYZ(-0.7,-0.7,0)
                 basis.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular(basis)
+                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
                 //$$$eh
@@ -270,7 +270,7 @@ module mathis{
                 basis.origin=new XYZ(-0.7,-0.7,0)
                 basis.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular(basis)
+                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
 
@@ -408,7 +408,7 @@ module mathis{
                     basis.end=new XYZ(Math.PI,+1,0)
                     basis.nbI=5
                     basis.nbJ=7
-                    mamesh=new reseau.Regular(basis).go()
+                    mamesh=new reseau.Regular2d(basis).go()
                     for (let i=0;i<mamesh.vertices.length;i++){
                         let oldPosition=XYZ.newFrom(mamesh.vertices[i].position)
                         mamesh.vertices[i].position.x=Math.cos(oldPosition.x)

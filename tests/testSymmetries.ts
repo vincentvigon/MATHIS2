@@ -37,7 +37,7 @@ module mathis {
         }
 
         {
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI = 5
             crea.nbJ = 6
             crea.makeLinks=false
@@ -48,7 +48,7 @@ module mathis {
         }
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI = 3
             /**with even number, the IN_mamesh is not j-symmetric !!!!*/
             crea.nbJ = 7
@@ -63,7 +63,7 @@ module mathis {
 
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI = 9
             /**with even number, the IN_mamesh is not j-symmetric !!!!*/
             crea.nbJ = 5

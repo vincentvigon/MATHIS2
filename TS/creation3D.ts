@@ -177,8 +177,7 @@ module mathis {
             serpentMesh:BABYLON.Mesh
             headSerpent:BABYLON.Mesh
             path:XYZ[]=[]
-            
-            
+
             sliceInsteadOfElongateWhenMaxLengthIsReached=true
             
             initialPosition=new XYZ(0,0,0)
@@ -255,15 +254,7 @@ module mathis {
             }
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         }
         
         

@@ -120,7 +120,7 @@ module mathis{
             gene.nbI=ni
             gene.nbJ=nj
 
-            let crea = new reseau.Regular(gene)
+            let crea = new reseau.Regular2d(gene)
                 crea.oneMoreVertexForOddLine=oneMoreOnOdd
 
             crea.squareVersusTriangleMaille=false
@@ -448,7 +448,7 @@ module mathis{
 
         {
 
-            let crea= new reseau.Regular()
+            let crea= new reseau.Regular2d()
             let mamesh=crea.go()
 
             Vertex.separateTwoVoisins(mamesh.vertices[0],mamesh.vertices[1])
@@ -465,7 +465,7 @@ module mathis{
         /**here we test that, the sub IN_mamesh extractor take care of square*/
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI=7
             crea.nbJ=7
             let mamesh=crea.go()
@@ -502,7 +502,7 @@ module mathis{
         /**here we test that, the sub IN_mamesh extractor take care of square*/
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI=7
             crea.nbJ=7
             let mamesh=crea.go()
@@ -527,7 +527,7 @@ module mathis{
 
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI=7
             crea.nbJ=7
             let mamesh=crea.go()
@@ -547,7 +547,7 @@ module mathis{
 
         {
 
-            let crea = new reseau.Regular()
+            let crea = new reseau.Regular2d()
             crea.nbI=5
             crea.nbJ=5
             let mamesh=crea.go()
@@ -729,7 +729,7 @@ module mathis{
             gene.nbI=3
             gene.nbJ=3
 
-            let crea=new reseau.Regular(gene)
+            let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
 
             mamesh.vertices[4].setTwoOppositeLinks(mamesh.vertices[1],mamesh.vertices[5])
@@ -773,7 +773,7 @@ module mathis{
             gene.nbI=3
             gene.nbJ=3
 
-            let crea=new reseau.Regular(gene)
+            let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
 
             mamesh.vertices[4].setTwoOppositeLinks(mamesh.vertices[1],mamesh.vertices[5])
@@ -800,7 +800,7 @@ module mathis{
             gene.nbI=3
             gene.nbJ=3
 
-            let crea=new reseau.Regular(gene)
+            let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
 
             mamesh.vertices[4].setTwoOppositeLinks(mamesh.vertices[7],mamesh.vertices[5])
@@ -1325,7 +1325,7 @@ module mathis{
 
 
         {
-            let reseuCrea=new reseau.Regular()
+            let reseuCrea=new reseau.Regular2d()
             reseuCrea.nbI=3
             reseuCrea.nbJ=3
             let reso=reseuCrea.go()
@@ -1343,7 +1343,7 @@ module mathis{
         }
 
         {
-            let reseuCrea=new reseau.Regular()
+            let reseuCrea=new reseau.Regular2d()
             reseuCrea.nbI=3
             reseuCrea.nbJ=4
             let reso=reseuCrea.go()
@@ -1362,7 +1362,7 @@ module mathis{
 
 
         {
-            let reseuCrea=new reseau.Regular()
+            let reseuCrea=new reseau.Regular2d()
             reseuCrea.nbI=4
             reseuCrea.nbJ=4
             let reso=reseuCrea.go()
@@ -1384,7 +1384,7 @@ module mathis{
 
 
         {
-            let reseuCrea=new reseau.Regular()
+            let reseuCrea=new reseau.Regular2d()
             reseuCrea.nbI=5
             reseuCrea.nbJ=5
             let reso=reseuCrea.go()

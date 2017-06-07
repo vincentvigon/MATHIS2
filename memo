@@ -1,1 +1,4 @@
 find . -name Icon? -type f -delete
+
+cd JS
+uglifyjs --compress --mangle -o MATHIS.min.js MATHIS.js

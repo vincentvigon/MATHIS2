@@ -277,7 +277,7 @@ module mathis{
                     basis.end=new XYZ(1,1,0)
                     basis.nbI=4
                     basis.nbJ=4
-                    let creator=new reseau.Regular(basis)
+                    let creator=new reseau.Regular2d(basis)
                     mamesh=creator.go()
                 }
 
@@ -483,7 +483,7 @@ module mathis{
                 else if(this.demoChoice==1) pieceOfCode=new IsingOnIndex(this.mathisFrame)
                 else if (this.demoChoice==2) pieceOfCode=new DifferentialOnIndex(this.mathisFrame)
                 else if (this.demoChoice==3) pieceOfCode=new FractalOnIndex(this.mathisFrame)
-                else if (this.demoChoice==4) pieceOfCode=new smallProject.RandomSpacialGraph(this.mathisFrame)
+                else if (this.demoChoice==4) pieceOfCode=new mourratGraph.RandomSpacialGraph(this.mathisFrame)
                     else if (this.demoChoice==5) pieceOfCode=new PolyhedronOnIndex(this.mathisFrame)
 
                 else throw "boum"

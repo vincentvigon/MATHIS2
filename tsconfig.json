@@ -19,7 +19,7 @@
 
 
 
-// COMPILATEUR SPECIFIC FOR SMALL PROJECT:
+ //COMPILATEUR SPECIFIC FOR SMALL PROJECT:
 //it actually exclude the TS-files of all small projects, in order to let the small project re-compile
 // these TS-file itself. If is better to minify the generated code after such a compilation
 //{
@@ -35,7 +35,8 @@
 //    "**/MATHIS.d.ts",
 //    "docuTest/",
 //    "tests/",
-//    "small_projects/"
+//    "small_projects/",
+//    "TS/_fakeBABYLON.ts"
 //  ]
 //}
 

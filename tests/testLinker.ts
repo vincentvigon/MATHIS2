@@ -234,7 +234,7 @@ module mathis {
         
         {
             
-            let creator=new reseau.Regular()
+            let creator=new reseau.Regular2d()
             let mamesh=creator.go()
             
             let linker=new linkModule.SimpleLinkFromPolygonCreator(mamesh)
@@ -247,7 +247,7 @@ module mathis {
 
         {
 
-            let creator=new reseau.Regular()
+            let creator=new reseau.Regular2d()
             creator.squareVersusTriangleMaille=false
             let mamesh=creator.go()
 
@@ -289,7 +289,7 @@ module mathis {
             generator.nbJ=4
             let VV=generator.go()
             
-            let meshMaker = new reseau.Regular()
+            let meshMaker = new reseau.Regular2d()
             meshMaker.makeLinks=true
             meshMaker.nbI=4
             meshMaker.nbJ=4
@@ -329,7 +329,7 @@ module mathis {
                 
                 let r=0.8
                 let a=2
-                let meshMaker = new reseau.Regular()
+                let meshMaker = new reseau.Regular2d()
                 meshMaker.makeLinks=false
                 meshMaker.nbI=nbX
                 meshMaker.nbJ=nbY
@@ -385,7 +385,7 @@ module mathis {
                 let r=0.8
                 let a=2
 
-                let meshMaker = new reseau.Regular()
+                let meshMaker = new reseau.Regular2d()
                 meshMaker.makeLinks=true
                 meshMaker.nbI=nbX
                 meshMaker.nbJ=nbY

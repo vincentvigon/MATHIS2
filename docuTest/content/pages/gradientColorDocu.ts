@@ -72,8 +72,8 @@ module mathis{
                 let creator=new reseau.Regular2dPlus()
                 creator.origin=new XYZ(-0.1,-0.1,0)
                 creator.end=new XYZ(1.1,1.1,0)
-                creator.nbI=10
-                creator.nbJ=10
+                creator.nbU=10
+                creator.nbV=10
                 let mamesh=creator.go()
 
 
@@ -152,8 +152,8 @@ module mathis{
                 let creator=new reseau.Regular2dPlus()
                 creator.origin=new XYZ(-0.5,-0.5,0)
                 creator.end=new XYZ(0.5,0.5,0)
-                creator.nbI=50
-                creator.nbJ=50
+                creator.nbU=50
+                creator.nbV=50
                 let mamesh=creator.go()
 
 
@@ -220,8 +220,8 @@ module mathis{
                 let creator=new reseau.Regular2dPlus()
                 creator.origin=new XYZ(-0.5,-0.5,0)
                 creator.end=new XYZ(0.5,0.5,0)
-                creator.nbI=50
-                creator.nbJ=50
+                creator.nbU=50
+                creator.nbV=50
                 let mamesh=creator.go()
 
 

@@ -2,6 +2,12 @@
 
 module mathis {
 
+    export const PI=Math.PI
+    export const cos=Math.cos
+    export const sin=Math.sin
+    export const exp =Math.exp
+    export const sqrt=Math.sqrt
+
     //
     // export enum Direction{vertical,horizontal,slash,antislash}
 
@@ -310,11 +316,25 @@ module mathis {
             let quaternion=null
             if (this.frontDir!=null||this.upVector!=null) quaternion=this.quaternion()
             for (let mesh of meshes){
-                if(this.scaling!=null) mesh.scaling=this.scaling
-                if(quaternion!=null) mesh.rotationQuaternion=quaternion
-                if(this.position!=null) mesh.position=this.position
+                if(this.scaling!=null) {
+                    if (mesh.scaling==null) mesh.scaling=new XYZ(1,1,1)
+                    mesh.scaling.copyFrom(this.scaling)
+                }
+                if(quaternion!=null) {
+                    if (mesh.rotationQuaternion==null) mesh.rotationQuaternion=new XYZW(0,0,0,1)
+                    mesh.rotationQuaternion.copyFrom(quaternion)
+                }
+                if(this.position!=null) {
+                    if (mesh.position==null) mesh.position=new XYZ(0,0,0)
+                    mesh.position.copyFrom(this.position)
+                }
             }
         }
+
+        applyToMesh(mesh:BABYLON.Mesh){
+            this.applyToMeshes([mesh])
+        }
+
 
         applyToVertices(vertices:Vertex[]){
             let quaternion=this.quaternion()
