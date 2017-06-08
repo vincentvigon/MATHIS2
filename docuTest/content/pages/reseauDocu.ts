@@ -18,7 +18,7 @@ module mathis{
                 severalParts.addPart(new RegularReseau2dPlusDocu(this.mathisFrame))
 
                 severalParts.addPart(new Regular2dPlusWithLinesDocu(this.mathisFrame))
-                severalParts.addPart(new Regular2dTopo(this.mathisFrame))
+                //severalParts.addPart(new Regular2dTopo(this.mathisFrame))
 
                 severalParts.addPart(new PolygonalResauDocu(this.mathisFrame))
                 severalParts.addPart(new Regular3dReseauDocu(this.mathisFrame))
@@ -88,11 +88,11 @@ module mathis{
                 //$$$begin
                 let creator = new reseau.Regular2dPlus()
 
-                creator.nbI=this.nbI
-                creator.nbJ=this.nbJ
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
                 /**if true: nbJ (or nbI) is computed to obtain regular triangle/square
                  * In particular, the reseau does not fit to the black rectangle*/
-                creator.adaptIJForRegularReseau=this.setNBJ
+                creator.adaptUVForRegularReseau=this.setNBJ
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=this.end
                 creator.maille=this.maille
@@ -151,7 +151,7 @@ module mathis{
                 //$$$bh visualization
 
 
-                let cadreCrea=new reseau.Regular()
+                let cadreCrea=new reseau.Regular2d()
                 cadreCrea.origine=creator.origin
                 cadreCrea.Vi=new XYZ(0,creator.end.y-creator.origin.y,0)
                 cadreCrea.Vj=new XYZ(creator.end.x-creator.origin.x,0,0)
@@ -232,10 +232,10 @@ module mathis{
                 let creator = new reseau.Regular2dPlus()
 
 
-                creator.nbI=this.nbI
-                creator.nbJ=this.nbJ
-                creator.nbSubInterval_I=this.nbSubinterval_I
-                creator.nbSubInterval_J=this.nbSubinterval_J
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.nbSubInterval_U=this.nbSubinterval_I
+                creator.nbSubInterval_V=this.nbSubinterval_J
 
                 creator.makeLine=this.makeLine
 
@@ -247,7 +247,7 @@ module mathis{
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=this.end
                 /**if true: nbJ is computed to obtain regular triangle/square*/
-                creator.adaptIJForRegularReseau=this.setNBJ
+                creator.adaptUVForRegularReseau=this.setNBJ
                 creator.nbHorizontalDecays=this.nbHorizontalDecays
                 creator.nbVerticalDecays=this.nbVerticalDecays
                 //$$$eh
@@ -338,8 +338,8 @@ module mathis{
                 let creator = new reseau.Regular2dPlus()
 
 
-                creator.nbI=this.nbI
-                creator.nbJ=this.nbJ
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
                 creator.maille=this.maille
                 creator.origin=new XYZ(-0.5,-0.5,0)
                 creator.end=new XYZ(0.5,0.5,0)
@@ -417,8 +417,6 @@ module mathis{
         }
 
 
-
-
         class RegularReseauDocu implements PieceOfCode{
             NAME="RegularReseauDocu"
             TITLE="This more elementary class is used to build the RegularReseau2dPlus. But " +
@@ -459,7 +457,7 @@ module mathis{
                 this.mathisFrame.clearScene(false,false)
 
                 //$$$begin
-                let creator = new reseau.Regular()
+                let creator = new reseau.Regular2d()
                 /** Vi and Vj form the basis of the reseau.
                  * For square net, points are i*Vi + j*Vj
                  * For triangular net, points are :

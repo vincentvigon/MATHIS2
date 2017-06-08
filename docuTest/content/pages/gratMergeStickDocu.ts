@@ -374,6 +374,10 @@ module mathis {
             $$$justGrateDoNotStick=[true,false]
 
 
+            addMissingPolygons=true
+            $$$addMissingPolygons=[true,false]
+
+
 
 
             constructor(private mathisFrame:MathisFrame) {
@@ -439,6 +443,9 @@ module mathis {
                 graterAndSticker.SUB_linkCleanerByAngle.suppressLinksAngularParam=2*Math.PI*this.propAngle
 
 
+                graterAndSticker.addMissingPolygons=this.addMissingPolygons
+
+
 
 
                 let mamesh=graterAndSticker.goChanging()
@@ -465,6 +472,10 @@ module mathis {
                     verticesViewer.vertices=verticesViewer.vertices.concat(vertices)
                 }
                 verticesViewer.go()
+
+
+                let surfaceViewer=new visu3d.SurfaceViewer(mamesh,this.mathisFrame.scene)
+                surfaceViewer.go()
 
                 //$$$eh
             }
@@ -553,7 +564,7 @@ module mathis {
                     basis.nbJ=10
                     basis.nbHorizontalDecays=2
 
-                    mamesh0  = new reseau.Regular(basis).go()
+                    mamesh0  = new reseau.Regular2d(basis).go()
                     mamesh1  = mamesh0
                     for (let v of mamesh0.vertices) {
                         if (v.param.x==0) vertices0.push(v)
@@ -575,14 +586,14 @@ module mathis {
                     basis0.end = new mathis.XYZ(-0.05, 1.1, 0)
                     basis0.nbI = 5
                     basis0.nbJ = 10
-                    mamesh0  = new reseau.Regular(basis0).go()
+                    mamesh0  = new reseau.Regular2d(basis0).go()
 
                     let basis1 = new reseau.BasisForRegularReseau()
                     basis1.origin = new XYZ(0.05, -1, 0)
                     basis1.end = new mathis.XYZ(1, 1, 0)
                     basis1.nbI = 5
                     basis1.nbJ = 10
-                    mamesh1 = new reseau.Regular(basis1).go()
+                    mamesh1 = new reseau.Regular2d(basis1).go()
 
                     vertices0=mamesh0.vertices
                     vertices1=mamesh1.vertices

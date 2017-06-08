@@ -1,10 +1,12 @@
 /**
  * Created by vigon on 10/05/2017.
+ *
+ * Visualisation du sampling de Gibbs
  */
 
 
 module mathis {
-    export module smallProject {
+    export module mourratGraph {
 
 
         export function startMourratGraph(){
@@ -116,7 +118,7 @@ module mathis {
 
             }
 
-            sampler: smallProject.SpacialRandomGraph
+            sampler: SpacialRandomGraph
             action: PeriodicAction
 
             go() {
@@ -144,7 +146,7 @@ module mathis {
 
                     case '2d': {
                         N = this.N_2d
-                        let creator = new reseau.Regular()
+                        let creator = new reseau.Regular2d()
                         creator.nbI = N
                         creator.nbJ = N
                         creator.origine = new XYZ(-1, 0, -1)
@@ -173,8 +175,8 @@ module mathis {
                 }
 
 
-                this.sampler = new smallProject.SpacialRandomGraph(mamesh, this.mathisFrame, N)
-                /** 'b' grand => on est très motivé pour réduire le diamètre. Théoriquement*/
+                this.sampler = new SpacialRandomGraph(mamesh, this.mathisFrame, N)
+                /** 'b' grand => on est très motivé pour réduire le diamètre.*/
                 this.sampler.b = this.b
                 /** 'gamma' grand => les grands ponts coûtent cher. On voit essentiellement des petits ponts */
                 this.sampler.gamma = this.gamma
@@ -182,10 +184,6 @@ module mathis {
                 this.sampler.showInitialGraph = showInitialGraph
                 this.sampler.go()
 
-                /**remarque : dès que  alpha(b,gamma)=0, le diamètre asymptotique (N=infty) vaut 1.
-                 * Mais les simus ne donnent jamais un tel diamètre.
-                 * Les simus donnent un diamètre  toujours plus grand que le diamètre asymptotique
-                 *  */
 
 
                 this.action = new PeriodicAction(() => {

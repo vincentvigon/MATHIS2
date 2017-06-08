@@ -91,7 +91,7 @@ module mathis {
                 generator.nbVerticalDecays=this.nbVerticalDecays
                 generator.nbHorizontalDecays=this.nbHorizontalDecays
 
-                let creator = new reseau.Regular(generator)
+                let creator = new reseau.Regular2d(generator)
                 let mamesh=creator.go()
 
                 //n

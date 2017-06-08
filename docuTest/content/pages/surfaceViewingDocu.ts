@@ -256,7 +256,7 @@ module mathis{
                 basis.end=new XYZ(2*Math.PI,1,0)
                 basis.nbI=20
                 basis.nbJ=10
-                let creator=new reseau.Regular(basis)
+                let creator=new reseau.Regular2d(basis)
                 let mamesh=creator.go()
 
 

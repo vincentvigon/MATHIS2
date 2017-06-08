@@ -152,10 +152,10 @@ module mathis{
 
                 let creator=new reseau.Regular2dPlus()
                 creator.makeLine=true
-                creator.nbI=this.nbI
-                creator.nbJ=this.nbJ
-                creator.nbSubInterval_I=this.nbSubInterval_I
-                creator.nbSubInterval_J=this.nbSubInterval_J
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.nbSubInterval_U=this.nbSubInterval_I
+                creator.nbSubInterval_V=this.nbSubInterval_J
                 creator.origin=new XYZ(-Math.PI,-1,0)
                 creator.end=new XYZ(Math.PI,1,0)
                 let mamesh=creator.go()
@@ -194,22 +194,25 @@ module mathis{
             NO_TEST=true
 
             NAME="ManyOtherSurfacesDocu"
-            TITLE="Here is a list of famous surfaces, whose equation are written in the equation-module"
+            TITLE="Here is a list (to be increase) of famous surfaces. Some equations are memorized in the equation-module of Mathis."
 
-            a=0.2
-            $$$a=[0.1,0.2,1]
 
             nbI=10
             $$$nbI=[5,10,15]
             nbJ=10
             $$$nbJ=[5,10,15]
 
-            nbSubInterval_I=5
+            nbSubInterval_I=10
             $$$nbSubInterval_I=[1,5,10]
-            nbSubInterval_J=5
+            nbSubInterval_J=10
             $$$nbSubInterval_J=[1,5,10]
 
-            surfaceName=['boyd']
+            surfaceName='twist'
+            $$$surfaceName=['twist','Klein bottle','Cross Capped Disk']
+
+            nbTwist=2
+            $$$nbTwist=[1,2,3,4]
+
 
             constructor(private mathisFrame:MathisFrame){}
 
@@ -229,35 +232,77 @@ module mathis{
                 //$$$begin
 
 
-
-
                 let creator=new reseau.Regular2dPlus()
                 creator.makeLine=true
-                creator.nbI=this.nbI
-                creator.nbJ=this.nbJ
-                creator.nbSubInterval_I=this.nbSubInterval_I
-                creator.nbSubInterval_J=this.nbSubInterval_J
-                creator.origin=new XYZ(-Math.PI,-1,0)
-                creator.end=new XYZ(Math.PI,1,0)
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.nbSubInterval_U=this.nbSubInterval_I
+                creator.nbSubInterval_V=this.nbSubInterval_J
+
+
+
+                let X,Y,Z
+                var sin=Math.sin,cos=Math.cos,PI=Math.PI
+                let rangeU,rangeV
+
+                switch (this.surfaceName){
+
+                    case ('twist'):{
+                        rangeU=[-PI,PI]
+                        rangeV=[-0.5,0.5]
+                        var nbTwists=this.nbTwist
+                        X=function(u,v){return (1-1*v*sin(u/2*nbTwists))*sin(u)}
+                        Y=function(u,v){return (1-1*v*sin(u/2*nbTwists))*cos(u)}
+                        Z=function(u,v){return 1*v*cos(u/2*nbTwists)}
+                    }
+                    break
+
+                    case ('Klein bottle'):{
+                        rangeU=[-PI,PI]
+                        rangeV=[-PI,PI]
+                        let eq=new equations.KleinBottle()
+                        X=eq.X
+                        Y=eq.Y
+                        Z=eq.Z
+                    }
+                    break
+
+                    case ('Cross Capped Disk'):{
+                        rangeU=[0,2*PI]
+                        rangeV=[0,2*PI]
+                        X = (u, v) =>(1+cos(v))*cos(u)
+                        Y= (u, v) => (1+cos(v))*sin(u)
+                        Z= (u, v) => specialFunctions.tanh(u-PI)*sin(v)
+                    }
+
+
+                }
+                creator.origin=new XYZ(rangeU[0],rangeV[0],0)
+                creator.end=new XYZ(rangeU[1],rangeV[1],0)
                 let mamesh=creator.go()
 
-                let a=this.a
+
+
+
                 for (let  i=0;i<mamesh.vertices.length;i++){
                     let vertex=mamesh.vertices[i]
                     let u=vertex.position.x
                     let v=vertex.position.y
-                    vertex.position.x=v*Math.cos(u)
-                    vertex.position.y=a*u
-                    vertex.position.z=v*Math.sin(u)
+                    vertex.position.x=X(u,v)
+                    vertex.position.y=Y(u,v)
+                    vertex.position.z=Z(u,v)
                 }
+
+
+                //$$$end
+
 
                 let lineViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
                 lineViewer.radiusAbsolute=0.01
                 lineViewer.go()
                 new visu3d.SurfaceViewer(mamesh,this.mathisFrame.scene).go()
-                new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene).go()
+                //new visu3d.VerticesViewer(mamesh,this.mathisFrame.scene).go()
 
-                //$$$end
 
 
             }

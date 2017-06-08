@@ -15,6 +15,8 @@ module mathis {
             areaVsPerimeter: boolean;
             fillConvexFaces: boolean;
 
+            maxLoopForWhile=100
+
             constructor(mamesh: Mamesh, nbBiggerFacesDeleted: number, areaVsPerimeter: boolean, fillConvexFaces: boolean) {
                 this.mamesh = mamesh;
                 this.nbBiggerFacesDeleted = nbBiggerFacesDeleted;
@@ -26,8 +28,7 @@ module mathis {
             /** METHOD: thornsSuppression **/
             /** Remove tips and insulated vertices **/
             /** ********************************** **/
-            private thornsSuppression ()
-            {
+            private thornsSuppression () {
                 for (let v of this.mamesh.vertices){
                     let loopflag = true;
                     let tip = v;
@@ -122,8 +123,7 @@ module mathis {
             /** METHOD: aligningNormals **/
             /** align normals in the same orientation **/
             /** ************************************* **/
-            private aligningNormals(vertexToNormal: HashMap<Vertex,XYZ>)
-            {
+            private aligningNormals(vertexToNormal: HashMap<Vertex,XYZ>) {
                 let startvertex = this.mamesh.vertices[0];
                 let i = 0;
 
@@ -179,8 +179,7 @@ module mathis {
             /** METHOD: alreadyFilledSurfacesDetection **/
             /** Mark surface links if already filled   **/
             /** ************************************** **/
-            private alreadyFilledSurfacesDetection(vertexToNormal: HashMap<Vertex,XYZ>) : StringMap<boolean>
-            {
+            private alreadyFilledSurfacesDetection(vertexToNormal: HashMap<Vertex,XYZ>) : StringMap<boolean> {
                 let alreadyTravel = new StringMap<boolean>();
 
                 for (let v of this.mamesh.vertices)
@@ -193,8 +192,7 @@ module mathis {
                 }
 
                 /** triangles **/
-                for (let i = 0; i < this.mamesh.smallestTriangles.length; i = i+3)
-                {
+                for (let i = 0; i < this.mamesh.smallestTriangles.length; i = i+3) {
                     let Firstneighbour = this.mamesh.smallestTriangles[i];
                     let Secondneighbour = this.mamesh.smallestTriangles[i+1];
                     let Thirdneighbour = this.mamesh.smallestTriangles[i+2];
@@ -313,8 +311,7 @@ module mathis {
             /** METHOD: polygonsDetection **/
             /** Detect vertex for all polygons and call the floatedLinksSuppression method **/
             /** ************************************************************************** **/
-            private polygonsDetection(vertexToNormal: HashMap<Vertex,XYZ>, alreadyTravel: StringMap<boolean> ) : Array<Array<Vertex>>
-            {
+            private polygonsDetection(vertexToNormal: HashMap<Vertex,XYZ>, alreadyTravel: StringMap<boolean> ) : Array<Array<Vertex>> {
                 let tablinkdelete = [];
                 let tab_polys = [];
 
@@ -341,13 +338,15 @@ module mathis {
                     let newlinkstart = [v_previous, v_current];
                     traveledlinks.push(newlinkstart);
 
+                    let count=0
                     /** only if the current link has not been traveled **/
                     if (alreadyTravel.getValue(v_previous.hashNumber + "," + v_current.hashNumber) != true)
                     {
                         let current_poly = [v_current];
 
                         let vloop = true;
-                        while (vloop) {
+                        while (vloop&&count<this.maxLoopForWhile) {
+                            count++
 
                             let anglemin = 6.4;
                             let l_pretend = v_previous.links[0];
@@ -408,6 +407,7 @@ module mathis {
                                 vloop = false
                             }
                         }
+                        if (count==this.maxLoopForWhile) throw "the algorithm do not converge. Probably your mamesh is too strange"
                         /** add a new polygon in the polygon array **/
                         tab_polys.push(current_poly)
                     }

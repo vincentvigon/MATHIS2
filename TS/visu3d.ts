@@ -537,8 +537,16 @@ module mathis{
 
                     }
 
+
                     positionNormals.forEach((v:XYZ)=>{
-                        v.normalize()
+                        try{
+                            v.normalize()
+                        }
+                        catch (e){
+                            logger.c("a very small normal is replaced by a random normal. Perhaps your surface double up. ")
+                            v.copyFrom(XYZ.newRandom()).normalize()
+                        }
+
                     })
                 }
                 else if (this.normalDuplication==NormalDuplication.duplicateVertex||this.normalDuplication==NormalDuplication.duplicateOnlyWhenNormalsAreTooFarr ){
@@ -902,7 +910,6 @@ module mathis{
 
             go():BABYLON.Mesh[]{
 
-                cc("this.lines.length",this.lines.length)
 
 
                 /**even when viewer is de-connected, we can use lineToColor during test*/

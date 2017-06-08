@@ -67,7 +67,7 @@ module mathis {
                 //$$$begin
                 let squareVersusTriangle=this.squareVersusTriangle
 
-                let creator=new reseau.Regular()
+                let creator=new reseau.Regular2d()
                 creator.nbI=3
                 creator.nbJ=3
                 creator.origine=new XYZ(-1,-1,0)

@@ -145,7 +145,7 @@ module mathis{
 
                 
                 
-                let regCrea = new reseau.Regular(this.generator)
+                let regCrea = new reseau.Regular2d(this.generator)
                 regCrea.squareVersusTriangleMaille = false
                 this.mamesh=regCrea.go()
 

@@ -235,7 +235,7 @@ module mathis{
                     basis.end = new mathis.XYZ(2 * Math.PI, 1, 0);
                     basis.nbI = 20;
                     basis.nbJ = 10;
-                    let creator = new mathis.reseau.Regular(basis);
+                    let creator = new mathis.reseau.Regular2d(basis);
                     creator.makeTriangleOrSquare=false;
                     mamesh = creator.go();
                     for (let _i = 0, _a = mamesh.vertices; _i < _a.length; _i++) {
@@ -258,13 +258,13 @@ module mathis{
                     basis0.end = new mathis.XYZ(-0.05, 1.1, 0);
                     basis0.nbI = 5;
                     basis0.nbJ = 10;
-                    mamesh = new mathis.reseau.Regular(basis0).go();
+                    mamesh = new mathis.reseau.Regular2d(basis0).go();
                     let basis1 = new mathis.reseau.BasisForRegularReseau();
                     basis1.origin = new mathis.XYZ(0.05, -1, 0);
                     basis1.end = new mathis.XYZ(1, 1, 0);
                     basis1.nbI = 5;
                     basis1.nbJ = 10;
-                    mamesh1 = new mathis.reseau.Regular(basis1).go();
+                    mamesh1 = new mathis.reseau.Regular2d(basis1).go();
                     vertices0 = mamesh.vertices;
                     vertices1 = mamesh1.vertices;
                     new mathis.spacialTransformations.Similitude(mamesh1.vertices, 2 * Math.PI * 0.01).goChanging();
