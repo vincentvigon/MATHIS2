@@ -7,7 +7,7 @@
 module mathis{
 
 
-    export module mourratGraph {
+    export module spacialGibbsRandomGraph {
 
         /**classe interne représentant les grands ponts*/
         class LongEdgeVisual{

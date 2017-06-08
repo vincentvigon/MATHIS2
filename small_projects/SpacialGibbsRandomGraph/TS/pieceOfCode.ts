@@ -6,7 +6,7 @@
 
 
 module mathis {
-    export module mourratGraph {
+    export module spacialGibbsRandomGraph {
 
 
         export function startMourratGraph(){

@@ -12,7 +12,6 @@
   },
   "exclude": [
     "**/MATHIS.d.ts",
-    "small_projects/**/JS/",
     "TS/_fakeBABYLON.ts"
   ]
 }
