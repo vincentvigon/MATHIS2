@@ -50,8 +50,10 @@
     "declaration":true,
     "diagnostics":false
   },
+  "include":["JS/babylon.2.5.d.ts"],
   "files": [
     //"TS/_fakeBABYLON.ts",
+    "TS/appli/appli.ts",
     "TS/basic.ts",
     "TS/color.ts",
     "TS/creation2D.ts",
@@ -69,9 +71,14 @@
     "TS/symmetries.ts",
     "TS/tab.ts",
     "TS/zzMain.ts",
+
+    "TS/mathisFrame.ts",
+    "TS/macamera.ts",
+    "TS/visu3d.ts",
+    "TS/specificMath/equations.ts",
+
     "TS/specificMath/proba.ts"
-  ],
-  "include":["JS/babylon.2.5.d.ts"]
+  ]
 }
 
 
