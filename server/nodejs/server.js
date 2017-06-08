@@ -15,7 +15,11 @@ function makeBrownian(size,r,h,id) {
         filterType: 4
     });
 
+    let a = new Date().getTime();
     field = brownian.genBrownian(size,r,h);
+    let b = new Date().getTime();
+    console.log("Time : " + (b - a) + "ms.");
+
 
     let field_min = Infinity;
     let field_max = -Infinity;
@@ -52,16 +56,16 @@ function getBrownian(url,res) {
     r = Number(r);
     h = Number(h);
     id = Number(id);
-    /*if(size === undefined || typeof(size) !== "number" ||
+    if(size === undefined || typeof(size) !== "number" ||
        r === undefined    || typeof(r) !== "number" ||
        h === undefined    || typeof(h) !== "number" ||
        id === undefined   || typeof(id) !== "number" ||
-       !other.empty()) {
+       other.length != 0) {
         res.writeHead(404);
         res.end("");
         console.log(size,r,h,id,other);
         return;
-    }*/
+    }
     if(!Number.isInteger(size) || !Number.isInteger(r) || !Number.isInteger(id) || !Number.isInteger(h * 20)) {
         res.writeHead(404);
         res.end("");
@@ -73,26 +77,26 @@ function getBrownian(url,res) {
         // console.log("s.");
         return;
     }
-    if(h < 0.2 || h > 2.0 || r < 2 || r > 10 || id < 0 || id > 9) {
+    if(h < 0.2 || h > 2.0 || r < 1 || r > 10 || id < 0 || id > 9) {
         res.writeHead(404);
         res.end("");
         // console.log("other.");
         return;
     }
 
-    let filename = "./brownian/" + url + ".png";
-    if(!fs.existsSync(filename)) {
+    let filename = "/brownian/" + size + "_" + r + "_" + h + "_" + id + ".png";
+    if(!fs.existsSync("." + filename)) {
         console.log("Generate new brownian.");
-        fs.writeFileSync(filename,"");
-        res.writeHead(201,{'Location': "/brownian/" + url + ".png"});
-        res.end();
+        fs.writeFileSync("." + filename,"");
+        res.writeHead(201,{'Content-Type': 'image/png','Access-Control-Allow-Origin' : "*"});
+        // res.end();
         makeBrownian(size,r,h,id);
-        return;
+        // return;
+    } else {
+        res.writeHead(200, {'Content-Type': 'image/png','Access-Control-Allow-Origin' : "*"});
     }
-    let index = fs.readFileSync(filename);
+    let index = fs.readFileSync("." + filename);
 
-    //console.log(size,r,h,id,other);
-    res.writeHead(200, {'Content-Type': 'image/png'});
     res.end(index);
 }
 

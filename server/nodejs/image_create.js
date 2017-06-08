@@ -1,6 +1,5 @@
 /**
  * Created by Gwenael on 09/05/2017.
- * Javascript en ECMAScript6 (On a l'impression de faire du typescript en plus laxiste)
  */
 let fs = require('fs'),
     PNG = require('node-png').PNG,
