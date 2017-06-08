@@ -1,6 +1,6 @@
 //compilation of all the TS-source. For an internal use only.
 //to compile only the distributed TS, compile the other json
-{
+/*{
   "compilerOptions": {
     "module": "none",
     "target": "es5",
@@ -11,11 +11,11 @@
     "diagnostics":false
   },
   "exclude": [
-    "**/MATHIS.d.ts",
-    "small_projects/**/JS/",
+    "** /MATHIS.d.ts",
+    "small_projects/** /JS/",
     "TS/_fakeBABYLON.ts"
   ]
-}
+}*/
 
 
 
@@ -41,37 +41,45 @@
 //}
 
 
+{
+  "compilerOptions": {
+    "target": "es5",
+    "removeComments": true,
+    "sourceMap": true,
+    "out": "JS_small/MATHIS.js",
+    "declaration":true,
+    "diagnostics":false
+  },
+  "include":["JS/babylon.2.5.d.ts"],
+  "files": [
+    //"TS/_fakeBABYLON.ts",
+    "TS/appli/appli.ts",
+    "TS/basic.ts",
+    "TS/color.ts",
+    "TS/creation2D.ts",
+    "TS/geometry.ts",
+    "TS/graph.ts",
+    "TS/grateAndGlue.ts",
+    "TS/informathis.ts",
+    "TS/lineModule.ts",
+    "TS/linkModule.ts",
+    "TS/materials.ts",
+    "TS/mameshModification.ts",
+    "TS/mameshComputation.ts",
+    "TS/reseau.ts",
+    "TS/spacialTransformations.ts",
+    "TS/symmetries.ts",
+    "TS/tab.ts",
+    "TS/zzMain.ts",
 
-// COMPILATEUR SPECIFIC FOR OCTAVIO : with use _fakeBABYLON instead of babylon:
-//{
-//  "compilerOptions": {
-//    "target": "es5",
-//    "removeComments": true,
-//    "sourceMap": true,
-//    "out": "JS_small/MATHIS.js",
-//    "declaration":true,
-//    "diagnostics":false
-//  },
-//  "include": [
-//    "TS/_fakeBABYLON.ts",
-//    "TS/basic.ts",
-//    "TS/creation2D.ts",
-//    "TS/geometry.ts",
-//    "TS/graph.ts",
-//    "TS/grateAndGlue.ts",
-//    "TS/informathis.ts",
-//    "TS/lineModule.ts",
-//    "TS/linkModule.ts",
-//    "TS/mameshModification.ts",
-//    "TS/mameshComputation.ts",
-//    "TS/reseau.ts",
-//    "TS/spacialTransformations.ts",
-//    "TS/symmetries.ts",
-//    "TS/tab.ts",
-//    "TS/zzMain.ts",
-//    "TS/specificMath/proba.ts"
-//  ]
-//}
+    "TS/mathisFrame.ts",
+    "TS/macamera.ts",
+    "TS/visu3d.ts",
+    "TS/specificMath/equations.ts",
+
+    "TS/specificMath/proba.ts"
+  ]
+}
 
 
 

@@ -1,13 +1,8 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 // https://github.com/dntj/jsfft
 var fft;
 (function (fft) {
@@ -90,7 +85,7 @@ var fft;
     var ComplexArray = (function (_super) {
         __extends(ComplexArray, _super);
         function ComplexArray() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            _super.apply(this, arguments);
         }
         ComplexArray.prototype.FFT = function () {
             return fft_impl(this, false);
@@ -273,7 +268,7 @@ var fft;
         var output = new ComplexArray(input.length, input.ArrayType);
         var row = new ComplexArray(nx, input.ArrayType);
         var col = new ComplexArray(ny, input.ArrayType);
-        var _loop_1 = function (j) {
+        var _loop_1 = function(j) {
             row.map(function (v, i) {
                 v.real = input.real[i + j * nx];
                 v.imag = input.imag[i + j * nx];
@@ -286,7 +281,7 @@ var fft;
         for (var j = 0; j < ny; j++) {
             _loop_1(j);
         }
-        var _loop_2 = function (i) {
+        var _loop_2 = function(i) {
             col.map(function (v, j) {
                 v.real = output.real[i + j * nx];
                 v.imag = output.imag[i + j * nx];
@@ -305,7 +300,6 @@ var fft;
 })(fft || (fft = {}));
 /**
  * Created by Gwenael on 06/05/2017.
- * Il suffit de mettre dans le module exports et ca marche (d'après mes tests du moins)
  */
 var exports;
 (function (exports) {
@@ -322,7 +316,7 @@ var exports;
         if (alpha <= 1.5) {
             beta = 0;
             c2 = alpha / 2;
-            c0 = 1 - alpha / 2;
+            c0 = 1 - c2;
         }
         else {
             beta = alpha * (2 - alpha) / (3 * r * (r * r - 1));
@@ -374,6 +368,7 @@ var exports;
         var z_r = random.randomGaussians(wr * hr);
         // let z_r = new Float32Array(wr * hr);
         data.map(function (val, i, n) {
+            val.real *= Math.sqrt(wr * hr); // FFT normalisation
             val.real /= wr * hr;
             // console.log(val.real,val.imag," -> ",Math.sqrt(val.real));
             if (val.real >= 0) {
@@ -389,22 +384,37 @@ var exports;
         var field = new Float32Array(n * m);
         for (var i = 0; i < n; i++) {
             for (var j = 0; j < m; j++) {
-                field[i * m + j] = data.real[i * hr + j];
+                field[i * m + j] = data.real[i * hr + j] * Math.sqrt(wr * hr); // FFT normalisation
             }
         }
         var mean = field[0];
         for (var i = 0; i < n * m; i++) {
             field[i] -= mean;
         }
-        /*let [wx,wy] = [random.nextGaussian(),random.nextGaussian()];
-        for(let i = 0 ;i < n;i++) {
-            for(let j = 0 ;j < m;j++) {
-                field[i*m + j] = field[i*m + j] + i*r/n * wx * j*r/m * wy * Math.sqrt(2*getC2(r,2*h));
+        //*
+        var _b = [random.nextGaussian(), random.nextGaussian()], wx = _b[0], wy = _b[1];
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < m; j++) {
+                field[i * m + j] += (i * r / n * wx + j * r / m * wy) * Math.sqrt(2 * getC2(r, 2 * h));
             }
-        }*/
+        }
+        //*/
         return field;
     }
     exports.genBrownian = genBrownian;
+    function test_fft() {
+        var wr = 200;
+        var hr = 100;
+        var rows = new Float32Array(wr * hr);
+        for (var i = 0; i < wr * hr; i++)
+            rows[i] = 1;
+        var data = new fft.ComplexArray(rows); //fft.FFT2D(new fft.ComplexArray(rows),hr,wr);
+        data = fft.FFT2D(data, hr, wr);
+        data.map(function (val, i, n) {
+            console.log(i, ' -> ', val.real, ' + ', val.imag, 'i');
+        });
+    }
+    exports.test_fft = test_fft;
 })(exports || (exports = {}));
 /**
  * Created by Gwenael on 06/05/2017.
