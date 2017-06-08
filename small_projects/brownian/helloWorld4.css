@@ -1,0 +1,40 @@
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#mathis_canvas, #renderCanvas, #my_canvas {
+    display: inline-block;
+    margin: 30px;
+    vertical-align: top;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    color: indianred;
+
+}
+#placeForMathis {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    height: 50%;
+}
+#placeForSomeExplanation {
+    display: inline-block;
+}
+
+/*
+#placeForMathis2 {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    height: 50%;
+}
+*/
+#placeForSomeLatex{
+    width: 50%;
+    margin-top: 3em;
+    border: solid 1px white;
+}
