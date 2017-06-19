@@ -101,6 +101,13 @@ module mathis {
             }
 
 
+            setFreeDisplacementMode(){
+                this.currentGrabber.mesh.visibility=0
+                this.useOnlyFreeMode=true
+                this.currentGrabber.focusOnMyCenterWhenCameraGoDownWard=false
+            }
+
+
 
             constructor(mathisFrame:MathisFrame,grabber:Grabber) {
 

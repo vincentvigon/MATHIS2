@@ -679,62 +679,6 @@ module mathis{
             }
         }
 
-        //
-        // export class FindSickingMapFromVerticesOld{
-        //
-        //     receiver:Vertex[]
-        //     source:Vertex[]
-        //
-        //     /**if zero, sticking is made only for closest voisin*/
-        //     toleranceToBeOneOfTheClosest=0.3
-        //
-        //     constructor(receiver:Vertex[],source:Vertex[]){
-        //
-        //         this.receiver=receiver
-        //         this.source=source
-        //
-        //     }
-        //
-        //     private checkArgs():void{
-        //         //if (this.receiver.length%4!=0) throw 'receiver is not a list representing squares'
-        //         //if (this.source.length%4!=0) throw 'source is not a list representing squares'
-        //
-        //     }
-        //
-        //     go ():Vertex[][]{
-        //
-        //         this.checkArgs()
-        //
-        //         let res:Vertex[][]=[]//=new HashMap<Vertex,Vertex>(true)
-        //
-        //         for (let i=0;i<this.source.length;i++){
-        //             let minDist=Number.MAX_VALUE
-        //             //let bestReceiverIndex=-1
-        //             let distances:number[]=[]
-        //             for (let j=0;j<this.receiver.length;j++){
-        //                 distances[j]=geo.distance(this.source[i].position,this.receiver[j].position)
-        //
-        //                 if (distances[j]<minDist){
-        //                     minDist=distances[j]
-        //                     //bestReceiverIndex=j
-        //                 }
-        //             }
-        //             let bestRecivers:number[]=[]
-        //             for (let j=0;j<this.receiver.length;j++){
-        //                 if (distances[j]<=minDist*(1+this.toleranceToBeOneOfTheClosest)){
-        //                     bestRecivers.push(j)
-        //                 }
-        //             }
-        //             for (let j of bestRecivers) res.push([this.source[i],this.receiver[j]])
-        //
-        //         }
-        //         return res
-        //     }
-        //
-        // }
-        //
-
-
 
         export class FindSickingMapFromVertices{
 
@@ -823,76 +767,6 @@ module mathis{
         }
 
 
-        //
-        // export class FindMergingMapFast{
-        //
-        //
-        //     source:Vertex[]
-        //     receiver:Vertex[]
-        //     nbDistinctPoint:number
-        //    
-        //     constructor( receiver:Vertex[],source:Vertex[],nbDistinctPoint:number){
-        //         this.source=source
-        //         this.receiver=receiver
-        //         this.nbDistinctPoint=nbDistinctPoint
-        //     }
-        //    
-        //     go():HashMap<Vertex,Vertex> {
-        //
-        //         // let indexToMerge:{[key:number]:number}
-        //         //
-        //         // this.merginMap = new HashMap<Vertex,Vertex>(true)
-        //         //
-        //         // let positionsRecepter:XYZ[] = []
-        //         // this.receiverMamesh.vertices.forEach(v=> {
-        //         //     positionsRecepter.push(v.position)
-        //         // })
-        //         //
-        //         // if (this.sourceEqualRecepter) indexToMerge = new geometry.CloseXYZfinder(positionsRecepter,null,1000).go()
-        //         // else {
-        //         //     let positionsSource:XYZ[] = []
-        //         //     this.sourceMamesh.vertices.forEach(v=> {
-        //         //         positionsSource.push(v.position)
-        //         //     })
-        //         //     indexToMerge = new geometry.CloseXYZfinder(positionsRecepter, positionsSource,1000).go()
-        //         // }
-        //         //
-        //         //
-        //         // for (let index in indexToMerge) {
-        //         //     this.merginMap.putValue(this.sourceMamesh.vertices[index], this.receiverMamesh.vertices[indexToMerge[index]])
-        //         // }
-        //        
-        //        
-        //         let indexToMerge:{[key:number]:number}
-        //
-        //         let merginMap = new HashMap<Vertex,Vertex>(true)
-        //
-        //         let positionsRecepter:XYZ[] = []
-        //         this.receiver.forEach(v=> {
-        //             positionsRecepter.push(v.position)
-        //         })
-        //
-        //         if (this.source==null) indexToMerge = new geometry.CloseXYZfinder(positionsRecepter,null,this.nbDistinctPoint).go()
-        //         else {
-        //             let positionsSource:XYZ[] = []
-        //             this.source.forEach(v=> {
-        //                 positionsSource.push(v.position)
-        //             })
-        //             indexToMerge = new geometry.CloseXYZfinder(positionsRecepter, positionsSource,this.nbDistinctPoint).go()
-        //         }
-        //
-        //
-        //         for (let index in indexToMerge) {
-        //             merginMap.putValue(this.source[index], this.receiver[indexToMerge[index]])
-        //         }
-        //
-        //
-        //         return merginMap
-        //
-        //     }
-        //    
-        // }
-
         
         export class ConcurrentMameshesGraterAndSticker {
 
@@ -900,6 +774,7 @@ module mathis{
             SUB_grater=new GraphGrater()
 
             justGrateDoNotStick=false
+            addMissingPolygons=true
 
 
 
@@ -928,8 +803,7 @@ module mathis{
             SUB_PolygonCreatorFromLinks=new surfaceConnection.SurfaceConnectionProcess(null,1,false,true)
 
 
-            addMissingPolygons=true
-            
+
 
             constructor() {
                 this.SUB_linkCleanerByAngle.suppressLinksAngularParam=2*Math.PI*0.1
@@ -1039,7 +913,7 @@ module mathis{
                 }
 
 
-                if (this.addMissingPolygons) {
+                if (this.addMissingPolygons&&!this.justGrateDoNotStick) {
                     this.SUB_PolygonCreatorFromLinks.mamesh = res
                     this.SUB_PolygonCreatorFromLinks.go()
                 }

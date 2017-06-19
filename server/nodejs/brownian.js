@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // https://github.com/dntj/jsfft
 var fft;
 (function (fft) {
@@ -85,7 +90,7 @@ var fft;
     var ComplexArray = (function (_super) {
         __extends(ComplexArray, _super);
         function ComplexArray() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         ComplexArray.prototype.FFT = function () {
             return fft_impl(this, false);
@@ -268,7 +273,7 @@ var fft;
         var output = new ComplexArray(input.length, input.ArrayType);
         var row = new ComplexArray(nx, input.ArrayType);
         var col = new ComplexArray(ny, input.ArrayType);
-        var _loop_1 = function(j) {
+        var _loop_1 = function (j) {
             row.map(function (v, i) {
                 v.real = input.real[i + j * nx];
                 v.imag = input.imag[i + j * nx];
@@ -281,7 +286,7 @@ var fft;
         for (var j = 0; j < ny; j++) {
             _loop_1(j);
         }
-        var _loop_2 = function(i) {
+        var _loop_2 = function (i) {
             col.map(function (v, j) {
                 v.real = output.real[i + j * nx];
                 v.imag = output.imag[i + j * nx];
@@ -390,6 +395,7 @@ var exports;
         var mean = field[0];
         for (var i = 0; i < n * m; i++) {
             field[i] -= mean;
+            //console.log(field[i]);
         }
         //*
         var _b = [random.nextGaussian(), random.nextGaussian()], wx = _b[0], wy = _b[1];

@@ -277,7 +277,6 @@ module mathis{
                 creator.nbU=8
                 creator.nbV=8
                 creator.makeLinks=false
-                creator.maille=reseau.Maille.triangleV
                 let mamesh = creator.go()
 
                 let nbLinks=this.nbLinks
@@ -286,15 +285,23 @@ module mathis{
                 let seed=46765474657
                 let random=new proba.Random(seed)
                 let count=0
+                let linksToAdd=new StringMap()
                 while (count<nbLinks){
                     let vertex0=mamesh.vertices[random.pseudoRandInt(mamesh.vertices.length)]
                     let vertex1=mamesh.vertices[random.pseudoRandInt(mamesh.vertices.length)]
                     if (Math.abs(vertex0.param.x-vertex1.param.x)==1 && Math.abs(vertex0.param.y-vertex1.param.y)<3) {
-                        vertex0.setOneLink(vertex1)
-                        vertex1.setOneLink(vertex0)
+                        linksToAdd.putValue(Hash.segment(vertex0,vertex1),[vertex0,vertex1])
                         count++
                     }
                 }
+                let allLinks=linksToAdd.allValues()
+                for (let i=0;i<allLinks.length;i++){
+                    let vertex0=allLinks[i][0]
+                    let vertex1=allLinks[i][1]
+                    vertex0.setOneLink(vertex1)
+                    vertex1.setOneLink(vertex0)
+                }
+
 
                 let maxAngleToAssociateLinks=this.maxAngleToAssociateLinks
                 let associer=new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices)
@@ -307,8 +314,6 @@ module mathis{
 
 
                 //$$$bh visualization
-                
-
                 /**if we made bifurcation, we make a colorIndex in order that two bifurcating lines have the same color*/
                 let linesViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
 

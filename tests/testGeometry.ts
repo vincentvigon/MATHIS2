@@ -398,16 +398,16 @@ module mathis {
 
         }
 
-
-
-        {
-
-            let fd=new periodicWorld.CartesianFundamentalDomain(new XYZ(2,0,0),new XYZ(0,2,0),new XYZ(0,0,2))
-            let res=new XYZ(0,0,0)
-            fd.modulo(new XYZ(0.5,-1.75,3.5),res)
-            bilanGeo.assertTrue(geo.xyzAlmostEquality(res,new XYZ(0.5,0.25,-0.5)))
-            
-        }
+        //
+        //
+        // {
+        //
+        //     let fd=new periodicWorld.CartesianFundamentalDomain(new XYZ(2,0,0),new XYZ(0,2,0),new XYZ(0,0,2))
+        //     let res=new XYZ(0,0,0)
+        //     fd.modulo(new XYZ(0.5,-1.75,3.5),res)
+        //     bilanGeo.assertTrue(geo.xyzAlmostEquality(res,new XYZ(0.5,0.25,-0.5)))
+        //
+        // }
 
 
         /**orthogonals projections*/

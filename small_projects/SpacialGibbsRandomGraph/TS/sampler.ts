@@ -13,14 +13,9 @@ module mathis{
         class LongEdgeVisual{
 
 
-            /**Ce hash permet d'identifier les grands ponts qui sont non-orienté.*/
-            static hash(vertex0: Vertex, vertex1: Vertex): string {
-                if (vertex0.hashNumber < vertex1.hashNumber) return vertex0.hashNumber + ',' + vertex1.hashNumber
-                else return vertex1.hashNumber + ',' + vertex0.hashNumber
-            }
-
             constructor(public vertex0: Vertex,
                         public vertex1: Vertex,
+                        drawMe:boolean,
                         color: Color,
                         radius: number,
                         upDirection: XYZ,
@@ -32,6 +27,8 @@ module mathis{
 
                 let v1 = new Vertex()
                 v1.position = this.vertex1.position
+
+                if (!drawMe) return
 
                 let vMid = new Vertex()
                 let bary = new XYZ(0, 0, 0)
@@ -53,10 +50,13 @@ module mathis{
 
             lineViewer: visu3d.LinesViewer
 
+            clear(){
+                if (this.lineViewer!=null) this.lineViewer.clear()
+            }
+
         }
 
         export class SpacialRandomGraph {
-
 
 
             /**paramètres importants réglables par l'utilisateur*/
@@ -74,6 +74,7 @@ module mathis{
             /**par défaut, on utilise un générateur pseudo aléatoire avec un graine fixée*/
             rand = new proba.Random()
             showInitialGraph = true
+            hiddeAll=false
 
 
 
@@ -125,11 +126,14 @@ module mathis{
                         let vertex1 = geodesic[i + 1][0]
 
                         let upDirection = null
-                        if (this.longEdges.getValue(LongEdgeVisual.hash(vertex0, vertex1)) != null) {
+                        if (this.longEdges.getValue(Hash.segment(vertex0, vertex1)) != null) {
                             upDirection = this.upDirection
                         }
                         else upDirection = new XYZ(0, 0, 0)
-                        let aLongEdge = new LongEdgeVisual(vertex0, vertex1, color, this.lineRadius * 1.1, upDirection, this.mathisFrame.scene)
+                        let aLongEdge:LongEdgeVisual
+                        if (this.hiddeAll)  aLongEdge = new LongEdgeVisual(vertex0,vertex1,!this.hiddeAll ,null,null,null,null)
+                        else  aLongEdge = new LongEdgeVisual(vertex0, vertex1,!this.hiddeAll ,color, this.lineRadius * 1.1, upDirection, this.mathisFrame.scene)
+
                         this.viewersForGeodesic.push(aLongEdge.lineViewer)
 
                     }
@@ -165,23 +169,25 @@ module mathis{
                 mean /= nb
                 this.vertexRadius = Math.min(mean * 0.5, 0.03)
 
-                if (this.showInitialGraph) {
-                    let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
-                    baseVertexViewer.radiusAbsolute = this.vertexRadius
-                    baseVertexViewer.go()
+                if (!this.hiddeAll) {
+                    if (this.showInitialGraph) {
+                        let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
+                        baseVertexViewer.radiusAbsolute = this.vertexRadius
+                        baseVertexViewer.go()
 
 
-                    if (this.lineRadius < 0.8 * this.vertexRadius) {
-                        let lineViewer = new visu3d.LinesViewer(this.mamesh, this.mathisFrame.scene)
-                        lineViewer.radiusAbsolute = this.lineRadius
-                        lineViewer.color = new Color(Color.names.indianred)
-                        lineViewer.go()
+                        if (this.lineRadius < 0.8 * this.vertexRadius) {
+                            let lineViewer = new visu3d.LinesViewer(this.mamesh, this.mathisFrame.scene)
+                            lineViewer.radiusAbsolute = this.lineRadius
+                            lineViewer.color = new Color(Color.names.indianred)
+                            lineViewer.go()
+                        }
                     }
-                }
-                else {
-                    let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
-                    baseVertexViewer.radiusAbsolute = 0.005
-                    baseVertexViewer.go()
+                    else {
+                        let baseVertexViewer = new visu3d.VerticesViewer(this.mamesh, this.mathisFrame.scene)
+                        baseVertexViewer.radiusAbsolute = 0.005
+                        baseVertexViewer.go()
+                    }
                 }
 
             }
@@ -259,7 +265,7 @@ module mathis{
 
 
                         /**si un longEdge existe : on propose de le supprimer, sinon de le rajouter*/
-                        if (this.longEdges.getValue(LongEdgeVisual.hash(vertex0, vertex1)) != null) linkToSuppress = [vertex0, vertex1]
+                        if (this.longEdges.getValue(Hash.segment(vertex0, vertex1)) != null) linkToSuppress = [vertex0, vertex1]
                         else linkToAdd = [vertex0, vertex1]
 
                     }
@@ -286,13 +292,15 @@ module mathis{
 
 
                         if (linkToAdd != null) {
-                            let longEdge = new LongEdgeVisual(linkToAdd[0], linkToAdd[1], this.defaultColorForLongEdge, this.lineRadius, this.upDirection, this.mathisFrame.scene)
-                            this.longEdges.putValue(LongEdgeVisual.hash(linkToAdd[0], linkToAdd[1]), longEdge)
+                            let longEdge:LongEdgeVisual
+                            if (this.hiddeAll)  longEdge = new LongEdgeVisual(linkToAdd[0], linkToAdd[1],!this.hiddeAll ,null,null,null,null)
+                            else longEdge = new LongEdgeVisual(linkToAdd[0], linkToAdd[1],!this.hiddeAll , this.defaultColorForLongEdge, this.lineRadius, this.upDirection, this.mathisFrame.scene)
+                            this.longEdges.putValue(Hash.segment(linkToAdd[0], linkToAdd[1]), longEdge)
                         }
                         if (linkToSuppress != null) {
-                            let hash = LongEdgeVisual.hash(linkToSuppress[0], linkToSuppress[1])
+                            let hash = Hash.segment(linkToSuppress[0], linkToSuppress[1])
                             let longEdge = this.longEdges.getValue(hash)
-                            longEdge.lineViewer.clear()
+                            longEdge.clear()
                             this.longEdges.removeKey(hash)
 
                         }
@@ -326,10 +334,10 @@ module mathis{
 
                 /**quand le diamètre change : on trace un des chemins parmi les plus long*/
                 if (this.diameter_previousBatch != this.diameter) {
-                    this.clearAllGeodesic()
-
-                    this.drawAGeodesic(this.extremeGeodesics, true)
-
+                    if (!this.hiddeAll) {
+                        this.clearAllGeodesic()
+                        this.drawAGeodesic(this.extremeGeodesics, true)
+                    }
                     this.diameter_previousBatch = this.diameter
                 }
 
@@ -348,7 +356,7 @@ module mathis{
             private extremeGeodesics_proposal: Vertex[][]
             private extremeGeodesics: Vertex[][]
             private diameter_proposal: number
-            private diameter: number
+            diameter: number
             private diameter_previousBatch: number
 
             private  energyRatio(): number {

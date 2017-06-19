@@ -72,7 +72,7 @@ module mathis{
                 //$$$bh mamesh creation
                 let creator=new reseau.Regular2dPlus()
                 creator.nbU=3
-                creator.adaptUVForRegularReseau=true
+                creator.adaptVForRegularReseau=true
                 creator.maille=this.maille
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=new XYZ(0.7,0.7,0)
@@ -155,7 +155,7 @@ module mathis{
                 //$$$bh mamesh creation
                 let creator=new reseau.Regular2dPlus()
                 creator.nbU=3
-                creator.adaptUVForRegularReseau=true
+                creator.adaptVForRegularReseau=true
                 creator.maille=this.maille
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=new XYZ(0.7,0.7,0)
@@ -266,7 +266,7 @@ module mathis{
                 //$$$bh mamesh creation as previously
                 let creator=new reseau.Regular2dPlus()
                 creator.nbU=5
-                creator.adaptUVForRegularReseau=true
+                creator.adaptVForRegularReseau=true
                 creator.maille=this.maille
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=new XYZ(0.7,0.7,0)

@@ -105,7 +105,7 @@ module mathis{
 
             NAME="OrientationLinksViewing"
 
-            TITLE=`Now we specify a model (here an arrow), and indicate which links must be drawn and in which direction.`
+            TITLE=`Now we specify a model (by default an arrow), and indicate which links must be drawn and in which direction.`
 
             polyhedronType="cube"
             $$$polyhedronType=polyhedron.platonic
@@ -113,6 +113,8 @@ module mathis{
             // showLateralDirection=false
             // $$$showLateralDirection=[true,false]
 
+            modelChoice='SquareCylinder'
+            $$$modelChoice=['SquareCylinder','triangleCylinder','arrow','doubleCylinder']
 
             methodChoice=-1
             $$$methodChoice=[-1,0,1,2,3]
@@ -138,12 +140,42 @@ module mathis{
                 let mamesh=creator.go()
                 //$$$e
 
-                //$$$bh the model is an arrow
-                let modelsCreator=new creation3D.ArrowCreator(this.mathisFrame.scene)
-                modelsCreator.arrowFootAtOrigin=false
-                modelsCreator.bodyDiameterProp=1
-                modelsCreator.headDiameterProp=2
-                let model=modelsCreator.go()
+                let model:BABYLON.Mesh
+
+                //$$$bh choice of the model
+
+                switch (this.modelChoice)
+                {
+
+                    case 'SquareCylinder':
+                        model=BABYLON.Mesh.CreateBox("",1,this.mathisFrame.scene)
+                        break
+
+                    case 'triangleCylinder':
+                        model=BABYLON.Mesh.CreateCylinder("",1,1,1,3,3,this.mathisFrame.scene)
+                        break
+                    case 'arrow':
+                        let modelsCreator=new creation3D.ArrowCreator(this.mathisFrame.scene)
+                        modelsCreator.arrowFootAtOrigin=false
+                        modelsCreator.bodyDiameterProp=1
+                        modelsCreator.headDiameterProp=2
+                        model=modelsCreator.go()
+                        break
+                    case 'doubleCylinder':
+                        let modelPart1=BABYLON.Mesh.CreateCylinder("",1,1,1,12,12,this.mathisFrame.scene)
+                        modelPart1.position.x+=0.5
+                        modelPart1.bakeCurrentTransformIntoVertices()
+
+                        let modelPart2=BABYLON.Mesh.CreateCylinder("",1,1,1,12,12,this.mathisFrame.scene)
+                        modelPart2.position.x-=0.5
+                        modelPart2.bakeCurrentTransformIntoVertices()
+
+                        model=BABYLON.Mesh.MergeMeshes([modelPart1,modelPart2])
+                        break
+
+
+                }
+
                 let material=new BABYLON.StandardMaterial("",this.mathisFrame.scene)
                 material.diffuseColor=new BABYLON.Color3(0,0,1)
                 model.material=material
@@ -222,8 +254,8 @@ module mathis{
             endPos=new XYZ(1,0,0)
             $$$endPos=new Choices([new XYZ(1,0,0),new XYZ(-1,0.5,0),new XYZ(1,1,0)],{'before':'new XYZ'})
 
-            modelChoice=0
-            $$$modelChoice=[0,1,2]
+            modelChoice='SquareCylinder'
+            $$$modelChoice=['SquareCylinder','triangleCylinder','arrow','doubleCylinder']
 
             lateralScaling=0.1
             $$$lateralScaling=[0.05,0.1,0.5]
@@ -249,21 +281,39 @@ module mathis{
 
 
                 //$$$b
-                let modelChoice=this.modelChoice
+
                 let model:BABYLON.Mesh
-                if (modelChoice==0){
-                    model=BABYLON.Mesh.CreateBox("",1,this.mathisFrame.scene)
+                switch (this.modelChoice){
+                    case 'SquareCylinder':
+                        model=BABYLON.Mesh.CreateBox("",1,this.mathisFrame.scene)
+                        break
+
+                    case 'triangleCylinder':
+                        model=BABYLON.Mesh.CreateCylinder("",1,1,1,3,3,this.mathisFrame.scene)
+                        break
+                    case 'arrow':
+                        let modelsCreator=new creation3D.ArrowCreator(this.mathisFrame.scene)
+                        modelsCreator.arrowFootAtOrigin=false
+                        modelsCreator.bodyDiameterProp=1
+                        modelsCreator.headDiameterProp=2
+                        model=modelsCreator.go()
+                        break
+                    case 'doubleCylinder':
+                        let modelPart1=BABYLON.Mesh.CreateCylinder("",1,1,1,12,12,this.mathisFrame.scene)
+                        modelPart1.position.x+=0.5
+                        modelPart1.bakeCurrentTransformIntoVertices()
+
+                        let modelPart2=BABYLON.Mesh.CreateCylinder("",1,1,1,12,12,this.mathisFrame.scene)
+                        modelPart2.position.x-=0.5
+                        modelPart2.bakeCurrentTransformIntoVertices()
+
+                        model=BABYLON.Mesh.MergeMeshes([modelPart1,modelPart2])
+                        break
+
+
                 }
-                else if (modelChoice==1){
-                    model=BABYLON.Mesh.CreateCylinder("",1,1,1,3,3,this.mathisFrame.scene)
-                }
-                else if (modelChoice==2){
-                    let modelsCreator=new creation3D.ArrowCreator(this.mathisFrame.scene)
-                    modelsCreator.arrowFootAtOrigin=false
-                    modelsCreator.bodyDiameterProp=1
-                    modelsCreator.headDiameterProp=2
-                    model=modelsCreator.go()
-                }
+
+
                 let material=new BABYLON.StandardMaterial("",this.mathisFrame.scene)
                 material.diffuseColor=new BABYLON.Color3(0,0,1)
                 model.material=material

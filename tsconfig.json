@@ -23,6 +23,7 @@
 // these TS-file itself. If is better to minify the generated code after such a compilation
 //{
 //  "compilerOptions": {
+//    "module": "none",
 //    "target": "es5",
 //    "removeComments": true,
 //    "sourceMap": true,

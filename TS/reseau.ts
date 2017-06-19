@@ -257,9 +257,12 @@ module mathis{
         }
 
 
+        /**compute dirU and dirV to build a regular reseau on some imposed rectangle (with possibility of skewness)*/
         export class BasisForRegularReseau{
             nbU=3
             set_nbV_toHaveRegularReseau=false
+            set_nbU_toHaveRegularReseau=false
+
             nbV=3
             origin=new XYZ(0,0,0)
             end=new XYZ(1,1,0)
@@ -267,7 +270,9 @@ module mathis{
             kComponentTranslation=0
             nbVerticalDecays=0
             nbHorizontalDecays=0
-            /**only usefull when we use set_nbJ_toHaveRegularReseau=true*/
+
+
+            /**only useful when we use set_nbV_toHaveRegularReseau=true*/
             squareMailleInsteadOfTriangle=true
             
             
@@ -275,15 +280,25 @@ module mathis{
             go():{dirU:XYZ,dirV:XYZ,nbU:number,nbV:number}{
                 this.checkArgs()
 
+                if (this.set_nbV_toHaveRegularReseau&&this.set_nbU_toHaveRegularReseau) throw "you must chose only one of the two options"
+
                 
-                let deltaX=(this.end.x-this.origin.x)/(this.nbU-1)
-                let deltaY
+                let deltaX:number
+                let deltaY:number
                 if (this.set_nbV_toHaveRegularReseau){
+                    deltaX=(this.end.x-this.origin.x)/(this.nbU-1)
                     if(this.squareMailleInsteadOfTriangle)deltaY=deltaX
                     else deltaY=deltaX*Math.sqrt(3)/2
                     this.nbV=Math.floor(((this.end.y-this.origin.y)/deltaY+1))
                 }
+                else if (this.set_nbU_toHaveRegularReseau){
+                    deltaY=(this.end.y-this.origin.y)/(this.nbV-1)
+                    if(this.squareMailleInsteadOfTriangle)deltaX=deltaY
+                    else deltaX=deltaY/Math.sqrt(3)*2
+                    this.nbU=Math.floor(((this.end.x-this.origin.x)/deltaX+1))
+                }
                 else{
+                    deltaX=(this.end.x-this.origin.x)/(this.nbU-1)
                     deltaY=(this.end.y-this.origin.y)/(this.nbV-1)
                 }
                 
@@ -390,7 +405,7 @@ module mathis{
             oneMoreVertexForOddLine=false
 
             
-            holeParameters=new HashMap<XYZ,boolean>()
+            holeParameters:(param:XYZ)=>boolean
 
 
             markCorner=true
@@ -461,7 +476,7 @@ module mathis{
                     for (let j=0; j<this.nbV; j++){
 
                         let param = new XYZ(i, j, this.fixedW)
-                        if (this.holeParameters==null ||  !this.holeParameters.getValue(param)) {
+                        if (this.holeParameters==null ||  !this.holeParameters(param)) {
 
                             let decay= (!this.squareVersusTriangleMaille && j%2==0)? 0.5 : 0
                             this._iDirection.copyFrom(this.dirU).scale(i+decay)
@@ -483,7 +498,7 @@ module mathis{
                     for (let j=0; j<this.nbV; j++){
                         if (j%2==1) {
                             let param = new XYZ(i, j, this.fixedW)
-                            if (this.holeParameters == null || !this.holeParameters.getValue(param)) {
+                            if (this.holeParameters == null || !this.holeParameters(param)) {
 
                                 let decay = (!this.squareVersusTriangleMaille && j % 2 == 0) ? 0.5 : 0
                                 this._iDirection.copyFrom(this.dirU).scale(i + decay)
@@ -1080,6 +1095,7 @@ module mathis{
         // }
 
 
+        //TODO
         export enum Topology{flat,cylinder,moebius,torus,klein}
 
 
@@ -1092,10 +1108,8 @@ module mathis{
 
 
             nbU=3
-            adaptUVForRegularReseau=false
+            adaptVForRegularReseau=false
             nbV=3
-
-
 
             nbSubInterval_U=1
             nbSubInterval_V=1
@@ -1113,7 +1127,7 @@ module mathis{
             makeLine=true
 
             oneMoreVertexForOddLine=false
-            holeParameters=new HashMap<XYZ,boolean>()
+            holeParameters:(param:XYZ)=>boolean
             markCorner=true
             markBorder=true
             markCenter=true
@@ -1176,7 +1190,13 @@ module mathis{
                 /**creation de la base*/
                 let basisCrea=new BasisForRegularReseau()
                 basisCrea.nbU=(nbI-1)*nbSubInterval_I+1
-                basisCrea.set_nbV_toHaveRegularReseau=this.adaptUVForRegularReseau
+
+                if (this.adaptVForRegularReseau){
+                    if (inversed) basisCrea.set_nbU_toHaveRegularReseau=true
+                    else basisCrea.set_nbV_toHaveRegularReseau=true
+                }
+
+
                 basisCrea.nbV=(nbJ-1)*nbSubInterval_J+1
                 basisCrea.origin=origin
                 basisCrea.end=end
@@ -1371,6 +1391,8 @@ module mathis{
 
 
             go():Mamesh{
+                 if (this.size==null||this.size<=0) throw 'non valide size:'+this.size
+
                 let res=new Mamesh()
 
                 for (let i=0;i<this.size;i++){

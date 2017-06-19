@@ -451,7 +451,7 @@ module mathis {
                     creator.origin = new XYZ(-1, -1, 0)
                     creator.end = new XYZ(1, 1, 0)
                     creator.nbU = this.nbI
-                    creator.adaptUVForRegularReseau = true
+                    creator.adaptVForRegularReseau = true
                     creator.maille = this.maille
                 }
                 //$$$eh
@@ -631,7 +631,7 @@ module mathis {
                 creator.origin = new XYZ(-1, -1, 0)
                 creator.end = new XYZ(1, 1, 0)
                 creator.nbU = this.nbI
-                creator.adaptUVForRegularReseau=true
+                creator.adaptVForRegularReseau=true
                 let mamesh = creator.go()
 
 
@@ -734,7 +734,7 @@ module mathis {
                 creator.origin = new XYZ(-1, -1, 0)
                 creator.end = new XYZ(1, 1, 0)
                 creator.nbU = this.nbI
-                creator.adaptUVForRegularReseau=true
+                creator.adaptVForRegularReseau=true
                 creator.maille = this.maille
 
                 let mamesh = creator.go()

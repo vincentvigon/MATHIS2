@@ -7,15 +7,13 @@ module mathis {
 
     export module surfaceConnection {
 
-        //import getEdgeConsideringAlsoDiagonalVoisin = mathis.graph.getEdgeConsideringAlsoDiagonalVoisin;
+        import getEdgeConsideringAlsoDiagonalVoisin = mathis.graph.getEdgeConsideringAlsoDiagonalVoisin;
 
         export class SurfaceConnectionProcess {
             mamesh: Mamesh;
             nbBiggerFacesDeleted: number;
             areaVsPerimeter: boolean;
             fillConvexFaces: boolean;
-
-            maxLoopForWhile=100
 
             constructor(mamesh: Mamesh, nbBiggerFacesDeleted: number, areaVsPerimeter: boolean, fillConvexFaces: boolean) {
                 this.mamesh = mamesh;
@@ -28,7 +26,8 @@ module mathis {
             /** METHOD: thornsSuppression **/
             /** Remove tips and insulated vertices **/
             /** ********************************** **/
-            private thornsSuppression () {
+            private thornsSuppression ()
+            {
                 for (let v of this.mamesh.vertices){
                     let loopflag = true;
                     let tip = v;
@@ -123,7 +122,8 @@ module mathis {
             /** METHOD: aligningNormals **/
             /** align normals in the same orientation **/
             /** ************************************* **/
-            private aligningNormals(vertexToNormal: HashMap<Vertex,XYZ>) {
+            private aligningNormals(vertexToNormal: HashMap<Vertex,XYZ>)
+            {
                 let startvertex = this.mamesh.vertices[0];
                 let i = 0;
 
@@ -179,7 +179,8 @@ module mathis {
             /** METHOD: alreadyFilledSurfacesDetection **/
             /** Mark surface links if already filled   **/
             /** ************************************** **/
-            private alreadyFilledSurfacesDetection(vertexToNormal: HashMap<Vertex,XYZ>) : StringMap<boolean> {
+            private alreadyFilledSurfacesDetection(vertexToNormal: HashMap<Vertex,XYZ>) : StringMap<boolean>
+            {
                 let alreadyTravel = new StringMap<boolean>();
 
                 for (let v of this.mamesh.vertices)
@@ -192,7 +193,8 @@ module mathis {
                 }
 
                 /** triangles **/
-                for (let i = 0; i < this.mamesh.smallestTriangles.length; i = i+3) {
+                for (let i = 0; i < this.mamesh.smallestTriangles.length; i = i+3)
+                {
                     let Firstneighbour = this.mamesh.smallestTriangles[i];
                     let Secondneighbour = this.mamesh.smallestTriangles[i+1];
                     let Thirdneighbour = this.mamesh.smallestTriangles[i+2];
@@ -311,9 +313,11 @@ module mathis {
             /** METHOD: polygonsDetection **/
             /** Detect vertex for all polygons and call the floatedLinksSuppression method **/
             /** ************************************************************************** **/
-            private polygonsDetection(vertexToNormal: HashMap<Vertex,XYZ>, alreadyTravel: StringMap<boolean> ) : Array<Array<Vertex>> {
+            private polygonsDetection(vertexToNormal: HashMap<Vertex,XYZ>, alreadyTravel: StringMap<boolean> ) : Array<Array<Vertex>>
+            {
                 let tablinkdelete = [];
                 let tab_polys = [];
+                let tabIsFloatingLinks = [];
 
                 /** link array creation **/
                 let tablinks = [];
@@ -331,6 +335,8 @@ module mathis {
                     /** array to save traveled links**/
                     let traveledlinks = [];
                     let first_point = lk[0];
+                    let second_point = lk[1];
+                    // let nb_loop = 0;
                     let v_previous = lk[0];
                     let v_current = lk[1];
 
@@ -338,24 +344,24 @@ module mathis {
                     let newlinkstart = [v_previous, v_current];
                     traveledlinks.push(newlinkstart);
 
-                    let count=0
                     /** only if the current link has not been traveled **/
                     if (alreadyTravel.getValue(v_previous.hashNumber + "," + v_current.hashNumber) != true)
                     {
-                        let current_poly = [v_current];
+                        let current_poly = [];
+                        let IsFloatingLinks = false;
 
                         let vloop = true;
-                        while (vloop&&count<this.maxLoopForWhile) {
-                            count++
 
+                        while (vloop) {
                             let anglemin = 6.4;
                             let l_pretend = v_previous.links[0];
+                            let vImpasse = true;
 
                             /** for each link of the current vertex **/
                             for (let l_concur of v_current.links) {
 
                                 /** omit the start link and already traveled links **/
-                                if (l_concur.to != v_previous && alreadyTravel.getValue(v_current.hashNumber + "," + l_concur.to.hashNumber) != true)
+                                if (l_concur.to != v_previous && (alreadyTravel.getValue(v_current.hashNumber + "," + l_concur.to.hashNumber) == false))
                                 {
                                     let vector_l_previous = new XYZ(v_previous.position.x - v_current.position.x, v_previous.position.y - v_current.position.y, v_previous.position.z - v_current.position.z);
                                     let vector_l_next = new XYZ(l_concur.to.position.x - v_current.position.x, l_concur.to.position.y - v_current.position.y, l_concur.to.position.z - v_current.position.z);
@@ -363,11 +369,26 @@ module mathis {
                                     /** angle computation **/
                                     let newangle = geo.angleBetweenTwoVectorsBetweenMinusPiAndPi(vector_l_previous, vector_l_next, vertexToNormal.getValue(v_previous));
                                     if (newangle < 0) newangle = (6.2831853072 + newangle); // only positive angle
-
                                     /** retain the new angle and yhe new link **/
                                     if (newangle < anglemin) {
                                         anglemin = newangle;
                                         l_pretend = l_concur
+                                    }
+
+                                    vImpasse = false;
+                                }
+                            }
+
+                            /** If finding impasse **/
+                            if(vImpasse)
+                            {
+                                for (let l_concur of v_current.links) {
+                                    if (l_concur.to == v_previous)
+                                    {
+                                        /**if impasse **/
+                                        l_pretend = l_concur;
+                                        current_poly[current_poly.length-1]=l_concur.to;
+                                        break;
                                     }
                                 }
                             }
@@ -376,21 +397,32 @@ module mathis {
                             let newlink = [v_current, l_pretend.to];
 
                             /** if the link is already visited, it's a "floating link" **/
-                            let isdouble = false;
+                            let isdoubleL = false;
                             for (let l_in of traveledlinks)
                             {
-                                if (newlink[0] == l_in[1] && newlink[1] == l_in[0]) isdouble = true;
+                                if (newlink[0] == l_in[1] && newlink[1] == l_in[0]) isdoubleL = true;
                             }
 
-                            if (isdouble)
+                            /** if the vertex is already visited, there are a "floating link" or "crossed links" **/
+                            let isdoubleV = false;
+                            for (let v_in of current_poly)
+                            {
+                                if (v_in == l_pretend.to) isdoubleV = true;
+                            }
+
+                            if (isdoubleL)
                             {
                                 /** delete the "floating link" **/
                                 tablinkdelete.push(newlink);
+                                IsFloatingLinks = true;
                             }
                             else
                             {
+                                /** push vertex in the polygon array (only if the current vertex isn't a floating link**/
+                                if (!isdoubleV) {
+                                    current_poly.push(l_pretend.to);
+                                }
                                 /** retain traveled link **/
-                                current_poly.push(l_pretend.to);
                                 traveledlinks.push(newlink);
                             }
 
@@ -402,21 +434,104 @@ module mathis {
                             v_current = l_pretend.to;
 
                             /** When we fall back on the first point, end of polygon detection*/
-                            if (v_current == first_point) {
+                            if (v_previous == first_point && v_current == second_point) {
                                 /** break **/
-                                vloop = false
+                                vloop = false;
                             }
                         }
-                        if (count==this.maxLoopForWhile) throw "the algorithm do not converge. Probably your mamesh is too strange"
                         /** add a new polygon in the polygon array **/
-                        tab_polys.push(current_poly)
+                        tab_polys.push(current_poly);
+                        tabIsFloatingLinks.push(IsFloatingLinks);
                     }
                 }
 
                 /** Floated link suppression  **/
                 this.floatedLinksSuppression(tablinkdelete, tab_polys);
 
+                /** Reorder vertices if polygons are in the Floating Links Array   **/
+                this.reorderFloatingPolygon(tab_polys, tabIsFloatingLinks);
+
                 return tab_polys;
+            }
+
+            /** *********************************** **/
+            /** METHOD: reorderFloatingPolygon **/
+            /** reorder vertices when they are a floating link **/
+            /** ********************************************** **/
+            private reorderFloatingPolygon(tab_polys: Array<Array<Vertex>>, tabIsFloatingLinks: Array<boolean>){
+                for (let i = 0; (i < tab_polys.length) && (i < tabIsFloatingLinks.length); i++)
+                {
+                    if(tabIsFloatingLinks[i])
+                    {
+                        /** Initialization **/
+                        let new_poly = [];
+                        let first_first_vertex = tab_polys[i][0];
+                        let first_vertex = tab_polys[i][0];
+                        let second_vertex;
+                        let vImpasse = true;
+
+                        /** Find a correct second_vertex **/
+                        for (let l of first_vertex.links) {
+                            if(this.isInPolygon(tab_polys[i], l.to)) {
+                                second_vertex = l.to;
+                                break;
+                            }
+                        }
+
+                        new_poly.push(first_vertex);
+                        let vloop = true;
+
+                        /** Travel polygon **/
+                        while(vloop)
+                        {
+                            /** End condition if we see the first vertex of the polygon**/
+                            if (second_vertex != first_first_vertex)
+                            {
+                                for (let l of second_vertex.links)
+                                {
+                                    if (l.to != first_vertex && this.isInPolygon(tab_polys[i], l.to))
+                                    {
+                                        /** Push in a correct order verticies in the polygon **/
+                                        new_poly.push(second_vertex);
+                                        first_vertex = second_vertex;
+                                        second_vertex = l.to;
+                                        vImpasse = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                /** End loop **/
+                                vloop = false;
+                            }
+
+                            if (vImpasse)
+                            {
+                                /** End loop **/
+                                vloop = false;
+                            }
+                        }
+
+                        /** Reorder the polygon  **/
+                        tab_polys[i] = new_poly;
+                    }
+                }
+            }
+
+            /** *********************************** **/
+            /** METHOD: isInPolygon **/
+            /** say if the vertex is in the polygon **/
+            /** ********************************************** **/
+            private isInPolygon(poly: Array<Vertex>, vertexIn: Vertex): boolean{
+                for (let v of poly)
+                {
+                    if (v == vertexIn)
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
 
 
@@ -616,7 +731,7 @@ module mathis {
                     let vbreak = true;
 
                     /** triangularisation **/
-                    for (let i = 0; i < polygon.length && vbreak; i = i + 1) {
+                    for (let i = 0; i < polygon.length && vbreak; i++) {
                         let vPrev;
                         let vNext;
                         let vNextNext;
@@ -687,11 +802,14 @@ module mathis {
                 // console.log("### Normals computation");
                 let vertexToNormal=this.normalsComputation();
 
-
                 /** Aligning Normals **/
                 // console.log("### Aligning normals");
                 this.aligningNormals(vertexToNormal);
 
+                // for (let v of this.mamesh.vertices)
+                // {
+                //     console.log(vertexToNormal.getValue(v));
+                // }
 
                 /** Already filled surfaces detection  **/
                 // console.log("### Already filled surfaces detection");
@@ -699,18 +817,26 @@ module mathis {
 
 
                 /** Polygons detection  **/
-                //console.log("### Polygons detection ");
+                // console.log("### Polygons detection ");
                 let tab_polys = this.polygonsDetection(vertexToNormal, alreadyTravel);
+
+
+                // for (let p of tab_polys) {
+                //     console.log("Polygon:");
+                //     for (let v of p) {
+                //         console.log(v.position);
+                //     }
+                // }
 
 
                 /** Area or Perimeter computation (and remove "nbBiggerFacesDeleted" largest faces) **/
                 /** PolygoIndexToVertexCenter used when we fill surfaces with a Isobarycenter (see the fillConvexSurface method )**/
-                //console.log("### Area computation");
+                // console.log("### Area computation");
                 let PolygoIndexToVertexCenter = this.areaAndPerimeterComputation(tab_polys);
 
 
                 /** Surfaces Filling **/
-                //console.log("### Surfaces Filling");
+                // console.log("### Surfaces Filling");
                 let indexSurface = -1;
                 for (let p of tab_polys)
                 {

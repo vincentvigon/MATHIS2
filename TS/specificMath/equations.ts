@@ -311,6 +311,9 @@ module mathis{
 
         export let sinh=x=>(exp(x)-exp(-x))/2
 
+        export let cosh=x=>(exp(x)+exp(-x))/2
+
+
         export let tanh=x=>(exp(x)-exp(-x))/(exp(x)+exp(-x))
 
         export let sech=x=>2/(exp(x)+exp(-x))

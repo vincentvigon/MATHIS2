@@ -26,6 +26,9 @@ module mathis{
 
                 severalParts.addPart(new RegularReseauDocu(this.mathisFrame))
 
+                severalParts.addPart(new HoneyCombDocu(this.mathisFrame))
+
+
 
                 this.severalParts=severalParts
             }
@@ -92,7 +95,7 @@ module mathis{
                 creator.nbV=this.nbJ
                 /**if true: nbJ (or nbI) is computed to obtain regular triangle/square
                  * In particular, the reseau does not fit to the black rectangle*/
-                creator.adaptUVForRegularReseau=this.setNBJ
+                creator.adaptVForRegularReseau=this.setNBJ
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=this.end
                 creator.maille=this.maille
@@ -246,8 +249,8 @@ module mathis{
                 //$$$bh some hidden options
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=this.end
-                /**if true: nbJ is computed to obtain regular triangle/square*/
-                creator.adaptUVForRegularReseau=this.setNBJ
+                /**if true: nbV is computed to obtain regular triangle/square*/
+                creator.adaptVForRegularReseau=this.setNBJ
                 creator.nbHorizontalDecays=this.nbHorizontalDecays
                 creator.nbVerticalDecays=this.nbVerticalDecays
                 //$$$eh
@@ -370,7 +373,7 @@ module mathis{
                         break
                 }
                 /**NB: when maille are non-quad and when topology is non-flat :
-                 * to stick together triangles, you have to be careful of the parity of nbI/nbJ,
+                 * to stick together triangles, you have to be careful of the parity of nbU/nbV,
                  * moreover sometimes, lines are very strange*/
 
 
@@ -417,6 +420,7 @@ module mathis{
         }
 
 
+
         class RegularReseauDocu implements PieceOfCode{
             NAME="RegularReseauDocu"
             TITLE="This more elementary class is used to build the RegularReseau2dPlus. But " +
@@ -458,10 +462,10 @@ module mathis{
 
                 //$$$begin
                 let creator = new reseau.Regular2d()
-                /** Vi and Vj form the basis of the reseau.
-                 * For square net, points are i*Vi + j*Vj
+                /** dirU and dirV are directions of the basis of the reseau.
+                 * For square net, points are i*dirU + j*dirV
                  * For triangular net, points are :
-                 *  i*Vi + (j+decay)*Vj where decay=0.5 when j is odd*/
+                 *  i*dirU + (j+decay)*dirV where decay=0.5 when j is odd*/
                 creator.nbU = this.nbI
                 creator.nbV = 4
                 creator.dirU = new XYZ(0.2, 0, 0)
@@ -492,6 +496,7 @@ module mathis{
             }
 
         }
+
 
 
 
@@ -975,6 +980,77 @@ module mathis{
 
         }
 
+
+
+        class HoneyCombDocu implements PieceOfCode{
+            NAME="HoneyCombDocu"
+            TITLE="As exercise, let us create an honey comb "
+
+            nbI = 10
+            $$$nbI=new Choices([10,11,20,21,40])
+
+
+            _nbVertices
+
+
+
+            constructor(private mathisFrame:MathisFrame) {}
+
+            goForTheFirstTime(){
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+                this.go()
+            }
+
+            go() {
+
+                this.mathisFrame.clearScene(false,false)
+
+                //$$$begin
+                let creator = new reseau.Regular2dPlus()
+
+                creator.nbU=this.nbI
+                creator.adaptVForRegularReseau=true
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(0.7,0.7,0)
+                creator.maille=reseau.Maille.triangleH
+                creator.oneMoreVertexForOddLine=true
+                creator.makeTriangleOrSquare=false
+
+                creator.holeParameters=(param:XYZ)=>{
+                    if (param.y%2==0&&param.x%3==2) return true
+                    if (param.y%2==1&&param.x%3==1) return true
+                    return false
+                }
+
+
+                //n
+                let mamesh = creator.go()
+
+
+
+                //$$$end
+
+
+
+                //$$$bh visualization
+
+
+                new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene).go()
+                new visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go()
+                new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene).go()
+                //$$$eh
+
+
+                //$$$bt
+                this._nbVertices=mamesh.vertices.length
+                //$$$et
+
+
+            }
+
+        }
 
 
 

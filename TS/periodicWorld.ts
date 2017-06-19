@@ -3,8 +3,52 @@ module mathis {
 
     export module periodicWorld {
 
-        import Vector3 = BABYLON.Vector3;
-        import StandardMaterial = BABYLON.StandardMaterial;
+        // import Vector3 = BABYLON.Vector3;
+        // import StandardMaterial = BABYLON.StandardMaterial;
+
+
+
+        export class PeriodicWorld{
+
+
+            fondamentalDomain:CartesianFundamentalDomain
+            private meshRepeater:MeshRepeater
+
+            constructor(sizeX:number,sizeY:number,sizeZ:number,nbRepetition:number){
+                this.fondamentalDomain = new CartesianFundamentalDomain(new XYZ(sizeX, 0, 0), new XYZ(0, sizeY, 0), new XYZ(0, 0, sizeZ));
+                let maxSize=tab.maxValue([sizeX,sizeY,sizeZ])
+                let totalSize=maxSize*nbRepetition
+                this.meshRepeater=new MeshRepeater(this,totalSize/2,nbRepetition)
+
+            }
+
+
+            posInWebCoor=new XYZ(0,0,0)
+            private currentDomain=new Domain(0,0,0)
+            centerOfCurrentDomain=new XYZ(0,0,0)
+
+
+            positionToCentredPosition(position:XYZ):XYZ{
+                this.fondamentalDomain.pointToWebCoordinate(position, this.posInWebCoor);
+                this.currentDomain.whichContains(this.posInWebCoor);
+                this.currentDomain.getCenter(this.fondamentalDomain, this.centerOfCurrentDomain);
+
+                return XYZ.newFrom(position).substract(this.centerOfCurrentDomain)
+
+            }
+
+            addMesh(abMesh:BABYLON.AbstractMesh,pullbackPositionIntoCentralDomain=true){
+                this.meshRepeater.addAbstractMesh(abMesh,pullbackPositionIntoCentralDomain)
+            }
+
+            actualize(pullbackPositionIntoCentralDomain=true):void{
+                this.meshRepeater.actualize(pullbackPositionIntoCentralDomain)
+            }
+
+
+
+
+        }
 
 
 
@@ -98,30 +142,6 @@ module mathis {
 
             }
 
-
-            // le nombre de domaine pour courvir la distMax.
-            // private  bounding:XYZ;
-            // private formerDistMax:number;
-            // private tempV = new XYZ(0, 0, 0)
-            //
-            //
-            // public getBounding(distMax:number):XYZ {
-            //     if (this.bounding != undefined && this.formerDistMax == distMax) return this.bounding;
-            //     if (this.isCartesian) {
-            //         this.formerDistMax = distMax;
-            //         this.tempV.x = 1;
-            //         this.tempV.y = 1;
-            //         this.tempV.z = 1;
-            //         this.webCoordinateToPoint(this.tempV, this.tempV)
-            //         //this.webCoordinateToPointToRef(this.tempV, this.tempV);
-            //         this.bounding = new XYZ((Math.abs(this.tempV.x)), ( Math.abs(this.tempV.y)), (Math.abs(this.tempV.z)));
-            //         this.bounding.scaleInPlace(distMax);
-            //         return this.bounding;
-            //     }
-            //     throw "for non paralleoid, must be rewrited"
-            //
-            // }
-
             
             private _positionWC=new WebCoordinate(0,0,0)
             private _domainPosition=new Domain(0,0,0)
@@ -135,13 +155,9 @@ module mathis {
                 this._domainPosition.getCenter(this, this._domainPositioncenter);
 
                 positionInsideFD.copyFrom(position).substract(this._domainPositioncenter)
-                //if (!geo.xyzAlmostEquality(this._domainPositioncenter,this._zero) )  positionInsideFD
-                
+
                 
             }
-            
-            
-            
 
         }
 
@@ -167,13 +183,9 @@ module mathis {
             public drawMe(scene){
                 
                 let box=BABYLON.Mesh.CreateBox('',1,scene)
-                box.scaling=new Vector3(this.vecA.length(), this.vecB.length(), this.vecC.length())
-                box.material=new StandardMaterial('',scene)
+                box.scaling=new XYZ(this.vecA.length(), this.vecB.length(), this.vecC.length())
+                box.material=new BABYLON.StandardMaterial('',scene)
                 box.material.alpha=0.2
-
-                // let corner=this.getCorner()
-                // box.position=corner
-                
 
             }
             
@@ -184,15 +196,12 @@ module mathis {
                 return corner
             }
             
-            
-            
-            
+
             public getArretes(scene):Array<BABYLON.AbstractMesh> {
 
                 let corner=this.getCorner()
                 
 
-                
                 var result = new Array<BABYLON.AbstractMesh>();
 
                 let radius=1
@@ -213,10 +222,8 @@ module mathis {
             
         }
 
-        export class WebCoordinate extends XYZ {
-        }
+        export class WebCoordinate extends XYZ {}
 
-        //TODO maitre FD en champs
         export class Domain extends WebCoordinate {
 
             constructor(i:number, j:number, k:number) {
@@ -258,64 +265,112 @@ module mathis {
 
 
 
-        export class Multiply {
-            public fd:FundamentalDomain
-            public maxDistance:number
-            public nbRepetitions:number
+        class MeshRepeater {
 
-            constructor(fd:FundamentalDomain, maxDistance:number,nbRepetitions) {
-                this.fd=fd
-                this.maxDistance=maxDistance
-                this.nbRepetitions=nbRepetitions
+            constructor(
+                public periodic:PeriodicWorld,
+                public maxDistance:number,
+                public nbRepetitions:number) {
             }
 
-            
-            public addMesh(mesh:BABYLON.Mesh) {
-                //mesh.isVisible = false;
-                //mesh.visibility=0
 
-                var visibleDomains:Domain[] = this.fd.getDomainsAround(this.nbRepetitions, this.maxDistance);
-                
-                visibleDomains.forEach((domain:Domain)=> {
+            private clones:[BABYLON.AbstractMesh,XYZ][]=[]
+            private sourceMesh:BABYLON.Mesh
+            private visibleDomains:Domain[]
+
+            //
+            // public addMesh(mesh:BABYLON.Mesh) {
+            //
+            //     this.visibleDomains = this.fd.getDomainsAround(this.nbRepetitions, this.maxDistance);
+            //
+            //     this.visibleDomains.forEach((domain:Domain)=> {
+            //         let domainCenter = new XYZ(0, 0, 0)
+            //         var clone:BABYLON.InstancedMesh = mesh.createInstance('');
+            //         domain.getCenter(this.fd, domainCenter)
+            //         clone.position.addInPlace(domainCenter);
+            //         clone.visibility=1
+            //         clone.isVisible=true
+            //         this.clones.push(clone)
+            //     });
+            // }
+            //
+
+            /**no clone is created for the central domain*/
+            private createClones(pullbackPositionIntoCentralDomain:boolean){
+
+                for (let domain of this.visibleDomains){
+                    var clone:BABYLON.InstancedMesh = this.sourceMesh.createInstance('');
                     let domainCenter = new XYZ(0, 0, 0)
-                    var clone:BABYLON.InstancedMesh = mesh.createInstance('');
-                    
-                    domain.getCenter(this.fd, domainCenter)
-                    clone.position.addInPlace(domainCenter);
-                    clone.visibility=1
-                    clone.isVisible=true
-
-                });
-
+                    domain.getCenter(this.periodic.fondamentalDomain,domainCenter)
+                    this.clones.push([clone,domainCenter])
+                    this.actualize(pullbackPositionIntoCentralDomain)
+                }
             }
 
-            public addInstancedMesh(mesh:BABYLON.InstancedMesh) {
+            actualize(pullbackPositionIntoCentralDomain:boolean){
 
-                var visibleDomains:Domain[] = this.fd.getDomainsAround(this.nbRepetitions, this.maxDistance);
+                let sourcePosition=<XYZ> this.sourceMesh.position
 
-                visibleDomains.forEach((domain:Domain)=> {
-                    let domainCenter = new XYZ(0, 0, 0)
+                if (pullbackPositionIntoCentralDomain){
+                    sourcePosition=this.periodic.positionToCentredPosition(sourcePosition)
+                    this.sourceMesh.position=sourcePosition
+                }
 
-                    var clone:BABYLON.InstancedMesh = mesh.sourceMesh.createInstance('');
-                    clone.scaling.copyFrom(mesh.scaling)
-                    clone.position.copyFrom(mesh.position)
-                    clone.rotationQuaternion=new BABYLON.Quaternion(0,0,0,0)
-                    clone.rotationQuaternion.copyFrom(mesh.rotationQuaternion)
-
-                    domain.getCenter(this.fd, domainCenter)
+                for (let [clone,domainCenter] of this.clones) {
+                    clone.scaling.copyFrom(this.sourceMesh.scaling)
+                    clone.position.copyFrom(sourcePosition)
+                    if (this.sourceMesh.rotationQuaternion != null) {
+                        clone.rotationQuaternion = new BABYLON.Quaternion(0, 0, 0, 0)
+                        clone.rotationQuaternion.copyFrom(this.sourceMesh.rotationQuaternion)
+                    }
                     clone.position.addInPlace(domainCenter)
-                    clone.visibility=1
-                    clone.isVisible=true
-
-
-                });
-
+                    clone.visibility = 1
+                    clone.isVisible = true
+                }
             }
 
-            public addAbstractMesh(abMesh:BABYLON.AbstractMesh) {
-                
-                if (abMesh instanceof BABYLON.Mesh) this.addMesh(abMesh)
-                else if (abMesh instanceof BABYLON.InstancedMesh) this.addInstancedMesh(abMesh)
+
+            //
+            // public addInstancedMesh(mesh:BABYLON.InstancedMesh) {
+            //
+            //     var visibleDomains:Domain[] = this.fd.getDomainsAround(this.nbRepetitions, this.maxDistance);
+            //
+            //     visibleDomains.forEach((domain:Domain)=> {
+            //         let domainCenter = new XYZ(0, 0, 0)
+            //
+            //         var clone:BABYLON.InstancedMesh = mesh.sourceMesh.createInstance('');
+            //         clone.scaling.copyFrom(mesh.scaling)
+            //         clone.position.copyFrom(mesh.position)
+            //         clone.rotationQuaternion=new BABYLON.Quaternion(0,0,0,0)
+            //         clone.rotationQuaternion.copyFrom(mesh.rotationQuaternion)
+            //
+            //         domain.getCenter(this.fd, domainCenter)
+            //         clone.position.addInPlace(domainCenter)
+            //         clone.visibility=1
+            //         clone.isVisible=true
+            //         this.clones.push(clone)
+            //
+            //     });
+            //
+            // }
+            //
+
+
+            public addAbstractMesh(abMesh:BABYLON.AbstractMesh,pullbackPositionIntoCentralDomain=true) {
+                this.visibleDomains = this.periodic.fondamentalDomain.getDomainsAround(this.nbRepetitions, this.maxDistance);
+
+                if (abMesh instanceof BABYLON.Mesh) {
+                    this.sourceMesh=abMesh
+                    this.createClones(pullbackPositionIntoCentralDomain)
+
+                    //this.addMesh(abMesh)
+                }
+                else if (abMesh instanceof BABYLON.InstancedMesh) {
+                    this.sourceMesh=abMesh.sourceMesh
+                    this.createClones(pullbackPositionIntoCentralDomain)
+
+                    //this.addInstancedMesh(abMesh)
+                }
 
             }
             

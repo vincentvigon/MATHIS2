@@ -856,7 +856,7 @@ module mathis{
 
                 if (mameshOrLines instanceof Mamesh){
                     let mamesh=<Mamesh> mameshOrLines
-                    if (mamesh.lines==null) {
+                    if (mamesh.lines==null|| mamesh.lines.length==0) {
                         mamesh.fillLineCatalogue()
                         logger.c("the mamesh has no line. So the line viewer automaticaly call the method mameh.fillLineCataclogue()")
                     }

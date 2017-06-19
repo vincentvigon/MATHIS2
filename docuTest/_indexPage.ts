@@ -15,8 +15,6 @@ module mathis{
 
     export module appli{
 
-
-
         export class Enlarger{
 
             state=0
@@ -372,8 +370,6 @@ module mathis{
 
         }
 
-
-
         export class Navigator{
 
             idToParts=new StringMap<OnePart>()
@@ -569,6 +565,8 @@ module mathis {
                 this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
                 this.severalPages.addPage(new FractalPage(this.mathisFrame))
                 this.severalPages.addPage(new TorusPlatonicDocu(this.mathisFrame))
+                this.severalPages.addPage(new Periodic3dDocu(this.mathisFrame))
+
 
 
                 /**for coder*/
