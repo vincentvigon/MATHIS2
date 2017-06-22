@@ -561,6 +561,8 @@ module mathis {
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
                 this.severalPages.addPage(new DichoDocu(this.mathisFrame))
+                this.severalPages.addPage(new GeoPageTest(this.mathisFrame))
+
 
                 this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
                 this.severalPages.addPage(new FractalPage(this.mathisFrame))

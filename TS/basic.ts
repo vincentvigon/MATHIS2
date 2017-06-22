@@ -225,13 +225,22 @@ module mathis {
     }
 
     export class Hash {
+
+        static orientedSegmentTuple(link:[Vertex,Vertex]):string{
+                return link[0].hashNumber+','+link[1].hashNumber
+        }
+
+        static orientedSegment(a:Vertex,b:Vertex):string{
+            return a.hashNumber+','+b.hashNumber
+        }
+
+
         static segment(a : Vertex,b : Vertex) : string {
             return Segment.segmentId(a.hashNumber,b.hashNumber);
         }
 
-        static segmentOrd(a : Vertex,b : Vertex) {
-            if(a.hashNumber > b.hashNumber)
-                [a,b] = [b,a];
+        static segmentOrd(a : Vertex,b : Vertex):[Vertex,Vertex] {
+            if(a.hashNumber > b.hashNumber) [a,b] = [b,a];
             return [a,b];
         }
 

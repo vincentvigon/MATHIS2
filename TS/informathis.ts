@@ -326,12 +326,19 @@ module mathis{
         }
 
         allValues():T[]{
-
             let res=new Array<T>()
             for (let index in this.values) res.push(this.values[index])
             return res
-
         }
+
+        oneValue():T{
+            for (let index in this.values) {
+                return this.values[index]
+            }
+            return null
+        }
+
+
 
         allKeys():string[]{
             // let res:string[]=[]

@@ -1143,6 +1143,8 @@ module mathis{
 
             flatVersusNaturalShape=true
 
+            OUT_paramToVertex=new HashMap<XYZ,Vertex>()
+
 
 
             constructor(){
@@ -1186,7 +1188,6 @@ module mathis{
                 }
 
 
-
                 /**creation de la base*/
                 let basisCrea=new BasisForRegularReseau()
                 basisCrea.nbU=(nbI-1)*nbSubInterval_I+1
@@ -1214,6 +1215,8 @@ module mathis{
                     creator.origine.copyFrom(basisCrea.origin)
 
                 creator.squareVersusTriangleMaille = !this.triangle
+
+                this.OUT_paramToVertex=creator.OUT_paramToVertex
 
 
 
