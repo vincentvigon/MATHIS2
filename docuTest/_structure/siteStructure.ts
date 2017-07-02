@@ -240,7 +240,7 @@ module mathis{
 
             addComment($content:any,name:string):void{
                 let $part= $('<div class="commentBetweenParts"></div>').append($content)
-                this.allParts.push(new OnePart().fromComment($content,name))
+                this.allParts.push(new OnePart().fromComment($part,name))
             }
 
             

@@ -40,10 +40,10 @@ module mathis{
             NAME="ColoringSquare"
             TITLE="A function can vary the colors"+
                 "This Function can use variable of double type, x, y, z, cos and sin."+
-                " One can use the different symbols : + - * /   Integer value are not allowed, so 2 must be written 2."
+                " One can use the different symbols : + - * / "
 
             funcChoice="y"
-            $$$funcChoice = ["x","y","z","1. -x","1. -y","(x*y)","cos(10.*x)","sin(100.*y)"]
+            $$$funcChoice = ["x","y","z","1 -x","1 -y","(x*y)","cos(8.5*x)","sin(100*y)"]
 
             palette=0
             $$$palette=[0,1,2]
@@ -88,25 +88,25 @@ module mathis{
                 switch (this.palette) {
                     case 0:
                         material.gradient = new mathis.materials.GradientColor(
-                            [new mathis.Color("#FF0000"),
-                                new mathis.Color("#FFFF00"),
-                                new mathis.Color("#0000FF")]
+                            [new mathis.Color("#FF0000"),       //red
+                                new mathis.Color("#FFFF00"),    //yellow
+                                new mathis.Color("#0000FF")]    //blue
                         );
                         break
                     case 1:
                         material.gradient = new mathis.materials.GradientColor(
-                            [new mathis.Color("#000000"),
-                                new mathis.Color("#FFFFFF")]
+                            [new mathis.Color("#000000"),       //black
+                                new mathis.Color("#FFFFFF")]    //while
                         );
                         break
                     case 2:
                         material.gradient = new mathis.materials.GradientColor(
-                            [new mathis.Color("#FF0000"),
-                                new mathis.Color("#FFFF00"),
-                                new mathis.Color("#00FF00"),
-                                new mathis.Color("#00FFFF"),
-                                new mathis.Color("#0000FF"),
-                                new mathis.Color("#FF00FF")]
+                            [new mathis.Color("#FF0000"),       //red
+                                new mathis.Color("#FFFF00"),    //yellow
+                                new mathis.Color("#00FF00"),    //green
+                                new mathis.Color("#00FFFF"),    //blue
+                                new mathis.Color("#0000FF"),    //dark blue
+                                new mathis.Color("#FF00FF")]    //pink
                         );
                         break
 
@@ -173,7 +173,12 @@ module mathis{
                 let material = new mathis.materials.FuncMapperShader("y",this.mathisFrame.scene);
 
                 material.gradient = new mathis.materials.GradientColor(
-                    [new mathis.Color("#FF0000"),new mathis.Color("#FFFF00"),new mathis.Color("#00FF00"),new mathis.Color("#00FFFF"),new mathis.Color("#0000FF"),new mathis.Color("#FF00FF")],
+                    [new mathis.Color("#FF0000"),
+                        new mathis.Color("#FFFF00"),
+                        new mathis.Color("#00FF00"),
+                        new mathis.Color("#00FFFF"),
+                        new mathis.Color("#0000FF"),
+                        new mathis.Color("#FF00FF")],
                     minY,maxY
                 );
 

@@ -17,7 +17,7 @@ module mathis{
 
 
             surfaceChoice=1;
-            $$$surfaceChoice=new appli.Choices([1,2,3,4,5,6,7],{visualValues:['Flat','Strange flat','Filled flat','Half-cylinder','Moebius','Grat&glue 1','Grat&glue 2']});
+            $$$surfaceChoice=new appli.Choices([1,2,3,4,5,6,7,8,9],{visualValues:['Flat','Strange flat','Filled flat','Half-cylinder','Moebius','Grat&glue 1','Grat&glue 2','nothingToDo','bugged']});
 
             areaOrPerimeterChoice=true;
             $$$areaOrPerimeterChoice=new appli.Choices([true,false],{visualValues:['true','false']});
@@ -233,8 +233,8 @@ module mathis{
                     let basis = new mathis.reseau.BasisForRegularReseau();
                     basis.origin = new mathis.XYZ(0, -1, 0);
                     basis.end = new mathis.XYZ(2 * Math.PI, 1, 0);
-                    basis.nbI = 20;
-                    basis.nbJ = 10;
+                    basis.nbU = 20;
+                    basis.nbV = 10;
                     let creator = new mathis.reseau.Regular2d(basis);
                     creator.makeTriangleOrSquare=false;
                     mamesh = creator.go();
@@ -256,14 +256,14 @@ module mathis{
                     let basis0 = new mathis.reseau.BasisForRegularReseau();
                     basis0.origin = new mathis.XYZ(-1, -0.9, 0);
                     basis0.end = new mathis.XYZ(-0.05, 1.1, 0);
-                    basis0.nbI = 5;
-                    basis0.nbJ = 10;
+                    basis0.nbU = 5;
+                    basis0.nbV = 10;
                     mamesh = new mathis.reseau.Regular2d(basis0).go();
                     let basis1 = new mathis.reseau.BasisForRegularReseau();
                     basis1.origin = new mathis.XYZ(0.05, -1, 0);
                     basis1.end = new mathis.XYZ(1, 1, 0);
-                    basis1.nbI = 5;
-                    basis1.nbJ = 10;
+                    basis1.nbU = 5;
+                    basis1.nbV = 10;
                     mamesh1 = new mathis.reseau.Regular2d(basis1).go();
                     vertices0 = mamesh.vertices;
                     vertices1 = mamesh1.vertices;
@@ -301,12 +301,76 @@ module mathis{
 
                     mamesh=graterAndSticker.goChanging()
                 }
+                else if (this.surfaceChoice==8){
+                    // let creator0 = new reseau.TriangulatedPolygone(6);
+                    // creator0.origin = new XYZ(-1,-1 , 0);
+                    // creator0.end = new XYZ(0.5,0.5, 0);
+                    // creator0.nbSubdivisionInARadius = 9;
+                    // let mamesh0 = creator0.go();
+                    // let creator1 = new reseau.TriangulatedPolygone(6);
+                    // creator1.origin = new XYZ(-0.5,-0.5 , 0);
+                    // creator1.end = new XYZ(1,1, 0);
+                    // creator1.nbSubdivisionInARadius = 5;
+                    // let mamesh1 = creator1.go();
+                    // let graterAndSticker=new grateAndGlue.ConcurrentMameshesGraterAndSticker();
+                    // graterAndSticker.IN_mameshes.push(mamesh0,mamesh1);
+                    // graterAndSticker.justGrateDoNotStick=true;
+                    // graterAndSticker.SUB_grater.proportionOfSeeds=[0.1,0.1];
+                    // graterAndSticker.proximityCoefToStick=[2];
+                    // graterAndSticker.toleranceToBeOneOfTheClosest=0.5;
+                    // graterAndSticker.suppressLinksAngularlyTooClose=false;
+                    // graterAndSticker.SUB_linkCleanerByAngle.suppressLinksAngularParam=2*Math.PI*0.1;
 
-                /** Surface creation **/
-                if (this.connect) {
-                    let connect = new surfaceConnection.SurfaceConnectionProcess(mamesh, this.nbBiggerFacesDeleted, this.areaOrPerimeterChoice, this.fillConvexFaces);
-                    mamesh = connect.go();
+                    //mamesh=graterAndSticker.goChanging()
+
+
+                    let creator1=new reseau.Regular2dPlus()
+                    mamesh=creator1.go()
+
+                    let creator2=new reseau.Regular2dPlus()
+                    creator2.origin=new XYZ(3,0,0)
+                    creator2.end=new XYZ(4,1,0)
+                    let mamesh2=creator2.go()
+
+                    for (let v of mamesh2.vertices){
+                        mamesh.vertices.push(v)
+                    }
+                    for (let v of mamesh2.smallestSquares) mamesh.smallestSquares.push(v)
+
                 }
+                else if (this.surfaceChoice==9){
+                    let creator0 = new reseau.TriangulatedPolygone(6);
+                    creator0.origin = new XYZ(-1,-1 , 0);
+                    creator0.end = new XYZ(0.5,0.5, 0);
+                    creator0.nbSubdivisionInARadius = 9;
+                    let mamesh0 = creator0.go();
+                    let creator1 = new reseau.TriangulatedPolygone(6);
+                    creator1.origin = new XYZ(-0.5,-0.5 , 0);
+                    creator1.end = new XYZ(1,1, 0);
+                    creator1.nbSubdivisionInARadius = 5;
+                    let mamesh1 = creator1.go();
+                    let graterAndSticker=new grateAndGlue.ConcurrentMameshesGraterAndSticker();
+                    graterAndSticker.IN_mameshes.push(mamesh0,mamesh1);
+                    graterAndSticker.justGrateDoNotStick=true;
+                    graterAndSticker.SUB_grater.proportionOfSeeds=[0.1,0.1];
+                    graterAndSticker.proximityCoefToStick=[2];
+                    graterAndSticker.toleranceToBeOneOfTheClosest=0.5;
+                    graterAndSticker.suppressLinksAngularlyTooClose=false;
+                    graterAndSticker.SUB_linkCleanerByAngle.suppressLinksAngularParam=2*Math.PI*0.1;
+
+                    mamesh=graterAndSticker.goChanging()
+
+                }
+
+
+                let  connect = new polygonFinder.PolygonFinderFromLinks(mamesh);
+                connect.nbBiggerFacesDeleted=this.nbBiggerFacesDeleted
+                connect.areaVsPerimeter=this.areaOrPerimeterChoice
+                connect.fillConvexFaces=this.fillConvexFaces
+
+                if (this.connect) connect.go();
+
+
 
                 /** visualisation **/
                 let verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);

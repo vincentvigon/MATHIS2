@@ -102,8 +102,8 @@ module mathis{
         {
 
             let gene = new reseau.BasisForRegularReseau()
-            gene.nbI = 2
-            gene.nbJ = 2
+            gene.nbU = 2
+            gene.nbV = 2
             let crea = new reseau.Regular2d(gene)
             let mamesh = crea.go()
             mamesh.fillLineCatalogue()
@@ -184,8 +184,8 @@ module mathis{
         {
         
             let mamCrea=new reseau.Regular2d()
-            mamCrea.nbI=3
-            mamCrea.nbJ=2
+            mamCrea.nbU=3
+            mamCrea.nbV=2
             mamCrea.makeLinks=false
             let mamesh=mamCrea.go()
         

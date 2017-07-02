@@ -311,6 +311,9 @@ module mathis{
 
         export let sinh=x=>(exp(x)-exp(-x))/2
 
+        export let cosh=x=>(exp(x)+exp(-x))/2
+
+
         export let tanh=x=>(exp(x)-exp(-x))/(exp(x)+exp(-x))
 
         export let sech=x=>2/(exp(x)+exp(-x))
@@ -698,8 +701,8 @@ module mathis{
                         let gene = new reseau.BasisForRegularReseau()
                         gene.origin = origin
                         gene.end = end
-                        gene.nbI = 32
-                        gene.nbJ = 64
+                        gene.nbU = 32
+                        gene.nbV = 64
                 
                         let departureMesh =new reseau.Regular2d( gene).go()
                         let arrivalMesh =new reseau.Regular2d( gene).go()
@@ -745,8 +748,8 @@ module mathis{
                         let gene = new reseau.BasisForRegularReseau()
                         gene.origin = origin
                         gene.end = end
-                        gene.nbI = nb + 1
-                        gene.nbJ = nb + 1
+                        gene.nbU = nb + 1
+                        gene.nbV = nb + 1
 
                         
                         let departureMesh =new reseau.Regular2d( gene).go()
@@ -794,8 +797,8 @@ module mathis{
                         let gene = new reseau.BasisForRegularReseau()
                         gene.origin = origin
                         gene.end = end
-                        gene.nbI = 32 + 1
-                        gene.nbJ = 20 + 1
+                        gene.nbU = 32 + 1
+                        gene.nbV = 20 + 1
                 
                        
                         let departureMesh =new reseau.Regular2d(gene).go()
@@ -839,8 +842,8 @@ module mathis{
                         let gene = new reseau.BasisForRegularReseau()
                         gene.origin = origin
                         gene.end = end
-                        gene.nbI = 40 + 1
-                        gene.nbJ = 40 + 1
+                        gene.nbU = 40 + 1
+                        gene.nbV = 40 + 1
                 
                        
                         let departureMesh =new reseau.Regular2d( gene).go()

@@ -97,6 +97,7 @@ module mathis{
                 action.timeIntervalMilli=this.timeInterval
 
 
+                this.mathisFrame.cleanAllPeriodicActions()
                 this.mathisFrame.pushPeriodicAction(action)
 
 

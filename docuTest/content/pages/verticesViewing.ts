@@ -51,6 +51,9 @@ module mathis{
             // useAModel=false
             // $$$useAModel=[true,false]
 
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
+
 
             constructor(private mathisFrame:MathisFrame){}
 
@@ -67,14 +70,13 @@ module mathis{
                 this.mathisFrame.clearScene(false,false)
 
                 //$$$bh mamesh creation
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=3
-                basis.set_nbJ_toHaveRegularReseau=true
-                basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                basis.origin=new XYZ(-0.7,-0.7,0)
-                basis.end=new XYZ(0.7,0.7,0)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=3
+                creator.adaptVForRegularReseau=true
+                creator.maille=this.maille
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
                 //$$$eh
@@ -116,8 +118,8 @@ module mathis{
             radiusProportion=0.25
             $$$radiusProportion=[0.1,0.25,0.5,1]
 
-            squareMailleInsteadOfTriangle=false
-            $$$squareMailleInsteadOfTriangle=[true,false]
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
             constantRadius=null
             $$$constantRadius=[null,0.1,0.2,0.3]
@@ -151,14 +153,13 @@ module mathis{
                 this.mathisFrame.clearScene(false,false)
 
                 //$$$bh mamesh creation
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=3
-                basis.set_nbJ_toHaveRegularReseau=true
-                basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                basis.origin=new XYZ(-0.7,-0.7,0)
-                basis.end=new XYZ(0.7,0.7,0)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=3
+                creator.adaptVForRegularReseau=true
+                creator.maille=this.maille
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
                 //$$$eh
@@ -228,8 +229,8 @@ module mathis{
             // radiusProportion=0.25
             // $$$radiusProportion=[0.1,0.25,0.5,1]
 
-            squareMailleInsteadOfTriangle=false
-            $$$squareMailleInsteadOfTriangle=[true,false]
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
             // constantRadius=null
             // $$$constantRadius=[null,0.1,0.2,0.3]
@@ -263,14 +264,13 @@ module mathis{
                 this.mathisFrame.clearScene(false,false)
 
                 //$$$bh mamesh creation as previously
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=5
-                basis.set_nbJ_toHaveRegularReseau=true
-                basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                basis.origin=new XYZ(-0.7,-0.7,0)
-                basis.end=new XYZ(0.7,0.7,0)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=5
+                creator.adaptVForRegularReseau=true
+                creator.maille=this.maille
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=new XYZ(0.7,0.7,0)
 
-                let creator = new reseau.Regular2d(basis)
 
                 let mamesh = creator.go()
 
@@ -403,12 +403,12 @@ module mathis{
                 //$$$bh cylinder or sphere creation
                 let mamesh
                 if (cylinderVersusSphere){
-                    let basis=new reseau.BasisForRegularReseau()
-                    basis.origin=new XYZ(0,-1,0)
-                    basis.end=new XYZ(Math.PI,+1,0)
-                    basis.nbI=5
-                    basis.nbJ=7
-                    mamesh=new reseau.Regular2d(basis).go()
+                    let creator=new reseau.Regular2dPlus()
+                    creator.origin=new XYZ(0,-1,0)
+                    creator.end=new XYZ(Math.PI,+1,0)
+                    creator.nbU=5
+                    creator.nbV=7
+                    mamesh=creator.go()
                     for (let i=0;i<mamesh.vertices.length;i++){
                         let oldPosition=XYZ.newFrom(mamesh.vertices[i].position)
                         mamesh.vertices[i].position.x=Math.cos(oldPosition.x)

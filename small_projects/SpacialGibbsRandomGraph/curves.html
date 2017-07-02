@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title> N to diameter  </title>
+
+    <script src="../../JS/jquery.js"></script>
+    <script src="../../JS/babylon.2.5.js"></script>
+    <script src="../../JS/MATHIS.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <link rel="stylesheet" href="../../assets/font-awesome-4.6.1/css/font-awesome.min.css" media="all">
+    <link href="CSS/appli.css" type="text/css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+<div id="math" style="position: absolute;top: 0;left: 0;width: 30%">
+Energy:
+    $$N^b Diam(g) + \sum_{e:|e|>1}e^\gamma  $$
+
+    $b >0$  $\rightarrow$ more N is big, more diameter must be smaller <br>
+    $b <0$  $\rightarrow$ not  motivated to decrease the diameter <br>
+    $\gamma>1$  $\rightarrow$ two short edges cost less energy than a big one <br>
+    $\gamma<1$  $\rightarrow$ two short edges cost more energy than a big one <br>
+
+    For large $N$, the diameter of the graph is, in proba, close to $N^\alpha$
+
+
+</div>
+<div id="alpha" style="position: absolute;top: 0;left: 30%"> <img src="assets/alpha.png" alt="alpha" width="600"></div>
+
+
+<div style="position: absolute; top:0;right: 0;text-align: right">
+    <div style="outline: 1px black solid">
+        <div>Restarting controls:</div>
+        <div id="restartingControls" ></div>
+        <div id="alphaValue"> </div>
+    </div>
+    <div id="controls" style="outline: 1px black solid"></div>
+</div>
+
+
+
+
+<div id="mainCurve" style="position: absolute;bottom: 0;left: 0;  width: 60%;height: 75%"></div>
+<div id="rapidCurve"   style="position: absolute;bottom: 0;left: 50%;right: 0;height: 75%"></div>
+
+
+
+
+<script> mathis.spacialGibbsRandomGraph.startCurvesDemo() </script>
+
+</body>
+</html>

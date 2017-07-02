@@ -410,8 +410,8 @@ module mathis {
             polygoneVersusReseau=true
             $$$polygoneVersusReseau=[true,false]
 
-            squareVersusTriangleMaille=false
-            $$$squareVersusTriangleMaille=[true,false]
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
             nbI=7
             $$$nbI=[3,7,15,30]
@@ -446,13 +446,13 @@ module mathis {
                     creator.nbSubdivisionInARadius = this.nbSubdivisionInARadius
                 }
                 else {
-                    let basisComputer = new reseau.BasisForRegularReseau()
-                    basisComputer.origin = new XYZ(-1, -1, 0)
-                    basisComputer.end = new XYZ(1, 1, 0)
-                    basisComputer.nbI = this.nbI
-                    basisComputer.set_nbJ_toHaveRegularReseau = true
-                    basisComputer.squareMailleInsteadOfTriangle = this.squareVersusTriangleMaille
-                    creator = new reseau.Regular2d(basisComputer)
+
+                    creator = new reseau.Regular2dPlus()
+                    creator.origin = new XYZ(-1, -1, 0)
+                    creator.end = new XYZ(1, 1, 0)
+                    creator.nbU = this.nbI
+                    creator.adaptVForRegularReseau = true
+                    creator.maille = this.maille
                 }
                 //$$$eh
 
@@ -627,13 +627,11 @@ module mathis {
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$bh creation of a squared mesh
-                let basisComputer = new reseau.BasisForRegularReseau()
-                basisComputer.origin = new XYZ(-1, -1, 0)
-                basisComputer.end = new XYZ(1, 1, 0)
-                basisComputer.nbI = this.nbI
-                basisComputer.set_nbJ_toHaveRegularReseau=true
-                let creator = new reseau.Regular2d(basisComputer)
-
+                let creator = new reseau.Regular2dPlus()
+                creator.origin = new XYZ(-1, -1, 0)
+                creator.end = new XYZ(1, 1, 0)
+                creator.nbU = this.nbI
+                creator.adaptVForRegularReseau=true
                 let mamesh = creator.go()
 
 
@@ -702,14 +700,16 @@ module mathis {
             // marker=Vertex.Markers.border
             // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
 
-            squareVersusTriangleMaille=false
-            $$$squareVersusTriangleMaille=[true,false]
+
 
             nbI=7
             $$$nbI=[3,7,15,30]
 
             probaToKeep=0.5
             $$$probaToKeep=[0,0.4,0.45,0.5,0.55,0.6,0.8,1]
+
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
             constructor(private mathisFrame:MathisFrame) {
                 this.mathisFrame = mathisFrame
@@ -730,13 +730,12 @@ module mathis {
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$begin
-                let basisComputer = new reseau.BasisForRegularReseau()
-                basisComputer.origin = new XYZ(-1, -1, 0)
-                basisComputer.end = new XYZ(1, 1, 0)
-                basisComputer.nbI = this.nbI
-                basisComputer.set_nbJ_toHaveRegularReseau=true
-                basisComputer.squareMailleInsteadOfTriangle = this.squareVersusTriangleMaille
-                let creator = new reseau.Regular2d(basisComputer)
+                let creator = new reseau.Regular2dPlus()
+                creator.origin = new XYZ(-1, -1, 0)
+                creator.end = new XYZ(1, 1, 0)
+                creator.nbU = this.nbI
+                creator.adaptVForRegularReseau=true
+                creator.maille = this.maille
 
                 let mamesh = creator.go()
 

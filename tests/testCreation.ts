@@ -117,8 +117,8 @@ module mathis{
             let aaa
             let test=(ni,nj,oneMoreOnOdd,corner=false)=>{
             let gene=new reseau.BasisForRegularReseau()
-            gene.nbI=ni
-            gene.nbJ=nj
+            gene.nbU=ni
+            gene.nbV=nj
 
             let crea = new reseau.Regular2d(gene)
                 crea.oneMoreVertexForOddLine=oneMoreOnOdd
@@ -466,8 +466,8 @@ module mathis{
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI=7
-            crea.nbJ=7
+            crea.nbU=7
+            crea.nbV=7
             let mamesh=crea.go()
 
 
@@ -503,8 +503,8 @@ module mathis{
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI=7
-            crea.nbJ=7
+            crea.nbU=7
+            crea.nbV=7
             let mamesh=crea.go()
 
 
@@ -528,8 +528,8 @@ module mathis{
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI=7
-            crea.nbJ=7
+            crea.nbU=7
+            crea.nbV=7
             let mamesh=crea.go()
 
             let supp=new grateAndGlue.ExtractCentralPart(mamesh,2)
@@ -548,8 +548,8 @@ module mathis{
         {
 
             let crea = new reseau.Regular2d()
-            crea.nbI=5
-            crea.nbJ=5
+            crea.nbU=5
+            crea.nbV=5
             let mamesh=crea.go()
 
             let supp=new grateAndGlue.ExtractCentralPart(mamesh,1)
@@ -726,8 +726,8 @@ module mathis{
         {
 
             let gene=new reseau.BasisForRegularReseau()
-            gene.nbI=3
-            gene.nbJ=3
+            gene.nbU=3
+            gene.nbV=3
 
             let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
@@ -770,8 +770,8 @@ module mathis{
         {
 
             let gene=new reseau.BasisForRegularReseau()
-            gene.nbI=3
-            gene.nbJ=3
+            gene.nbU=3
+            gene.nbV=3
 
             let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
@@ -797,8 +797,8 @@ module mathis{
         {
 
             let gene=new reseau.BasisForRegularReseau()
-            gene.nbI=3
-            gene.nbJ=3
+            gene.nbU=3
+            gene.nbV=3
 
             let crea=new reseau.Regular2d(gene)
             let mamesh=crea.go()
@@ -1326,8 +1326,8 @@ module mathis{
 
         {
             let reseuCrea=new reseau.Regular2d()
-            reseuCrea.nbI=3
-            reseuCrea.nbJ=3
+            reseuCrea.nbU=3
+            reseuCrea.nbV=3
             let reso=reseuCrea.go()
 
 
@@ -1344,8 +1344,8 @@ module mathis{
 
         {
             let reseuCrea=new reseau.Regular2d()
-            reseuCrea.nbI=3
-            reseuCrea.nbJ=4
+            reseuCrea.nbU=3
+            reseuCrea.nbV=4
             let reso=reseuCrea.go()
 
 
@@ -1363,8 +1363,8 @@ module mathis{
 
         {
             let reseuCrea=new reseau.Regular2d()
-            reseuCrea.nbI=4
-            reseuCrea.nbJ=4
+            reseuCrea.nbU=4
+            reseuCrea.nbV=4
             let reso=reseuCrea.go()
 
 
@@ -1385,8 +1385,8 @@ module mathis{
 
         {
             let reseuCrea=new reseau.Regular2d()
-            reseuCrea.nbI=5
-            reseuCrea.nbJ=5
+            reseuCrea.nbU=5
+            reseuCrea.nbV=5
             let reso=reseuCrea.go()
 
 

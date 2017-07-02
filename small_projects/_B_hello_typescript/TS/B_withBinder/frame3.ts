@@ -83,15 +83,13 @@ module mathis {
                 this.mathisFrame.clearScene(false, false)
 
                 //$$$begin
-                let generator = new reseau.BasisForRegularReseau()
-                generator.nbI=this.nbI
-                generator.nbJ=this.nbJ
-                generator.origin=new XYZ(0,0,0)
-                generator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
-                generator.nbVerticalDecays=this.nbVerticalDecays
-                generator.nbHorizontalDecays=this.nbHorizontalDecays
-
-                let creator = new reseau.Regular2d(generator)
+                let creator = new reseau.Regular2dPlus()
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.origin=new XYZ(0,0,0)
+                creator.end=new XYZ(2*Math.PI,2*Math.PI,0).scale(0.1)
+                creator.nbVerticalDecays=this.nbVerticalDecays
+                creator.nbHorizontalDecays=this.nbHorizontalDecays
                 let mamesh=creator.go()
 
                 //n

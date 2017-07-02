@@ -6,7 +6,7 @@
 
 
 module mathis {
-    export module mourratGraph {
+    export module spacialGibbsRandomGraph {
 
 
         export function startMourratGraph(){
@@ -147,12 +147,12 @@ module mathis {
                     case '2d': {
                         N = this.N_2d
                         let creator = new reseau.Regular2d()
-                        creator.nbI = N
-                        creator.nbJ = N
+                        creator.nbU = N
+                        creator.nbV = N
                         creator.origine = new XYZ(-1, 0, -1)
                         let step = 2 / (N - 1)
-                        creator.Vi = new XYZ(step, 0, 0)
-                        creator.Vj = new XYZ(0, 0, step)
+                        creator.dirU = new XYZ(step, 0, 0)
+                        creator.dirV = new XYZ(0, 0, step)
                         mamesh = creator.go()
                     }
                         break
@@ -161,14 +161,14 @@ module mathis {
                         N = this.N_3d
                         if (N > 10) showInitialGraph = false
                         let creator = new reseau.Regular3D()
-                        creator.nbI = N
+                        creator.nbU = N
                         creator.nbJ = N
-                        creator.nbK = N
+                        creator.nbW = N
                         creator.origine = new XYZ(-1, -1, -1)
                         let step = 2 / (N - 1)
-                        creator.Vi = new XYZ(step, 0, 0)
-                        creator.Vj = new XYZ(0, 0, step)
-                        creator.Vk = new XYZ(0, step, 0)
+                        creator.dirU = new XYZ(step, 0, 0)
+                        creator.dirV = new XYZ(0, 0, step)
+                        creator.dirW = new XYZ(0, step, 0)
                         mamesh = creator.go()
                     }
                         break

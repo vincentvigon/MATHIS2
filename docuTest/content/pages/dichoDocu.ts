@@ -68,8 +68,8 @@ module mathis {
                 let squareVersusTriangle=this.squareVersusTriangle
 
                 let creator=new reseau.Regular2d()
-                creator.nbI=3
-                creator.nbJ=3
+                creator.nbU=3
+                creator.nbV=3
                 creator.origine=new XYZ(-1,-1,0)
                 creator.squareVersusTriangleMaille=squareVersusTriangle
                 let mamesh=creator.go()

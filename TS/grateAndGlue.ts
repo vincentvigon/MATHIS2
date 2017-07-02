@@ -679,62 +679,6 @@ module mathis{
             }
         }
 
-        //
-        // export class FindSickingMapFromVerticesOld{
-        //
-        //     receiver:Vertex[]
-        //     source:Vertex[]
-        //
-        //     /**if zero, sticking is made only for closest voisin*/
-        //     toleranceToBeOneOfTheClosest=0.3
-        //
-        //     constructor(receiver:Vertex[],source:Vertex[]){
-        //
-        //         this.receiver=receiver
-        //         this.source=source
-        //
-        //     }
-        //
-        //     private checkArgs():void{
-        //         //if (this.receiver.length%4!=0) throw 'receiver is not a list representing squares'
-        //         //if (this.source.length%4!=0) throw 'source is not a list representing squares'
-        //
-        //     }
-        //
-        //     go ():Vertex[][]{
-        //
-        //         this.checkArgs()
-        //
-        //         let res:Vertex[][]=[]//=new HashMap<Vertex,Vertex>(true)
-        //
-        //         for (let i=0;i<this.source.length;i++){
-        //             let minDist=Number.MAX_VALUE
-        //             //let bestReceiverIndex=-1
-        //             let distances:number[]=[]
-        //             for (let j=0;j<this.receiver.length;j++){
-        //                 distances[j]=geo.distance(this.source[i].position,this.receiver[j].position)
-        //
-        //                 if (distances[j]<minDist){
-        //                     minDist=distances[j]
-        //                     //bestReceiverIndex=j
-        //                 }
-        //             }
-        //             let bestRecivers:number[]=[]
-        //             for (let j=0;j<this.receiver.length;j++){
-        //                 if (distances[j]<=minDist*(1+this.toleranceToBeOneOfTheClosest)){
-        //                     bestRecivers.push(j)
-        //                 }
-        //             }
-        //             for (let j of bestRecivers) res.push([this.source[i],this.receiver[j]])
-        //
-        //         }
-        //         return res
-        //     }
-        //
-        // }
-        //
-
-
 
         export class FindSickingMapFromVertices{
 
@@ -823,76 +767,6 @@ module mathis{
         }
 
 
-        //
-        // export class FindMergingMapFast{
-        //
-        //
-        //     source:Vertex[]
-        //     receiver:Vertex[]
-        //     nbDistinctPoint:number
-        //    
-        //     constructor( receiver:Vertex[],source:Vertex[],nbDistinctPoint:number){
-        //         this.source=source
-        //         this.receiver=receiver
-        //         this.nbDistinctPoint=nbDistinctPoint
-        //     }
-        //    
-        //     go():HashMap<Vertex,Vertex> {
-        //
-        //         // let indexToMerge:{[key:number]:number}
-        //         //
-        //         // this.merginMap = new HashMap<Vertex,Vertex>(true)
-        //         //
-        //         // let positionsRecepter:XYZ[] = []
-        //         // this.receiverMamesh.vertices.forEach(v=> {
-        //         //     positionsRecepter.push(v.position)
-        //         // })
-        //         //
-        //         // if (this.sourceEqualRecepter) indexToMerge = new geometry.CloseXYZfinder(positionsRecepter,null,1000).go()
-        //         // else {
-        //         //     let positionsSource:XYZ[] = []
-        //         //     this.sourceMamesh.vertices.forEach(v=> {
-        //         //         positionsSource.push(v.position)
-        //         //     })
-        //         //     indexToMerge = new geometry.CloseXYZfinder(positionsRecepter, positionsSource,1000).go()
-        //         // }
-        //         //
-        //         //
-        //         // for (let index in indexToMerge) {
-        //         //     this.merginMap.putValue(this.sourceMamesh.vertices[index], this.receiverMamesh.vertices[indexToMerge[index]])
-        //         // }
-        //        
-        //        
-        //         let indexToMerge:{[key:number]:number}
-        //
-        //         let merginMap = new HashMap<Vertex,Vertex>(true)
-        //
-        //         let positionsRecepter:XYZ[] = []
-        //         this.receiver.forEach(v=> {
-        //             positionsRecepter.push(v.position)
-        //         })
-        //
-        //         if (this.source==null) indexToMerge = new geometry.CloseXYZfinder(positionsRecepter,null,this.nbDistinctPoint).go()
-        //         else {
-        //             let positionsSource:XYZ[] = []
-        //             this.source.forEach(v=> {
-        //                 positionsSource.push(v.position)
-        //             })
-        //             indexToMerge = new geometry.CloseXYZfinder(positionsRecepter, positionsSource,this.nbDistinctPoint).go()
-        //         }
-        //
-        //
-        //         for (let index in indexToMerge) {
-        //             merginMap.putValue(this.source[index], this.receiver[indexToMerge[index]])
-        //         }
-        //
-        //
-        //         return merginMap
-        //
-        //     }
-        //    
-        // }
-
         
         export class ConcurrentMameshesGraterAndSticker {
 
@@ -900,6 +774,7 @@ module mathis{
             SUB_grater=new GraphGrater()
 
             justGrateDoNotStick=false
+            addMissingPolygons=true
 
 
 
@@ -925,11 +800,10 @@ module mathis{
             
             SUB_linkCleanerByAngle=new linkModule.LinksSorterAndCleanerByAngles(null,null)
 
-            SUB_PolygonCreatorFromLinks=new surfaceConnection.SurfaceConnectionProcess(null,1,false,true)
+            SUB_PolygonCreatorFromLinks= new polygonFinder.PolygonFinderFromLinks(null)
 
 
-            addMissingPolygons=true
-            
+
 
             constructor() {
                 this.SUB_linkCleanerByAngle.suppressLinksAngularParam=2*Math.PI*0.1
@@ -1031,15 +905,11 @@ module mathis{
 
                 if (this.suppressLinksAngularlyTooClose){
                     this.SUB_linkCleanerByAngle.mamesh=res
-                    //this.SUB_linkCleanerByAngle.vertexToPositioning=new mameshAroundComputations.PositioningComputerForMameshVertices(res).go()
                     this.SUB_linkCleanerByAngle.goChanging()
-                    // let linkSort=new linkModule.LinksSorterAndCleanerByAngles(res,null)
-                    // linkSort.suppressLinksAngularParam=this.suppressLinksAngle
-                    // linkSort.goChanging()
                 }
 
 
-                if (this.addMissingPolygons) {
+                if (this.addMissingPolygons&&!this.justGrateDoNotStick) {
                     this.SUB_PolygonCreatorFromLinks.mamesh = res
                     this.SUB_PolygonCreatorFromLinks.go()
                 }
@@ -1386,12 +1256,15 @@ module mathis{
             mergeTrianglesAndSquares = true
             mergeSegmentsMiddle = true
             
-            /**so that only the source is drawable*/
+            /**so that only the receiver is drawable*/
             destroySource=true
 
             //associateLinksWhichBecameOppositeFromMerging = true
             /**if null, no association is made*/
             //maxAngleToAssociateOppositeLink=Math.PI*0.4
+
+
+            OUT_mergedVertices:Vertex[]=[]
 
 
             private checkArgs() {
@@ -1401,7 +1274,7 @@ module mathis{
                 })
             }
 
-            constructor(receiverMamesh:Mamesh, sourceMamesh:Mamesh,map:HashMap<Vertex,Vertex[]>) {
+            constructor(receiverMamesh:Mamesh, sourceMamesh?:Mamesh,map?:HashMap<Vertex,Vertex[]>) {
 
                 this.receiverMamesh = receiverMamesh
 
@@ -1445,23 +1318,6 @@ module mathis{
 
 
 
-                /**at the end, we rebuild paramToVertex, the third coordinate of parameter is changed to show the superposition */
-                // this.receiverMamesh.paramToVertex = new HashMap<XYZ,Vertex>(true)
-                // this.receiverMamesh.vertices.forEach(v=> {
-                //     while (this.receiverMamesh.paramToVertex.getValue(v.param)!=null) {
-                //         v.param.z++
-                //     }
-                //     this.receiverMamesh.paramToVertex.putValue(v.param, v)
-                // })
-
-
-                //this.receiverMamesh.clearOppositeInLinks()
-
-                // if (this.maxAngleToAssociateOppositeLink!=null) {
-                //     let oppositeLinkAssocier=new linkModule.OppositeLinkAssocierByAngles(this.receiverMamesh.vertices)
-                //     oppositeLinkAssocier.maxAngleToAssociateLinks=this.maxAngleToAssociateOppositeLink
-                //     oppositeLinkAssocier.goChanging()
-                // }
 
 
                 this.receiverMamesh.lines=null
@@ -1469,34 +1325,6 @@ module mathis{
                 if (this.destroySource&& !this.sourceEqualRecepter) this.sourceMamesh.vertices=null
                 
             }
-
-            //
-            // private buildMergingMap():void {
-            //     let indexToMerge:{[key:number]:number}
-            //
-            //     this.merginMap = new HashMap<Vertex,Vertex>(true)
-            //
-            //     let positionsRecepter:XYZ[] = []
-            //     this.receiverMamesh.vertices.forEach(v=> {
-            //         positionsRecepter.push(v.position)
-            //     })
-            //
-            //     if (this.sourceEqualRecepter) indexToMerge = new geometry.CloseXYZfinder(positionsRecepter,null,1000).go()
-            //     else {
-            //         let positionsSource:XYZ[] = []
-            //         this.sourceMamesh.vertices.forEach(v=> {
-            //             positionsSource.push(v.position)
-            //         })
-            //         indexToMerge = new geometry.CloseXYZfinder(positionsRecepter, positionsSource,1000).go()
-            //     }
-            //
-            //
-            //     for (let index in indexToMerge) {
-            //         this.merginMap.putValue(this.sourceMamesh.vertices[index], this.receiverMamesh.vertices[indexToMerge[index]])
-            //     }
-            //
-            // }
-
 
             private mergeOnlyVertices():void {
 
@@ -1510,147 +1338,7 @@ module mathis{
                 })
 
             }
-            //
-            // private mergeVerticesAndLinksOld():void {
-            //
-            //
-            //     if (!this.sourceEqualRecepter) this.receiverMamesh.vertices = this.receiverMamesh.vertices.concat(this.sourceMamesh.vertices)
-            //
-            //
-            //     this.merginMap.allKeys().forEach(v1=> {
-            //
-            //         var linksThatWeKeep:Link[] = []
-            //         v1.links.forEach(link=> {
-            //             /**the links must not be composed with suppressed vertex*/
-            //             if (this.merginMap.getValue(link.to) == null || (link.opposite != null && this.merginMap.getValue(link.opposite.to) == null )) {
-            //                 /** the link must not be contracted into one vertex after merging*/
-            //                 if (this.merginMap.getValue(v1) != link.to) linksThatWeKeep.push(link)
-            //             }
-            //         })
-            //         this.merginMap.getValue(v1).links = this.merginMap.getValue(v1).links.concat(linksThatWeKeep)
-            //     })
-            //
-            //
-            //     /**suppression of  sources*/
-            //     this.merginMap.allKeys().forEach(v=> {
-            //         removeFromArray(this.receiverMamesh.vertices, v)
-            //     })
-            //
-            //
-            //     /**we change links everywhere where a vertex-to-merge appears*/
-            //     this.receiverMamesh.vertices.forEach((v1:Vertex)=> {
-            //
-            //         var perhapsLinkToSuppress:Link[] = null
-            //         v1.links.forEach(link=> {
-            //             if (this.merginMap.getValue(link.to) != null) {
-            //                 if (this.merginMap.getValue(link.to) != v1) link.to = this.merginMap.getValue(link.to)
-            //                 else {
-            //                     if (perhapsLinkToSuppress == null) perhapsLinkToSuppress = []
-            //                     perhapsLinkToSuppress.push(link)
-            //                 }
-            //             }
-            //             if (link.opposite != null) {
-            //                 if (this.merginMap.getValue(link.opposite.to) != null) {
-            //                     if (this.merginMap.getValue(link.opposite.to) != v1) link.opposite.to = this.merginMap.getValue(link.opposite.to)
-            //                     else link.opposite = null
-            //                 }
-            //             }
-            //         })
-            //         if (perhapsLinkToSuppress != null) {
-            //             perhapsLinkToSuppress.forEach(li=> {
-            //                 removeFromArray(v1.links, li)
-            //             })
-            //         }
-            //
-            //     })
-            //
-            //
-            //     /** suppression of double links  with opposite equal to itself*/
-            //     if (this.cleanDoubleLinks) {
-            //
-            //         this.receiverMamesh.vertices.forEach(vertex=> {
-            //
-            //             for (let link of vertex.links) {
-            //                 if (link.opposite != null && (link.opposite.to.hashNumber == vertex.hashNumber || link.opposite.to.hashNumber == link.to.hashNumber )) link.opposite = null
-            //             }
-            //
-            //             let dico = new HashMap<Vertex,number[]>()
-            //             for (let i = 0; i < vertex.links.length; i++) {
-            //                 let vert = vertex.links[i].to
-            //                 if (dico.getValue(vert) == null) dico.putValue(vert, new Array<number>())
-            //                 dico.getValue(vert).push(i)
-            //
-            //             }
-            //
-            //
-            //
-            //             /**we prefer to keep vertex with double links*/
-            //
-            //             let indexLinkToKeep:number[]=[]
-            //             dico.allValues().forEach(linkIndices=> {
-            //
-            //                 if (linkIndices.length==1) indexLinkToKeep.push(linkIndices[0])
-            //                 else if (linkIndices.length > 1) {
-            //
-            //                     let oneWithOpposite = -1
-            //                     for (let ind of linkIndices) {
-            //                         if (vertex.links[ind].opposite != null) {
-            //                             oneWithOpposite = ind
-            //                             break
-            //                         }
-            //                     }
-            //                     if (oneWithOpposite != -1) {
-            //                         //removeFromArray(linkIndices, oneWithOpposite)
-            //                         indexLinkToKeep.push(oneWithOpposite)
-            //                     }
-            //                     else {
-            //                         //linkIndices.pop()
-            //                         indexLinkToKeep.push(linkIndices[0])
-            //                     }
-            //
-            //
-            //                 }
-            //
-            //             })
-            //             vertex.links = arrayKeepingSomeIndices<Link>(vertex.links, indexLinkToKeep)
-            //
-            //             /**we remove malformation which can appears when removing links*/
-            //             vertex.links.forEach(link=> {
-            //                 if (link.opposite != null) {
-            //                     if (link.opposite.opposite == null || link.opposite.opposite.to.hashNumber != link.to.hashNumber) link.opposite = null
-            //                 }
-            //             })
-            //
-            //
-            //         })
-            //
-            //
-            //     }
-            //
-            //
-            //     this.receiverMamesh.vertices.forEach(central=> {
-            //         for (let link of central.links) {
-            //             let oppositeLink=link.opposite
-            //
-            //             if (oppositeLink != null) {
-            //
-            //                 if (central.links.indexOf(oppositeLink)==-1)
-            //
-            //                     if (oppositeLink.opposite!=link) throw "opposite of  opposite do not give the same link"
-            //
-            //             }
-            //
-            //         }
-            //
-            //     })
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            // }
+
 
 
             private mergeVerticesAndLinks():void {
@@ -1661,17 +1349,21 @@ module mathis{
 
                 /**first we clean all opposite (too hard to keep them, cf. Old procedure which too often create irregularities)*/
                 this.receiverMamesh.clearOppositeInLinks()
-                //     .vertices.forEach(v=>{
-                //     v.links.forEach(l=>l.opposite=null)
-                // })
 
 
+                this.OUT_mergedVertices=this.merginMap.allKeys()
 
+                //TODO it would be better to suppress opposite only at merged vertex
+                // for (let v of this.OUT_mergedVertices){
+                //     v.links.forEach((li:Link)=>{
+                //         li.opposites=null
+                //     })
+                // }
 
 
 
                 /**we add source-links to receivers, except some links */
-                this.merginMap.allKeys().forEach(vSource=> {
+                this.OUT_mergedVertices.forEach(vSource=> {
 
                     let vReceiver=this.merginMap.getValue(vSource)
 
@@ -1689,8 +1381,6 @@ module mathis{
                     /**useful for Reseau2dPlus, which use some special param to extract lines*/
                     if (vReceiver.param.x==0) vSource.param.x=0
                     if (vSource.param.y==0) vReceiver.param.y=0
-
-
 
 
                 })
@@ -1960,34 +1650,12 @@ module mathis{
 
             zIndex1=Math.random()
 
-            // constructor(mamesh0:Mamesh,mamesh1:Mamesh,stickingMap:HashMap<Vertex,Vertex[]>|HashMap<Vertex,Vertex>){
-            //
-            //     if (mamesh0==mamesh1 || mamesh1==null) this.twoMameshes=false
-            //
-            //     this.mamesh0=mamesh0
-            //
-            //     if(this.twoMameshes) this.mamesh1=mamesh1
-            //     else this.mamesh1=null
-            //
-            //     let entries=stickingMap.allEntries()
-            //     if (entries.length==0) {
-            //         logger.c('empty sticking map')
-            //         this.stickingMap=new HashMap<Vertex,Vertex[]>(true)
-            //     }
-            //     else{
-            //         if (!(entries[0].value instanceof Array)){
-            //             this.stickingMap=new HashMap<Vertex,Vertex[]>(true)
-            //             for (let entry of entries) {
-            //                 let value=<Vertex> entry.value
-            //                 this.stickingMap.putValue(entry.key,[value])
-            //             }
-            //         }
-            //         else this.stickingMap=<HashMap<Vertex,Vertex[]>> stickingMap
-            //     }
-            //
-            //
-            //
-            // }
+
+            //TODO
+            //addTriAndQuandAtJunction=true
+            SUB_polygonFinder=new polygonFinder.PolygonFinderFromLinks(null)
+
+
 
 
             constructor(mamesh0:Mamesh,mamesh1:Mamesh,stickingMap:HashMap<Vertex,Vertex[]>){
@@ -2017,7 +1685,6 @@ module mathis{
                 // }
 
 
-
             }
 
             private checkArgs() {
@@ -2041,11 +1708,6 @@ module mathis{
                     this.mamesh0.clearOppositeInLinks()
                     if (this.twoMameshes) this.mamesh1.clearOppositeInLinks()
 
-                    // for (let mam of [this.mamesh0,this.mamesh1]){
-                    //     for (let ve of mam.vertices){
-                    //         for (let li of ve.links) li.opposite=null
-                    //     }
-                    // }
                 }
 
                 if (this.twoMameshes) {
@@ -2074,6 +1736,12 @@ module mathis{
 
                     }
                 }
+
+
+                // if (this.addTriAndQuandAtJunction){
+                //     this.SUB_polygonFinder.mamesh=this.mamesh0
+                //     this.SUB_polygonFinder.go()
+                // }
 
             }
 

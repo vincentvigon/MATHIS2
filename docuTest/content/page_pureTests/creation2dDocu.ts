@@ -345,7 +345,7 @@ module mathis {
 
                 let creator=new reseau.Regular3D()
                 creator.origine=new XYZ(-0.7,-0.7,-0.7)
-                creator.nbI=5
+                creator.nbU=5
                 creator.nbJ=7
                 let mamesh:Mamesh=creator.go()
 

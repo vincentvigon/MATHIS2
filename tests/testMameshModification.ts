@@ -245,8 +245,8 @@ module mathis{
         /**test the cleaning of the links crossing middles of cut segments*/
         {
             let cart= new reseau.Regular2d()
-            cart.nbI=2
-            cart.nbJ=2
+            cart.nbU=2
+            cart.nbV=2
             cart.makeLinks=false
             let mamesh0=cart.go()
             new mameshModification.SquareDichotomer(mamesh0).go()
@@ -254,8 +254,8 @@ module mathis{
 
 
             let cart1= new reseau.Regular2d()
-            cart1.nbI=2
-            cart1.nbJ=2
+            cart1.nbU=2
+            cart1.nbV=2
             let mamesh1=cart1.go()
 
             mamesh1.vertices.forEach(v=>{v.position.x+=1})

@@ -239,6 +239,11 @@ module mathis {
             this.baryResult.y=0
             this.baryResult.z=0
 
+            if (weights==null){
+                weights=[]
+                for (let i=0;i<xyzs.length;i++) weights.push(1/xyzs.length)
+            }
+
             for (var i=0;i<xyzs.length;i++){
                 geo.copyXYZ(xyzs[i],this._scaled)
                 this.scale(this._scaled,weights[i],this._scaled)
@@ -704,8 +709,6 @@ module mathis {
         
         _aCros=new XYZ(0,0,0)
         angleBetweenTwoVectorsBetweenMinusPiAndPi(v1:XYZ, v2:XYZ, upDirection:XYZ):number{
-
-
             let angle=this.angleBetweenTwoVectorsBetween0andPi(v1,v2)
 
             geo.cross(v1,v2,this._aCros)
@@ -713,6 +716,13 @@ module mathis {
 
              return   sign*angle
         }
+
+        angleBetweenTwoVectorsBetween0And2Pi(v1:XYZ, v2:XYZ, upDirection:XYZ):number{
+            let angle=this.angleBetweenTwoVectorsBetweenMinusPiAndPi(v1,v2,upDirection)
+            if (angle>=0) return angle
+            return   2*Math.PI+angle
+        }
+
         
 
 

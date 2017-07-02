@@ -114,8 +114,8 @@ module mathis{
                         /**here the scaling*/
                         gene.origin=new XYZ(-radiusI,-radiusJ,0)
                         gene.end=new XYZ(radiusI,radiusJ,0)
-                        gene.nbI=nI
-                        gene.nbJ=nJ
+                        gene.nbU=nI
+                        gene.nbV=nJ
 
                         if (partShape==PartShape.triangulatedRect) gene.squareMailleInsteadOfTriangle=false
                         gene.go()

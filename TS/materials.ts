@@ -2,6 +2,7 @@
  * Created by Gwenael on 06/05/2017.
  */
 
+//st=st.replace(/(^|[^0-9.])([0-9]+)(?=([^0-9.]|$))/g,"$1$2.")
 
 module mathis {
     export module materials {
@@ -107,6 +108,8 @@ module mathis {
 
                 let tmpCode = gradient.toWebGLCode("color","func");
                 let funcCode = "func = " + this.func.replace(/x|y|z/g,"vPosition.$&") + ";";
+                /**change tous les entier en float ex :  10*x+cos(3*y)+1.5 -> 10.*x+cos(3.*y)+1.5. */
+                funcCode=funcCode.replace(/(^|[^0-9.])([0-9]+)(?=([^0-9.]|$))/g,"$1$2.")
 
                 this.fragmentShader = `
                     precision highp float;

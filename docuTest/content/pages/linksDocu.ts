@@ -273,12 +273,10 @@ module mathis{
                 //$$$begin
 
                 /**let's create vertices*/
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=8
-                basis.nbJ=8
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=8
+                creator.nbV=8
                 creator.makeLinks=false
-                creator.makeTriangleOrSquare=false
                 let mamesh = creator.go()
 
                 let nbLinks=this.nbLinks
@@ -287,15 +285,23 @@ module mathis{
                 let seed=46765474657
                 let random=new proba.Random(seed)
                 let count=0
+                let linksToAdd=new StringMap()
                 while (count<nbLinks){
                     let vertex0=mamesh.vertices[random.pseudoRandInt(mamesh.vertices.length)]
                     let vertex1=mamesh.vertices[random.pseudoRandInt(mamesh.vertices.length)]
                     if (Math.abs(vertex0.param.x-vertex1.param.x)==1 && Math.abs(vertex0.param.y-vertex1.param.y)<3) {
-                        vertex0.setOneLink(vertex1)
-                        vertex1.setOneLink(vertex0)
+                        linksToAdd.putValue(Hash.segment(vertex0,vertex1),[vertex0,vertex1])
                         count++
                     }
                 }
+                let allLinks=linksToAdd.allValues()
+                for (let i=0;i<allLinks.length;i++){
+                    let vertex0=allLinks[i][0]
+                    let vertex1=allLinks[i][1]
+                    vertex0.setOneLink(vertex1)
+                    vertex1.setOneLink(vertex0)
+                }
+
 
                 let maxAngleToAssociateLinks=this.maxAngleToAssociateLinks
                 let associer=new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices)
@@ -308,8 +314,6 @@ module mathis{
 
 
                 //$$$bh visualization
-                
-
                 /**if we made bifurcation, we make a colorIndex in order that two bifurcating lines have the same color*/
                 let linesViewer=new visu3d.LinesViewer(mamesh,this.mathisFrame.scene)
 
@@ -348,8 +352,8 @@ module mathis{
             seed=3534
             $$$seed=[3534,7654,909123,58912307]
 
-            squareMailleInsteadOfTriangle=true
-            $$$squareMailleInsteadOfTriangle=[true,false]
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
 
 
             randomization =true
@@ -380,11 +384,10 @@ module mathis{
                 //$$$begin
 
                 /**let's create vertices*/
-                let basis=new reseau.BasisForRegularReseau()
-                basis.nbI=5
-                basis.nbJ=5
-                basis.squareMailleInsteadOfTriangle=this.squareMailleInsteadOfTriangle
-                let creator=new reseau.Regular2d(basis)
+                let creator=new reseau.Regular2dPlus()
+                creator.nbU=5
+                creator.nbV=5
+                creator.maille=this.maille
 
 
                 /**we intentionally forget to create links*/

@@ -4,8 +4,6 @@ module mathis{
 
     export module proba{
 
-
-
         /** pour avoir toujours la même séquence aléatoire d' un client à l' autre */
         export class Random{
             
@@ -20,7 +18,6 @@ module mathis{
                 // Shift off bits, discarding the sign. Discarding the sign is
                 // important because OR w/ 5 can give us + or - numbers.
                 return (this.seed >>> 32) / max;
-
             }
 
             pseudoRandInt(size:number){
@@ -28,7 +25,6 @@ module mathis{
                 var res= Math.floor(size*this.pseudoRand())
                 if (res==size) res-- // pour le cas très improbable où pseudoRand() revnoit 1
                 return res
-
             }
         }
 
@@ -77,7 +73,6 @@ module mathis{
                 if(retval > 0) return retval;
                 return -retval;
             }
-
 
         }
 

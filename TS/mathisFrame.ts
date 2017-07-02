@@ -264,6 +264,8 @@ module mathis{
         skybox:BABYLON.Mesh
         clearScene(clearCamera=true,clearLights=true,clearSkybox=true):void{
 
+            this.scene.fogMode=BABYLON.Scene.FOGMODE_NONE
+
             if (this.scene==null) throw 'no scene to clear'
 
             let meshesToKeep=[]
@@ -281,7 +283,7 @@ module mathis{
                 this.scene.activeCamera=null
             }
 
-            if (!clearSkybox) meshesToKeep.push(this.skybox)
+            if (!clearSkybox &&this.skybox!=null) meshesToKeep.push(this.skybox)
             else this.skybox=null
 
 

@@ -285,16 +285,16 @@ module mathis {
             let generator=new reseau.BasisForRegularReseau()
             generator.nbVerticalDecays=1
             generator.nbHorizontalDecays=1
-            generator.nbI=4
-            generator.nbJ=4
+            generator.nbU=4
+            generator.nbV=4
             let VV=generator.go()
             
             let meshMaker = new reseau.Regular2d()
             meshMaker.makeLinks=true
-            meshMaker.nbI=4
-            meshMaker.nbJ=4
-            meshMaker.Vi=VV.Vi
-            meshMaker.Vj=VV.Vj
+            meshMaker.nbU=4
+            meshMaker.nbV=4
+            meshMaker.dirU=VV.dirU
+            meshMaker.dirV=VV.dirV
             let mamesh =meshMaker.go()
 
             mamesh.clearOppositeInLinks()
@@ -319,8 +319,8 @@ module mathis {
 
 
                 let generator=new reseau.BasisForRegularReseau()
-                generator.nbI=nbX
-                generator.nbJ=nbY
+                generator.nbU=nbX
+                generator.nbV=nbY
                 generator.end=new XYZ(2*Math.PI,2*Math.PI,0)
                 generator.nbVerticalDecays=nbVerticalDecays
                 generator.nbHorizontalDecays=nbHorizontalDecays
@@ -331,10 +331,10 @@ module mathis {
                 let a=2
                 let meshMaker = new reseau.Regular2d()
                 meshMaker.makeLinks=false
-                meshMaker.nbI=nbX
-                meshMaker.nbJ=nbY
-                meshMaker.Vi=VV.Vi
-                meshMaker.Vj=VV.Vj
+                meshMaker.nbU=nbX
+                meshMaker.nbV=nbY
+                meshMaker.dirU=VV.dirU
+                meshMaker.dirV=VV.dirV
                 let mamesh2 =meshMaker.go()
 
 
@@ -374,8 +374,8 @@ module mathis {
             function torusDecayByLinks(nbX, nbY,nbVerticalDecays,nbHorizontalDecays,angleToAssociateOpposite):string {
 
                 let generator=new reseau.BasisForRegularReseau()
-                generator.nbI=nbX
-                generator.nbJ=nbY
+                generator.nbU=nbX
+                generator.nbV=nbY
                 generator.end=new XYZ(2*Math.PI,2*Math.PI,0)
                 generator.nbVerticalDecays=nbVerticalDecays
                 generator.nbHorizontalDecays=nbHorizontalDecays
@@ -387,10 +387,10 @@ module mathis {
 
                 let meshMaker = new reseau.Regular2d()
                 meshMaker.makeLinks=true
-                meshMaker.nbI=nbX
-                meshMaker.nbJ=nbY
-                meshMaker.Vi=VV.Vi
-                meshMaker.Vj=VV.Vj
+                meshMaker.nbU=nbX
+                meshMaker.nbV=nbY
+                meshMaker.dirU=VV.dirU
+                meshMaker.dirV=VV.dirV
                 let mamesh =meshMaker.go()
 
 

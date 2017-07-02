@@ -29,7 +29,7 @@ module mathis{
             fogDensity=0.05
 
 
-            drawFondamentalDomain=false
+            //drawFondamentalDomain=false
 
 
             /**when creating the world, to see it from outside, put the  next fields to false */
@@ -52,7 +52,7 @@ module mathis{
             buildLightCameraSkyboxAndFog=true
 
             
-            private fd:periodicWorld.CartesianFundamentalDomain
+            //private fd:periodicWorld.CartesianFundamentalDomain
             private mathisFrame:MathisFrame
             private mamesh:Mamesh
 
@@ -78,20 +78,18 @@ module mathis{
                     this.seeWorldFromInside()
                     this.fogAndSkybox()
                 }
-
             }
-
 
 
             addAndMultiplyPopulation(){
                 
-                let maxDist=(this.notDrawMeshesAtFarCorners)?this.getTotalSize()*0.6:this.getTotalSize()
-
-                let multiply=new periodicWorld.Multiply(this.fd,maxDist,this.nbRepetition)
+                // let maxDist=(this.notDrawMeshesAtFarCorners)?this.getTotalSize()*0.6:this.getTotalSize()
+                //
+                // let multiply=new periodicWorld.MeshRepeater(this.fd,maxDist,this.nbRepetition)
 
 
                 for (let mesh of this.population){
-                    multiply.addAbstractMesh(mesh)
+                    this.periodic.addMesh(mesh)
                 }
                 
             }
@@ -145,7 +143,7 @@ module mathis{
             }
             
             
-            
+            periodic:periodicWorld.PeriodicWorld
             private cameraLight(){
 
                 let grabberRadius=this.getTotalSize()*0.6
@@ -179,26 +177,35 @@ module mathis{
                 light0.groundColor = new BABYLON.Color3(0, 0, 0.3);
 
 
-                let camPosInWebCoor=new XYZ(0,0,0)
-                let camDomain=new periodicWorld.Domain(0,0,0)
-                let camDomainCenter=new XYZ(0,0,0)
+                this.periodic=new periodicWorld.PeriodicWorld(this.fondamentalDomainSize,this.fondamentalDomainSize,this.fondamentalDomainSize,this.nbRepetition)
 
 
-                this.fd = new periodicWorld.CartesianFundamentalDomain(new XYZ(this.fondamentalDomainSize, 0, 0), new XYZ(0, this.fondamentalDomainSize, 0), new XYZ(0, 0, this.fondamentalDomainSize));
 
-                if (this.drawFondamentalDomain){
-                    this.fd.drawMe(this.mathisFrame.scene)
-                    this.fd.getArretes(this.mathisFrame.scene)
-                }
+                // let camPosInWebCoor=new XYZ(0,0,0)
+                // let camDomain=new periodicWorld.Domain(0,0,0)
+                // let camDomainCenter=new XYZ(0,0,0)
+                //
+                //
+                // this.fd = new periodicWorld.CartesianFundamentalDomain(new XYZ(this.fondamentalDomainSize, 0, 0), new XYZ(0, this.fondamentalDomainSize, 0), new XYZ(0, 0, this.fondamentalDomainSize));
+
+                // if (this.drawFondamentalDomain){
+                //     this.fd.drawMe(this.mathisFrame.scene)
+                //     this.fd.getArretes(this.mathisFrame.scene)
+                // }
 
 
                 camera.onTranslate = ()=> {
                     if ( this.recenterCamera) {
-                        this.fd.pointToWebCoordinate(camera.trueCamPos.position, camPosInWebCoor);
-                        camDomain.whichContains(camPosInWebCoor);
-                        camDomain.getCenter(this.fd, camDomainCenter);
-                        /**attention, il faut changer simultanément la truePosition et la wished position. Donc mettre le smoothing à false*/
-                        camera.changePosition(camera.whishedCamPos.getPosition().substract(camDomainCenter), false)
+
+                        let newCamPos=this.periodic.positionToCentredPosition(camera.whishedCamPos.position)
+                        /**the changement of position of camera must not be interpolate, so the last Param is false*/
+                        camera.changePosition(newCamPos, false)
+
+                        // this.fd.pointToWebCoordinate(camera.trueCamPos.position, camPosInWebCoor);
+                        // camDomain.whichContains(camPosInWebCoor);
+                        // camDomain.getCenter(this.fd, camDomainCenter);
+                        // /**attention, il faut changer simultanément la truePosition et la wished position. Donc mettre le smoothing à false*/
+                        // camera.changePosition(camera.whishedCamPos.getPosition().substract(camDomainCenter), false)
 
                     }
                 }
@@ -210,8 +217,8 @@ module mathis{
 
                 let basis=new reseau.BasisForRegularReseau()
                 basis.end=new XYZ(this.fondamentalDomainSize,this.fondamentalDomainSize,0)
-                basis.nbI=this.nbSubdivision
-                basis.nbJ=this.nbSubdivision
+                basis.nbU=this.nbSubdivision
+                basis.nbV=this.nbSubdivision
                 basis.origin=new XYZ(0,0,0)
                 basis.nbVerticalDecays=this.nbVerticalDecays
                 basis.nbHorizontalDecays=this.nbHorizontalDecays
@@ -219,12 +226,12 @@ module mathis{
 
 
                 let crea = new reseau.Regular3D()
-                crea.nbI = this.nbSubdivision*this.nbRepetition
+                crea.nbU = this.nbSubdivision*this.nbRepetition
                 crea.nbJ = this.nbSubdivision*this.nbRepetition
-                crea.nbK = this.nbSubdivision*this.nbRepetition
-                crea.Vi = VV.Vi
-                crea.Vj = VV.Vj
-                crea.Vk = new XYZ(0, 0, this.fondamentalDomainSize / (this.nbSubdivision - 1))
+                crea.nbW = this.nbSubdivision*this.nbRepetition
+                crea.dirU = VV.dirU
+                crea.dirV = VV.dirV
+                crea.dirW = new XYZ(0, 0, this.fondamentalDomainSize / (this.nbSubdivision - 1))
 
                 crea.makeTriangleOrSquare = false
                 crea.createIKSquaresOrTriangles=false
@@ -257,6 +264,8 @@ module mathis{
                 this.mamesh.fillLineCatalogue()
 
             }
+
+
 
             getTotalSize():number{
                 return this.nbRepetition*this.fondamentalDomainSize
@@ -314,7 +323,7 @@ module mathis{
             private fogAndSkybox(){
                 let skybox = BABYLON.Mesh.CreateBox("skyBox", 50.*this.fondamentalDomainSize, this.mathisFrame.scene);
                 this.mathisFrame.skybox=skybox
-                //skybox.checkCollisions=true
+
                 skybox.visibility=1
 
                 /**je ne comprend pas pourquoi le brouillar ne marche pas quand on ne met pas de sky box...*/
@@ -326,8 +335,7 @@ module mathis{
                 skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/skybox/skybox", this.mathisFrame.scene,['_px.jpg', '_py.jpg', '_pz.jpg', '_nx.jpg', '_ny.jpg', '_nz.jpg']);
                 skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 
-                //this.mathisFrame.scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
-                this.mathisFrame.scene.fogDensity = this.fogDensity //this.fondamentalDomainSize;
+                this.mathisFrame.scene.fogDensity = this.fogDensity
                 this.mathisFrame.scene.fogColor = new BABYLON.Color3(1,1,1);
                 
             }

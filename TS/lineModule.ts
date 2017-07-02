@@ -9,8 +9,7 @@ module mathis{
 
         export class LineComputer{
 
-            cannotOverwriteExistingLines=true
-            
+
             startingVertices:Vertex[]=null
             startingSegments:Vertex[][]=null
             restrictLinesToTheseVertices:Vertex[]=null
@@ -29,7 +28,7 @@ module mathis{
                 if (this.mamesh==null) throw ' a null mamesh'
                 if (this.mamesh.vertices==null||this.mamesh.vertices.length==0) throw 'no vertices in this mamesh'
 
-                if (this.mamesh.linesWasMade&&this.cannotOverwriteExistingLines ) throw 'lines already exist for this mamesh'
+                if (this.mamesh.linesWasMade ) logger.c('lines already exist for this mamesh')
 
 
                 let preres = makeLineCatalogue2(this.mamesh.vertices,this.lookAtBifurcation)

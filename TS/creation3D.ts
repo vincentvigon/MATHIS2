@@ -252,10 +252,23 @@ module mathis {
             getHeadPosition():XYZ{
                 return this.path[this.path.length - 1]
             }
-            
-            
 
         }
+
+
+        export function drawOneVector(vec:XYZ,scene:BABYLON.Scene,basedAt=new XYZ(0,0,0),color:Color=null){
+        let arrowCreator=new creation3D.ArrowCreator(scene)
+        arrowCreator.arrowFootAtOrigin=false
+        let material=new BABYLON.StandardMaterial("",scene)
+        if (color==null) color=new Color(Color.names.blue)
+
+            material.diffuseColor=color.toBABYLON_Color3()
+        let babylonMesh=arrowCreator.go()
+        babylonMesh.material=material
+        let arr=XYZ.newFrom(vec).add(basedAt)
+        let elongator=new visu3d.ElongateAMeshFromBeginToEnd(basedAt,arr,babylonMesh)
+        elongator.goChanging()
+    }
         
         
         export class ArrowCreator{
@@ -466,7 +479,7 @@ module mathis {
             constructor(scene:BABYLON.Scene){
                 this.scene=scene
             }
-            go(){
+            go():BABYLON.Mesh{
                 let textPlaneTexture = new BABYLON.DynamicTexture("dynamic texture",512 , this.scene, true);
                 textPlaneTexture.drawText(this.text, null, 300,this.font ,this.color , this.backgroundColor);
                 textPlaneTexture.hasAlpha = true;

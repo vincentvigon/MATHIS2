@@ -47,7 +47,15 @@ li.L9 {
 
     /* comment */
     .com {
-        color: green;
+        padding-top:1.5em;
+        padding-bottom:0.5em;
+        width: 150%;
+
+        display: inline-block;
+        color: dodgerblue;
+        background-color: white;
+        font-family: Arial;
+
     }
 
     /* type name */
