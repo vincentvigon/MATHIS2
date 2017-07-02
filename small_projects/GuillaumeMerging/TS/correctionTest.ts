@@ -363,13 +363,14 @@ module mathis{
                 }
 
 
+                let  connect = new polygonFinder.PolygonFinderFromLinks(mamesh);
+                connect.nbBiggerFacesDeleted=this.nbBiggerFacesDeleted
+                connect.areaVsPerimeter=this.areaOrPerimeterChoice
+                connect.fillConvexFaces=this.fillConvexFaces
+
+                if (this.connect) connect.go();
 
 
-                /** Surface creation **/
-                if (this.connect) {
-                    let connect = new surfaceConnection.SurfaceConnectionProcess(mamesh, this.nbBiggerFacesDeleted, this.areaOrPerimeterChoice, this.fillConvexFaces);
-                    mamesh = connect.go();
-                }
 
                 /** visualisation **/
                 let verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, this.mathisFrame.scene);

@@ -51,8 +51,8 @@ module mathis{
             $$$nbJ=new Choices([3,5,7,10,11,20,21,40])
 
 
-            end=new XYZ(0.7,0.7,0)
-            $$$end=new Choices([new XYZ(0.7,0.7,0),new XYZ(0,0,0),new XYZ(0.5,1,0)],{"before":"new mathis.XYZ"})
+            end=new XYZ(0.7,1,0)
+            $$$end=new Choices([new XYZ(0.7,1,0),new XYZ(0.7,0.7,0),new XYZ(0,0,0),new XYZ(0.5,1,0)],{"before":"new mathis.XYZ"})
 
             setNBJ=false
             $$$setNBJ=[true,false]
@@ -94,7 +94,7 @@ module mathis{
                 creator.nbU=this.nbI
                 creator.nbV=this.nbJ
                 /**if true: nbJ (or nbI) is computed to obtain regular triangle/square
-                 * In particular, the reseau does not fit to the black rectangle*/
+                 * As consequence, the reseau does not always fit to the black rectangle*/
                 creator.adaptVForRegularReseau=this.setNBJ
                 creator.origin=new XYZ(-0.7,-0.7,0)
                 creator.end=this.end

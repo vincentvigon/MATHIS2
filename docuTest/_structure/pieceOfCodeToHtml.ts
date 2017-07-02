@@ -76,7 +76,6 @@ module mathis{
                         squiz.$squizable.append(this.transformOnePiece(piece.piece))
                         res.append(squiz.$visual)
                         
-                        //res.append(this.transformOnePiece(piece.piece))
                     }
                 }
                 
@@ -86,12 +85,13 @@ module mathis{
 
 
             private transformOnePiece(lines:string[],isTest=false):any{
+                let regexLinebrak=new RegExp('s*\/\/ns*','g')
 
                 let newLines=[]
                 for (let line of lines) newLines.push(line.slice(16))
 
                 for (let i=0;i<newLines.length;i++){
-                    if (newLines[i].slice(0,3)=="//n") {
+                    if (regexLinebrak.test(newLines[i])){
                         newLines[i]=" "
                     }
                     for (let traitement of conv.traitementsForEachLine)  newLines[i]=traitement(newLines[i])
@@ -142,26 +142,38 @@ module mathis{
 
                     /**titre: //$$$bh quelquechose
                      * \s stands for space or tabulation*/
-                    let isTitle=/^\s*\/\/\$\$\$(beginHidden|bh) *./g.test(line)
+                    //let isTitle=/^\s*\/\/\$\$\$(beginHidden|bh) \s*./g.test(line)
+
 
                     if (/^\s*\/\/\$\$\$(begin|b)\s*$/g.test(line))  indexOfBegin.push({'index':i,'type':'show'})
-                    if (isTitle||/^\s*\/\/\$\$\$(beginHidden|bh)\s*$/g.test(line)){
-                        let title=""
-                        if (isTitle){
-                            let reg:any=/^\s*\/\/\$\$\$(beginHidden|bh) *./g
-                            reg.exec(line)
-                            title=line.slice(reg.lastIndex-1)
-                        }
+                    if (/^\s*\/\/\$\$\$(end|e)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'show'})
+
+
+                    if (/^\s*\/\/\$\$\$(beginCase|bc)\s*$/g.test(line))  indexOfBegin.push({'index':i,'type':'case'})
+                    if (/^\s*\/\/\$\$\$(endCase|ec)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'case'})
+
+
+                    if (/^\s*\/\/\$\$\$(beginHidden|bh) +/g.test(line)){
+                        let rere=/^\s*\/\/\$\$\$(beginHidden|bh) +/g
+                            rere.exec(line)
+                            let title=line.slice(rere.lastIndex-1)
+
                         indexOfBegin.push({'index':i,'type':'hidden','title':title})
                     }
-                    if (/^\s*\/\/\$\$\$(end|e)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'show'})
+                    else if (/^\s*\/\/\$\$\$(beginHidden|bh)\s*$/g.test(line)) indexOfBegin.push({'index':i,'type':'hidden'})
+
+
                     if (/^\s*\/\/\$\$\$(endHidden|eh)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'hidden'})
+
 
                     if (/^\s*\/\/\$\$\$(beginTest|bt)\s*$/g.test(line))  indexOfBegin.push({'index':i,'type':'test'})
                     if (/^\s*\/\/\$\$\$(endTest|et)\s*$/g.test(line)) indexOfEnd.push({'index':i,'type':'test'})
                 }
 
-                if (indexOfBegin.length!=indexOfEnd.length) throw 'not the same number of $$$begin and $$$end in the pieceOfCode:'+ this.pieceOfCode.NAME
+                if (indexOfBegin.length!=indexOfEnd.length) {
+                    //cc('here the list of begins:', indexOfBegin,', here the list of ends' , indexOfEnd)
+                    throw 'not the same number of //$$$b... and //$$$e... in the pieceOfCode:'+ this.pieceOfCode.NAME+ 'perhaps have you put an //$$$e... just before a brace (it is forbidden)'
+                }
                 
                 let res=[]
                 
@@ -177,8 +189,32 @@ module mathis{
                     if (typeBegin!=typeEnd) throw "$$$begin has type:"+typeBegin+" while $$$end has type:"+typeEnd
 
 
-                    let piece=lines.slice(indexBegin+1,indexEnd)
-                    res.push({'piece':piece,'type':typeBegin,'title':title})
+                    if (typeBegin!="case"){
+                        let piece=lines.slice(indexBegin+1,indexEnd)
+                        res.push({'piece':piece,'type':typeBegin,'title':title})
+                    }
+                    else {
+                        let switchPart=lines.slice(indexBegin+1,indexBegin+2)
+                        res.push({'piece':switchPart,'type':'show','title':""})
+                        let caseLines=[]
+                        let titleCase=[]
+                        for (let k=indexBegin+2;k<indexEnd;k++){
+                            if (/\s*case/g.test(lines[k])) {
+                                caseLines.push(k)
+                                let spli=lines[k].split(/'|"/g)
+                                titleCase.push(spli[1])
+                            }
+                        }
+
+                        for (let k=0;k<caseLines.length-1;k++){
+                            let casePart=lines.slice(caseLines[k],caseLines[k+1])
+                            res.push({'piece':casePart,'type':'hidden','title':titleCase[k]})
+                        }
+                        let lastCasePart=lines.slice(caseLines[caseLines.length-1],indexEnd)
+                        res.push({'piece':lastCasePart,'type':'hidden','title':titleCase[caseLines.length-1]})
+
+                    }
+
                     
                 }
                 

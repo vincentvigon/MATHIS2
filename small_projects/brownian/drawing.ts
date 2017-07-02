@@ -82,7 +82,6 @@ module mathis {
                     let vertex = mamesh.vertices[i];
                     let u = Math.round(vertex.position.x * (size - 1));
                     let v = Math.round(vertex.position.y * (size - 1));
-
                     vertex.position.z = (field[u * size + v] - field_min) / (field_max - field_min) * 0.3;
                 }
 
@@ -106,7 +105,6 @@ module mathis {
                         let vertex = mamesh.vertices[i];
                         let u = Math.round(vertex.position.x * (size - 1));
                         let v = Math.round(vertex.position.y * (size - 1));
-
                         vertex.position.z = data[4 * (u * size + v)] / 256 * 0.3;
                     }
 

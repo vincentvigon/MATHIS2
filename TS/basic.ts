@@ -998,8 +998,6 @@ module mathis {
                     li.opposites=null
                 })
             })
-            //this.loopLines=null
-            //this.straightLines=null
         }
 
 
@@ -1118,6 +1116,16 @@ module mathis {
             return res
 
         }
+
+
+        checkPolygonAsLinkedSides(poly:Vertex[]){
+            for (let i=0;i<poly.length;i++){
+                if (! poly[i].hasVoisin(poly[(i+1)%poly.length])) return false
+            }
+            return true
+        }
+
+
 
     }
 

@@ -242,7 +242,17 @@ module mathis{
 
         }
 
-        allKeys():K[]{
+
+        oneValue():T{
+            for (let index in this.values) {
+                return this.values[index]
+            }
+            return null
+        }
+
+
+
+            allKeys():K[]{
             if (!this.memorizeKeys) throw 'this hashMap has not memorized keys. Please, put args=true in the constructor'
             let res=new Array<K>()
             for (let index in this.keys) res.push(this.keys[index])
@@ -281,6 +291,16 @@ module mathis{
         size():number{
             let res=0
             for (let key in this.values) res++
+            return res
+        }
+
+        printMe(toStringFuncForValues:(value:T)=>string):string{
+            let res="[";
+            for (let key in this.values){
+                res+=key+">"+toStringFuncForValues(this.values[key])+","
+            }
+            res+="]"
+
             return res
         }
 

@@ -560,6 +560,8 @@ module mathis {
                 this.severalPages.addPage(new GradientColorDocu(this.mathisFrame))
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
+                this.severalPages.addPage(new GrateMergeStickJustTest(this.mathisFrame),true)
+
                 this.severalPages.addPage(new DichoDocu(this.mathisFrame))
                 this.severalPages.addPage(new GeoPageTest(this.mathisFrame))
 

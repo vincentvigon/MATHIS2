@@ -12,6 +12,105 @@ module mathis{
         import Path3D = BABYLON.Path3D;
         import Quaternion = BABYLON.Quaternion;
 
+
+        export class VerticesFlager{
+            positionings:HashMap<Vertex,Positioning>
+
+
+            labelFunction:(vertex:Vertex)=>string= (vertex => vertex.hashString)
+
+            vertices:Vertex[]
+            scene:BABYLON.Scene
+            radiusAbsolute:number=null
+            radiusProp=0.1
+
+            decayProp=new XYZ(0.1,0.1,0)
+
+
+
+            constructor(mameshOrVertices:Mamesh|Vertex[],scene:BABYLON.Scene,positionings?:HashMap<Vertex,Positioning>){
+
+                if (deconnectViewerForTest) return
+
+                if (mameshOrVertices instanceof Mamesh) this.vertices=mameshOrVertices.vertices
+                else this.vertices=<Vertex[]>mameshOrVertices
+
+
+                if (scene==null) throw  'scene is null'
+                else this.scene=scene
+                this.positionings=positionings
+            }
+
+            go(){
+
+
+
+                if (this.positionings==null) {
+
+                    this.positionings = new HashMap<Vertex,Positioning>()
+
+
+                    for (let v of this.vertices) {
+                        let radius:number
+                        if (this.radiusAbsolute==null) {
+
+                            radius=meanOfMinLinks(this.vertices)* this.radiusProp
+
+                        }
+                        else radius=this.radiusAbsolute
+
+                        let pos = new Positioning()
+                        pos.frontDir = new XYZ(1, 0, 0)
+                        pos.upVector = new XYZ(0, 1, 0)
+                        pos.scaling = new XYZ(radius, radius, radius)
+
+                        this.positionings.putValue(v, pos)
+
+                    }
+
+                }
+
+                this.updatePositionings()
+
+
+            }
+
+
+            /**can also be used to modify a part of the visualisation*/
+            updatePositionings(vertice:Vertex[]=this.vertices):void{
+                vertice.forEach(v=>this.updatePositioning(v))
+            }
+
+
+            private updatePositioning(vertex:Vertex){
+
+
+                let position=XYZ.newFrom(vertex.position)
+                let flag=new creation3D.FlagWithText(this.scene)
+                flag.text=this.labelFunction(vertex)
+
+                let mesh:BABYLON.Mesh=flag.go()
+
+
+                    if (this.positionings.getValue(vertex)==null) throw "a vertex without associated positioning"
+                    if(Math.abs(this.positionings.getValue(vertex).scaling.x)<geo.epsilon){
+                        mesh.visibility=0
+                    }
+                    else{
+                        let scale=this.positionings.getValue(vertex).scaling.x*10
+                        let decal=XYZ.newFrom(this.decayProp).scale(scale)
+                        let positioning=this.positionings.getValue(vertex)
+                        mesh.visibility=1
+                        mesh.rotationQuaternion=positioning.quaternion()
+                        mesh.position=position.add(decal)
+                        mesh.scaling=new XYZ(scale,scale,scale)
+                    }
+                }
+
+        }
+
+
+
         export class VerticesViewer{
 
             //mamesh:Mamesh
@@ -43,6 +142,9 @@ module mathis{
 
 
             material
+
+
+
 
 
 
@@ -219,7 +321,6 @@ module mathis{
                     this.vertexToCopiedMeshes.putValue(vertex,copiedMeshes)
 
                     this.updatePositioning(vertex)
-
                 })
 
 

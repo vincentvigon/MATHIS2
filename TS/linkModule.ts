@@ -52,13 +52,16 @@ module mathis{
             /**links cleaning require the normals*/
             vertexToPositioning:HashMap<Vertex,Positioning>
 
+            suppressTriAndQuadWhoseSideIsSuppressed=true
+
+
             constructor(mamesh:Mamesh,private normals?:XYZ|HashMap<Vertex,Positioning>){
                 this.mamesh=mamesh
             }
 
             
 
-            goChanging(){
+            goChanging():void{
 
                 if (this.mamesh==null) throw 'mamesh is null'
 
@@ -112,30 +115,9 @@ module mathis{
                     let newLinks:Link[]=[]
 
                     for (let k=0;k<angles.length;k++){
-                        //cc(angles[k])
                         newLinks.push(center.links[angles[k].i])
                     }
                     center.links=newLinks
-
-
-
-                    // let linksToSuppress:Link[]=[]
-                    // for (let k=0;k<angles.length;k++){
-                    //     let diff=modulo(angles[(k+1)%angles.length].angle-angles[k].angle,2*Math.PI,true)
-                    //     if (Math.abs(diff)<this.minimalAngleBetweenLinks) {
-                    //         let link0=center.links[angles[k].i]
-                    //         let link1=center.links[angles[(k+1)%angles.length].i]
-                    //         /**we favorise link with opposite*/
-                    //         if (link0.opposite==null&& link1.opposite!=null) linksToSuppress.push(link0)
-                    //         else linksToSuppress.push(link1)
-                    //     }
-                    // }
-                    //
-                    // for (let link of linksToSuppress){
-                    //     if (link.opposite!=null) link.opposite.opposite=null
-                    //     removeFromArray(center.links,link)
-                    //     link.to.suppressOneLink(center,false)
-                    // }
 
 
                 })
@@ -146,9 +128,8 @@ module mathis{
             
             private letsSuppressLinks(){
 
+                let suppressedSegment=new StringMap<boolean>()
                 for (let center of this.mamesh.vertices){
-
-
 
 
                     let currentIndex=0
@@ -194,11 +175,9 @@ module mathis{
 
 
 
+                                suppressedSegment.putValue(Hash.segment(center,linkToSuppress.to),true)
                                 Vertex.separateTwoVoisins(center,linkToSuppress.to)
 
-                                // removeFromArray(center.links,linkToSuppress)
-                                // if (linkToSuppress.opposite!=null) linkToSuppress.opposite.opposite=null
-                                // linkToSuppress.to.suppressOneLink(center,true)
 
                                 oneMoreTime=true
                                 currentIndex=(ii+1)
@@ -211,6 +190,37 @@ module mathis{
 
 
                     }
+                }
+
+                if (this.suppressTriAndQuadWhoseSideIsSuppressed){
+
+                    let newTriList=[]
+                    let newQuadList=[]
+
+                    cc(this.mamesh.vertices)
+
+                    for (let i=0;i<this.mamesh.smallestTriangles.length;i+=3){
+                        let hash0=Hash.segment(this.mamesh.smallestTriangles[i],this.mamesh.smallestTriangles[i+1])
+                        let hash1=Hash.segment(this.mamesh.smallestTriangles[i+1],this.mamesh.smallestTriangles[i+2])
+                        let hash2=Hash.segment(this.mamesh.smallestTriangles[i+2],this.mamesh.smallestTriangles[i])
+                        if (suppressedSegment.getValue(hash0)==null && suppressedSegment.getValue(hash1)==null&&suppressedSegment.getValue(hash2)==null){
+                            newTriList.push(this.mamesh.smallestTriangles[i],this.mamesh.smallestTriangles[i+1],this.mamesh.smallestTriangles[i+2])
+                        }
+                    }
+                    for (let i=0;i<this.mamesh.smallestSquares.length;i+=4){
+                        let hash0=Hash.segment(this.mamesh.smallestSquares[i],this.mamesh.smallestSquares[i+1])
+                        let hash1=Hash.segment(this.mamesh.smallestSquares[i+1],this.mamesh.smallestSquares[i+2])
+                        let hash2=Hash.segment(this.mamesh.smallestSquares[i+2],this.mamesh.smallestSquares[i+3])
+                        let hash3=Hash.segment(this.mamesh.smallestSquares[i+3],this.mamesh.smallestSquares[i])
+                        if (suppressedSegment.getValue(hash0)==null && suppressedSegment.getValue(hash1)==null&&suppressedSegment.getValue(hash2)==null&&suppressedSegment.getValue(hash3)==null){
+                            newQuadList.push(this.mamesh.smallestSquares[i],this.mamesh.smallestSquares[i+1],this.mamesh.smallestSquares[i+2],this.mamesh.smallestSquares[i+3])
+                        }
+                    }
+
+
+                    this.mamesh.smallestTriangles=newTriList
+                    this.mamesh.smallestSquares=newQuadList
+
                 }
 
 

@@ -239,6 +239,11 @@ module mathis {
             this.baryResult.y=0
             this.baryResult.z=0
 
+            if (weights==null){
+                weights=[]
+                for (let i=0;i<xyzs.length;i++) weights.push(1/xyzs.length)
+            }
+
             for (var i=0;i<xyzs.length;i++){
                 geo.copyXYZ(xyzs[i],this._scaled)
                 this.scale(this._scaled,weights[i],this._scaled)
