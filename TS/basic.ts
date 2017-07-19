@@ -669,8 +669,7 @@ module mathis {
 
     }
 
-    
-    
+
     /**A graph but not only : it contains vertices but also lines passing through vertices.
      * Most of time a Mamesh is a graph on a surface, so it contains square/triangle between vertices. 
      * It can contain also many other informations e.g. {@link vertexToPositioning} or {@link lineToColor} which are useful
@@ -739,8 +738,9 @@ module mathis {
         
         
 
-        addATriangle(a:Vertex, b:Vertex, c:Vertex):Mamesh {
-            this.smallestTriangles.push(a,b,c);
+        addATriangle(a:Vertex, b:Vertex, c:Vertex,exceptionIfAVertexIsNull=false):Mamesh {
+            if(a!=null&&b!=null&&c!=null) this.smallestTriangles.push(a,b,c);
+            else if (exceptionIfAVertexIsNull) throw "you try to add a null vertex in a triangle"
             return this
         }
 

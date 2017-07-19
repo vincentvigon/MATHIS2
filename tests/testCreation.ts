@@ -1426,7 +1426,7 @@ module mathis{
                     dicotomer.go()
                 }
 
-                let linkMaker = new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh)
+                let linkMaker = new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
                 linkMaker.goChanging()
 
                 return mamesh

@@ -192,7 +192,7 @@ module mathis{
             let dicho=new mameshModification.SquareDichotomer(mamesh)
             dicho.go()
         
-            let linkCrea=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+            let linkCrea=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
             mamesh.fillLineCatalogue()
         
 

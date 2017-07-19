@@ -269,7 +269,7 @@ module mathis {
             single.makeLinks=false
             single.go()
             new mameshModification.SquareDichotomer(mamesh).go()
-            new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+            new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
 
             mamesh.clearOppositeInLinks()
             new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices).goChanging()
@@ -361,7 +361,7 @@ module mathis {
 
 
 
-                let linkFromPoly=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh2)
+                let linkFromPoly=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh2)
                 linkFromPoly.forceOppositeLinksAtCorners=true
                 linkFromPoly.goChanging()
 

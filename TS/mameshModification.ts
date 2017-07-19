@@ -352,7 +352,7 @@ module mathis {
                 
                 //TODO : heavy works because links are not made during dichotomy process
                 if (this.makeLinks){
-                    let linker=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(this.mamesh)
+                    let linker=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(this.mamesh)
                     linker.goChanging()
                 }
 
@@ -529,7 +529,7 @@ module mathis {
 
                 //TODO : heavy works because links are not made during dichotomy process
                 if (this.makeLinks){
-                    let linker=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(this.mamesh)
+                    let linker=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(this.mamesh)
                     linker.goChanging()
                 }
 

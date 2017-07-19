@@ -210,7 +210,7 @@ module mathis{
                }
 
                //if (this.makeLinks) {
-                   new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+                   new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
                //}
 
                return mamesh

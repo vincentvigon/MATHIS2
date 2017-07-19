@@ -141,7 +141,7 @@ module mathis{
             radiusProp=0.1
 
 
-            material
+            //material
 
 
 
@@ -367,7 +367,7 @@ module mathis{
             maxAngleBetweenNormals=Math.PI/4
 
             scene:BABYLON.Scene
-            material:any
+            material:BABYLON.Material
             color=color.thema.defaultSurfaceColor
             alpha=0.4
             
@@ -410,25 +410,30 @@ module mathis{
 
                 let indices :number[]=[]
 
-                for (let i=0;i<this.mamesh.smallestTriangles.length;i+=3){
-                    let v0=this.mamesh.smallestTriangles[i]
-                    let v1=this.mamesh.smallestTriangles[i+1]
-                    let v2=this.mamesh.smallestTriangles[i+2]
-                    indices.push(hashToIndex[v0.hashNumber],hashToIndex[v1.hashNumber],hashToIndex[v2.hashNumber])
+                try {
+                    for (let i = 0; i < this.mamesh.smallestTriangles.length; i += 3) {
+                        let v0 = this.mamesh.smallestTriangles[i]
+                        let v1 = this.mamesh.smallestTriangles[i + 1]
+                        let v2 = this.mamesh.smallestTriangles[i + 2]
+
+                        indices.push(hashToIndex[v0.hashNumber], hashToIndex[v1.hashNumber], hashToIndex[v2.hashNumber])
+                    }
+
+
+                    for (let i = 0; i < this.mamesh.smallestSquares.length; i += 4) {
+                        let v0 = this.mamesh.smallestSquares[i]
+                        let v1 = this.mamesh.smallestSquares[i + 1]
+                        let v2 = this.mamesh.smallestSquares[i + 2]
+                        let v3 = this.mamesh.smallestSquares[i + 3]
+                        indices.push(hashToIndex[v0.hashNumber], hashToIndex[v1.hashNumber], hashToIndex[v3.hashNumber])
+                        indices.push(hashToIndex[v1.hashNumber], hashToIndex[v2.hashNumber], hashToIndex[v3.hashNumber])
+
+                        //indices.push(this.IN_mamesh.smallestSquares[i],this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+3],
+                        //    this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+2],this.IN_mamesh.smallestSquares[i+3])
+                    }
                 }
-
-
-
-                for (let i=0;i<this.mamesh.smallestSquares.length;i+=4){
-                    let v0=this.mamesh.smallestSquares[i]
-                    let v1=this.mamesh.smallestSquares[i+1]
-                    let v2=this.mamesh.smallestSquares[i+2]
-                    let v3=this.mamesh.smallestSquares[i+3]
-                    indices.push(hashToIndex[v0.hashNumber],hashToIndex[v1.hashNumber],hashToIndex[v3.hashNumber])
-                    indices.push(hashToIndex[v1.hashNumber],hashToIndex[v2.hashNumber],hashToIndex[v3.hashNumber])
-
-                    //indices.push(this.IN_mamesh.smallestSquares[i],this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+3],
-                    //    this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+2],this.IN_mamesh.smallestSquares[i+3])
+                catch (e){
+                    throw "a null vertex in the list of triangle or square"
                 }
 
 

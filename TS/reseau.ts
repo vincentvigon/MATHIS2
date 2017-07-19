@@ -115,7 +115,7 @@ module mathis{
 
 
                 /** to detect border we use the triangles*/
-                let linkMaker=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(this.mamesh)
+                let linkMaker=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(this.mamesh)
                 linkMaker.markIsolateVertexAsCorner=false
                 linkMaker.goChanging()
 
@@ -539,12 +539,17 @@ module mathis{
 
 
                 if (this.markBorder){
-                    if (this.squareVersusTriangleMaille){
-                        for (let v of this.mamesh.vertices) if (v.links.length!=4) v.markers.push(Vertex.Markers.border)
+
+                    for (let v of this.mamesh.vertices){
+                        if (v.param.x==0||v.param.y==0||v.param.x==this.nbU-1||v.param.y==this.nbV-1)v.markers.push(Vertex.Markers.border)
                     }
-                    else{
-                        for (let v of this.mamesh.vertices) if (v.links.length!=6) v.markers.push(Vertex.Markers.border)
-                    }
+
+                    // if (this.squareVersusTriangleMaille){
+                    //     for (let v of this.mamesh.vertices) if (v.links.length!=4) v.markers.push(Vertex.Markers.border)
+                    // }
+                    // else{
+                    //     for (let v of this.mamesh.vertices) if (v.links.length!=6) v.markers.push(Vertex.Markers.border)
+                    // }
                 }
 
 
@@ -626,25 +631,6 @@ module mathis{
                 for (let vertex of this.mamesh.vertices){
                     makeSquareFromDeltaParam(vertex,this.mamesh,dir1,dir2,this.OUT_paramToVertex)
                 }
-                
-                // for (let i = 0; i<this.nbI-1; i++){
-                //     for (let j=0; j<this.nbJ-1; j++){
-                //
-                //         let v1=this.getVertex(i,j)
-                //         if (v1==null)  continue;
-                //
-                //         let v2=this.getVertex(i+1,j)
-                //         if (v2==null) continue;
-                //
-                //         let v3=this.getVertex(i+1,j+1)
-                //         if (v3==null) continue;
-                //
-                //         let v4=this.getVertex(i,j+1)
-                //         if (v4==null)  continue;
-                //
-                //         this.IN_mamesh.addASquare(v1,v2,v3,v4)
-                //     }
-                // }
 
                 
             }
@@ -681,43 +667,75 @@ module mathis{
 
             private triangleCreation(){
 
-                for (let vertex of this.mamesh.vertices){
 
-                    let i=vertex.param.x
-                    let j=vertex.param.y
+                for (let i=0;i<this.nbU;i++){
+                    for (let j=0;j<this.nbV;j++){
+
+                        if (j%2==0){
+                            let v1=this.getVertex(i,j)
+                            let v2=this.getVertex(i+1,j+1)
+                            let v3=this.getVertex(i,j+1)
+                            let v4=this.getVertex(i+1,j)
+
+                            this.mamesh.addATriangle(v1,v2,v3)
+                            this.mamesh.addATriangle(v1,v4,v2)
+                        }
+                        else{
+                            let v1=this.getVertex(i,j)
+                            let v2=this.getVertex(i,j+1)
+                            let v3=this.getVertex(i+1,j)
+                            let v4=this.getVertex(i+1,j+1)
+
+                            this.mamesh.addATriangle(v1,v3,v2)
+                            this.mamesh.addATriangle(v2,v3,v4)
+                        }
 
 
-                    if (j%2==0){
-                        let v1=vertex
 
-                        let v2=this.getVertex(i+1,j+1)
-                        if (v2==null)  continue
-
-
-                        let v3=this.getVertex(i,j+1)
-                        if (v3!=null)this.mamesh.addATriangle(v1,v2,v3)
-
-
-                        let v4=this.getVertex(i+1,j)
-                        if (v4!=null)this.mamesh.addATriangle(v1,v4,v2)
                     }
-                    else{
-                        let v1=vertex
-
-                        let v2=this.getVertex(i,j+1)
-                        if (v2==null)  continue
-
-
-                        let v3=this.getVertex(i+1,j)
-                        if (v3!=null)this.mamesh.addATriangle(v1,v3,v2)
-
-
-                        let v4=this.getVertex(i+1,j+1)
-                        if (v4!=null)this.mamesh.addATriangle(v2,v3,v4)
-                    }
-
-                    
                 }
+
+
+
+                // for (let vertex of this.mamesh.vertices){
+                //
+                //     let i=vertex.param.x
+                //     let j=vertex.param.y
+                //
+                //
+                //     if (j%2==0){
+                //         let v1=vertex
+                //
+                //
+                //         let v2=this.getVertex(i+1,j+1)
+                //         if (v2==null)  continue
+                //
+                //
+                //         let v3=this.getVertex(i,j+1)
+                //         if (v3!=null)this.mamesh.addATriangle(v1,v2,v3)
+                //
+                //
+                //         let v4=this.getVertex(i+1,j)
+                //         if (v4!=null)this.mamesh.addATriangle(v1,v4,v2)
+                //     }
+                //     else{
+                //         let v1=vertex
+                //
+                //         let v2=this.getVertex(i,j+1)
+                //         if (v2==null)  continue
+                //
+                //         let v3=this.getVertex(i+1,j)
+                //         if(v3==null) continue
+                //
+                //
+                //         this.mamesh.addATriangle(v1,v3,v2)
+                //
+                //         let v4=this.getVertex(i+1,j+1)
+                //         if (v4!=null)this.mamesh.addATriangle(v2,v3,v4)
+                //     }
+                //
+                //
+                // }
 
 
             }

@@ -100,7 +100,7 @@ module mathis {
                     vertex.position.y=v
                 }
                 let merger=new grateAndGlue.Merger(mameshCylinder)
-                    merger.goChanging()
+                merger.goChanging()
 
                 /**we want also to stick lines. We have to associate opposite lines
                  * to get loop lines. With nbU=5, the association is not made (to wide angles).*/
@@ -808,8 +808,6 @@ module mathis {
                 //$$$ec
 
 
-
-
                 //$$$bh visualization
 
                 let linkViewer0 = new visu3d.LinksViewer(mamesh0, this.mathisFrame.scene)
@@ -825,10 +823,10 @@ module mathis {
         class StickCylinderAndPlane implements PieceOfCode {
 
             NAME = "StickCylinderAndPlane"
-            TITLE = `Exercice: stick a cylinder and a plane.`
+            TITLE = `Exercice: stick a cylinder and a plane as a smooth surface.`
 
 
-            proximityCoef = 2
+            proximityCoef = 1
             $$$proximityCoef = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3]
 
 
@@ -837,182 +835,43 @@ module mathis {
             $$$sourceChoice=['source is plane','source is cylinder']
 
 
+            nbMaille=20
+            $$$nbMaille=[5,10,20,40]
 
 
-            constructor(private mathisFrame: MathisFrame) {
-                this.mathisFrame = mathisFrame
-            }
+            toleranceToBeOneOfTheClosest=1
+            $$$toleranceToBeOneOfTheClosest=[0.5,1,1.5]
 
-            goForTheFirstTime() {
 
-                this.mathisFrame.clearScene()
-                this.mathisFrame.addDefaultCamera()
-                this.mathisFrame.addDefaultLight()
-                this.go()
-            }
+            showNormals=false
+            $$$showNormals=[true,false]
 
-            go() {
 
 
-                this.mathisFrame.clearScene(false, false)
+            nbSmoothingIterations=4
+            $$$nbSmoothingIterations=[0,1,2,3,4,10,20]
 
 
-                //$$$bh cylinder and plane creation
+            showVerticesProposedForSticking=false
+            $$$showVerticesProposedForSticking=[true,false]
 
-                let creator = new reseau.Regular2dPlus()
-                creator.origin = new XYZ(0, 0, 0)
-                creator.end = new XYZ(2 * Math.PI, 0.7, 0)
-                creator.nbU = 40
-                creator.nbV = 40
-                let mameshCylinder = creator.go()
+            showAddedVertices=false
+            $$$showAddedVertices=[true,false]
 
-                let radius=0.2
-                for (let vertex of mameshCylinder.vertices){
-                    let u=vertex.position.x
-                    let v=vertex.position.y
-                    vertex.position.x=radius*cos (u)
-                    vertex.position.z=radius*sin (u)
-                    vertex.position.y=v+0.01
-                }
-                new grateAndGlue.Merger(mameshCylinder).goChanging()
 
-
-
-                let creator1=new reseau.Regular2dPlus()
-                creator1.origin = new XYZ(-1,-1,0)
-                creator1.end=new XYZ(1,1,0)
-                creator1.nbU=60
-                creator1.nbV=60
-
-                /**we do not put vertex on the cylinder basis. Another solution would be to use the grating
-                 * process, but it requires more computations. */
-
-                creator1.putAVertexOnlyAtXYZCheckingThisCondition=(position)=>{return (position.length()>radius)}
-                let mameshPlane = creator1.go()
-
-                let positioning=new Positioning()
-                positioning.upVector=new XYZ(0,0,-1)
-                positioning.applyToVertices(mameshPlane.vertices)
-
-                //$$$eh
-
-
-                //$$$b
-                /** We preselect vertices to stick, to avoid a big double loop ; alternatively, you can use the
-                 * fast processes (see above) to find the sticking-map, but it is less flexible.*/
-                let bottomBorderOfCylinder=[]
-                let centerOfPlane=[]
-                for (let vertex of mameshCylinder.vertices){
-                    if (vertex.param.y==0) bottomBorderOfCylinder.push(vertex)
-                }
-                for (let vertex of mameshPlane.vertices){
-                    if ( vertex.position.length()<radius*1.3) centerOfPlane.push(vertex)
-                }
-
-                //$$$e
-
-
-                //$$$b
-                /** the choice of source and receiver is strategic */
-                let sourceMamesh:Mamesh
-                let receiverMamesh:Mamesh
-                let sourceVertex:Vertex[]
-                let receiverVertex:Vertex[]
-
-                //$$$e
-
-
-                //$$$bc
-
-                switch (this.sourceChoice){
-
-                    case 'source is plane' : {
-                        sourceMamesh=mameshPlane
-                        receiverMamesh=mameshCylinder
-                        //n
-                        sourceVertex=centerOfPlane
-                        receiverVertex=bottomBorderOfCylinder
-                    }
-                        break
-
-                    case 'source is cylinder':{
-                        sourceMamesh=mameshCylinder
-                        receiverMamesh= mameshPlane
-                        //n
-                        sourceVertex=bottomBorderOfCylinder
-                        receiverVertex= centerOfPlane
-                    }
-                        break
-
-                }
-
-                //$$$ec
-
-                //$$$b
-                let mapFinder = new grateAndGlue.FindSickingMapFromVertices(receiverVertex,sourceVertex)
-                mapFinder.proximityCoef = this.proximityCoef
-                let map = mapFinder.go()
-
-
-                        let merger = new grateAndGlue.Merger(receiverMamesh, sourceMamesh, map)
-                        merger.goChanging()
-
-
-                //$$$e
-
-
-
-                //$$$b
-                //n
-                //$$$e
-
-
-
-
-
-
-                //$$$bh visualization
-
-                let linkViewer0 = new visu3d.LinksViewer(receiverMamesh, this.mathisFrame.scene)
-                linkViewer0.go()
-
-                new visu3d.SurfaceViewer(receiverMamesh, this.mathisFrame.scene).go()
-
-                //$$$eh
-            }
-        }
-
-
-
-
-        class StickCylinderAndPlaneTODO implements PieceOfCode {
-
-            NAME = "StickCylinderAndPlane"
-            TITLE = `Exercice: stick a cylinder and a plane.`
-
-
-            toleranceToBeOneOfTheClosest = 0.05
-            $$$toleranceToBeOneOfTheClosest = [0, 0.05, 0.1, 0.2, 0.5, 1, 1.5, 2]
-
-
-
-            proximityCoef = 2
-            $$$proximityCoef = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3]
-
-
-
-            sourceChoice='source is plane'
-            $$$sourceChoice=['source is plane','source is cylinder']
-
-
-            mergerOrStick='merge'
-            $$$mergerOrStick=['merge','stick']
-
-
-            addMissingPolygons=false
+            addMissingPolygons=true
             $$$addMissingPolygons=[true,false]
 
 
+
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{before:"reseau.Maille.",visualValues:allStringValueOfEnume(reseau.Maille)})
+
+
+            showImmobileVertices=false
+            $$$showImmobileVertices=[true,false]
+
+
             constructor(private mathisFrame: MathisFrame) {
                 this.mathisFrame = mathisFrame
             }
@@ -1027,43 +886,42 @@ module mathis {
 
             go() {
 
+                logger.showTrace=true
+
 
                 this.mathisFrame.clearScene(false, false)
 
 
+                //$$$b
+                let nbMaille=this.nbMaille
+                let maille=this.maille
+                //$$$e
+
                 //$$$bh cylinder and plane creation
-
-                let creator = new reseau.Regular2dPlus()
-                creator.origin = new XYZ(0, 0, 0)
-                creator.end = new XYZ(2 * Math.PI, 0.7, 0)
-                creator.nbU = 40
-                creator.nbV = 40
-                let mameshCylinder = creator.go()
-
-                let radius=0.2
-                for (let vertex of mameshCylinder.vertices){
-                    let u=vertex.position.x
-                    let v=vertex.position.y
-                    vertex.position.x=radius*cos (u)
-                    vertex.position.z=radius*sin (u)
-                    vertex.position.y=v+0.01
-                }
-                new grateAndGlue.Merger(mameshCylinder).goChanging()
+                let cylinderCreator=new creation3D.VerticalCylinder()
+                cylinderCreator.nbU=nbMaille
+                cylinderCreator.nbV=nbMaille
+                cylinderCreator.radius=0.2
+                cylinderCreator.maille=maille
+                /**we de not need to associate links now (it is better to do this at the end if necessary)*/
+                cylinderCreator.associateOppositeLinks_FromAnglesVersusPolygonsVersusNone=2
+                let mameshCylinder = cylinderCreator.go()
 
 
+                let planeCreator=new reseau.Regular2dPlus()
+                planeCreator.origin = new XYZ(-1,-1,0)
+                planeCreator.end=new XYZ(1,1,0)
+                planeCreator.nbU=nbMaille*2
+                planeCreator.nbV=nbMaille*2
+                planeCreator.maille=maille
 
-                let creator1=new reseau.Regular2dPlus()
-                creator1.origin = new XYZ(-1,-1,0)
-                creator1.end=new XYZ(1,1,0)
-                creator1.nbU=60
-                creator1.nbV=60
 
                 /**we do not put vertex on the cylinder basis. Another solution would be to use the grating
                  * process, but it requires more computations. */
+                planeCreator.putAVertexOnlyAtXYZCheckingThisCondition=(position)=>{return (position.length()>cylinderCreator.radius)}
+                let mameshPlane = planeCreator.go()
 
-                creator1.putAVertexOnlyAtXYZCheckingThisCondition=(position)=>{return (position.length()>radius)}
-                let mameshPlane = creator1.go()
-
+                /**to make the plane horizontal*/
                 let positioning=new Positioning()
                 positioning.upVector=new XYZ(0,0,-1)
                 positioning.applyToVertices(mameshPlane.vertices)
@@ -1074,20 +932,17 @@ module mathis {
                 //$$$b
                 /** We preselect vertices to stick, to avoid a big double loop ; alternatively, you can use the
                  * fast processes (see above) to find the sticking-map, but it is less flexible.*/
-                let bottomBorderOfCylinder=[]
                 let centerOfPlane=[]
-                for (let vertex of mameshCylinder.vertices){
-                    if (vertex.param.y==0) bottomBorderOfCylinder.push(vertex)
-                }
                 for (let vertex of mameshPlane.vertices){
-                    if ( vertex.position.length()<radius*1.3) centerOfPlane.push(vertex)
+                    if ( vertex.position.length()<cylinderCreator.radius*1.3) centerOfPlane.push(vertex)
                 }
+
 
                 //$$$e
 
 
                 //$$$b
-                /** the choice of source and receiver is strategic */
+                /** the choice of source and receiver is not so important for stickings (while it change a lot  mergings) */
                 let sourceMamesh:Mamesh
                 let receiverMamesh:Mamesh
                 let sourceVertex:Vertex[]
@@ -1105,18 +960,18 @@ module mathis {
                         receiverMamesh=mameshCylinder
                         //n
                         sourceVertex=centerOfPlane
-                        receiverVertex=bottomBorderOfCylinder
+                        receiverVertex=cylinderCreator.OUT_borderBottom
                     }
-                    break
+                        break
 
                     case 'source is cylinder':{
                         sourceMamesh=mameshCylinder
                         receiverMamesh= mameshPlane
                         //n
-                        sourceVertex=bottomBorderOfCylinder
+                        sourceVertex=cylinderCreator.OUT_borderBottom
                         receiverVertex= centerOfPlane
                     }
-                    break
+                        break
 
                 }
 
@@ -1125,45 +980,43 @@ module mathis {
                 //$$$b
                 let mapFinder = new grateAndGlue.FindSickingMapFromVertices(receiverVertex,sourceVertex)
                 mapFinder.proximityCoef = this.proximityCoef
-                mapFinder.toleranceToBeOneOfTheClosest = this.toleranceToBeOneOfTheClosest
+                mapFinder.toleranceToBeOneOfTheClosest=this.toleranceToBeOneOfTheClosest
                 let map = mapFinder.go()
 
-
-                switch (this.mergerOrStick) {
-                    case 'merge': {
-                        let merger = new grateAndGlue.Merger(receiverMamesh, sourceMamesh, map)
-                        merger.goChanging()
-                    }
-                        break
-
-                    case 'stick': {
-                        let sticker = new grateAndGlue.Sticker(receiverMamesh, sourceMamesh, map)
-                        sticker.goChanging()
-
-                    }
-                        break
-                }
-
-
-                if (this.addMissingPolygons){
-                    let polyFind=new polygonFinder.PolygonFinderFromLinks(receiverMamesh)
-                    polyFind.go()
-
-                }
-
-
-
-
                 //$$$e
-
 
 
                 //$$$b
-                //n
+                let sticker = new grateAndGlue.Sticker(receiverMamesh, sourceMamesh, map)
+                sticker.goChanging()
+
+                let immobileVertices=[]
+                for (let v of mameshPlane.vertices) if (v.hasMark(Vertex.Markers.border)) immobileVertices.push(v)
+                immobileVertices=immobileVertices.concat(cylinderCreator.OUT_borderTop)
+
+
+                /**smoothing is important: polygon detection do not works with non smooth surface (because we have to compute normals)*/
+                let mameshSmoother=new MameshSmoother(receiverMamesh,immobileVertices)
+                mameshSmoother.nbIteration=this.nbSmoothingIterations
+                mameshSmoother.goChanging()
+
+
+                let addMissingPolygons=this.addMissingPolygons
+                if (addMissingPolygons) {
+                    var polyFinder = new polygonFinder.PolygonFinderFromLinks(receiverMamesh)
+                    polyFinder.nbBiggerFacesDeleted = 2
+                    polyFinder.go()
+                }
+
+
+                let showNormals=this.showNormals
+                let showVerticesProposedForSticking=this.showVerticesProposedForSticking
+                let showAddedBarycenters=this.showAddedVertices
+                let showImmobileVertices=this.showImmobileVertices
+
+
+
                 //$$$e
-
-
-
 
 
 
@@ -1174,11 +1027,301 @@ module mathis {
 
                 new visu3d.SurfaceViewer(receiverMamesh, this.mathisFrame.scene).go()
 
+
+
+                if (showVerticesProposedForSticking) {
+
+                    let centerPlaneVertexVisu = new visu3d.VerticesViewer(centerOfPlane, this.mathisFrame.scene)
+                    centerPlaneVertexVisu.color = new Color(Color.names.blue)
+                    centerPlaneVertexVisu.go()
+
+                    let bottomCylinderVertexVisu = new visu3d.VerticesViewer(cylinderCreator.OUT_borderBottom, this.mathisFrame.scene)
+                    bottomCylinderVertexVisu.color = new Color(Color.names.green)
+                    bottomCylinderVertexVisu.go()
+                }
+
+
+
+
+                if (addMissingPolygons) {
+
+                    let vertexWithNormal = []
+                    let vertexWithNullNormal = []
+                    let positionings = new HashMap<Vertex, Positioning>()
+                    for (let vertex of receiverMamesh.vertices) {
+                        let normal = polyFinder.OUT_vertexToNormal.getValue(vertex)
+                        if (normal == null) {
+                            vertexWithNullNormal.push(vertex)
+                        }
+                        else {
+                            vertexWithNormal.push(vertex)
+                            let positioning = new Positioning()
+                            positioning.upVector = normal
+                            positioning.scaling.scale(0.05)
+                            let oneOrthogonal = new XYZ(0, 0, 0)
+                            geo.getOneOrthonormal(positioning.upVector, oneOrthogonal)
+                            positionings.putValue(vertex, positioning)
+                        }
+                    }
+
+                    if (showNormals) {
+                        let verticesViewer = new visu3d.VerticesViewer(vertexWithNormal, this.mathisFrame.scene, positionings)
+                        verticesViewer.meshModel = new creation3D.ArrowCreator(this.mathisFrame.scene).go()
+                        verticesViewer.go()
+                    }
+
+                    if (showAddedBarycenters) {
+
+                        let blackViewer = new visu3d.VerticesViewer(vertexWithNullNormal, this.mathisFrame.scene)
+                        blackViewer.color = new Color(Color.names.black)
+                        blackViewer.radiusAbsolute = 0.01
+                        blackViewer.go()
+                    }
+                }
+
+                if (showImmobileVertices){
+                    let blackViewer = new visu3d.VerticesViewer(immobileVertices, this.mathisFrame.scene)
+                    blackViewer.color = new Color(Color.names.red)
+                    blackViewer.radiusAbsolute = 0.01
+                    blackViewer.go()
+                }
+
+
+
+
                 //$$$eh
             }
         }
 
 
+
+        //
+        // class StickCylinderAndPlaneTODO implements PieceOfCode {
+        //
+        //     NAME = "StickCylinderAndPlane"
+        //     TITLE = `Exercice: stick a cylinder and a plane.`
+        //
+        //
+        //     toleranceToBeOneOfTheClosest = 0.05
+        //     $$$toleranceToBeOneOfTheClosest = [0, 0.05, 0.1, 0.2, 0.5, 1, 1.5, 2]
+        //
+        //
+        //
+        //     proximityCoef = 2
+        //     $$$proximityCoef = [0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3]
+        //
+        //
+        //
+        //     sourceChoice='source is plane'
+        //     $$$sourceChoice=['source is plane','source is cylinder']
+        //
+        //
+        //     mergerOrStick='merge'
+        //     $$$mergerOrStick=['merge','stick']
+        //
+        //
+        //     addMissingPolygons=false
+        //     $$$addMissingPolygons=[true,false]
+        //
+        //
+        //     constructor(private mathisFrame: MathisFrame) {
+        //         this.mathisFrame = mathisFrame
+        //     }
+        //
+        //     goForTheFirstTime() {
+        //
+        //         this.mathisFrame.clearScene()
+        //         this.mathisFrame.addDefaultCamera()
+        //         this.mathisFrame.addDefaultLight()
+        //         this.go()
+        //     }
+        //
+        //     go() {
+        //
+        //
+        //         this.mathisFrame.clearScene(false, false)
+        //
+        //
+        //         //$$$bh cylinder and plane creation
+        //
+        //         let creator = new reseau.Regular2dPlus()
+        //         creator.origin = new XYZ(0, 0, 0)
+        //         creator.end = new XYZ(2 * Math.PI, 0.7, 0)
+        //         creator.nbU = 40
+        //         creator.nbV = 40
+        //         let mameshCylinder = creator.go()
+        //
+        //         let radius=0.2
+        //         for (let vertex of mameshCylinder.vertices){
+        //             let u=vertex.position.x
+        //             let v=vertex.position.y
+        //             vertex.position.x=radius*cos (u)
+        //             vertex.position.z=radius*sin (u)
+        //             vertex.position.y=v+0.01
+        //         }
+        //         new grateAndGlue.Merger(mameshCylinder).goChanging()
+        //
+        //
+        //
+        //         let creator1=new reseau.Regular2dPlus()
+        //         creator1.origin = new XYZ(-1,-1,0)
+        //         creator1.end=new XYZ(1,1,0)
+        //         creator1.nbU=60
+        //         creator1.nbV=60
+        //
+        //         /**we do not put vertex on the cylinder basis. Another solution would be to use the grating
+        //          * process, but it requires more computations. */
+        //
+        //         creator1.putAVertexOnlyAtXYZCheckingThisCondition=(position)=>{return (position.length()>radius)}
+        //         let mameshPlane = creator1.go()
+        //
+        //         let positioning=new Positioning()
+        //         positioning.upVector=new XYZ(0,0,-1)
+        //         positioning.applyToVertices(mameshPlane.vertices)
+        //
+        //         //$$$eh
+        //
+        //
+        //         //$$$b
+        //         /** We preselect vertices to stick, to avoid a big double loop ; alternatively, you can use the
+        //          * fast processes (see above) to find the sticking-map, but it is less flexible.*/
+        //         let bottomBorderOfCylinder=[]
+        //         let centerOfPlane=[]
+        //         for (let vertex of mameshCylinder.vertices){
+        //             if (vertex.param.y==0) bottomBorderOfCylinder.push(vertex)
+        //         }
+        //         for (let vertex of mameshPlane.vertices){
+        //             if ( vertex.position.length()<radius*1.3) centerOfPlane.push(vertex)
+        //         }
+        //
+        //         //$$$e
+        //
+        //
+        //         //$$$b
+        //         /** the choice of source and receiver is strategic */
+        //         let sourceMamesh:Mamesh
+        //         let receiverMamesh:Mamesh
+        //         let sourceVertex:Vertex[]
+        //         let receiverVertex:Vertex[]
+        //
+        //         //$$$e
+        //
+        //
+        //         //$$$bc
+        //
+        //         switch (this.sourceChoice){
+        //
+        //             case 'source is plane' : {
+        //                 sourceMamesh=mameshPlane
+        //                 receiverMamesh=mameshCylinder
+        //                 //n
+        //                 sourceVertex=centerOfPlane
+        //                 receiverVertex=bottomBorderOfCylinder
+        //             }
+        //                 break
+        //
+        //             case 'source is cylinder':{
+        //                 sourceMamesh=mameshCylinder
+        //                 receiverMamesh= mameshPlane
+        //                 //n
+        //                 sourceVertex=bottomBorderOfCylinder
+        //                 receiverVertex= centerOfPlane
+        //             }
+        //                 break
+        //
+        //         }
+        //
+        //         //$$$ec
+        //
+        //         //$$$b
+        //         let mapFinder = new grateAndGlue.FindSickingMapFromVertices(receiverVertex,sourceVertex)
+        //         mapFinder.proximityCoef = this.proximityCoef
+        //         mapFinder.toleranceToBeOneOfTheClosest = this.toleranceToBeOneOfTheClosest
+        //         let map = mapFinder.go()
+        //
+        //
+        //         // switch (this.mergerOrStick) {
+        //         //     case 'merge': {
+        //         //         let merger = new grateAndGlue.Merger(receiverMamesh, sourceMamesh, map)
+        //         //         merger.goChanging()
+        //         //     }
+        //         //         break
+        //         //
+        //         //     case 'stick': {
+        //         //         let sticker = new grateAndGlue.Sticker(receiverMamesh, sourceMamesh, map)
+        //         //         sticker.goChanging()
+        //         //
+        //         //     }
+        //         //         break
+        //         // }
+        //
+        //         let sticker = new grateAndGlue.Sticker(receiverMamesh, sourceMamesh, map)
+        //         sticker.goChanging()
+        //
+        //
+        //         let normalComputer=new polygonFinder.NormalComputerFromLinks(receiverMamesh)
+        //         let normals=normalComputer.go()
+        //
+        //
+        //         let polyFind:polygonFinder.PolygonFinderFromLinks
+        //         // if (this.addMissingPolygons){
+        //         //     polyFind=new polygonFinder.PolygonFinderFromLinks(receiverMamesh)
+        //         //     polyFind.go()
+        //         // }
+        //
+        //
+        //
+        //
+        //         //$$$e
+        //
+        //
+        //
+        //         //$$$b
+        //         //n
+        //         //$$$e
+        //
+        //
+        //
+        //         //$$$bh visualization
+        //
+        //         let linkViewer0 = new visu3d.LinksViewer(receiverMamesh, this.mathisFrame.scene)
+        //         linkViewer0.go()
+        //
+        //         new visu3d.SurfaceViewer(receiverMamesh, this.mathisFrame.scene).go()
+        //
+        //
+        //         let centerPlaneVertexVisu=new visu3d.VerticesViewer(centerOfPlane,this.mathisFrame.scene)
+        //         centerPlaneVertexVisu.color=new Color(Color.names.blue)
+        //         centerPlaneVertexVisu.go()
+        //
+        //         let bottomCylinderVertexVisu=new visu3d.VerticesViewer(bottomBorderOfCylinder,this.mathisFrame.scene)
+        //         bottomCylinderVertexVisu.color=new Color(Color.names.red)
+        //         bottomCylinderVertexVisu.go()
+        //
+        //
+        //
+        //             let positionings = new HashMap<Vertex, Positioning>()
+        //             for (let vertex of receiverMamesh.vertices) {
+        //                 let positioning = new Positioning()
+        //                 positioning.upVector = normals.getValue(vertex)
+        //                 positioning.scaling = new XYZ(0.1, 0.1, 0.1)
+        //                 let oneOrthogonal = new XYZ(0, 0, 0)
+        //                 geo.getOneOrthonormal(positioning.upVector, oneOrthogonal)
+        //                 positionings.putValue(vertex, positioning)
+        //             }
+        //
+        //             let verticesViewer = new visu3d.VerticesViewer(receiverMamesh, this.mathisFrame.scene, positionings)
+        //             verticesViewer.meshModel = new creation3D.ArrowCreator(this.mathisFrame.scene).go()
+        //             verticesViewer.go()
+        //
+        //
+        //
+        //
+        //         //$$$eh
+        //     }
+        // }
+        //
+        //
 
 
 

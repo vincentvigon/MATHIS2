@@ -5,9 +5,47 @@
 
 module mathis {
 
+
+    export class MameshSmoother{
+
+        nbIteration=10
+
+        constructor(public mamesh:Mamesh,public doNotMoveMe:Vertex[]=[]){}
+
+
+        goChanging(){
+
+
+            let doNotMoveMeDico=new HashMap<Vertex,boolean>()
+            for (let v of this.doNotMoveMe) doNotMoveMeDico.putValue(v,true)
+
+            //let currentPosition=new HashMap<Vertex,XYZ>()
+
+            //for (let v of this.mamesh.vertices) currentPosition.putValue()
+
+
+            for (let i=0;i<this.nbIteration;i++){
+                for (let v of this.mamesh.vertices){
+                    if (doNotMoveMeDico.getValue(v)==null) {
+                        let voiPos: XYZ[] = []
+                        for (let l of v.links) voiPos.push(l.to.position)
+                        geo.baryCenter(voiPos, null, v.position)
+                    }
+                }
+            }
+
+
+        }
+
+
+    }
+
+
+
     export module polygonFinder {
 
 
+        import getEdge = mathis.graph.getEdge;
         export class PolygonTurner{
 
             constructor(
@@ -72,66 +110,108 @@ module mathis {
             //takeTheTwoFirstLinks_Versus_takeTheTwoMoreOrthogonal=true
 
             normalizeNormals=true
-            smoothing=true
+
+            //fastComputationVersusSlow=true
+
+            /**0 => no smoothing*/
+            neighborhoodSize_forSmoothing=0
+
+            OUT_vertexWithoutNaturalNormal:Vertex[]=[]
 
 
             constructor(private mamesh:Mamesh){}
 
-            private nbNormalComputed=0
+            //private nbNormalComputed=0
 
             go(): HashMap<Vertex, XYZ>{
 
+                if (this.mamesh==null) throw "the mamesh is null"
 
-                let res=new HashMap<Vertex,XYZ>()
-                for (let v of this.mamesh.vertices){
-                    let normal=this.oneNormalComputation(v)
-                    if (normal!=null) res.putValue(v,normal)
+                let isolatedVertices=new HashMap<Vertex,boolean>(true)
+                for (let v of this.mamesh.vertices) if (v.links.length==0) isolatedVertices.putValue(v,true)
+                if (isolatedVertices.allKeys().length>0){
+                    logger.c("there are:"+isolatedVertices.allKeys().length+" isolated vertices. They are removed from your mamesh")
+                    this.mamesh.vertices=tab.arrayMinusElements(this.mamesh.vertices,(v)=>isolatedVertices.getValue(v))
                 }
 
+
+                let preRes=new HashMap<Vertex,XYZ>(true)
+                for (let v of this.mamesh.vertices){
+                    let normal= this.oneNormalComputation(v)
+                    if (normal!=null) preRes.putValue(v,normal)
+                    else this.OUT_vertexWithoutNaturalNormal.push(v)
+                }
+
+                if (this.OUT_vertexWithoutNaturalNormal.length>0) logger.c("there is :"+this.OUT_vertexWithoutNaturalNormal.length+
+                    " vertices without a natural normal. We will associate to them the normal of one of their neighbor")
+
                 let remainingVertices=new HashMap<Vertex,Vertex>()
-                for (let v of this.mamesh.vertices) if(res.getValue(v)!=null) remainingVertices.putValue(v,v)
+                for (let v of this.mamesh.vertices) if(preRes.getValue(v)!=null) remainingVertices.putValue(v,v)
 
                 let count=0
                 let maxCount=1000
-                let startvertex = remainingVertices.oneValue()
+                let startingVertex = remainingVertices.oneValue()
 
-                while (startvertex!=null&&count<maxCount){
-                    this.aligningNormals(res,startvertex,remainingVertices)
-                    startvertex = remainingVertices.oneValue()
+
+                while (startingVertex!=null&&count<maxCount){
+                    this.aligningNormals(preRes,startingVertex,remainingVertices)
+                    startingVertex = remainingVertices.oneValue()
                     count++
                 }
                 if (count==maxCount) throw "more than "+ maxCount  + " connected component in this mamesh. Strange"
 
-                if (this.nbNormalComputed!=this.mamesh.vertices.length) throw "we do not manage to compute all the normals"
+                //cc("this.nbNormalComputed!=this.mamesh.vertices.length",this.nbNormalComputed,this.mamesh.vertices.length)
+                //if (this.nbNormalComputed!=this.mamesh.vertices.length) throw "we do not manage to compute all the normals"
 
 
-                //TODO
-                // if (this.smoothing){
-                //     let newRes=new HashMap<Vertex,XYZ>()
-                //
-                //     for (let v of this.mamesh.vertices){
-                //         if (v.links.length>0) {
-                //             let newNor = new XYZ(0, 0, 0)
-                //             for (let l of v.links) {
-                //                 let voi=res.getValue(l.to)
-                //                 if (voi!=null) newNor.add(voi)
-                //             }
-                //             let len=newNor.length()
-                //             if(len>geo.epsilon) newRes.putValue(v, newNor)
-                //         }
-                //     }
-                //     res=newRes
-                // }
+                let res:HashMap<Vertex,XYZ>
+                if (this.neighborhoodSize_forSmoothing>0){
+                    res=new HashMap<Vertex,XYZ>(true)
+                    for (let vertex of this.mamesh.vertices){
+                        res.putValue(vertex,this.smoothingByNeighbors(vertex,preRes))
+                    }
+                }
+                else res=preRes
+
+                /**un pensement ici*/
+                let strange=[]
+                for (let v of res.allKeys()){
+                    if (res.getValue(v)==null) strange.push(v)
+                }
+                if (strange.length>0){
+                    logger.c("strange: there is:"+strange.length+" vertex with null normal associated")
+                    for (let v of strange) res.removeKey(v)
+                }
 
                 return res
+           }
+
+
+           private smoothingByNeighbors(vertex:Vertex, res:HashMap<Vertex,XYZ>):XYZ{
+
+               let alreadySeen = new mathis.HashMap<Vertex,boolean>();
+               let curentEdge = [vertex];
+               let voi:Vertex[]=[]
+               for (let i=0; i<this.neighborhoodSize_forSmoothing; i++){
+                   curentEdge = mathis.graph.getEdge(curentEdge, alreadySeen);
+                   voi=voi.concat(curentEdge);
+               }
+               let voiNormal:XYZ[]=[]
+               for (let vertex of voi){
+                   voiNormal.push(res.getValue(vertex))
+               }
+
+
+               let newNormal=new XYZ(0,0,0)
+               geo.baryCenter(voiNormal,null,newNormal)
+
+               return newNormal
            }
 
 
             private temp0=new XYZ(0,0,0)
             private temp1=new XYZ(0,0,0)
             private oneNormalComputation(v:Vertex):XYZ {
-
-
 
                 if (v.links.length < 2) {
                     logger.c("cannot compute normal for vertex with nbLinks<2")
@@ -142,10 +222,13 @@ module mathis {
                 let bestLen=0
 
                 let nb=v.links.length
+                /**double boucle sur les liens pour trouver les deux liens les plus orthogonaux*/
                     for (let l0 =0;l0<nb;l0++){
                             for (let k1=(l0+1);k1<nb;k1++){
                                 let edge0 = this.temp0.copyFrom(v.links[l0].to.position).substract(v.position)
                                 let edge1 = this.temp1.copyFrom(v.links[k1].to.position).substract(v.position)
+                                /**on peut aussi ne pas normaliser les edges. Dans ce cas les plus longs seront d'avantage choisi.
+                                 * Mais on a décider de ne prendre que les angles en considération*/
                                 geo.cross(edge0.normalize(), edge1.normalize(), normal)
                                 let len = normal.length()
                                 if (len>bestLen) {
@@ -169,68 +252,95 @@ module mathis {
             }
 
 
-
-
-            // /** ************************** **/
-            // /** METHOD: normalsComputation **/
-            // /** Compute normals and stock them in a hashMap **/
-            // /** ******************************************* **/
-            private normalsComputation(): HashMap<Vertex, XYZ> {
-
-                /** HashMap creation **/
-                let vertexToNormal = new HashMap<Vertex, XYZ>();
-                //let vertexToNumStrat = new HashMap<Vertex, number>();
-
-                /** Dot product computation **/
-                for (let v of this.mamesh.vertices) {
-                    let minscal = 0;
-                    let instantDot;
-                    let vectorTable = [];
-
-                    if (v.links.length > 1) {
-                        for (let l of v.links) {
-
-                            /** vector array creation **/
-                            let vect = new BABYLON.Vector3(0, 0, 0);
-                            vect.x = l.to.position.x - v.position.x;
-                            vect.y = l.to.position.y - v.position.y;
-                            vect.z = l.to.position.z - v.position.z;
-                            vect.normalize();
-                            vectorTable.push(vect);
-                        }
-
-                        /** Smaller dot product computation **/
-                        minscal = BABYLON.Vector3.Dot(vectorTable[0], vectorTable[1]);
-                        if (minscal < 0) minscal *= -1; //absolute value
-                        let vect1 = vectorTable[0];
-                        let vect2 = vectorTable[1];
-
-                        /** for each vector compared to each vector **/
-                        for (let i = 0; i < vectorTable.length; i++) {
-                            for (let j = i + 1; j < vectorTable.length; j++) {
-                                instantDot = BABYLON.Vector3.Dot(vectorTable[i], vectorTable[j]);
-                                if (instantDot < 0) instantDot *= -1; //valeur absolue
-
-                                /** Smaller dot product **/
-                                if (minscal > instantDot) {
-                                    minscal = instantDot;
-
-                                    vect1 = vectorTable[i];
-                                    vect2 = vectorTable[j];
-                                }
-                            }
-                        }
-
-                        /** Normal Computation **/
-                        let normal = BABYLON.Vector3.Cross(vect1, vect2);
-                        normal.normalize();
-                        vertexToNormal.putValue(v, new XYZ(normal.x, normal.y, normal.z));
-                        //vertexToNumStrat.putValue(v, -1)
-                    }
+            /**la méthode rapide est à peine plus rapide. On ne la propose plus*/
+            private oneFastComputation(v:Vertex):XYZ{
+                if (v.links.length < 2) {
+                    logger.c("cannot compute normal for vertex with nbLinks<2")
+                    return null
                 }
-                return vertexToNormal;
+                let normal = new XYZ(0, 0, 0)
+
+                let edge0 = this.temp0.copyFrom(v.links[0].to.position).substract(v.position)
+                let edge1 = this.temp1.copyFrom(v.links[1].to.position).substract(v.position)
+                geo.cross(edge0.normalize(), edge1.normalize(), normal)
+                let len = normal.length()
+
+
+                if (len<0.2 &&v.links.length >=3){
+                    edge1 = this.temp1.copyFrom(v.links[2].to.position).substract(v.position)
+                    geo.cross(edge0.normalize(), edge1.normalize(), normal)
+                    len = normal.length()
+                }
+
+                if (len<geo.epsilon) {
+                    logger.c( "Cannot compute at least one normal  with the fast technik : try the slow method")
+                    return null
+                }
+
+                if(this.normalizeNormals) normal.scale(1/len)
+                return normal
+
             }
 
+
+
+            // private normalsComputation(): HashMap<Vertex, XYZ> {
+            //
+            //     /** HashMap creation **/
+            //     let vertexToNormal = new HashMap<Vertex, XYZ>();
+            //     //let vertexToNumStrat = new HashMap<Vertex, number>();
+            //
+            //     /** Dot product computation **/
+            //     for (let v of this.mamesh.vertices) {
+            //         let minscal = 0;
+            //         let instantDot;
+            //         let vectorTable = [];
+            //
+            //         if (v.links.length > 1) {
+            //             for (let l of v.links) {
+            //
+            //                 /** vector array creation **/
+            //                 let vect = new BABYLON.Vector3(0, 0, 0);
+            //                 vect.x = l.to.position.x - v.position.x;
+            //                 vect.y = l.to.position.y - v.position.y;
+            //                 vect.z = l.to.position.z - v.position.z;
+            //                 vect.normalize();
+            //                 vectorTable.push(vect);
+            //             }
+            //
+            //             /** Smaller dot product computation **/
+            //             minscal = BABYLON.Vector3.Dot(vectorTable[0], vectorTable[1]);
+            //             if (minscal < 0) minscal *= -1; //absolute value
+            //             let vect1 = vectorTable[0];
+            //             let vect2 = vectorTable[1];
+            //
+            //             /** for each vector compared to each vector **/
+            //             for (let i = 0; i < vectorTable.length; i++) {
+            //                 for (let j = i + 1; j < vectorTable.length; j++) {
+            //                     instantDot = BABYLON.Vector3.Dot(vectorTable[i], vectorTable[j]);
+            //                     if (instantDot < 0) instantDot *= -1; //valeur absolue
+            //
+            //                     /** Smaller dot product **/
+            //                     if (minscal > instantDot) {
+            //                         minscal = instantDot;
+            //
+            //                         vect1 = vectorTable[i];
+            //                         vect2 = vectorTable[j];
+            //                     }
+            //                 }
+            //             }
+            //
+            //             /** Normal Computation **/
+            //             let normal = BABYLON.Vector3.Cross(vect1, vect2);
+            //             normal.normalize();
+            //             vertexToNormal.putValue(v, new XYZ(normal.x, normal.y, normal.z));
+            //             //vertexToNumStrat.putValue(v, -1)
+            //         }
+            //     }
+            //     return vertexToNormal;
+            // }
+
+            OUT_vertexToStrate=new HashMap<Vertex,number>(true)
             /** *********************** **/
             /** METHOD: aligningNormals **/
             /** align normals in the same orientation **/
@@ -238,12 +348,13 @@ module mathis {
             private aligningNormals(vertexToNormal: HashMap<Vertex, XYZ>,startvertex:Vertex,remainingVertices:HashMap<Vertex,Vertex>) {
 
                 remainingVertices.removeKey(startvertex)
-                this.nbNormalComputed++
+                //this.nbNormalComputed++
 
 
                 /** Strata initialization**/
 
-                let strates = [];
+                let strates:Vertex[][] = [];
+
                 let alreadySeen = new mathis.HashMap<Vertex, boolean>();
 
                 let curentEdge = [startvertex];
@@ -257,29 +368,36 @@ module mathis {
                 if (count==maxCount) throw "too many strates"
 
                 /** Strata course**/
+                this.OUT_vertexToStrate.putValue(startvertex,0)
+
                 for (let i = 1; i < strates.length; i++) {
+
                     for (let v of strates[i]) {
+
+                        this.OUT_vertexToStrate.putValue(v,i)
                         remainingVertices.removeKey(v)
-                        this.nbNormalComputed++
+                        //this.nbNormalComputed++
                         /**for all current links **/
                         for (let l of v.links) {
-                            /** for all previous vertices **/
-                            for (let p of strates[i - 1]) {
-                                /** if adjacent **/
-                                if (l.to == p) {
 
-                                    /** if dot product is negative : reverse the normal **/
-                                    let previousNormal=vertexToNormal.getValue(p)
-                                    let currentNormal=vertexToNormal.getValue(v)
-                                    if (currentNormal==null) {
-                                        vertexToNormal.putValue(v,XYZ.newFrom(previousNormal))
-                                    }
-                                    else if (geo.dot(previousNormal,currentNormal ) < 0) {
-                                        currentNormal.scale(-1)
-                                    }
-                                    break
+                            if (this.OUT_vertexToStrate.getValue(l.to)==i-1){
+                                let previousNormal=vertexToNormal.getValue(l.to)
+                                let currentNormal=vertexToNormal.getValue(v)
+
+                                if (currentNormal==null) {
+                                    if (previousNormal==null) throw "previousNormal is null"
+                                    vertexToNormal.putValue(v,XYZ.newFrom(previousNormal))
                                 }
+                                else{
+                                    let dot=geo.dot(previousNormal,currentNormal )
+                                    if (Math.abs(dot)<geo.epsilon) throw "two neighbor vertices have orthogonal vertex. Your mamesh is too irregular"
+                                    if (dot <0) currentNormal.scale(-1)
+                                }
+
+                                break
+
                             }
+
                         }
                     }
                 }
@@ -300,8 +418,8 @@ module mathis {
 
 
             nbBiggerFacesDeleted=1
-            areaVsPerimeter=false
-            fillConvexFaces=true
+            areaVsPerimeter_toDetectBiggerFaces=false
+            useBarycenterToCutPolygons=true
 
 
             constructor(mamesh: Mamesh) {
@@ -620,7 +738,7 @@ module mathis {
                         let distC = geo.distance(p[1].position, p[2].position);
 
                         /** area**/
-                        if (this.areaVsPerimeter) {
+                        if (this.areaVsPerimeter_toDetectBiggerFaces) {
                             /** Heron's formula **/
                             let heronP = (distA + distB + distC) / 2;
                             let surface = Math.sqrt(heronP * (heronP - distA) * (heronP - distB) * (heronP - distC));
@@ -641,7 +759,7 @@ module mathis {
                         let distE = geo.distance(p[0].position, p[2].position);
 
                         /** area **/
-                        if (this.areaVsPerimeter) {
+                        if (this.areaVsPerimeter_toDetectBiggerFaces) {
                             /** Heron's formula **/
                             let heronP1 = (distA + distB + distE) / 2;
                             let surface1 = Math.sqrt(heronP1 * (heronP1 - distA) * (heronP1 - distB) * (heronP1 - distE));
@@ -674,7 +792,7 @@ module mathis {
                         let surface3 = 0;
 
                         /** area**/
-                        if (this.areaVsPerimeter) {
+                        if (this.areaVsPerimeter_toDetectBiggerFaces) {
                             for (let i = 0; i < p.length; i++) {
                                 /** Heron's formula **/
                                 let distA = geo.distance(p[i].position, p[(i + 1) % (p.length)].position);
@@ -847,6 +965,8 @@ module mathis {
 
             go(): void {
 
+                if (this.mamesh==null) throw "the mamesh is null"
+
 
                 this.SUB_NormalComputer=new NormalComputerFromLinks(this.mamesh)
 
@@ -854,6 +974,7 @@ module mathis {
 
 
                 /** Normals Computation **/
+                cc("this.OUT_vertexToNormal",this.OUT_vertexToNormal)
                 this.OUT_vertexToNormal = this.SUB_NormalComputer.go()
 
 
@@ -887,7 +1008,7 @@ module mathis {
                     /** Surface with more than 4 vertices **/
                     else if (p.length >= 5) {
                         /** Filling method choice: only convex faces or consider non-convex **/
-                        if (this.fillConvexFaces) {
+                        if (this.useBarycenterToCutPolygons) {
                             let centerVertex2 = PolygoIndexToVertexCenter[indexSurface];
                             this.fillConvexSurface(p, centerVertex2);
                         }

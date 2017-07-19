@@ -547,7 +547,7 @@ module mathis{
         // }
 
 
-        export class LinkCreaterSorterAndBorderDetecterByPolygons{
+        export class LinkCreatorSorterAndBorderDetectorByPolygons{
 
             mamesh:Mamesh
 
@@ -1019,28 +1019,12 @@ module mathis{
         export class Polygone {
 
 
-            //sides = new Array<Segment>();
             points:Vertex[];
 
             constructor(points:Vertex[]) {
                 this.points = points;
-                //for (let i = 0; i < points.length; i++) {
-                //    let side = new Segment(points[i], points[(i + 1) % points.length]);
-                //    this.sides.push(side);
-                //}
-            }
 
-            //hasSide(ab:Segment):boolean {
-            //    for (let i = 0; i < this.sides.length; i++) {
-            //
-            //        let side:Segment = this.sides[i];
-            //
-            //        if (ab.equals(side)) {
-            //            return true;
-            //        }
-            //    }
-            //    return false;
-            //}
+            }
 
             hasAngle(point:Vertex):boolean {
 
@@ -1049,26 +1033,6 @@ module mathis{
                 }
                 return false
             }
-
-
-
-
-
-            //theTwoSidesContaining(point:Vertex):Array<Segment> {
-            //
-            //    let twoSides = new Array<Segment>();
-            //
-            //    for (let i in this.sides) {
-            //        let side:Segment = this.sides[i];
-            //        if (side.has(point)) twoSides.push(side);
-            //    }
-            //
-            //    if (twoSides.length != 2) throw "Non conform polygone";
-            //
-            //    return twoSides;
-            //
-            //}
-
 
             theOutgoingAnglesAdjacentFrom(point:Vertex):Vertex {
                 let length=this.points.length

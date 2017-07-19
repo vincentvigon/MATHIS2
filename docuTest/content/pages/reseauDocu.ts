@@ -37,12 +37,11 @@ module mathis{
                 return this.severalParts.go()
             }
 
-
         }
 
         class RegularReseau2dPlusDocu implements PieceOfCode{
             NAME="RegularReseau2dPlusDocu"
-            TITLE="We draw a reseau (= net) which is contained in a predefined rectangle (drawn in black) "
+            TITLE="We draw a reseau (= net) which is included in a predefined rectangle (drawn in black) "
 
             nbI = 5
             $$$nbI=new Choices([3,5,7,10,11,20,21,40])
@@ -70,7 +69,7 @@ module mathis{
             $$$bend=["flatFront","flatTurned","curved"]
 
             maille=reseau.Maille.quad
-            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{before:"reseau.Maille.",visualValues:allStringValueOfEnume(reseau.Maille)})
 
             oneMoreVertexForOddLine=false
             $$$oneMoreVertexForOddLine=[true,false]
@@ -102,7 +101,7 @@ module mathis{
                 /**to get moresymetries when the  maille is triangle*/
                 creator.oneMoreVertexForOddLine=this.oneMoreVertexForOddLine
                 //n
-                /**with some decays, the reseau is no more contains in the black rectangle*/
+                /**with some decays, the reseau is no more included in the black rectangle*/
                 creator.nbHorizontalDecays=this.nbHorizontalDecays
                 creator.nbVerticalDecays=this.nbVerticalDecays
 
@@ -111,9 +110,11 @@ module mathis{
                 //n
                 let mamesh = creator.go()
 
+                //$$$end
 
 
                 /** Reseaux are made to be bend */
+                //$$$bc
                 switch (this.bend){
                     case "flatFront":{}
                         break
@@ -141,11 +142,11 @@ module mathis{
                         break
 
                 }
+                //$$$ec
 
 
 
 
-                //$$$end
 
                 //$$$bt
                 this._nbVertices=mamesh.vertices.length
@@ -211,7 +212,159 @@ module mathis{
 
 
             maille=reseau.Maille.quad
-            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{before:"reseau.Maille.",visualValues:allStringValueOfEnume(reseau.Maille)})
+
+
+            holes="no"
+            $$$holes=["no","inside","outside"]
+
+            _nbVertices
+            _nbLines
+
+
+            constructor(private mathisFrame:MathisFrame) {}
+
+            goForTheFirstTime(){
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+                this.go()
+            }
+
+            go() {
+
+                this.mathisFrame.clearScene(false,false)
+
+                //$$$begin
+                let creator = new reseau.Regular2dPlus()
+
+
+                creator.nbU=this.nbI
+                creator.nbV=this.nbJ
+                creator.nbSubInterval_U=this.nbSubinterval_I
+                creator.nbSubInterval_V=this.nbSubinterval_J
+
+                creator.makeLine=this.makeLine
+
+                creator.maille=this.maille
+
+                //$$$end
+
+                //$$$bh some hidden options
+                creator.origin=new XYZ(-0.7,-0.7,0)
+                creator.end=this.end
+                /**if true: nbV is computed to obtain regular triangle/square*/
+                creator.adaptVForRegularReseau=this.setNBJ
+                creator.nbHorizontalDecays=this.nbHorizontalDecays
+                creator.nbVerticalDecays=this.nbVerticalDecays
+                //$$$eh
+
+                //$$$bh make some holes
+
+                switch (this.holes){
+                    case "no":{}
+                    break
+                    case "inside":{
+                        creator.putAVertexOnlyAtXYZCheckingThisCondition=(xyz:XYZ)=>{
+                            return xyz.length()<0.3
+                        }
+                    }
+                    break
+                    case "outside":{
+                        creator.putAVertexOnlyAtXYZCheckingThisCondition=(xyz:XYZ)=>{
+                            return xyz.length()>0.3
+                        }
+                    }
+                        break
+
+
+                }
+
+                //$$$eh
+
+
+                //$$$begin
+                let mamesh = creator.go()
+
+                //$$$end
+
+
+                //$$$bh visualization
+
+
+                var mainVertices=[]
+                var secondaryVertices=[]
+                for (var i=0;i<mamesh.vertices.length;i++){
+                    var vert=mamesh.vertices[i]
+                    if (vert.dichoLevel==0) mainVertices.push(vert)
+                    else secondaryVertices.push(vert)
+                }
+
+
+
+
+                var viewerMainVertices=  new visu3d.VerticesViewer(mainVertices, this.mathisFrame.scene)
+                viewerMainVertices.go()
+                var viewerSecondaryVertices=  new visu3d.VerticesViewer(secondaryVertices, this.mathisFrame.scene)
+                viewerSecondaryVertices.color=new Color(Color.names.blanchedalmond)
+                viewerSecondaryVertices.go()
+
+                if(mamesh.lines!=null) new visu3d.LinesViewer(mamesh, this.mathisFrame.scene).go()
+                else new visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go()
+                new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene).go()
+                //$$$eh
+
+
+
+                //$$$bt
+                this._nbVertices=mamesh.vertices.length
+                this._nbLines=(mamesh.lines==null)? 0 : mamesh.lines.length
+                //$$$et
+
+            }
+
+        }
+
+
+
+
+
+        class Regular2dPlusWithHole implements PieceOfCode{
+            NAME="Regular2dPlusWithHole"
+            TITLE="You can make holes."
+
+            nbI = 3
+            $$$nbI=new Choices([2,3,5,10])
+
+            nbJ = 3
+            $$$nbJ=new Choices([2,3,5,10])
+
+
+            end=new XYZ(0.7,0.7,0)
+            $$$end=new Choices([new XYZ(0.7,0.7,0),new XYZ(0,0,0),new XYZ(0.5,1,0)],{"before":"new mathis.XYZ"})
+
+            setNBJ=false
+            $$$setNBJ=[true,false]
+
+
+            nbSubinterval_I=3
+            $$$nbSubinterval_I=[1,2,3,5,6,8,10]
+
+            nbSubinterval_J=3
+            $$$nbSubinterval_J=[1,2,3,5,6,8,10]
+
+            nbHorizontalDecays=0
+            $$$nbHorizontalDecays=[0,1,2,3,4]
+
+            nbVerticalDecays=0
+            $$$nbVerticalDecays=[0,1,2,3,4]
+
+            makeLine=true
+            $$$makeLine=[true,false]
+
+
+            maille=reseau.Maille.quad
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{before:"reseau.Maille.",visualValues:allStringValueOfEnume(reseau.Maille)})
 
 
             _nbVertices
@@ -318,7 +471,7 @@ module mathis{
 
 
             maille=reseau.Maille.quad
-            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
+            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{before:"reseau.Maille.",visualValues:allStringValueOfEnume(reseau.Maille)})
 
             _nbVertices
             _nbLines
