@@ -98,9 +98,9 @@ module mathis{
             protected severalPages:SeveralPages
 
 
-            constructor(mathisFrame:MathisFrame,testMode:boolean){
+            constructor(mathisFrame:MathisFrame,testMode:boolean,showTestPages:boolean){
                 this.testMode=testMode
-                this.severalPages=new SeveralPages(testMode)
+                this.severalPages=new SeveralPages(testMode,showTestPages)
                 this.mathisFrame=mathisFrame
                 this.enlarger=new Enlarger($('#enlargeLeft'),$('#enlargeRight'),$('#mainLeftCol'),$('#mainRightCol'))
 
@@ -534,8 +534,8 @@ module mathis {
 
         class MainIndexPage extends IndexPage {
 
-            constructor(mathisFrame: MathisFrame, testMode: boolean) {
-                super(mathisFrame, testMode)
+            constructor(mathisFrame: MathisFrame, testMode: boolean,showTestPages:boolean) {
+                super(mathisFrame, testMode,showTestPages)
             }
 
             build() {
@@ -559,11 +559,21 @@ module mathis {
                 this.severalPages.addPage(new SurfaceViewerDocu(this.mathisFrame))
                 this.severalPages.addPage(new GradientColorDocu(this.mathisFrame))
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
+                this.severalPages.addPage(new ConnectedComponent_diameter(this.mathisFrame))
+
+
+                this.severalPages.addPage(new MergingSticking(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
-                this.severalPages.addPage(new GrateMergeStickJustTest(this.mathisFrame),true)
+
+                //TODO
+                this.severalPages.addPage(new GrateMergeStickJustTest(this.mathisFrame))
 
                 this.severalPages.addPage(new DichoDocu(this.mathisFrame))
                 this.severalPages.addPage(new GeoPageTest(this.mathisFrame))
+
+                this.severalPages.addPage(new SpacialTransformation(this.mathisFrame))
+
+
 
 
                 this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")
@@ -583,6 +593,8 @@ module mathis {
                 /**pure test*/
                 this.severalPages.addSeparator("PURE TEST (NO DOCU)", true)
                 this.severalPages.addPage(new Creation2dDocu(this.mathisFrame), true)
+                this.severalPages.addPage(new Creation3dDocu(this.mathisFrame), true)
+
 
             }
         }
@@ -593,7 +605,7 @@ module mathis {
             let mathisFrame = new MathisFrame('placeForMathis')
             /**Attention : la variable globale indexPage est affectée APRES la construction de MainIndexPage.
              * Pour toutes les opérations qui se font pendant la construction, indexPage est null ! */
-            indexPage = new MainIndexPage(mathisFrame, false)
+            indexPage = new MainIndexPage(mathisFrame, false,true)
 
             indexPage.go()
 

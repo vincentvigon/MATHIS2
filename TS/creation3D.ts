@@ -164,32 +164,32 @@ module mathis {
 
 
 
-        
+
         export class Snake{
-            
+
             //headPosition=new XYZ(0,0,0)
             maxLength=500
             mathisFrame:MathisFrame
             curentLength=0
 
             serpentRadius=0.03
-            
+
             serpentMesh:BABYLON.Mesh
             headSerpent:BABYLON.Mesh
             path:XYZ[]=[]
 
             sliceInsteadOfElongateWhenMaxLengthIsReached=true
-            
+
             initialPosition=new XYZ(0,0,0)
-            
-            
+
+
             constructor(mathisFrame:MathisFrame){
                 this.mathisFrame=mathisFrame
             }
-            
-            
+
+
             go():void{
-                
+
                 for (let i=0; i<this.maxLength; i++) this.path.push(this.initialPosition)
                 this.serpentMesh=BABYLON.Mesh.CreateTube('',this.path,this.serpentRadius,10,null,BABYLON.Mesh.CAP_ALL,this.mathisFrame.scene,true)
                 let green=new BABYLON.StandardMaterial('',this.mathisFrame.scene)
@@ -202,15 +202,15 @@ module mathis {
                 this.headSerpent.material=red
                 this.headSerpent.position.copyFrom(this.initialPosition)
             }
-            
+
             contractInOnePoint(point:XYZ){
                 for (let i=0;i<this.maxLength;i++) this.path[i]=point
                 this.curentLength=0
                 this.updateMeshes()
             }
-            
+
             elongateTo(point:XYZ){
-                
+
                 if (this.curentLength<this.maxLength) {
                     for (let i = this.curentLength; i < this.maxLength; i++) this.path[i] = point
                     this.curentLength++
@@ -219,20 +219,20 @@ module mathis {
                 else if (this.sliceInsteadOfElongateWhenMaxLengthIsReached) this.bobySliceTo(point)
                 else throw "snake reaches his maximal length"
             }
-            
-            
+
+
             bobySliceTo(point:XYZ){
                 this.path.splice(0,1)
                 this.path.push(point)
                 this.updateMeshes()
             }
-            
+
             updateMeshes(){
                 /** modification des positions du serpent */
                 this.serpentMesh = BABYLON.Mesh.CreateTube('', this.path, this.serpentRadius, null, null, null, null, true, null, this.serpentMesh)
                 this.headSerpent.position=this.getHeadPosition()
             }
-            
+
             // snakeMoveTo(point:XYZ){
             //     this.curentLength++
             //
@@ -248,7 +248,7 @@ module mathis {
             //     this.headSerpent.position=point
             //    
             // }
-            
+
             getHeadPosition():XYZ{
                 return this.path[this.path.length - 1]
             }
@@ -257,20 +257,20 @@ module mathis {
 
 
         export function drawOneVector(vec:XYZ,scene:BABYLON.Scene,basedAt=new XYZ(0,0,0),color:Color=null){
-        let arrowCreator=new creation3D.ArrowCreator(scene)
-        arrowCreator.arrowFootAtOrigin=false
-        let material=new BABYLON.StandardMaterial("",scene)
-        if (color==null) color=new Color(Color.names.blue)
+            let arrowCreator=new creation3D.ArrowCreator(scene)
+            arrowCreator.arrowFootAtOrigin=false
+            let material=new BABYLON.StandardMaterial("",scene)
+            if (color==null) color=new Color(Color.names.blue)
 
             material.diffuseColor=color.toBABYLON_Color3()
-        let babylonMesh=arrowCreator.go()
-        babylonMesh.material=material
-        let arr=XYZ.newFrom(vec).add(basedAt)
-        let elongator=new visu3d.ElongateAMeshFromBeginToEnd(basedAt,arr,babylonMesh)
-        elongator.goChanging()
-    }
-        
-        
+            let babylonMesh=arrowCreator.go()
+            babylonMesh.material=material
+            let arr=XYZ.newFrom(vec).add(basedAt)
+            let elongator=new visu3d.ElongateAMeshFromBeginToEnd(basedAt,arr,babylonMesh)
+            elongator.goChanging()
+        }
+
+
         export class ArrowCreator{
 
             /**as all model, length are 1, and then can be scale to e.g. maug when we use this model*/
@@ -283,7 +283,7 @@ module mathis {
             headUp=true
             arrowFootAtOrigin=true
             scene:BABYLON.Scene
-            
+
             quaternion:XYZW=null
             subdivision=6
 
@@ -328,10 +328,10 @@ module mathis {
             }
 
         }
-        
+
 
         export class TwoOrThreeAxisMerged{
-            
+
             twoOrThreeAxis:TwoOrTreeAxis
 
             scene:BABYLON.Scene
@@ -340,12 +340,12 @@ module mathis {
                 this.scene=scene
                 this.twoOrThreeAxis=new TwoOrTreeAxis(this.scene)
             }
-            
-            
+
+
             go():BABYLON.Mesh{
-                
+
                 this.twoOrThreeAxis.addColor=false
-                
+
                 let xyzAxis=this.twoOrThreeAxis.go()
                 let three=BABYLON.Mesh.MergeMeshes(xyzAxis)
 
@@ -359,8 +359,8 @@ module mathis {
                 mat1.diffuseColor=new BABYLON.Color3(0,1,0)
                 let mat2=new BABYLON.StandardMaterial('',this.scene)
                 mat2.diffuseColor=new BABYLON.Color3(0,0,1)
-                
-                
+
+
                 let nbVertices=three.getTotalVertices()
                 three.subMeshes=[]
                 three.subMeshes.push(new BABYLON.SubMesh(0,0,nbVertices,0,x_nbIndices,three))
@@ -374,14 +374,14 @@ module mathis {
                 three.material=multimat
 
                 return three
-                
-                
+
+
             }
-            
-            
+
+
         }
-        
-        
+
+
         export class TwoOrTreeAxis{
 
             SUB_x_axisCreator:ArrowCreator
@@ -390,11 +390,11 @@ module mathis {
 
             isLeftHandSided=true
             addColor=true
-            
+
             threeVersusTwoAxis=true
-            
+
             addLabelsXYZ=false
-            
+
             scene:BABYLON.Scene
             constructor(scene:BABYLON.Scene){
                 this.scene=scene
@@ -402,9 +402,9 @@ module mathis {
                 this.SUB_y_axisCreator=new ArrowCreator(this.scene)
                 this.SUB_z_axisCreator=new ArrowCreator(this.scene)
             }
-            
-            
-            
+
+
+
             go():BABYLON.Mesh[]{
 
                 if (this.addColor) {
@@ -452,7 +452,7 @@ module mathis {
                     return [xMesh,yMesh,zMesh].concat(flags)
                 }
                 else return [xMesh,yMesh].concat(flags)
-                
+
 
             }
 
@@ -475,7 +475,7 @@ module mathis {
             color="black"
             backgroundColor="transparent"
 
-            
+
             constructor(scene:BABYLON.Scene){
                 this.scene=scene
             }
@@ -483,7 +483,7 @@ module mathis {
                 let textPlaneTexture = new BABYLON.DynamicTexture("dynamic texture",512 , this.scene, true);
                 textPlaneTexture.drawText(this.text, null, 300,this.font ,this.color , this.backgroundColor);
                 textPlaneTexture.hasAlpha = true;
-                
+
                 let textPlane = BABYLON.Mesh.CreatePlane("textPlane", 1, this.scene, false);
                 //textPlane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
                 //textPlane.position = new BABYLON.Vector3(0, 2, 0);
@@ -496,6 +496,84 @@ module mathis {
                 textPlane.material=material
 
                 return textPlane
+
+            }
+
+
+        }
+
+
+        export class VerticalCylinder{
+
+            radius=0.2
+            baseCenter=new XYZ(0,0,0)
+            height=1
+            maille=mathis.reseau.Maille.quad
+            nbSubdivisionInARadius
+
+            OUT_borderTop:Vertex[]=[]
+            OUT_borderBottom:Vertex[]=[]
+
+            nbSubInterval_U=1
+            nbSubInterval_V=1
+
+            nbU=20
+            nbV=20
+
+            associateOppositeLinks_FromAnglesVersusPolygonsVersusNone=0
+
+            SUB_oppositeLinkAssocierByAngles:linkModule.OppositeLinkAssocierByAngles
+            SUB_LinkCreatorSorterAndBorderDetectorByPolygons:linkModule.LinkCreatorSorterAndBorderDetectorByPolygons
+
+            constructor(){}
+
+            go():Mamesh{
+
+                let creator = new reseau.Regular2dPlus()
+                creator.origin = new XYZ(0, 0, 0)
+                creator.end = new XYZ(2 * Math.PI, this.height, 0)
+                creator.nbU = this.nbU+1 //+1 because merging make disappear one
+                creator.nbV = this.nbV
+                creator.nbSubInterval_U=this.nbSubInterval_U
+                creator.nbSubInterval_V=this.nbSubInterval_V
+
+                creator.markBorder=false
+                creator.maille=this.maille
+
+
+                let mamesh = creator.go()
+
+                for (let vertex of mamesh.vertices){
+                    let u=vertex.position.x
+                    let v=vertex.position.y
+                    vertex.position.x=this.radius*cos (u)+this.baseCenter.x
+                    vertex.position.z=this.radius*sin (u)+this.baseCenter.z
+                    vertex.position.y=v+this.baseCenter.y
+
+                }
+
+                let merger=new grateAndGlue.Merger(mamesh)
+                //merger.mergeLink=false
+                merger.goChanging()
+
+
+                for (let vertex of mamesh.vertices){
+                    if (vertex.param.y==0) this.OUT_borderBottom.push(vertex)
+                    if (vertex.param.y==this.nbV-1) this.OUT_borderTop.push(vertex)
+                }
+
+                /**il y a un bug dans l'association des links via les polygones*/
+                if (this.associateOppositeLinks_FromAnglesVersusPolygonsVersusNone==0){
+                    this.SUB_LinkCreatorSorterAndBorderDetectorByPolygons=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
+                    this.SUB_LinkCreatorSorterAndBorderDetectorByPolygons.goChanging()
+                }
+                else if (this.associateOppositeLinks_FromAnglesVersusPolygonsVersusNone==1){
+                    this.SUB_oppositeLinkAssocierByAngles=new linkModule.OppositeLinkAssocierByAngles(mamesh.vertices)
+                    this.SUB_oppositeLinkAssocierByAngles.goChanging()
+
+                }
+
+                return mamesh
 
             }
 

@@ -72,14 +72,15 @@ module mathis{
             
             lines:any[]
 
-            constructor(private testMode){
+
+            constructor(private testMode:boolean,private showTestPages:boolean){
                 this.$visual=$('<div></div>')
             }
             
 
             addPage(onePage:OnePage,onlyForTest=false):void{
 
-                if (onlyForTest&& !this.testMode) return
+                if (onlyForTest&& !this.showTestPages) return
 
                 this.nbPages++
                 let line=$('<div class="mainMenuLine"></div>')
@@ -95,7 +96,7 @@ module mathis{
 
             addSeparator(text,onlyForTest=false):void{
 
-                if (onlyForTest&& !this.testMode) return
+                if (onlyForTest&& !this.showTestPages) return
 
                 $('<div style="margin-top: 3em;border-top: solid 2px red; border-bottom: dashed 1px red"></div>')
                     .text(text)

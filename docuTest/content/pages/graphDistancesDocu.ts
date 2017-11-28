@@ -33,9 +33,9 @@ module mathis {
                 several.addPart(new TwoGraphDistances(this.mathisFrame))
 
 
-                several.addPart(new DiameterDocu(this.mathisFrame))
+                //several.addPart(new DiameterDocu(this.mathisFrame))
 
-                several.addPart(new PercoForReseau(this.mathisFrame))
+                //several.addPart(new PercoForReseau(this.mathisFrame))
 
 
 
@@ -290,104 +290,104 @@ module mathis {
         }
 
 
-        class DiameterDocu implements PieceOfCode {
-
-            NAME = "DiameterDocu"
-            TITLE = `Two methods to find the diameter of polygones. 1/ compute all distances between vertices which is long.
-            2/ an heuristic iterative method. Be aware : If the graph is non-connected, this second method only look at the component of the first vertex.
-            But if the graph is connected, it is hard to find a counter-example where the second method fails. 
-            You can see such counter-example by fitting 4/9/0.3 as the three first parameters. `
-
-            nbSides=4
-            $$$nbSides=[4,6,8,10]
-            nbSubdivisionInARadius=2
-            $$$nbSubdivisionInARadius=[2,3,5,7,9,11]
-
-            // marker=Vertex.Markers.border
-            // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
-
-            percolationProba=0.5
-            $$$percolationProba=[0.2,0.3,0.4,0.5,0.6,0.7,0.8]
-
-            methodChoice=true
-            $$$methodChoice=[true,false]
-            
-            constructor(private mathisFrame:MathisFrame) {
-                this.mathisFrame = mathisFrame
-
-            }
-
-            goForTheFirstTime() {
-
-                this.mathisFrame.clearScene()
-                this.mathisFrame.addDefaultCamera()
-                this.mathisFrame.addDefaultLight()
-                this.go()
-            }
-
-            go(){
-
-
-                this.mathisFrame.clearScene(false, false)
-                let mathisFrame=this.mathisFrame
-
-                //$$$begin
-
-
-                let  creator = new reseau.TriangulatedPolygone(this.nbSides)
-                creator.origin = new XYZ(-1, -1, 0)
-                creator.end = new XYZ(1, 1, 0)
-                creator.nbSubdivisionInARadius = this.nbSubdivisionInARadius
-
-
-                let mamesh = creator.go()
-
-                let random=new proba.Random()
-                for (let i=0;i<mamesh.vertices.length;i++){
-                    let vertex=mamesh.vertices[i]
-                    for (let j=0;j<vertex.links.length;j++){
-                        if(random.pseudoRand()<this.percolationProba) Vertex.separateTwoVoisins(vertex,vertex.links[j].to)
-                    }
-                }
-
-
-
-                let diameter:number
-                let someExtremeVertices:Vertex[]
-                let startingTime=window.performance.now()
-                let duration:number
-                if (this.methodChoice){
-                    let distances=new graph.DistancesBetweenAllVertices(mamesh.vertices)
-                    distances.go()
-                    duration=window.performance.now()-startingTime
-                    diameter=distances.OUT_diameter
-                    someExtremeVertices=distances.OUT_allExtremeVertex
-                }
-                else {
-                    let diameterComputer=new graph.HeuristicDiameter(mamesh.vertices)
-                    diameter=diameterComputer.go()
-                    duration=window.performance.now()-startingTime
-                    someExtremeVertices=diameterComputer.OUT_twoChosenExtremeVertices
-                }
-                mathisFrame.messageDiv.append("diameter:"+diameter+", computed in:"+duration+" ms")
-
-
-                //n
-
-                //$$$end
-
-
-                //$$$bh visualization
-                let verticesViewer0 = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                verticesViewer0.vertices = someExtremeVertices
-                verticesViewer0.color = new Color(Color.names.indianred)
-                verticesViewer0.go()
-
-                //n
-                new visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go()
-                //$$$eh
-            }
-        }
+        // class DiameterDocu implements PieceOfCode {
+        //
+        //     NAME = "DiameterDocu"
+        //     TITLE = `Two methods to find the diameter of polygones. 1/ compute all distances between vertices which is long.
+        //     2/ an heuristic iterative method. Be aware : If the graph is non-connected, this second method only look at the component of the first vertex.
+        //     But if the graph is connected, it is hard to find a counter-example where the second method fails.
+        //     You can see such counter-example by fitting 4/9/0.3 as the three first parameters. `
+        //
+        //     nbSides=4
+        //     $$$nbSides=[4,6,8,10]
+        //     nbSubdivisionInARadius=2
+        //     $$$nbSubdivisionInARadius=[2,3,5,7,9,11]
+        //
+        //     // marker=Vertex.Markers.border
+        //     // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
+        //
+        //     percolationProba=0.5
+        //     $$$percolationProba=[0.2,0.3,0.4,0.5,0.6,0.7,0.8]
+        //
+        //     methodChoice=true
+        //     $$$methodChoice=[true,false]
+        //
+        //     constructor(private mathisFrame:MathisFrame) {
+        //         this.mathisFrame = mathisFrame
+        //
+        //     }
+        //
+        //     goForTheFirstTime() {
+        //
+        //         this.mathisFrame.clearScene()
+        //         this.mathisFrame.addDefaultCamera()
+        //         this.mathisFrame.addDefaultLight()
+        //         this.go()
+        //     }
+        //
+        //     go(){
+        //
+        //
+        //         this.mathisFrame.clearScene(false, false)
+        //         let mathisFrame=this.mathisFrame
+        //
+        //         //$$$begin
+        //
+        //
+        //         let  creator = new reseau.TriangulatedPolygone(this.nbSides)
+        //         creator.origin = new XYZ(-1, -1, 0)
+        //         creator.end = new XYZ(1, 1, 0)
+        //         creator.nbSubdivisionInARadius = this.nbSubdivisionInARadius
+        //
+        //
+        //         let mamesh = creator.go()
+        //
+        //         let random=new proba.Random()
+        //         for (let i=0;i<mamesh.vertices.length;i++){
+        //             let vertex=mamesh.vertices[i]
+        //             for (let j=0;j<vertex.links.length;j++){
+        //                 if(random.pseudoRand()<this.percolationProba) Vertex.separateTwoVoisins(vertex,vertex.links[j].to)
+        //             }
+        //         }
+        //
+        //
+        //
+        //         let diameter:number
+        //         let someExtremeVertices:Vertex[]
+        //         let startingTime=window.performance.now()
+        //         let duration:number
+        //         if (this.methodChoice){
+        //             let distances=new graph.DistancesBetweenAllVertices(mamesh.vertices)
+        //             distances.go()
+        //             duration=window.performance.now()-startingTime
+        //             diameter=distances.OUT_diameter
+        //             someExtremeVertices=distances.OUT_allExtremeVertex
+        //         }
+        //         else {
+        //             let diameterComputer=new graph.HeuristicDiameter(mamesh.vertices)
+        //             diameter=diameterComputer.go()
+        //             duration=window.performance.now()-startingTime
+        //             someExtremeVertices=diameterComputer.OUT_twoChosenExtremeVertices
+        //         }
+        //         mathisFrame.messageDiv.append("diameter:"+diameter+", computed in:"+duration+" ms")
+        //
+        //
+        //         //n
+        //
+        //         //$$$end
+        //
+        //
+        //         //$$$bh visualization
+        //         let verticesViewer0 = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
+        //         verticesViewer0.vertices = someExtremeVertices
+        //         verticesViewer0.color = new Color(Color.names.indianred)
+        //         verticesViewer0.go()
+        //
+        //         //n
+        //         new visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go()
+        //         //$$$eh
+        //     }
+        // }
 
 
         class CornerBorderCenterForPolygone implements PieceOfCode {
@@ -692,81 +692,81 @@ module mathis {
         }
         
         
-        class PercoForReseau implements PieceOfCode {
-
-            NAME = "PercoForReseau"
-            TITLE = "get a connected component "
-
-            // marker=Vertex.Markers.border
-            // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
-
-
-
-            nbI=7
-            $$$nbI=[3,7,15,30]
-
-            probaToKeep=0.5
-            $$$probaToKeep=[0,0.4,0.45,0.5,0.55,0.6,0.8,1]
-
-            maille=reseau.Maille.quad
-            $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
-
-            constructor(private mathisFrame:MathisFrame) {
-                this.mathisFrame = mathisFrame
-
-            }
-
-            goForTheFirstTime() {
-
-                this.mathisFrame.clearScene()
-                this.mathisFrame.addDefaultCamera()
-                this.mathisFrame.addDefaultLight()
-                this.go()
-            }
-
-            go(){
-
-
-                this.mathisFrame.clearScene(false, false)
-
-                //$$$begin
-                let creator = new reseau.Regular2dPlus()
-                creator.origin = new XYZ(-1, -1, 0)
-                creator.end = new XYZ(1, 1, 0)
-                creator.nbU = this.nbI
-                creator.adaptVForRegularReseau=true
-                creator.maille = this.maille
-
-                let mamesh = creator.go()
-
-
-                let probaToKeep=this.probaToKeep
-                let admissibleForGroup=new HashMap<Vertex,boolean>(true)
-                let centerVertices=[]
-
-                for (let i=0;i<mamesh.vertices.length;i++){
-                    let vertex=mamesh.vertices[i]
-                    if (Math.random()<probaToKeep) admissibleForGroup.putValue(vertex,true)
-                    if (vertex.hasMark(Vertex.Markers.center)) {
-                        centerVertices.push(vertex)
-                        admissibleForGroup.putValue(vertex,true)
-                    }
-                }
-
-
-                let centralComponent=graph.getGroup(centerVertices,admissibleForGroup)
-                //$$$end
-
-
-                //$$$bh visualization
-                let verticesViewer = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
-                verticesViewer.vertices = centralComponent
-                verticesViewer.radiusProp=0.5
-                verticesViewer.go()
-                //$$$eh
-
-            }
-        }
+        // class PercoForReseau implements PieceOfCode {
+        //
+        //     NAME = "PercoForReseau"
+        //     TITLE = "get a connected component "
+        //
+        //     // marker=Vertex.Markers.border
+        //     // $$$marker=new Choices([Vertex.Markers.border,Vertex.Markers.corner,Vertex.Markers.center],{"before":"Vertex.Markers.",visualValues:["border","corner","center"]})
+        //
+        //
+        //
+        //     nbI=7
+        //     $$$nbI=[3,7,15,30]
+        //
+        //     probaToKeep=0.5
+        //     $$$probaToKeep=[0,0.4,0.45,0.5,0.55,0.6,0.8,1]
+        //
+        //     maille=reseau.Maille.quad
+        //     $$$maille=new Choices(allIntegerValueOfEnume(reseau.Maille),{visualValues:allStringValueOfEnume(reseau.Maille)})
+        //
+        //     constructor(private mathisFrame:MathisFrame) {
+        //         this.mathisFrame = mathisFrame
+        //
+        //     }
+        //
+        //     goForTheFirstTime() {
+        //
+        //         this.mathisFrame.clearScene()
+        //         this.mathisFrame.addDefaultCamera()
+        //         this.mathisFrame.addDefaultLight()
+        //         this.go()
+        //     }
+        //
+        //     go(){
+        //
+        //
+        //         this.mathisFrame.clearScene(false, false)
+        //
+        //         //$$$begin
+        //         let creator = new reseau.Regular2dPlus()
+        //         creator.origin = new XYZ(-1, -1, 0)
+        //         creator.end = new XYZ(1, 1, 0)
+        //         creator.nbU = this.nbI
+        //         creator.adaptVForRegularReseau=true
+        //         creator.maille = this.maille
+        //
+        //         let mamesh = creator.go()
+        //
+        //
+        //         let probaToKeep=this.probaToKeep
+        //         let admissibleForGroup=new HashMap<Vertex,boolean>(true)
+        //         let centerVertices=[]
+        //
+        //         for (let i=0;i<mamesh.vertices.length;i++){
+        //             let vertex=mamesh.vertices[i]
+        //             if (Math.random()<probaToKeep) admissibleForGroup.putValue(vertex,true)
+        //             if (vertex.hasMark(Vertex.Markers.center)) {
+        //                 centerVertices.push(vertex)
+        //                 admissibleForGroup.putValue(vertex,true)
+        //             }
+        //         }
+        //
+        //
+        //         let centralComponent=graph.getGroup(centerVertices,admissibleForGroup)
+        //         //$$$end
+        //
+        //
+        //         //$$$bh visualization
+        //         let verticesViewer = new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene)
+        //         verticesViewer.vertices = centralComponent
+        //         verticesViewer.radiusProp=0.5
+        //         verticesViewer.go()
+        //         //$$$eh
+        //
+        //     }
+        // }
 
 
     }

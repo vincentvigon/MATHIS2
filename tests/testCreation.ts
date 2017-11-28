@@ -564,36 +564,36 @@ module mathis{
 
 
 
-        {
-
-            let crea = new reseau.TriangulatedTriangle()
-            crea.nbSubdivisionInSide=3
-            let mamesh=crea.go()
-
-
-            let supp=new grateAndGlue.ExtractCentralPart(mamesh,1)
-            supp.suppressFromBorderVersusCorner=false
-            mamesh=supp.go()
-            mamesh.isolateMameshVerticesFromExteriorVertices()
-
-
-
-            mamesh.fillLineCatalogue()
-
-
-            bilan.assertTrue(mamesh.allLinesAsASortedString()=='straightLines:["[0,4,2]","[0,7,1]","[1,10,2]","[3,0,8]","[3,4,10,11]","[3,5]","[5,2,9]","[5,4,7,6]","[6,1,11]","[6,8]","[8,7,10,9]","[9,11]"]')
-
-            // let liner=new visu3d.LinesViewer(IN_mamesh,mathisFrame.scene)
-            // liner.interpolationOption=new geometry.InterpolationOption()
-            // liner.interpolationOption.interpolationStyle=geometry.InterpolationStyle.octavioStyle
-            // liner.goChanging()
-            //
-            // let ver=new visu3d.VerticesViewer(IN_mamesh,mathisFrame.scene)
-            // ver.goChanging()
-
-
-
-        }
+        // {
+        //
+        //     let crea = new reseau.TriangulatedTriangle()
+        //     crea.nbSubdivisionInSide=3
+        //     let mamesh=crea.go()
+        //
+        //
+        //     let supp=new grateAndGlue.ExtractCentralPart(mamesh,1)
+        //     supp.suppressFromBorderVersusCorner=false
+        //     mamesh=supp.go()
+        //     mamesh.isolateMameshVerticesFromExteriorVertices()
+        //
+        //
+        //
+        //     mamesh.fillLineCatalogue()
+        //
+        //
+        //     bilan.assertTrue(mamesh.allLinesAsASortedString()=='straightLines:["[0,4,2]","[0,7,1]","[1,10,2]","[3,0,8]","[3,4,10,11]","[3,5]","[5,2,9]","[5,4,7,6]","[6,1,11]","[6,8]","[8,7,10,9]","[9,11]"]')
+        //
+        //     // let liner=new visu3d.LinesViewer(IN_mamesh,mathisFrame.scene)
+        //     // liner.interpolationOption=new geometry.InterpolationOption()
+        //     // liner.interpolationOption.interpolationStyle=geometry.InterpolationStyle.octavioStyle
+        //     // liner.goChanging()
+        //     //
+        //     // let ver=new visu3d.VerticesViewer(IN_mamesh,mathisFrame.scene)
+        //     // ver.goChanging()
+        //
+        //
+        //
+        // }
 
 
 
@@ -684,7 +684,7 @@ module mathis{
 
             linkOp.goChanging()
 
-            new mameshModification.MameshCleaner(mamesh).goChanging()
+            new octavioBoard.MameshCleaner(mamesh).goChanging()
 
 
             mamesh.fillLineCatalogue()
@@ -1037,23 +1037,22 @@ module mathis{
         //
         // }
 
-
-        {
-            let crea=new creation2D.Patchwork(7,7,2,2)
-            crea.shapes=[mathis.creation2D.PartShape.polygon4]
-            crea.individualScales=[new UV(1.0,1.0)]
-
-            crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.2]
-            let mamesh=crea.go()
-            
-            let OUTAllSeeds=[]
-            for (let seeds of crea.SUB_gratAndStick.SUB_grater.OUT_allSeeds) OUTAllSeeds=OUTAllSeeds.concat(seeds)
-            
-            
-
-            bilan.assertTrue(OUTAllSeeds.length==36)
-
-        }
+        //
+        // {
+        //     let crea=new octavioBoard.Patchwork(7,7,2,2)
+        //     crea.shapes=[mathis.octavioBoard.PartShape.polygon4]
+        //     crea.individualScales=[new UV(1.0,1.0)]
+        //
+        //     crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.2]
+        //     let mamesh=crea.go()
+        //
+        //     let OUTAllSeeds=[]
+        //     for (let seeds of crea.SUB_gratAndStick.SUB_grater.OUT_allSeeds) OUTAllSeeds=OUTAllSeeds.concat(seeds)
+        //
+        //
+        //     bilan.assertTrue(OUTAllSeeds.length==36)
+        //
+        // }
 
         //
         //
@@ -1083,43 +1082,43 @@ module mathis{
         //
         //
         // }
-
-
-
-        /**to check the suppression of overlpaing seeds */
-        {
-            let crea=new creation2D.Patchwork(4,4,2,2)
-            crea.shapes=[mathis.creation2D.PartShape.polygon4]
-            crea.individualScales=[new UV(1.01,1.01)]
-
-            crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.5]
-            let mamesh=crea.go()
-
-            bilan.assertTrue(mamesh.vertices.length==48)
-
-        }
-
-
-
-
-        {
-            let crea=new creation2D.Concentric(11,11)
-            crea.nbPatches=2
-            crea.shapes=[mathis.creation2D.PartShape.polygon6,mathis.creation2D.PartShape.square]
-            crea.proportions=[new UV(1,1),new UV(0.5,0.5)]
-            crea.integerBeginToRound=[1]
-            crea.integerEndToRound=[-2]
-
-
-            crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.1]
-            crea.SUB_gratAndStick.SUB_grater.asymmetriesForSeeds=[{direction:new XYZ(0,1,0),influence:0.5,modulo:Math.PI/2},{direction:new XYZ(1,0,0),influence:0.5}]
-            crea.SUB_gratAndStick.SUB_grater.seedComputedFromBarycentersVersusFromAllPossibleCells=true
-            
-            let mamesh=crea.go()
-
-
-        }
-
+        //
+        //
+        //
+        // /**to check the suppression of overlpaing seeds */
+        // {
+        //     let crea=new octavioBoard.Patchwork(4,4,2,2)
+        //     crea.shapes=[mathis.octavioBoard.PartShape.polygon4]
+        //     crea.individualScales=[new UV(1.01,1.01)]
+        //
+        //     crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.5]
+        //     let mamesh=crea.go()
+        //
+        //     bilan.assertTrue(mamesh.vertices.length==48)
+        //
+        // }
+        //
+        //
+        //
+        //
+        // {
+        //     let crea=new octavioBoard.Concentric(11,11)
+        //     crea.nbPatches=2
+        //     crea.shapes=[mathis.octavioBoard.PartShape.polygon6,mathis.octavioBoard.PartShape.square]
+        //     crea.proportions=[new UV(1,1),new UV(0.5,0.5)]
+        //     crea.integerBeginToRound=[1]
+        //     crea.integerEndToRound=[-2]
+        //
+        //
+        //     crea.SUB_gratAndStick.SUB_grater.proportionOfSeeds=[0.1]
+        //     crea.SUB_gratAndStick.SUB_grater.asymmetriesForSeeds=[{direction:new XYZ(0,1,0),influence:0.5,modulo:Math.PI/2},{direction:new XYZ(1,0,0),influence:0.5}]
+        //     crea.SUB_gratAndStick.SUB_grater.seedComputedFromBarycentersVersusFromAllPossibleCells=true
+        //
+        //     let mamesh=crea.go()
+        //
+        //
+        // }
+        //
 
 
         // {
@@ -1146,18 +1145,17 @@ module mathis{
 
 
 
-        {
-
-            let poly=new reseau.TriangulatedTriangle()
-            poly.nbSubdivisionInSide=5
-            let mamesh=poly.go()
-            mamesh.fillLineCatalogue()
-
-            bilan.assertTrue(mamesh.allLinesAsASortedString()=='straightLines:["[11,0,16]","[11,35,36,34]","[12,0,37,6,33]","[12,15]","[15,0,35,3,21]","[16,37,36,20]","[18,21,20,34,33,27]","[20,3,25]","[21,24]","[24,3,36,6,30]","[25,35,37,29]","[29,6,34]","[30,33]","[9,12,11,25,24,18]","[9,15,16,29,30,27]"]')
-
-
-
-        }
+        // {
+        //
+        //     let poly=new reseau.TriangulatedTriangle()
+        //     poly.nbSubdivisionInSide=5
+        //     let mamesh=poly.go()
+        //     mamesh.fillLineCatalogue()
+        //
+        //     bilan.assertTrue(mamesh.allLinesAsASortedString()=='straightLines:["[11,0,16]","[11,35,36,34]","[12,0,37,6,33]","[12,15]","[15,0,35,3,21]","[16,37,36,20]","[18,21,20,34,33,27]","[20,3,25]","[21,24]","[24,3,36,6,30]","[25,35,37,29]","[29,6,34]","[30,33]","[9,12,11,25,24,18]","[9,15,16,29,30,27]"]')
+        //
+        //
+        // }
 
 
         //return bilan
@@ -1426,7 +1424,7 @@ module mathis{
                     dicotomer.go()
                 }
 
-                let linkMaker = new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh)
+                let linkMaker = new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
                 linkMaker.goChanging()
 
                 return mamesh

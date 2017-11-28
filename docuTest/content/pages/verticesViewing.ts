@@ -21,6 +21,9 @@ module mathis{
                 severalParts.addPart(new ModelVerticesViewing(this.mathisFrame))
                 severalParts.addPart(new ModelPositioning(this.mathisFrame))
                 severalParts.addPart(new ModelAutoPositioning(this.mathisFrame))
+
+
+
                 this.severalParts=severalParts
             }
 
@@ -124,8 +127,8 @@ module mathis{
             constantRadius=null
             $$$constantRadius=[null,0.1,0.2,0.3]
 
-            modelChoice=0
-            $$$modelChoice=[0,1,2,3]
+            modelChoice="cone"
+            $$$modelChoice=["cone","coneAndCube","disk","3axis"]
 
             justShowTheModel=false
             $$$justShowTheModel=[true,false]
@@ -173,41 +176,56 @@ module mathis{
 
 
                 /**model mush have a bounding "radius" of 1. It will be re-sized by the vertices-viewer */
-                let modelChoice=this.modelChoice
 
-                if (modelChoice==0){
-                    verticesViewer.meshModel=BABYLON.Mesh.CreateCylinder("",2,0,2,20,2,this.mathisFrame.scene)
-                }
-                else if (modelChoice==1){
-                    /**we can put several models, and change the red-default color*/
-                    verticesViewer.meshModels=[BABYLON.Mesh.CreateBox("",1,this.mathisFrame.scene),BABYLON.Mesh.CreateCylinder("",1,0,1,20,2,this.mathisFrame.scene)]
-                    verticesViewer.meshModels[0].position.y=-0.5
-                    verticesViewer.meshModels[1].position.y=+0.5
-                    verticesViewer.color=new Color(Color.names.deeppink)
-                }
-                else if (modelChoice==2){
-                    verticesViewer.meshModel=BABYLON.Mesh.CreateDisc("",1,20,this.mathisFrame.scene)
-                    /**if a material is specified, default material is not used*/
-                    let material=new BABYLON.StandardMaterial("",this.mathisFrame.scene)
-                    material.backFaceCulling=false //better for a disk
-                    material.diffuseColor=new BABYLON.Color3(0,0,1)//blue
-                    verticesViewer.meshModel.material=material
-                }
-                else if (modelChoice==3){
-                    /**the x-axis (red) is sent to the normal vectors*/
-                    verticesViewer.meshModels=new creation3D.TwoOrTreeAxis(this.mathisFrame.scene).go()
-                }
+                //$$$end
 
-                //n
+                //$$$bc
+                switch (this.modelChoice){
+
+                    case "cone":{
+                        verticesViewer.meshModel=BABYLON.Mesh.CreateCylinder("",2,0,2,20,2,this.mathisFrame.scene)
+                    }
+                    break
+
+                    case "coneAndCube":{
+                        /**we can put several models, and change the red-default color*/
+                        verticesViewer.meshModels=[BABYLON.Mesh.CreateBox("",1,this.mathisFrame.scene),BABYLON.Mesh.CreateCylinder("",1,0,1,20,2,this.mathisFrame.scene)]
+                        verticesViewer.meshModels[0].position.y=-0.5
+                        verticesViewer.meshModels[1].position.y=+0.5
+                        verticesViewer.color=new Color(Color.names.deeppink)
+                    }
+                        break
+
+                    case "disk":{
+                        verticesViewer.meshModel=BABYLON.Mesh.CreateDisc("",1,20,this.mathisFrame.scene)
+                        /**if a material is specified, default material is not used*/
+                        let material=new BABYLON.StandardMaterial("",this.mathisFrame.scene)
+                        material.backFaceCulling=false //better for a disk
+                        material.diffuseColor=new BABYLON.Color3(0,0,1)//blue
+                        verticesViewer.meshModel.material=material
+                    }
+                        break
+
+                    case "3axis":{
+                        /**the x-axis (red) is sent to the normal vectors*/
+                        verticesViewer.meshModels=new creation3D.TwoOrTreeAxis(this.mathisFrame.scene).go()
+                    }
+                        break
+                }
+                //$$$ec
+
+
+
+                //$$$bh just see the model
                 let justShowTheModel=this.justShowTheModel
                 if (!justShowTheModel){
                     /**if you do not fire "verticesViewer.goChanging()", we just see the model.*/
                     verticesViewer.go()
                     new visu3d.LinksViewer(mamesh,this.mathisFrame.scene).go()
                 }
+                //$$$eh
 
 
-                //$$$end
 
 
             }

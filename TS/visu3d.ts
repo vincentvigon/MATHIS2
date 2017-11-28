@@ -141,7 +141,7 @@ module mathis{
             radiusProp=0.1
 
 
-            material
+            //material
 
 
 
@@ -367,11 +367,14 @@ module mathis{
             maxAngleBetweenNormals=Math.PI/4
 
             scene:BABYLON.Scene
-            material:any
+            material:BABYLON.Material
             color=color.thema.defaultSurfaceColor
             alpha=0.4
             
             backFaceCulling=true
+
+
+            addDefaultUV=true
 
 
 
@@ -410,25 +413,31 @@ module mathis{
 
                 let indices :number[]=[]
 
-                for (let i=0;i<this.mamesh.smallestTriangles.length;i+=3){
-                    let v0=this.mamesh.smallestTriangles[i]
-                    let v1=this.mamesh.smallestTriangles[i+1]
-                    let v2=this.mamesh.smallestTriangles[i+2]
-                    indices.push(hashToIndex[v0.hashNumber],hashToIndex[v1.hashNumber],hashToIndex[v2.hashNumber])
+                try {
+                    for (let i = 0; i < this.mamesh.smallestTriangles.length; i += 3) {
+                        let v0 = this.mamesh.smallestTriangles[i]
+                        let v1 = this.mamesh.smallestTriangles[i + 1]
+                        let v2 = this.mamesh.smallestTriangles[i + 2]
+
+                        indices.push(hashToIndex[v0.hashNumber], hashToIndex[v1.hashNumber], hashToIndex[v2.hashNumber])
+                    }
+
+
+                    for (let i = 0; i < this.mamesh.smallestSquares.length; i += 4) {
+                        let v0 = this.mamesh.smallestSquares[i]
+                        let v1 = this.mamesh.smallestSquares[i + 1]
+                        let v2 = this.mamesh.smallestSquares[i + 2]
+                        let v3 = this.mamesh.smallestSquares[i + 3]
+                        indices.push(hashToIndex[v0.hashNumber], hashToIndex[v1.hashNumber], hashToIndex[v3.hashNumber])
+                        indices.push(hashToIndex[v1.hashNumber], hashToIndex[v2.hashNumber], hashToIndex[v3.hashNumber])
+
+
+                        //indices.push(this.IN_mamesh.smallestSquares[i],this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+3],
+                        //    this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+2],this.IN_mamesh.smallestSquares[i+3])
+                    }
                 }
-
-
-
-                for (let i=0;i<this.mamesh.smallestSquares.length;i+=4){
-                    let v0=this.mamesh.smallestSquares[i]
-                    let v1=this.mamesh.smallestSquares[i+1]
-                    let v2=this.mamesh.smallestSquares[i+2]
-                    let v3=this.mamesh.smallestSquares[i+3]
-                    indices.push(hashToIndex[v0.hashNumber],hashToIndex[v1.hashNumber],hashToIndex[v3.hashNumber])
-                    indices.push(hashToIndex[v1.hashNumber],hashToIndex[v2.hashNumber],hashToIndex[v3.hashNumber])
-
-                    //indices.push(this.IN_mamesh.smallestSquares[i],this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+3],
-                    //    this.IN_mamesh.smallestSquares[i+1],this.IN_mamesh.smallestSquares[i+2],this.IN_mamesh.smallestSquares[i+3])
+                catch (e){
+                    throw "a null vertex in the list of triangle or square"
                 }
 
 
@@ -444,6 +453,20 @@ module mathis{
                 vertexData.indices = indices;
                 vertexData.positions = positions;
                 vertexData.normals = normalsOfVertices;
+
+                if (this.addDefaultUV){
+                    for (let i=0;i<positions.length;i+=3) uvs.push(positions[i],positions[i+1])
+
+                    // for (let index =0;index<indices.length;index+=3){
+                    //     uvs[index]=0
+                    //     uvs[index+1]=0
+                    //     uvs[index+2]=1
+                    //     uvs[index+3]=0
+                    //     uvs[index+4]=1
+                    //     uvs[index+5]=1
+                    // }
+                }
+
                 vertexData.uvs = uvs;
 
 
@@ -922,7 +945,7 @@ module mathis{
             private scene:BABYLON.Scene
             parentNode:BABYLON.Node
 
-            doNotDrawLinesContainingOnlyInvisibleVertices=true
+            //doNotDrawLinesContainingOnlyInvisibleVertices=true
 
             /**priority 1*/
             color : Color=null
@@ -946,8 +969,6 @@ module mathis{
             radiusFunction:(alphaRatio:number,position:XYZ)=>number=null
 
             //forRadiusProp_considerAllVertices_Versus_onlyLines=true
-
-
 
 
 
@@ -1078,16 +1099,14 @@ module mathis{
 
 
                 let path:XYZ[]=[]
-                let onlyInvisible=true
+
                 line.vertices.forEach((v:Vertex)=>{
                     path.push(v.position)
-                    if (!v.isInvisible) onlyInvisible=false
                 })
 
-                if (onlyInvisible&& this.doNotDrawLinesContainingOnlyInvisibleVertices) return
+                //if (onlyInvisible&& this.doNotDrawLinesContainingOnlyInvisibleVertices) return
 
                 let mesh=this.drawOnePath(line,path)
-
                 this.res.push(mesh)
 
             }
@@ -1101,12 +1120,18 @@ module mathis{
                 if (this.interpolationOption!=null&&this.interpolationOption.interpolationStyle!=geometry.InterpolationStyle.none){
                     let lineInterpoler=new geometry.LineInterpoler(path)
                     lineInterpoler.options=this.interpolationOption
-                    if (line.isLoop) lineInterpoler.options.loopLine=true
+                    if (line.isLoop) {
+                        cc("a loop")
+                        lineInterpoler.options.loopLine=true
+                    }
+                    else lineInterpoler.options.loopLine=false
                     smoothPath=lineInterpoler.go()
                 }
                 else {
                     smoothPath=path
-                    if (line.isLoop) smoothPath.push(path[0])
+                    if (line.isLoop) {
+                        smoothPath.push(path[0])
+                    }
                 }
 
                 path=smoothPath

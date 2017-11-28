@@ -29,7 +29,7 @@ module mathis{
             dicho2.squareToCut=[mamesh.vertices[0],mamesh.vertices[4],mamesh.vertices[8],mamesh.vertices[7]]
             dicho2.go()
 
-            let linkerCons=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh)
+            let linkerCons=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
             linkerCons.goChanging()
 
             mamesh.fillLineCatalogue()
@@ -82,7 +82,7 @@ module mathis{
 
             dicho.go()
 
-            let li=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh)
+            let li=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
             li.goChanging()
 
 
@@ -110,7 +110,7 @@ module mathis{
             dicho.go()
 
             mamesh.clearLinksAndLines()
-            new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+            new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
             mamesh.fillLineCatalogue()
 
 
@@ -138,7 +138,7 @@ module mathis{
             dicho2.squareToCut=[mamesh.vertices[0],mamesh.vertices[4],mamesh.vertices[8],mamesh.vertices[7]]
             dicho2.go()
 
-            new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+            new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
             mamesh.fillLineCatalogue()
 
             bilan.assertTrue(mamesh.allLinesAsASortedString()=='straightLines:["[0,12,7,3]","[0,9,4,1]","[1,5,2]","[10,13,12]","[2,6,3]","[4,10,8,6]","[5,8,11,7]","[9,13,11]"]')
@@ -250,7 +250,7 @@ module mathis{
             cart.makeLinks=false
             let mamesh0=cart.go()
             new mameshModification.SquareDichotomer(mamesh0).go()
-            new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh0).goChanging()
+            new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh0).goChanging()
 
 
             let cart1= new reseau.Regular2d()
@@ -314,7 +314,7 @@ module mathis{
             dichotomer2.makeLinks=false
             dichotomer2.go()
 
-            new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh2).goChanging()
+            new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh2).goChanging()
             mamesh2.fillLineCatalogue()
 
             bilan.assertTrue(mamesh.allLinesAsASortedString()==mamesh2.allLinesAsASortedString())
@@ -351,7 +351,7 @@ module mathis{
                 dichoter.makeLinks=false
                 dichoter.go()
 
-                new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh).goChanging()
+                new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh).goChanging()
 
                 deltaTime0=performance.now()-time0
                 mamesh.fillLineCatalogue()

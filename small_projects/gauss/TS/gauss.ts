@@ -495,8 +495,11 @@ module mathis {
             }
 
             private resetInitialClick(){
-                this.meshSurf.isPickable=true
-                ;(<any> this.meshSurf).onClick=(clickedPoint:XYZ)=>{this.firstClick(clickedPoint)}
+                associateClickhandler_toBabylonMesh(this.meshSurf,(clickEvent)=>{this.firstClick(clickEvent.position)})
+
+
+                //this.meshSurf.isPickable=true
+                //;(<any> this.meshSurf).onClick=(clickedPoint:XYZ)=>{this.firstClick(clickedPoint)}
             }
 
             private clearAll(){
@@ -535,8 +538,8 @@ module mathis {
 
 
                 if (this.mode==1||this.mode==2){
-                    ;(<any> this.meshSurf).onClick=(secondClicked:XYZ)=>{
-                        let secondUvAndCarte=this.surface.findBestCarte(secondClicked)//this.drawNormalVector.findUvAndCarte(secondClicked)
+                    associateClickhandler_toBabylonMesh(this.meshSurf,(clickEvent:ClickEvent)=>{
+                        let secondUvAndCarte=this.surface.findBestCarte(clickEvent.position)//this.drawNormalVector.findUvAndCarte(secondClicked)
                         if (secondUvAndCarte.carte!=carte){
                             cc("the second click is too far from the first: they arrived on different cart-image")
                         }
@@ -545,7 +548,19 @@ module mathis {
                         }
 
                         this.resetInitialClick()
-                    }
+                    })
+
+                    // ;(<any> this.meshSurf).onClick=(secondClicked:XYZ)=>{
+                    //     let secondUvAndCarte=this.surface.findBestCarte(secondClicked)//this.drawNormalVector.findUvAndCarte(secondClicked)
+                    //     if (secondUvAndCarte.carte!=carte){
+                    //         cc("the second click is too far from the first: they arrived on different cart-image")
+                    //     }
+                    //     else{
+                    //         this.secondClick(UV,secondUvAndCarte.uv,secondUvAndCarte.carte)
+                    //     }
+                    //
+                    //     this.resetInitialClick()
+                    // }
                 }
 
                 let courbure=roundWithGivenPrecision(carte.dNinTangentBasis(UV.u,UV.v).determinant(),1)

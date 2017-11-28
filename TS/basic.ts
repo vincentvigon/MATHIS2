@@ -1,3 +1,4 @@
+/// <reference path="_fakeBABYLON.ts"/>
 
 
 module mathis {
@@ -327,15 +328,24 @@ module mathis {
             for (let mesh of meshes){
                 if(this.scaling!=null) {
                     if (mesh.scaling==null) mesh.scaling=new XYZ(1,1,1)
-                    mesh.scaling.copyFrom(this.scaling)
+                    mesh.scaling.x=this.scaling.x
+                    mesh.scaling.y=this.scaling.y
+                    mesh.scaling.z=this.scaling.z
                 }
                 if(quaternion!=null) {
                     if (mesh.rotationQuaternion==null) mesh.rotationQuaternion=new XYZW(0,0,0,1)
-                    mesh.rotationQuaternion.copyFrom(quaternion)
+                    mesh.rotationQuaternion.x=quaternion.x
+                    mesh.rotationQuaternion.y=quaternion.y
+                    mesh.rotationQuaternion.z=quaternion.z
+                    mesh.rotationQuaternion.w=quaternion.w
+
                 }
                 if(this.position!=null) {
                     if (mesh.position==null) mesh.position=new XYZ(0,0,0)
-                    mesh.position.copyFrom(this.position)
+                         mesh.position.x=this.position.x
+                        mesh.position.y=this.position.y
+                        mesh.position.z=this.position.z
+
                 }
             }
         }
@@ -352,7 +362,7 @@ module mathis {
             
             for (let vertex of vertices){
                 vertex.position.multiply(this.scaling)
-                geo.multiplicationMatrixVector(matrix,vertex.position,vertex.position)
+                geo.multiplicationVectorMatrix(matrix,vertex.position,vertex.position)
                 vertex.position.add(this.position)
             }
         }
@@ -498,7 +508,7 @@ module mathis {
         position:XYZ
 
 
-        isInvisible=false
+        //isInvisible=false
         dichoLevel=0
         param:XYZ
         markers:Vertex.Markers[]=[]
@@ -669,8 +679,7 @@ module mathis {
 
     }
 
-    
-    
+
     /**A graph but not only : it contains vertices but also lines passing through vertices.
      * Most of time a Mamesh is a graph on a surface, so it contains square/triangle between vertices. 
      * It can contain also many other informations e.g. {@link vertexToPositioning} or {@link lineToColor} which are useful
@@ -707,6 +716,9 @@ module mathis {
 
         name:string
 
+        /**ex : Polyheron class fill this field*/
+        faces:Vertex[][]
+
 
         //symmetries:((a:XYZ)=>XYZ)[]
         
@@ -739,8 +751,9 @@ module mathis {
         
         
 
-        addATriangle(a:Vertex, b:Vertex, c:Vertex):Mamesh {
-            this.smallestTriangles.push(a,b,c);
+        addATriangle(a:Vertex, b:Vertex, c:Vertex,exceptionIfAVertexIsNull=false):Mamesh {
+            if(a!=null&&b!=null&&c!=null) this.smallestTriangles.push(a,b,c);
+            else if (exceptionIfAVertexIsNull) throw "you try to add a null vertex in a triangle"
             return this
         }
 
@@ -1315,9 +1328,37 @@ module mathis {
         has(c:Vertex):boolean {
             return c == this.a || c == this.b
         }
-        
 
     }
+
+
+
+    /**
+     * Eventuellement on pourrait rajouter des infos dans notre ClickEvent.
+     * Voici toutes les infos disponibles dans BabylonJS
+     * Remarque : nous n'avons pas besoin de pickedMesh puisque nous attachons le clickHandler au mesh (cf. MathisFrame)
+     *
+     * class PickingInfo {
+                        hit: boolean;
+                        distance: number;
+                        pickedPoint: Vector3;
+                        pickedMesh: AbstractMesh;
+                        bu: number;
+                        bv: number;
+                        faceId: number;
+                        subMeshId: number;
+                        pickedSprite: Sprite;
+                        getNormal(useWorldCoordinates?: boolean, useVerticesNormals?: boolean): Vector3;
+                        getTextureCoordinates(): Vector2;
+                 }
+     *
+     * */
+    export class ClickEvent{
+        position:XYZ
+    }
+
+
+
 
 
 

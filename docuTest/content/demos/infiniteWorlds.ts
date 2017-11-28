@@ -227,7 +227,7 @@ module mathis{
 
                 let crea = new reseau.Regular3D()
                 crea.nbU = this.nbSubdivision*this.nbRepetition
-                crea.nbJ = this.nbSubdivision*this.nbRepetition
+                crea.nbV = this.nbSubdivision*this.nbRepetition
                 crea.nbW = this.nbSubdivision*this.nbRepetition
                 crea.dirU = VV.dirU
                 crea.dirV = VV.dirV

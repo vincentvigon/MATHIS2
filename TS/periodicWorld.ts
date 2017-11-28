@@ -70,11 +70,11 @@ module mathis {
             }
             
             public webCoordinateToPoint(webCoordinate:WebCoordinate, result:XYZ):void {
-                return geo.multiplicationMatrixVector(this.matWebCoordinateToPoint, webCoordinate, result)//XYZ.TransformCoordinates(webCoordinate, this.matWebCoordinateToPoint);
+                return geo.multiplicationVectorMatrix(this.matWebCoordinateToPoint, webCoordinate, result)//XYZ.TransformCoordinates(webCoordinate, this.matWebCoordinateToPoint);
             }
             
             public pointToWebCoordinate(point:XYZ, result:WebCoordinate):void {
-                geo.multiplicationMatrixVector(this.matPointToWebCoordinate, point, result)
+                geo.multiplicationVectorMatrix(this.matPointToWebCoordinate, point, result)
             }
 
 

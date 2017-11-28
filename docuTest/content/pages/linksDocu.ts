@@ -407,7 +407,7 @@ module mathis{
                 /**first we add simple links. Easy work*/
                 mamesh.addSimpleLinksAroundPolygons()
                 /**now we associate opposite links (more complex algorithm)*/
-                let process=new linkModule.LinkCreaterSorterAndBorderDetecterByPolygons(mamesh)
+                let process=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
                 process.goChanging()
                 //$$$end
 

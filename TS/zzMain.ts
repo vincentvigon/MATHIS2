@@ -21,16 +21,18 @@ else cc= function (){}
 
 module mathis{
 
-    
+    //export var geo:mathis.Geo
+    // export var logger:mathis.Logger
+    //
+    // export function startMathis(){
+    //     /**some object are created from the very beginning*/
+    //     //geo= new Geo()
+    //     logger=new Logger()
+    // }
 
-    /**some object are created from the very begining*/
-    export  var geo:Geo= new Geo()
-    export var logger:Logger=new Logger()
+
 
     export var deconnectViewerForTest=false
-
-
-    
 
 
 }

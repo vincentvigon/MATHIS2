@@ -100,7 +100,7 @@ module mathis {
                 if (drawReseau) {
                     let crea = new reseau.Regular3D()
                     crea.nbU = nbRepetition
-                    crea.nbJ = nbRepetition
+                    crea.nbV = nbRepetition
                     crea.nbW = nbRepetition
                     crea.dirU = new XYZ(domainSizeX, 0, 0)
                     crea.dirV = new XYZ(0, domainSizeY, 0)

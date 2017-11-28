@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Test Vertex</title>
+    <script src="../../JS/babylon.2.5.js"></script>
+    <script src="../../JS/MATHIS.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    /**Framing*/
+    var mathisFrame=new mathis.MathisFrame();
+    /**Define vertexes*/
+    var vertex0 = new mathis.Vertex().setPosition(0,0,0);
+    var vertex1 = new mathis.Vertex().setPosition(1,0,0);
+    var vertex2 = new mathis.Vertex().setPosition(1,1,0);
+    var vertex3 = new mathis.Vertex().setPosition(0,1,0);
+    /**Define mesh*/
+    var mamesh=new mathis.Mamesh();
+    mamesh.vertices.push(vertex0,vertex1,vertex2,vertex3);
+    /**Creat links*/
+
+    vertex1.setOneLink(vertex0).setOneLink(vertex2);
+    vertex0.setOneLink(vertex1);
+    vertex2.setOneLink(vertex1);
+    /**Display*/
+    var verticesViewer = new mathis.visu3d.VerticesViewer(mamesh, mathisFrame.scene);
+    verticesViewer.go();
+    var linksViewer = new mathis.visu3d.LinesViewer(mamesh, mathisFrame.scene);
+    linksViewer.go();
+    var surfaceViewer = new mathis.visu3d.SurfaceViewer(mamesh, mathisFrame.scene);
+    surfaceViewer.go();
+</script>
+</body>
+</html>

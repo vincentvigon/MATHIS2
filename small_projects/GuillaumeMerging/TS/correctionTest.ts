@@ -365,8 +365,8 @@ module mathis{
 
                 let  connect = new polygonFinder.PolygonFinderFromLinks(mamesh);
                 connect.nbBiggerFacesDeleted=this.nbBiggerFacesDeleted
-                connect.areaVsPerimeter=this.areaOrPerimeterChoice
-                connect.fillConvexFaces=this.fillConvexFaces
+                connect.areaVsPerimeter_toDetectBiggerFaces=this.areaOrPerimeterChoice
+                connect.useBarycenterToCutPolygons=this.fillConvexFaces
 
                 if (this.connect) connect.go();
 
