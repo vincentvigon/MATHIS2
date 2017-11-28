@@ -559,6 +559,10 @@ module mathis {
                 this.severalPages.addPage(new SurfaceViewerDocu(this.mathisFrame))
                 this.severalPages.addPage(new GradientColorDocu(this.mathisFrame))
                 this.severalPages.addPage(new GraphDistance(this.mathisFrame))
+                this.severalPages.addPage(new ConnectedComponent_diameter(this.mathisFrame))
+
+
+                this.severalPages.addPage(new MergingSticking(this.mathisFrame))
                 this.severalPages.addPage(new GrateMergeStick(this.mathisFrame))
 
                 //TODO
@@ -566,6 +570,10 @@ module mathis {
 
                 this.severalPages.addPage(new DichoDocu(this.mathisFrame))
                 this.severalPages.addPage(new GeoPageTest(this.mathisFrame))
+
+                this.severalPages.addPage(new SpacialTransformation(this.mathisFrame))
+
+
 
 
                 this.severalPages.addSeparator("CONSTRUCTIONS EXAMPlE")

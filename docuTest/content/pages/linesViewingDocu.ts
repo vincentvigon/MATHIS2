@@ -120,8 +120,9 @@ module mathis{
 
                 linesViewer.interpolationOption.interpolationStyle=this.interpolationStyle
 
-                //n
+                //$$$e
 
+                //$$$bc
                 switch (this.radiusChoices){
 
                     case 'default':{
@@ -152,10 +153,11 @@ module mathis{
                     }
 
                 }
+                //$$$ec
 
 
 
-
+                //$$$b
                 linesViewer.go()
                 //$$$e
 
@@ -288,7 +290,7 @@ module mathis{
                 //$$$b
                 let creator=new reseau.Regular3D()
                 creator.nbU=this.nbI
-                creator.nbJ=creator.nbU
+                creator.nbV=creator.nbU
                 creator.nbW=creator.nbU
                 creator.dirU=new XYZ(0.1,0,0)
                 creator.dirV=new XYZ(0,0.1,0)

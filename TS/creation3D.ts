@@ -551,7 +551,10 @@ module mathis {
                     vertex.position.y=v+this.baseCenter.y
 
                 }
-                new grateAndGlue.Merger(mamesh).goChanging()
+
+                let merger=new grateAndGlue.Merger(mamesh)
+                //merger.mergeLink=false
+                merger.goChanging()
 
 
                 for (let vertex of mamesh.vertices){
@@ -559,7 +562,7 @@ module mathis {
                     if (vertex.param.y==this.nbV-1) this.OUT_borderTop.push(vertex)
                 }
 
-
+                /**il y a un bug dans l'association des links via les polygones*/
                 if (this.associateOppositeLinks_FromAnglesVersusPolygonsVersusNone==0){
                     this.SUB_LinkCreatorSorterAndBorderDetectorByPolygons=new linkModule.LinkCreatorSorterAndBorderDetectorByPolygons(mamesh)
                     this.SUB_LinkCreatorSorterAndBorderDetectorByPolygons.goChanging()

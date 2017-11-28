@@ -21,12 +21,19 @@ module mathis{
                 //severalParts.addPart(new Regular2dTopo(this.mathisFrame))
 
                 severalParts.addPart(new PolygonalResauDocu(this.mathisFrame))
-                severalParts.addPart(new Regular3dReseauDocu(this.mathisFrame))
 
+                severalParts.addPart(new TriangularReseauDocu(this.mathisFrame))
+
+
+                severalParts.addPart(new Regular3dReseauDocu(this.mathisFrame))
 
                 severalParts.addPart(new RegularReseauDocu(this.mathisFrame))
 
                 severalParts.addPart(new HoneyCombDocu(this.mathisFrame))
+
+
+
+
 
 
 
@@ -998,9 +1005,6 @@ module mathis{
 
 
 
-
-
-
         class PolygonalResauDocu implements PieceOfCode{
             nbSides=7
             $$$nbSides=new Choices([3,4,5,6,7,9,11])
@@ -1012,8 +1016,6 @@ module mathis{
             TITLE="Polygonal reseau"
 
             _nbVertices
-
-
 
 
             constructor(private mathisFrame:MathisFrame) {
@@ -1057,6 +1059,62 @@ module mathis{
 
         }
 
+        class TriangularReseauDocu implements PieceOfCode{
+
+
+
+            nbU=6
+            $$$nbU=[3,4,5,6,7,8,10,11,12,15,20]
+
+            NAME="TriangularReseauDocu"
+            TITLE="A triangular reseau"
+
+            _nbVertices
+
+
+            constructor(private mathisFrame:MathisFrame) {
+
+            }
+
+            goForTheFirstTime(){
+                this.mathisFrame.clearScene()
+                this.mathisFrame.addDefaultCamera()
+                this.mathisFrame.addDefaultLight()
+
+                this.go()
+            }
+
+
+            go() {
+
+
+                this.mathisFrame.clearScene(false,false)
+
+
+                //$$$begin
+                /**for triangles, with no vertex at the center, use "reseau.TriangulatedTriangle"*/
+                let creator = new reseau.TriangulatedTriangle()
+                creator.nbU=this.nbU
+                creator.origin=new XYZ(-1,-1,0)
+                creator.end=new XYZ(1,1,0)
+                let mamesh = creator.go()
+                //$$$end
+
+                //$$$bt
+                this._nbVertices=mamesh.vertices.length
+                //$$$et
+
+                //$$$bh visualization
+                new visu3d.VerticesViewer(mamesh, this.mathisFrame.scene).go()
+                new visu3d.LinksViewer(mamesh, this.mathisFrame.scene).go()
+                new visu3d.SurfaceViewer(mamesh, this.mathisFrame.scene).go()
+                //$$$eh
+            }
+
+        }
+
+
+
 
         class Regular3dReseauDocu implements PieceOfCode{
 
@@ -1099,7 +1157,7 @@ module mathis{
                 //$$$begin
                 let creator = new reseau.Regular3D()
                 creator.nbU = this.nbI
-                creator.nbJ = 4
+                creator.nbV = 4
                 creator.nbW = 5
                 creator.dirU = new XYZ(0.2, 0,   0)
                 creator.dirV = this.Vj

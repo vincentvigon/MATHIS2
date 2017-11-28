@@ -19,6 +19,9 @@ module mathis {
 
         export class GrabberCamera extends BABYLON.Camera{
 
+            /**pour qu'on puisse clicker des objets très proches*/
+            minZ = .01
+
 
             translationSpeed=1
 
@@ -192,8 +195,8 @@ module mathis {
             private _matrixRotationAroundCam = new MM()
             private rotate(axis:XYZ, angle:number):void {
                 geo.axisAngleToMatrix(axis, angle, this._matrixRotationAroundCam)
-                geo.multiplicationMatrixVector(this._matrixRotationAroundCam, this.whishedCamPos.frontDir, this.whishedCamPos.frontDir)
-                geo.multiplicationMatrixVector(this._matrixRotationAroundCam, this.whishedCamPos.upVector, this.whishedCamPos.upVector)
+                geo.multiplicationVectorMatrix(this._matrixRotationAroundCam, this.whishedCamPos.frontDir, this.whishedCamPos.frontDir)
+                geo.multiplicationVectorMatrix(this._matrixRotationAroundCam, this.whishedCamPos.upVector, this.whishedCamPos.upVector)
             }
 
             private _matrixRotationAroundZero = new MM()
@@ -201,10 +204,10 @@ module mathis {
             private rotateAroundCenter(axis:XYZ, angle:number, center:XYZ):void {
                 if (this.currentGrabber.referenceCenter==null) return
                 geo.axisAngleToMatrix(axis, angle, this._matrixRotationAroundZero)
-                geo.multiplicationMatrixVector(this._matrixRotationAroundZero, this.whishedCamPos.frontDir, this.whishedCamPos.frontDir)
-                geo.multiplicationMatrixVector(this._matrixRotationAroundZero, this.whishedCamPos.upVector, this.whishedCamPos.upVector)
+                geo.multiplicationVectorMatrix(this._matrixRotationAroundZero, this.whishedCamPos.frontDir, this.whishedCamPos.frontDir)
+                geo.multiplicationVectorMatrix(this._matrixRotationAroundZero, this.whishedCamPos.upVector, this.whishedCamPos.upVector)
                 this.camRelativePos.copyFrom(this.whishedCamPos.getPosition()).substract(center)
-                geo.multiplicationMatrixVector(this._matrixRotationAroundZero, this.camRelativePos, this.camRelativePos)
+                geo.multiplicationVectorMatrix(this._matrixRotationAroundZero, this.camRelativePos, this.camRelativePos)
                 //this.whishedCamPos.position.copyFrom(this.camRelativePos).add(center)
                 this.camRelativePos.add(center)
                 this.whishedCamPos.changePosition(this.camRelativePos)
@@ -993,12 +996,6 @@ module mathis {
                 }
             }
 
-
-
-
-
-
-
         }
 
 
@@ -1042,7 +1039,6 @@ module mathis {
                     this.positioningCopy.copyFrom(this)
                     this.grabberPilot.onPositioningChange(this.positioningCopy)
                 }
-
             }
 
             private positioningCopy=new Positioning()

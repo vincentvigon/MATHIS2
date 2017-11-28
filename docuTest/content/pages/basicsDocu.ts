@@ -7,6 +7,10 @@ module mathis{
     export module appli{
 
 
+
+
+
+
         export class BasicDocu implements OnePage{
             
             pageIdAndTitle="Mameshes, vertices, links and lines"

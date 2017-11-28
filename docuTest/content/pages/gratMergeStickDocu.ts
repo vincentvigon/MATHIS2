@@ -737,7 +737,7 @@ module mathis {
 
                     case 'fast': {
                         /** A fast method: it creates a dictionary or approximative vertex-positions, which avoid a double loop over
-                         the two vertex-list. The proximity is parametrized by {@link FindCloseVerticesFast#nbDistinctPoint}
+                         the two vertex-list. The proximity is parametrized by {@link FindCloseVerticesFast#nbBoxInOnDimension}
                          which indicate how many different positions are allowed between the two extreme points (typically 1000).
                          (imagine that it creates a sort of grid, as in classical drawing software). With very small values (e.g. 5)
                          the behaviour is weird.*/

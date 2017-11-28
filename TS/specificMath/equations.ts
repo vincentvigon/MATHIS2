@@ -1034,40 +1034,40 @@ module mathis{
                 let res=new Carte()
                 res.X=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curve(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxis(u),this.curve(v),r)
                     r.resizes(this.scaling).add(this.translation)
                     return r
                 }
 
                 res.Xu=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisP(u),this.curve(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxisP(u),this.curve(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
                 res.Xuu=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisPP(u),this.curve(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxisPP(u),this.curve(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
 
                 res.Xv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curveP(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxis(u),this.curveP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
 
                 res.Xvv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxis(u),this.curvePP(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxis(u),this.curvePP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }
                 res.Xuv=(u,v)=>{
                     let r=new XYZ(0,0,0)
-                    geo.multiplicationMatrixVector(specialFunctions.rotationYAxisP(u),this.curveP(v),r)
+                    geo.multiplicationVectorMatrix(specialFunctions.rotationYAxisP(u),this.curveP(v),r)
                     r.resizes(this.scaling)
                     return r
                 }

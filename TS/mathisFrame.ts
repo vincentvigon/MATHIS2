@@ -66,6 +66,9 @@ module mathis{
         subWindow_E:SubWindow
 
 
+        backgroundColor =new Color("#d3d3d3")
+        $info:HTMLElement
+        $screenshotButton:HTMLElement
 
         showFPSinCorner(){
                 this.$info = document.createElement("DIV");
@@ -80,11 +83,36 @@ module mathis{
             this.$info.style.zIndex= '1000';
         }
 
+        showScreenshotButton(size){
+            this.$screenshotButton = document.createElement("DIV");
+            this.canvasParent.appendChild(this.$screenshotButton)
+
+            this.$screenshotButton.style.position= 'absolute';
+            this.$screenshotButton.style.top='0';
+            this.$screenshotButton.style.left='0';
+            this.$screenshotButton.style.width='100px';
+            this.$screenshotButton.style.height= '20px';
+            this.$screenshotButton.style.backgroundColor= 'blue';
+            this.$screenshotButton.style.zIndex= '1000';
+            this.$screenshotButton.onclick=()=>{
+
+                new BABYLON.Tools.CreateScreenshotUsingRenderTarget(this.engine, this.scene.activeCamera,  size)
+                cc("the screen was shot 2")
+            }
+        }
+
+
+
 
 
         constructor(htmlElementOrId:string|HTMLElement=null,addDefaultCameraAndLight=true,emptyForTest=false) {
 
-            if (emptyForTest) return
+
+            if (emptyForTest) {
+                console.log("   ATTENTION, ON EST EN MODE EMPTY-FOR-TEST, LA MATHIS-FRAME NE MARCHE PAS")
+                return
+            }
+            else console.log("MathisFrame constructor")
 
             if( htmlElementOrId==null) {
                 let html=document.getElementsByTagName("html")[0]
@@ -356,9 +384,9 @@ module mathis{
         }
 
         
-        backgroundColor =new Color("#d3d3d3")
-        $info:HTMLElement
-        
+
+
+
         private fireAction(ac:PeriodicAction){
             ac.action()
             ac.firedCount++
@@ -413,19 +441,16 @@ module mathis{
 
 
 
-
-
             let globalClickAction=()=>{
                 let pickResult = this.scene.pick(this.scene.pointerX, this.scene.pointerY,(mesh)=>mesh.isPickable,false);
 
-
-
                 if(pickResult.pickedMesh!=null){
-
                     let clickFuntion= (<any> pickResult.pickedMesh).onClick
-
                     if (clickFuntion!=null){
-                        clickFuntion(pickResult.pickedPoint)
+                        let clickEvent=new ClickEvent()
+                        clickEvent.position=<XYZ> pickResult.pickedPoint
+
+                        clickFuntion(clickEvent)
                     }
 
                     //let gameo:GameO=(<any>pickResult.pickedMesh).gameo
@@ -591,7 +616,10 @@ module mathis{
         changeUpVector(position:XYZ,smoothMovement=true):void{}
     }
 
-
+    export function associateClickhandler_toBabylonMesh(mesh:BABYLON.AbstractMesh, handler:(clickEvent:ClickEvent)=>void,setMeshClickable=true){
+        mesh.isPickable=setMeshClickable
+        ;(<any> mesh).onClick=handler
+    }
 
 
 

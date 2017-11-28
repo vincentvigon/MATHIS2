@@ -200,9 +200,9 @@ module mathis {
                 let randRot = MM.newZero()
                 geo.axisAngleToMatrix(randAxis, angle, randRot)
 
-                geo.multiplicationMatrixVector(randRot, xAxis, xBase)
-                geo.multiplicationMatrixVector(randRot, yAxis, yBase)
-                geo.multiplicationMatrixVector(randRot, zAxis, zBase)
+                geo.multiplicationVectorMatrix(randRot, xAxis, xBase)
+                geo.multiplicationVectorMatrix(randRot, yAxis, yBase)
+                geo.multiplicationVectorMatrix(randRot, zAxis, zBase)
 
                 bilanGeo.assertTrue(geo.almostEquality(geo.dot(xBase, yBase), 0) && geo.almostEquality(geo.dot(xBase, zBase), 0) && geo.almostEquality(geo.dot(yBase, zBase), 0))
                 bilanGeo.assertTrue(geo.almostEquality(1, geo.norme(xBase)) && geo.almostEquality(1, geo.norme(yBase)) && geo.almostEquality(1, geo.norme(zBase)))
@@ -222,7 +222,7 @@ module mathis {
                 let randAxis = new XYZ(0, 0, 1)
                 let randRot = MM.newZero()
                 geo.axisAngleToMatrix(randAxis, angle, randRot)
-                geo.multiplicationMatrixVector(randRot, xAxis, xBase)
+                geo.multiplicationVectorMatrix(randRot, xAxis, xBase)
 
                 let angleModule = modulo(angle, 2 * Math.PI)
                 if (angleModule > Math.PI) angleModule = 2 * Math.PI - angleModule
@@ -297,8 +297,8 @@ module mathis {
             let AA=XYZ.newZero()
             let BB=XYZ.newZero()
 
-            geo.multiplicationMatrixVector(mat,A,AA)
-            geo.multiplicationMatrixVector(mat,B,BB)
+            geo.multiplicationVectorMatrix(mat,A,AA)
+            geo.multiplicationVectorMatrix(mat,B,BB)
 
             bilanGeo.assertTrue(geo.xyzAlmostEquality(C,AA) && geo.xyzAlmostEquality(D,BB))
 
@@ -320,8 +320,8 @@ module mathis {
             let AA=XYZ.newZero()
             let BB=XYZ.newZero()
 
-            geo.multiplicationMatrixVector(mat,A,AA)
-            geo.multiplicationMatrixVector(mat,B,BB)
+            geo.multiplicationVectorMatrix(mat,A,AA)
+            geo.multiplicationVectorMatrix(mat,B,BB)
 
             bilanGeo.assertTrue(geo.xyzAlmostEquality(C,AA) && geo.xyzAlmostEquality(D,BB))
 
@@ -391,8 +391,8 @@ module mathis {
             let mat=new MM()
             geo.quaternionToMatrix(qua,mat)
 
-            geo.multiplicationMatrixVector(mat,A,AA)
-            geo.multiplicationMatrixVector(mat,B,BB)
+            geo.multiplicationVectorMatrix(mat,A,AA)
+            geo.multiplicationVectorMatrix(mat,B,BB)
 
             bilanGeo.assertTrue(geo.xyzAlmostEquality(C,AA) && geo.xyzAlmostEquality(D,BB))
 
@@ -417,9 +417,9 @@ module mathis {
             geo.orthogonalProjectionOnLine(direction,proj)
             let vect=new XYZ(Math.random(),Math.random(),Math.random())
             let v2=new XYZ(0,0,0)
-            geo.multiplicationMatrixVector(proj,vect,v2)
+            geo.multiplicationVectorMatrix(proj,vect,v2)
             let v3=new XYZ(0,0,0)
-            geo.multiplicationMatrixVector(proj,v2,v3)
+            geo.multiplicationVectorMatrix(proj,v2,v3)
             bilanGeo.assertTrue(v3.almostEqual(v2))
 
         }{
@@ -429,9 +429,9 @@ module mathis {
             geo.orthogonalProjectionOnPlane(direction,direction2,proj)
             let vect=new XYZ(Math.random(),Math.random(),Math.random())
             let v2=new XYZ(0,0,0)
-            geo.multiplicationMatrixVector(proj,vect,v2)
+            geo.multiplicationVectorMatrix(proj,vect,v2)
             let v3=new XYZ(0,0,0)
-            geo.multiplicationMatrixVector(proj,v2,v3)
+            geo.multiplicationVectorMatrix(proj,v2,v3)
             bilanGeo.assertTrue(v3.almostEqual(v2))
 
         }

@@ -18,7 +18,7 @@
 
 
 
- //COMPILATEUR SPECIFIC FOR SMALL PROJECT:
+//COMPILATEUR SPECIFIC FOR SMALL PROJECT:
 //it actually exclude the TS-files of all small projects, in order to let the small project re-compile
 // these TS-file itself. If is better to minify the generated code after such a compilation
 //{
@@ -36,44 +36,63 @@
 //    "docuTest/",
 //    "tests/",
 //    "small_projects/",
-//    "TS/_fakeBABYLON.ts"
+//    "TS/only_2d/_fakeBABYLON.ts"
 //  ]
 //}
 
 
 
-// COMPILATEUR SPECIFIC FOR OCTAVIO : with use _fakeBABYLON instead of babylon:
+
+// COMPILATEUR SPECIFIC FOR OCTAVIO 2d: with use _fakeBABYLON instead of babylon:
 //{
 //  "compilerOptions": {
 //    "target": "es5",
 //    "removeComments": true,
 //    "sourceMap": true,
-//    "out": "JS_small/MATHIS.js",
+//    "out": "JS_small/MATHIS_2d.js",
 //    "declaration":true,
 //    "diagnostics":false
 //  },
 //  "include": [
-//    "TS/_fakeBABYLON.ts",
-//    "TS/basic.ts",
-//    "TS/creation2D.ts",
-//    "TS/geometry.ts",
-//    "TS/graph.ts",
-//    "TS/grateAndGlue.ts",
-//    "TS/informathis.ts",
-//    "TS/lineModule.ts",
-//    "TS/linkModule.ts",
-//    "TS/mameshModification.ts",
-//    "TS/mameshComputation.ts",
-//    "TS/reseau.ts",
-//    "TS/spacialTransformations.ts",
-//    "TS/symmetries.ts",
-//    "TS/tab.ts",
+//    "TS/only_2d/_fakeBABYLON.ts",
+//    "TS/only_2d/basic.ts",
+//    "TS/only_2d/geometry.ts",
+//    "TS/only_2d/graph.ts",
+//    "TS/only_2d/grateAndGlue.ts",
+//    "TS/only_2d/informathis.ts",
+//    "TS/only_2d/lineModule.ts",
+//    "TS/only_2d/linkModule.ts",
+//    "TS/only_2d/mameshComputation.ts",
+//    "TS/only_2d/mameshModification.ts",
+//    "TS/only_2d/polygonFinder.ts",
+//    "TS/only_2d/reseau.ts",
+//    "TS/only_2d/spacialTransformations.ts",
+//    "TS/only_2d/symmetries.ts",
+//    "TS/only_2d/tab.ts",
 //    "TS/zzMain.ts",
+//    "TS/basic.ts",
 //    "TS/specificMath/proba.ts"
 //  ]
 //}
 
-
+// COMPILATEUR SPECIFIC FOR OCTAVIO 2d: with use _fakeBABYLON instead of babylon:
+//{
+//  "compilerOptions": {
+//    "target": "es5",
+//    "removeComments": true,
+//    "sourceMap": true,
+//    "out": "JS_small/MATHIS_2d.js",
+//    "declaration":false,
+//    "diagnostics":false
+//  },
+//  "include": [
+//    "TS/_fakeBABYLON.ts",
+//    "TS/no_need_babylon/",
+//    "TS/zzMain.ts",
+//    "TS/basic.ts",
+//    "TS/specificMath/proba.ts"
+//  ]
+//}
 
 
 

@@ -435,7 +435,9 @@ module mathis{
 
                 this.mathisFrame.clearScene(false,false)
 
-                polyhedron.getPolyhedronAsync(this.chosenType,(mamesh)=>{
+                let polyMaker=new polyhedron.Polyhedron(this.chosenType)
+
+                polyMaker.go((mamesh)=>{
 
                     let vertices=[]
                     for (var i=0;i<mamesh.vertices.length;i++){

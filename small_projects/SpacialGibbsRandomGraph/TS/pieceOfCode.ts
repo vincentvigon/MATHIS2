@@ -162,7 +162,7 @@ module mathis {
                         if (N > 10) showInitialGraph = false
                         let creator = new reseau.Regular3D()
                         creator.nbU = N
-                        creator.nbJ = N
+                        creator.nbV = N
                         creator.nbW = N
                         creator.origine = new XYZ(-1, -1, -1)
                         let step = 2 / (N - 1)
